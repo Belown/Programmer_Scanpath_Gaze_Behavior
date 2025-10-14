@@ -1,0 +1,6 @@
+* -text
+
+*.py -text
+*.ipynb -text
+*.tsv -text
+*.csv -text
