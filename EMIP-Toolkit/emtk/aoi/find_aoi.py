@@ -168,7 +168,8 @@ def find_aoi(eye_events: pd.DataFrame = pd.DataFrame(),
         value = [kind, name, x, y, width, height, image_name]
         dic = dict(zip(columns, value))
 
-        # Modified by myself: use pd.concat instead of df.append in the previous version
+        # Modified by myself to avoid FutureWarning by pandas
+        dic = {k: (v if pd.notna(v) else None) for k, v in dic.items()}
         aoi = pd.concat([aoi, pd.DataFrame([dic])], ignore_index=True)
 
     return aoi

@@ -77,7 +77,9 @@ def EMIP(sample_size: int = 216):
     samples_df = pd.DataFrame(
         samples, columns=get_samples_columns(SAMPLE_BASE_COLUMNS))
     id_dfs = samples_df[["experiment_id", "participant_id", "trial_id"]]
-    samples_df = samples_df.apply(pd.to_numeric, errors='ignore')
+
+    # Modified by myself to avoid FutureWarning by pandas
+    samples_df = samples_df.apply(convert_numeric)
     samples_df[id_dfs.columns] = id_dfs
 
     return eye_events_df, samples_df
@@ -210,3 +212,9 @@ def read_SMIRed250(root_dir, filename, experiment_id,
         eye_events.append(new_eye_event)
 
     return eye_events, samples
+
+def convert_numeric(series):
+    try:
+        return pd.to_numeric(series)
+    except (ValueError, TypeError):
+        return series

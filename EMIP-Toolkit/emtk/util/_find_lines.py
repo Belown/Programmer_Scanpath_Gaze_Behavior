@@ -25,7 +25,7 @@ def _find_lines(aois: pd.DataFrame) -> pd.DataFrame:
         name, y, height = row["name"], row["y"], row["height"]
         line_num = re.search('\d+', name).group(0)
 
-        # Modified by myself: use pd.concat instead of df.append in the previous version
+        # Modified by myself to avoid FutureWarning by pandas
         new_row = pd.DataFrame([{
             "line_num": int(line_num),
             "line_y": y + height / 2,
