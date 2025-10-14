@@ -230,4 +230,5 @@ def draw_trial(eye_events: pd.DataFrame = pd.DataFrame(), samples: pd.DataFrame 
 
     if save_image is not None:
         plt.savefig(save_image)
-        # print(save_image, "saved!")
+        # # Modified by me self: comment this out
+        # print(save_image, "saved!") 
