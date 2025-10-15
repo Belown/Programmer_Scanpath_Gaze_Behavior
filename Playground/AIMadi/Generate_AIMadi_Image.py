@@ -5,9 +5,9 @@ import matplotlib.pyplot as plt
 
 # set up argument parser
 parser = argparse.ArgumentParser(description="Generate eye-tracking visualization images from AIMadi dataset.")
-parser.add_argument('-i', '--id', required=True, type=str, help='Experiment ID to generate')
-parser.add_argument('-t', '--trial', type=str, default='1', help='Trial ID to generate (default: 1)')
-parser.add_argument('-s', '--sample', type=int, default=8, help='Sample size for parsing (default: 8)')
+parser.add_argument('-i', required=True, type=str, help='Experiment ID to generate')
+parser.add_argument('-t', type=str, default='1', help='Trial ID to generate (default: 1)')
+parser.add_argument('-s', type=int, default=8, help='Sample size for parsing (default: 8)')
 
 # set up paths
 AIMadi_dir = os.path.dirname(os.path.abspath(__file__))
@@ -28,13 +28,13 @@ def main():
     args = parser.parse_args()
 
     # parse the AIMadi dataset
-    eye_events, _ = parsers.AlMadi(sample_size = args.sample)
+    eye_events, _ = parsers.AlMadi(sample_size = args.s)
 
     # get the experiment ids from args
     experiment_id = args.id
 
     # get the trial id from args
-    trial_id = args.trial
+    trial_id = args.t
 
     trial_data = eye_events.loc[(eye_events['experiment_id'] == experiment_id) & (eye_events['trial_id'] == trial_id)]
 

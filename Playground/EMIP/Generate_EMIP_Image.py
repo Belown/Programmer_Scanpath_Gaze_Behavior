@@ -7,13 +7,13 @@ import matplotlib.pyplot as plt
 parser = argparse.ArgumentParser(description="Generate eye-tracking visualization images from EMIP dataset based on query.")
 
 # format of the visualization to generate
-parser.add_argument('-he','--heatmap', action='store_true', help='Generate Heatmap')
-parser.add_argument('-fd', '--fixation_duration', action='store_true', help='Generate duration of fixation on each line')
-parser.add_argument('-ft', '--fixation_timeline', action='store_true', help='Generate eye movement across lines through time')
+parser.add_argument('-he', action='store_true', help='Generate Heatmap')
+parser.add_argument('-fd', action='store_true', help='Generate duration of fixation on each line')
+parser.add_argument('-ft', action='store_true', help='Generate eye movement across lines through time')
 parser.add_argument('-a', action='store_true', help='Generate all kind of graphs')
 # trial_id and sample size for parsing and experiment_id is determined based on query
-parser.add_argument('-t', '--trial', type=str, default='2', help='Trial ID to generate (default: 2)')
-parser.add_argument('-s', '--sample', type=int, default=8, help='Sample size for parsing (default: 8)')
+parser.add_argument('-t', type=str, default='2', help='Trial ID to generate (default: 2)')
+parser.add_argument('-s', type=int, default=8, help='Sample size for parsing (default: 8)')
 
 # set up paths
 EMIP_dir = os.path.dirname(os.path.abspath(__file__))
@@ -38,10 +38,10 @@ def main():
     metadata = pd.read_csv(metadata_file)
 
     # parse the EMIP dataset
-    eye_events, samples = parsers.EMIP(sample_size = args.sample)
+    eye_events, samples = parsers.EMIP(sample_size = args.s)
 
     # default trial_id: 2 for vehicle, 5 for rectangle
-    trial_id = args.trial
+    trial_id = args.t
 
     query_file = os.path.join(EMIP_dir, "query.json")
 
