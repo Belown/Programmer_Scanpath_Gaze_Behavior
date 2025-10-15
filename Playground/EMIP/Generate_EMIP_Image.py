@@ -12,7 +12,7 @@ parser.add_argument('-fd', '--fixation_duration', action='store_true', help='Gen
 parser.add_argument('-ft', '--fixation_timeline', action='store_true', help='Generate eye movement across lines through time')
 parser.add_argument('-a', action='store_true', help='Generate all kind of graphs')
 # trial_id and sample size for parsing and experiment_id is determined based on query
-parser.add_argument('-t', '--trial', type=int, default=2, help='Trial ID to generate (default: 2)')
+parser.add_argument('-t', '--trial', type=str, default='2', help='Trial ID to generate (default: 2)')
 parser.add_argument('-s', '--sample', type=int, default=8, help='Sample size for parsing (default: 8)')
 
 # set up paths
@@ -64,15 +64,14 @@ def main():
     for experiment_id in experiment_ids:
         # convert to string for matching
         exp_id_str = str(experiment_id)
-        trial_id_str = str(trial_id)
 
         trial_data = eye_events.loc[
             (eye_events['experiment_id'] == exp_id_str) &
-            (eye_events['trial_id'] == trial_id_str)
+            (eye_events['trial_id'] == trial_id)
         ]
         samples_data = samples.loc[
             (samples['experiment_id'] == exp_id_str) &
-            (samples['trial_id'] == trial_id_str)
+            (samples['trial_id'] == trial_id)
         ]
 
         # Check if data is empty

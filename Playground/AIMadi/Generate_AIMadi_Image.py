@@ -7,7 +7,6 @@ import matplotlib.pyplot as plt
 parser = argparse.ArgumentParser(description="Generate eye-tracking visualization images from AIMadi dataset.")
 parser.add_argument('-i', '--id', required=True, type=str, help='Experiment ID to generate')
 parser.add_argument('-t', '--trial', type=str, default='1', help='Trial ID to generate (default: 1)')
-parser.add_argument('-a', '--all', action='store_true', help='Generate all kind of graphs')
 parser.add_argument('-s', '--sample', type=int, default=8, help='Sample size for parsing (default: 8)')
 
 # set up paths
@@ -37,8 +36,12 @@ def main():
     # get the trial id from args
     trial_id = args.trial
 
-    trial_data = eye_events.loc[(eye_events['experiment_id'] == experiment_id) & 
-                            (eye_events['trial_id'] == trial_id)]
+    trial_data = eye_events.loc[(eye_events['experiment_id'] == experiment_id) & (eye_events['trial_id'] == trial_id)]
+
+    # Check if trial data is empty
+    if trial_data.empty:
+        print(f"experiment_id={experiment_id}, trial_id={trial_id} No matching data")
+        raise SystemExit("No matching data")
 
     output_path = os.path.join(output_dir, f"experiment_{experiment_id}_trial_{trial_id}_default.png")
     
