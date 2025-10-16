@@ -1,47 +1,37 @@
-import sys, os
+import sys, os, json
 import pandas as pd
-import argparse, json
 import matplotlib.pyplot as plt
-
-# set up argument parser
-parser = argparse.ArgumentParser(description="Generate eye-tracking visualization images from McChesney dataset based on query.")
-
-# format of the visualization to generate
-parser.add_argument('-he','--heatmap', action='store_true', help='Generate Heatmap')
-parser.add_argument('-fd', '--fixation_duration', action='store_true', help='Generate duration of fixation on each line')
-parser.add_argument('-ft', '--fixation_timeline', action='store_true', help='Generate eye movement across lines through time')
-parser.add_argument('-a', action='store_true', help='Generate all kind of graphs')
-# experiment_id, trial_id and sample size for parsing
-parser.add_argument('-i', '--id', type=str, default='P131', help='Experiment ID to generate (default: 1)')
-parser.add_argument('-t', '--trial', type=str, default='2', help='Trial ID to generate (default: 2)')
-parser.add_argument('-s', '--sample', type=int, default=3, help='Sample size for parsing (default: 3)')
+from typing import Optional
 
 # set up paths
-EMIP_dir = os.path.dirname(os.path.abspath(__file__))
-Playground_dir = os.path.dirname(EMIP_dir)
+package_dir = os.path.dirname(os.path.abspath(__file__))
+image_generation_dir = os.path.dirname(package_dir)
+Playground_dir = os.path.dirname(image_generation_dir)
 Code_dir = os.path.dirname(Playground_dir)
 lib_path = os.path.join(Code_dir, "EMIP-Toolkit")
 sys.path.append(lib_path)
 os.chdir(lib_path)
 
 # create output directory
-output_dir = os.path.join(EMIP_dir, "output")
+output_dir = os.path.join(Playground_dir, "output")
 os.makedirs(output_dir, exist_ok=True)
 
 from emtk import parsers, visualization, util, aoi
 
-def main():
-    
-    args = parser.parse_args()
-
-    # parse the McChesney dataset
-    eye_events, samples = parsers.McChesney(sample_size = args.sample)
-
-    # default experiment_id: P131
-    experiment_id = args.id
-
-    # default trial_id: 2
-    trial_id = args.trial
+def mcchesney_gen(
+    experiment_id: str,
+    trial_id: str,
+    eye_events: pd.DataFrame,
+    samples: pd.DataFrame,
+    image_type: Optional[str] = None, # "heatmap", "fixation_duration", "fixation_timeline", "all"
+):
+    '''
+    Generate eye-tracking visualization images from McChesney dataset.
+    :param experiment_id: Experiment ID to generate (default: 'P131')
+    :param trial_id: Trial ID to generate (default: '2')
+    :param sample_size: Sample size for parsing (default: 3)
+    :param image_type: Type of image to generate. Options are "heatmap", "fixation_duration", "fixation_timeline", "all". If None, generates default graph.
+    '''
 
     trial_data = eye_events.loc[(eye_events['experiment_id'] == experiment_id) & 
                             (eye_events['trial_id'] == trial_id)]
@@ -49,24 +39,23 @@ def main():
     samples_data = samples.loc[(samples['experiment_id'] == experiment_id) & 
                                 (samples['trial_id'] == trial_id)]
 
-
     # Check if data is empty
     if trial_data.empty or samples_data.empty:
         print(f"experiment_id={experiment_id}, trial_id={trial_id} No matching data")
         raise SystemExit("No matching data")
 
     # basefile name
-    base_filename = f"experiment_{experiment_id}_trial_{trial_id}"
+    base_filename = f"McChesney_experiment_{experiment_id}_trial_{trial_id}"
 
-    if args.a or (args.he and args.fd and args.ft):
+    if image_type == "all":
         store_all_graphs(trial_data, samples_data, output_dir, base_filename)
-    elif args.he:
+    elif image_type == "heatmap":
         output_path = os.path.join(output_dir, f"{base_filename}_heatmap.png")
         heatmap_graph(trial_data, output_path)
-    elif args.fd:
+    elif image_type == "fixation_duration":
         output_path = os.path.join(output_dir, f"{base_filename}_fixation_duration.png")
         fixation_duration_graph(trial_data, output_path)
-    elif args.ft:
+    elif image_type == "fixation_timeline":
         output_path = os.path.join(output_dir, f"{base_filename}_fixation_timeline.png")
         time_line_graph(trial_data, output_path)
     else:
@@ -103,6 +92,3 @@ def fixation_duration_graph(trial_data, output_path):
 def time_line_graph(trial_data, output_path):
     visualization.fixation_timeline(trial_data)
     plt.savefig(output_path, dpi=300, bbox_inches='tight')
-
-if __name__ == "__main__":
-    main()

@@ -14,7 +14,13 @@ os.chdir(lib_path)
 from emtk import parsers, visualization, util, aoi
 
 
-def main():
+def multimatch(
+    exp_id_str_a: str,
+    trial_id_str_a: str,
+    exp_id_str_b: str,
+    trial_id_str_b: str,
+    eye_events: pd.DataFrame
+):
     # Example usage of the multimatch_gaze library
 
     exp_id_str_a = "100"  # Example experiment ID
@@ -58,6 +64,3 @@ def build_vector(exp_id, trial_id, eye_events):
 
     df = df.astype({'start_x': 'float64', 'start_y': 'float64', 'duration': 'float64'})
     return df.to_records(index=False)
-
-if __name__ == "__main__":
-    main()
