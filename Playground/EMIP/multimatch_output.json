@@ -1,0 +1,13 @@
+{
+  "exp_id_str_a": "100",
+  "trial_id_str_a": "2",
+  "exp_id_str_b": "101",
+  "trial_id_str_b": "2",
+  "score": {
+    "Shape": 0.9882867760708056,
+    "Length": 0.7066334628621709,
+    "Direction": 0.9825173181575326,
+    "Position": 0.8612016149570749,
+    "Duration": 0.606060606060606
+  }
+}
