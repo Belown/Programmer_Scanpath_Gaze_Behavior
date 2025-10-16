@@ -4,14 +4,19 @@ import sys, os, json
 import pandas as pd
 
 # set up path
-EMIP_dir = os.path.dirname(os.path.abspath(__file__))
-Playground_dir = os.path.dirname(EMIP_dir)
-Code_dir = os.path.dirname(Playground_dir)
-lib_path = os.path.join(Code_dir, "EMIP-Toolkit")
+package_path = os.path.dirname(os.path.abspath(__file__))
+path_similarity_dir = os.path.dirname(package_path)
+Playground_dir = os.path.dirname(path_similarity_dir)
+Home_dir = os.path.dirname(Playground_dir)
+lib_path = os.path.join(Home_dir, "EMIP-Toolkit")
 
 sys.path.append(lib_path)
 os.chdir(lib_path)
 from emtk import parsers, visualization, util, aoi
+
+# create output directory
+output_dir = os.path.join(Playground_dir, "output")
+os.makedirs(output_dir, exist_ok=True)
 
 
 def multimatch(
@@ -21,14 +26,7 @@ def multimatch(
     trial_id_str_b: str,
     eye_events: pd.DataFrame
 ):
-    # Example usage of the multimatch_gaze library
 
-    exp_id_str_a = "100"  # Example experiment ID
-    trial_id_str_a = "2"    # Example trial ID
-    exp_id_str_b = "102"  # Example experiment ID
-    trial_id_str_b = "2"    # Example trial ID
-
-    eye_events, _ = parsers.EMIP(sample_size = 8)
     fix_vec1 = build_vector(exp_id_str_a, trial_id_str_a, eye_events)
     fix_vec2 = build_vector(exp_id_str_b, trial_id_str_b, eye_events)
 
@@ -45,7 +43,7 @@ def multimatch(
         "trial_id_str_b": trial_id_str_b,
         "score": score_dict
     }
-    output_path = os.path.join(os.path.dirname(__file__), "multimatch_output.json")
+    output_path = os.path.join(output_dir, "multimatch_output.json")
     with open(output_path, "w") as f:
         json.dump(output, f, indent=2)
     print(f"Results saved to {output_path}")
