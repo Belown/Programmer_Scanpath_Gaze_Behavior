@@ -1,4 +1,4 @@
-import multimatch as m
+import multimatch_gaze as m
 import numpy as np
 import sys, os, json
 import pandas as pd
@@ -20,25 +20,23 @@ os.makedirs(output_dir, exist_ok=True)
 
 
 def multimatch(
-    exp_id_str_a: str,
-    trial_id_str_a: str,
-    exp_id_str_b: str,
-    trial_id_str_b: str,
+    exp_a: tuple,
+    exp_b: tuple,
     eye_events: pd.DataFrame
 ):
     '''
     Compute scanpath similarity by using the library multimatch_gaze
-    :param exp_id_str_a: Experiment id for first scanpath
-    :param trial_id_str_a: Trial id foor first scanpah
-    :param exp_id_str_b: Experiment id for second scanpath
-    :param trial_id_str_b: Trial id foor second scanpah
-    param: Parsed data frame for eye event
+    :param exp_a: Tuple of (experiment_id, trial_id) for first scanpath
+    :param exp_b: Tuple of (experiment_id, trial_id) for second scanpath
+    :param eye_events: Parsed data frame for eye event
     '''
+    exp_id_str_a, trial_id_str_a = exp_a
+    exp_id_str_b, trial_id_str_b = exp_b
 
     fix_vec1 = build_vector(exp_id_str_a, trial_id_str_a, eye_events)
     fix_vec2 = build_vector(exp_id_str_b, trial_id_str_b, eye_events)
 
-    score = m.docomparison(fix_vec1, fix_vec2, sz=[1920, 1080])
+    score = m.docomparison(fix_vec1, fix_vec2, screensize=[1920, 1080])
 
     score_names = ["Shape", "Length", "Direction", "Position", "Duration"]
     score_dict = {}

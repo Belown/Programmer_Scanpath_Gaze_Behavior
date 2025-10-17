@@ -15,22 +15,20 @@ lib_path = os.path.join(Code_dir, "EMIP-Toolkit")
 # from emtk import parsers, visualization, util, aoi
 
 def scasim(
-    exp_id_str_a: str,
-    trial_id_str_a: str,
-    exp_id_str_b: str,
-    trial_id_str_b: str,
+    exp_a: tuple,
+    exp_b: tuple,
     eye_events: pd.DataFrame,
-    normalize: str,
+    normalize: str = None,
 ):
     '''
     Compute similarity based on the method from https://github.com/DiLi-Lab/ScanDL-2.0/blob/main/scandl_fixdur/fix_dur_module/scasim.py
-    :param exp_id_str_a: Experiment id for first scanpath
-    :param trial_id_str_a: Trial id foor first scanpah
-    :param exp_id_str_b: Experiment id for second scanpath
-    :param trial_id_str_b: Trial id foor second scanpah
+    :param exp_a: Tuple of (experiment_id, trial_id) for first scanpath
+    :param exp_b: Tuple of (experiment_id, trial_id) for second scanpath
     :param eye_events: Parsed data frame for eye event
     :param normalize: If we normalize the result at the end. Three option: 'durations', 'fixations' or 'None'
     '''
+    exp_id_str_a, trial_id_str_a = exp_a
+    exp_id_str_b, trial_id_str_b = exp_b
 
     fix_vec1 = build_vector(exp_id_str_a, trial_id_str_a, eye_events)
     fix_vec2 = build_vector(exp_id_str_b, trial_id_str_b, eye_events)
@@ -56,42 +54,43 @@ def scasim(
         acc += fix_vec2[fix_j - 1]['duration']
         mat[0][fix_j] = acc
 
-    for fix_i in range(n):
-        for fix_j in range(m):
-            slon = fix_vec1[fix_j][0] / (180 / pi)  # longitude (x-axis)
-            tlon = fix_vec2[fix_i][0] / (180 / pi)
-            slat = fix_vec1[fix_j][1] / (180 / pi)  # latitude (y-axis)
-            tlat = fix_vec2[fix_i][1] / (180 / pi)
+    for fix_i in range(1, m + 1):
+        for fix_j in range(1, n + 1):
+            fix_i = fix_i - 1
+            fix_j = fix_j - 1
 
-            angle = acos(sin(slat) * sin(tlat) + cos(slat) * cos(tlat) * cos(slon - tlon)) * (180 / pi)
+            x1, y1 = fix_vec1[fix_i]['start_x'], fix_vec1[fix_i]['start_y']
+            x2, y2 = fix_vec2[fix_j]['start_x'], fix_vec2[fix_j]['start_y']
+            
+            dist = np.sqrt((x2-x1)**2 + (y2-y1)**2)
+            
+            max_screen_dist = 1920
+            angle = min(dist / max_screen_dist * 180, 180)
 
-            # default modulator value
             modulator = 0.83
-
             mixer = modulator ** angle
-
-            # cost for substitution:
+            
             cost = (
-                abs(fix_vec2[fix_i][2] - fix_vec1[fix_j][2]) * mixer +
-                (fix_vec2[fix_i][2] + fix_vec1[fix_j][2]) * (1.0 - mixer)
+                abs(fix_vec2[fix_j]['duration'] - fix_vec1[fix_i]['duration']) * mixer +
+                (fix_vec2[fix_j]['duration'] + fix_vec1[fix_i]['duration']) * (1.0 - mixer)
             )
-
+            
             ops = (
-                mat[fix_j][fix_i + 1] + fix_vec1[fix_j][2],
-                mat[fix_j + 1][fix_i] + fix_vec2[fix_i][2],
-                mat[fix_j][fix_i] + cost,
+                mat[fix_i-1][fix_j] + fix_vec1[fix_i]['duration'],
+                mat[fix_i][fix_j-1] + fix_vec2[fix_j]['duration'],
+                mat[fix_i-1][fix_j-1] + cost,
             )
-
+            
             mi = np.argmin(ops)
-
-            mat[fix_j + 1][fix_i + 1] = ops[mi]
-
-    result = mat[-1][-1]
-    if normalize == 'fixations':
+            mat[fix_i][fix_j] = ops[mi]
+    
+    result = mat[m][n]
+    
+    if normalize in ['fixations', 'fixation']:
         result /= (m + n)
-    elif normalize == 'durations':
+    elif normalize in ['durations', 'duration']:
         result /= (sum_fix_vec_1 + sum_fix_vec_2)
-
+        
     return result
 
 def build_vector(exp_id, trial_id, eye_events):
