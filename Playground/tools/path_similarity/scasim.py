@@ -26,6 +26,7 @@ def scasim(
     :param exp_b: Tuple of (experiment_id, trial_id) for second scanpath
     :param eye_events: Parsed data frame for eye event
     :param normalize: If we normalize the result at the end. Three option: 'durations', 'fixations' or 'None'
+    :return: path similarity score
     '''
     exp_id_str_a, trial_id_str_a = exp_a
     exp_id_str_b, trial_id_str_b = exp_b
@@ -33,7 +34,7 @@ def scasim(
     fix_vec1 = build_vector(exp_id_str_a, trial_id_str_a, eye_events)
     fix_vec2 = build_vector(exp_id_str_b, trial_id_str_b, eye_events)
 
-    if fix_vec1.empty or fix_vec2.empty:
+    if fix_vec1.size == 0 or fix_vec2.size == 0:
         print("No matching data")
         raise SystemExit("No matching data")
 

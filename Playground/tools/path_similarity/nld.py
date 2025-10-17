@@ -18,11 +18,18 @@ def nld(
     exp_b: tuple,
     eye_events: pd.DataFrame
 ):
+    '''
+    Compute Normalized Levenshtein Distance (NLD) between two scanpaths based on AOI sequence
+    :param exp_a: Tuple of (experiment_id, trial_id) for first scanpath
+    :param exp_b: Tuple of (experiment_id, trial_id) for second scanpath
+    :param eye_events: Parsed data frame for eye event
+    :return: distance, nld
+    '''
 
     vec_a = build_vector(exp_a, eye_events)
     vec_b = build_vector(exp_b, eye_events)
 
-    if vec_a.empty or vec_b.empty:
+    if vec_a.size == 0 or vec_b.size == 0:
         print("No matching data")
         raise SystemExit("No matching data")
 
