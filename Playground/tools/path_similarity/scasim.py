@@ -96,7 +96,7 @@ def scasim(
 
 def build_vector(exp_id, trial_id, eye_events):
     # Filter eye events for the specified experiment and trial
-    filtered_events = eye_events[
+    filtered_events = eye_events.loc[
         (eye_events['experiment_id'] == exp_id) &
         (eye_events['trial_id'] == trial_id) &
         (eye_events['eye_event_type'] == 'fixation')

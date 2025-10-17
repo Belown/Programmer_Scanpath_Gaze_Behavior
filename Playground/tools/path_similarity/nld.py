@@ -1,5 +1,6 @@
 import pandas as pd
-import os, sys
+import os, sys, math
+import numpy as np
 # fixaiton are already process with idt, so no need to reduct jitter
 
 path_similarity_path = os.path.dirname(os.path.abspath(__file__))
@@ -18,19 +19,55 @@ def nld(
     eye_events: pd.DataFrame
 ):
 
-    aoi_fixation_a = get_fixation_aoi(exp_a, eye_events)
-    aoi_fixation_b = get_fixation_aoi(exp_b, eye_events)
+    vec_a = build_vector(exp_a, eye_events)
+    vec_b = build_vector(exp_b, eye_events)
 
-    return build_vector(exp_a, aoi_fixation_a)
+    m = len(vec_a)
+    n = len(vec_b)
 
-def build_vector(exp, aoi_fixation_a):
+    if m == 0 and n == 0:
+        return 0.0
+    elif m == 0:
+        return n, 1.0
+    elif n == 0:
+        return m, 1.0
+    else:
+        dp = np.zeros((m + 1, n + 1), dtype=float)
+        for i in range(m+1):
+            dp[i][0] = i
+        for j in range(n+1):
+            dp[0][j] = j
+
+        for i in range(1, m+1):
+            for j in range(1, n+1):
+                aoi_a = vec_a[i-1]['aoi_name']
+                aoi_b = vec_b[j-1]['aoi_name']
+                if pd.isna(aoi_a) or pd.isna(aoi_b):
+                    cost = 1.0
+                elif aoi_a == aoi_b:
+                    cost = 0.0
+                else:
+                    cost = 1.0
+                dp[i][j] = min(
+                    dp[i][j-1] + 1,      # deletion
+                    dp[i-1][j] + 1,      # insertion
+                    dp[i-1][j-1] + cost  # substitution
+                )
+        distance = dp[m][n]
+        nld = distance / max(m, n)
+        return distance, nld
+
+
+def build_vector(exp, eye_events):
+    aoi_fixation = get_fixation_aoi(exp, eye_events)
+
     exp_id, trial_id = exp
-    df = aoi_fixation_a.loc[
-        (aoi_fixation_a['experiment_id'] == exp_id) & 
-        (aoi_fixation_a['trial_id'] == trial_id),
-        ['timestamp', 'duration', 'x0', 'y0', 'aoi_name', 'aoi_x', 'aoi_y']
+    filtered_events = aoi_fixation.loc[
+        (aoi_fixation['experiment_id'] == exp_id) & 
+        (aoi_fixation['trial_id'] == trial_id),
     ]
 
+    df = filtered_events[['timestamp', 'duration', 'x0', 'y0', 'aoi_name', 'aoi_x', 'aoi_y']]
     return df.to_records(index=False)
 
 def get_fixation_aoi(exp, eye_events):
