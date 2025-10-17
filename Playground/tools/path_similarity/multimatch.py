@@ -36,6 +36,10 @@ def multimatch(
     fix_vec1 = build_vector(exp_id_str_a, trial_id_str_a, eye_events)
     fix_vec2 = build_vector(exp_id_str_b, trial_id_str_b, eye_events)
 
+    if fix_vec1.empty or fix_vec2.empty:
+        print("No matching data")
+        raise SystemExit("No matching data")
+
     score = m.docomparison(fix_vec1, fix_vec2, screensize=[1920, 1080])
 
     score_names = ["Shape", "Length", "Direction", "Position", "Duration"]

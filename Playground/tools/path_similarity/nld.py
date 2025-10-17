@@ -22,6 +22,10 @@ def nld(
     vec_a = build_vector(exp_a, eye_events)
     vec_b = build_vector(exp_b, eye_events)
 
+    if vec_a.empty or vec_b.empty:
+        print("No matching data")
+        raise SystemExit("No matching data")
+
     m = len(vec_a)
     n = len(vec_b)
 

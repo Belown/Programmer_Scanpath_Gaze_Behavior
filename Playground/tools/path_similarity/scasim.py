@@ -33,6 +33,10 @@ def scasim(
     fix_vec1 = build_vector(exp_id_str_a, trial_id_str_a, eye_events)
     fix_vec2 = build_vector(exp_id_str_b, trial_id_str_b, eye_events)
 
+    if fix_vec1.empty or fix_vec2.empty:
+        print("No matching data")
+        raise SystemExit("No matching data")
+
     # lengths of scanpaths
     m, n = len(fix_vec1), len(fix_vec2)
 
