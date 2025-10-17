@@ -54,13 +54,14 @@ def scasim(
         acc += fix_vec2[fix_j - 1]['duration']
         mat[0][fix_j] = acc
 
-    for fix_i in range(1, m + 1):
-        for fix_j in range(1, n + 1):
-            fix_i = fix_i - 1
-            fix_j = fix_j - 1
+    for i in range(1, m + 1):
+        for j in range(1, n + 1):
 
-            x1, y1 = fix_vec1[fix_i]['start_x'], fix_vec1[fix_i]['start_y']
-            x2, y2 = fix_vec2[fix_j]['start_x'], fix_vec2[fix_j]['start_y']
+            fix_i_idx = i - 1
+            fix_j_idx = j - 1
+
+            x1, y1 = fix_vec1[fix_i_idx]['start_x'], fix_vec1[fix_i_idx]['start_y']
+            x2, y2 = fix_vec2[fix_j_idx]['start_x'], fix_vec2[fix_j_idx]['start_y']
             
             dist = np.sqrt((x2-x1)**2 + (y2-y1)**2)
             
@@ -71,18 +72,18 @@ def scasim(
             mixer = modulator ** angle
             
             cost = (
-                abs(fix_vec2[fix_j]['duration'] - fix_vec1[fix_i]['duration']) * mixer +
-                (fix_vec2[fix_j]['duration'] + fix_vec1[fix_i]['duration']) * (1.0 - mixer)
+                abs(fix_vec2[fix_j_idx]['duration'] - fix_vec1[fix_i_idx]['duration']) * mixer +
+                (fix_vec2[fix_j_idx]['duration'] + fix_vec1[fix_i_idx]['duration']) * (1.0 - mixer)
             )
             
             ops = (
-                mat[fix_i-1][fix_j] + fix_vec1[fix_i]['duration'],
-                mat[fix_i][fix_j-1] + fix_vec2[fix_j]['duration'],
-                mat[fix_i-1][fix_j-1] + cost,
+                mat[i-1][j] + fix_vec1[fix_i_idx]['duration'],
+                mat[i][j-1] + fix_vec2[fix_j_idx]['duration'],
+                mat[i-1][j-1] + cost,
             )
             
             mi = np.argmin(ops)
-            mat[fix_i][fix_j] = ops[mi]
+            mat[i][j] = ops[mi]
     
     result = mat[m][n]
     
