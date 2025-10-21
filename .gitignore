@@ -12,3 +12,4 @@ __pycache__/
 # 忽略输出目录
 Playground/AIMadi/output/
 Playground/output/
+Playground/EMIP/output/

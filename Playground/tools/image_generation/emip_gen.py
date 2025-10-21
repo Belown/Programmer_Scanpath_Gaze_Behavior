@@ -20,8 +20,7 @@ os.makedirs(output_dir, exist_ok=True)
 from emtk import parsers, visualization, util, aoi
 
 def emip_gen(
-    experiment_id: str,
-    trial_id: str, # default trial_id: 2 for vehicle, 5 for rectangle
+    exp: tuple,
     eye_events: pd.DataFrame,
     samples: pd.DataFrame,
     query: bool = False,
@@ -30,14 +29,18 @@ def emip_gen(
     
     '''
     Generate eye-tracking visualization images from EMIP dataset.
-    :param experiment_id: Experiment ID to generate
-    :param trial_id: Trial ID to generate (default: '2')
-    :param sample_size: Sample size for parsing (default: 8)
+    :param exp: Tuple of (experiment_id, trial_id) to generate images for
+    :param eye_events: Pre-parsed eye events DataFrame. If None, will parse the data.
+    :param samples: Pre-parsed samples DataFrame.
     :param query: Use query to determine experiment ids (then experiment_id is ignored)
     :param image_type: Type of image to generate. Options are "heatmap", "fixation_duration", "fixation_timeline", "all". If None, generates default graph.
-    :param eye_events: Pre-parsed eye events DataFrame. If None, will parse the data.
-    :param samples: Pre-parsed samples DataFrame. If None, will parse the data
     '''
+    if eye_events is None or not isinstance(eye_events, pd.DataFrame) or eye_events.empty:
+        raise ValueError("eye_events is required and must be a non-empty pandas.DataFrame")
+    if samples is None or not isinstance(samples, pd.DataFrame) or samples.empty:
+        raise ValueError("samples is required and must be a non-empty pandas.DataFrame")
+    
+    experiment_id, trial_id = exp
 
     if query:
         # read metadata from EMIP dataset
