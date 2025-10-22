@@ -2,6 +2,7 @@ import multimatch_gaze as m
 import numpy as np
 import sys, os, json
 import pandas as pd
+from .auxiliary import gen_random_fixations
 
 # set up path
 package_path = os.path.dirname(os.path.abspath(__file__))
@@ -22,7 +23,8 @@ os.makedirs(output_dir, exist_ok=True)
 def multimatch(
     exp_a: tuple,
     exp_b: tuple,
-    eye_events: pd.DataFrame
+    eye_events: pd.DataFrame,
+    return_all_scores=False
 ):
     '''
     Compute scanpath similarity by using the library multimatch_gaze
@@ -37,12 +39,50 @@ def multimatch(
     fix_vec1 = build_vector(exp_id_str_a, trial_id_str_a, eye_events)
     fix_vec2 = build_vector(exp_id_str_b, trial_id_str_b, eye_events)
 
+    random_vec1 = gen_random_fixations(len(fix_vec1))
+    random_vec2 = gen_random_fixations(len(fix_vec2))
+
     if fix_vec1.size == 0 or fix_vec2.size == 0:
         print("No matching data")
         raise SystemExit("No matching data")
 
     score = m.docomparison(fix_vec1, fix_vec2, screensize=[1920, 1080])
 
+    original_score_dict = make_dict(score)
+    
+    base_line_score = m.docomparison(random_vec1, random_vec2, screensize=[1920, 1080])
+
+    base_line_score_dict = make_dict(base_line_score)
+    
+    final_score_dict = {}
+    for name in original_score_dict.keys():
+        final_score_dict[name] = original_score_dict[name] - base_line_score_dict[name]
+
+
+    output = {
+        "exp_id_str_a": exp_id_str_a,
+        "trial_id_str_a": trial_id_str_a,
+        "exp_id_str_b": exp_id_str_b,
+        "trial_id_str_b": trial_id_str_b,
+        "original_score": original_score_dict,
+        "base_line_score": base_line_score_dict,
+        "final_score": final_score_dict
+    }
+    output_path = os.path.join(output_dir, "multimatch_output.json")
+    with open(output_path, "w") as f:
+        json.dump(output, f, indent=2)
+    print(f"Results saved to {output_path}")
+
+    if return_all_scores:
+        return {
+            "original_score": original_score_dict,
+            "base_line_score": base_line_score_dict,
+            "final_score": final_score_dict
+        }
+    else:
+        return final_score_dict
+
+def make_dict(score):
     score_names = ["Shape", "Length", "Direction", "Position", "Duration"]
     score_dict = {}
     if isinstance(score, list) and len(score) == 1 and isinstance(score[0], list):
@@ -51,18 +91,6 @@ def multimatch(
     else:
         for name, val in zip(score_names, score):
             score_dict[name] = val
-
-    output = {
-        "exp_id_str_a": exp_id_str_a,
-        "trial_id_str_a": trial_id_str_a,
-        "exp_id_str_b": exp_id_str_b,
-        "trial_id_str_b": trial_id_str_b,
-        "score": score_dict
-    }
-    output_path = os.path.join(output_dir, "multimatch_output.json")
-    with open(output_path, "w") as f:
-        json.dump(output, f, indent=2)
-    print(f"Results saved to {output_path}")
     return score_dict
 
 def build_vector(exp_id, trial_id, eye_events):
@@ -79,3 +107,4 @@ def build_vector(exp_id, trial_id, eye_events):
 
     df = df.astype({'start_x': 'float64', 'start_y': 'float64', 'duration': 'float64'})
     return df.to_records(index=False)
+
