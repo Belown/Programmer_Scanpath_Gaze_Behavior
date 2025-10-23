@@ -1,16 +1,6 @@
 import pandas as pd
 import os, sys, math
 import numpy as np
-# fixaiton are already process with idt, so no need to reduct jitter
-
-path_similarity_path = os.path.dirname(os.path.abspath(__file__))
-tools_path = os.path.dirname(path_similarity_path)
-playground_path = os.path.dirname(tools_path)
-home_path = os.path.dirname(playground_path)
-lib_path = os.path.join(home_path, "EMIP-Toolkit")
-
-sys.path.append(lib_path)
-os.chdir(lib_path)
 from emtk import parsers, visualization, util, aoi
 
 def nld_for_original(

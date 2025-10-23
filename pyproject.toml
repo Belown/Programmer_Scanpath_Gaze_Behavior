@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "thesis"
+version = "0.1.0"
+description = "Code repository for thesis"
+requires-python = "==3.11.*"
+dependencies = [
+    "numpy==1.24.4",
+    "pandas==1.5.3",
+    "matplotlib",
+    "Pillow",
+    "requests",
+    "tqdm",
+    "seaborn",
+    "contourpy==1.0.7",
+    "scipy==1.12.0",
+]
+
+[tool.setuptools]
+packages = ["emtk", "tools"]
+
+[tool.setuptools.package-dir]
+emtk = "src/EMIP-Toolkit/emtk"
+tools = "src/Tools"

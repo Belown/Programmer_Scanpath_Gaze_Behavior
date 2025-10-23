@@ -2,21 +2,13 @@ import sys, os, json
 import pandas as pd
 import matplotlib.pyplot as plt
 from typing import Optional
+from tools import setup_paths
+from emtk import parsers, visualization, util, aoi
 
 # set up paths
-package_dir = os.path.dirname(os.path.abspath(__file__))
-image_generation_dir = os.path.dirname(package_dir)
-Playground_dir = os.path.dirname(image_generation_dir)
-Code_dir = os.path.dirname(Playground_dir)
-lib_path = os.path.join(Code_dir, "EMIP-Toolkit")
-sys.path.append(lib_path)
-os.chdir(lib_path)
+paths = setup_paths()
+output_dir = paths["output_path"]
 
-# create output directory
-output_dir = os.path.join(Playground_dir, "output")
-os.makedirs(output_dir, exist_ok=True)
-
-from emtk import parsers, visualization, util, aoi
 
 def mcchesney_gen(
     experiment_id: str,

@@ -2,22 +2,15 @@ import sys, os, json
 import pandas as pd
 import matplotlib.pyplot as plt
 from typing import Optional
+from tools import setup_paths
+from emtk import parsers, visualization, util, aoi
 
 # set up paths
-package_path = os.path.dirname(os.path.abspath(__file__))
-image_generation_dir = os.path.dirname(package_path)
-Playground_dir = os.path.dirname(image_generation_dir)
-Home_dir = os.path.dirname(Playground_dir)
-lib_path = os.path.join(Home_dir, "EMIP-Toolkit")
-metadata_file = os.path.join(lib_path, "emtk", "datasets", "EMIP", "EMIP-Toolkit- replication package", "emip_dataset", "emip_metadata.csv")
-sys.path.append(lib_path)
-os.chdir(lib_path)
+paths = setup_paths()
+metadata_file = paths["metadata_file"]
+query_path = paths["query_path"]
+output_dir = paths["output_path"]
 
-# create output directory
-output_dir = os.path.join(Playground_dir, "output")
-os.makedirs(output_dir, exist_ok=True)
-
-from emtk import parsers, visualization, util, aoi
 
 def emip_gen(
     exp: tuple,
@@ -46,13 +39,11 @@ def emip_gen(
         # read metadata from EMIP dataset
         metadata = pd.read_csv(metadata_file)
 
-        query_file = os.path.join(package_path, "emip_query.json")
-
         try:
-            with open(query_file, 'r') as f:
+            with open(query_path, 'r') as f:
                 input_dict = json.load(f)
         except FileNotFoundError:
-            print(f"Query file {query_file} not found. Using default query parameters.")
+            print(f"Query file {query_path} not found. Using default query parameters.")
             raise SystemExit("Query file not found")
 
         # add masks to filter experiment ids

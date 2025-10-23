@@ -2,23 +2,7 @@ import multimatch_gaze as m
 import numpy as np
 import sys, os
 import pandas as pd
-from .auxiliary import gen_random_fixations
-
-# set up path
-package_path = os.path.dirname(os.path.abspath(__file__))
-path_similarity_dir = os.path.dirname(package_path)
-Playground_dir = os.path.dirname(path_similarity_dir)
-Home_dir = os.path.dirname(Playground_dir)
-lib_path = os.path.join(Home_dir, "EMIP-Toolkit")
-
-# sys.path.append(lib_path)
-# os.chdir(lib_path)
-# from emtk import parsers, visualization, util, aoi
-
-# create output directory
-output_dir = os.path.join(Playground_dir, "output")
-os.makedirs(output_dir, exist_ok=True)
-
+from ..auxiliary import gen_random_fixations
 
 def multimatch(
     exp_a: tuple,

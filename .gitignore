@@ -1,7 +1,7 @@
 # 忽略大型数据集
-EMIP-Toolkit/emtk/datasets/EMIP/
-EMIP-Toolkit/emtk/datasets/AlMadi2018
-EMIP-Toolkit/emtk/datasets/EMIP.zip
+src/EMIP-Toolkit/emtk/datasets/EMIP/
+src/EMIP-Toolkit/emtk/datasets/AlMadi2018
+src/EMIP-Toolkit/emtk/datasets/EMIP.zip
 
 # 忽略Python相关文件
 __pycache__/
@@ -10,6 +10,5 @@ __pycache__/
 .ipynb_checkpoints/
 
 # 忽略输出目录
-Playground/AIMadi/output/
-Playground/output/
-Playground/EMIP/output/
+output/
+thesis.egg-info/

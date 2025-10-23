@@ -4,16 +4,6 @@ import numpy as np
 import json
 from math import pi, sin, cos, acos
 
-# set up path
-EMIP_dir = os.path.dirname(os.path.abspath(__file__))
-Playground_dir = os.path.dirname(EMIP_dir)
-Code_dir = os.path.dirname(Playground_dir)
-lib_path = os.path.join(Code_dir, "EMIP-Toolkit")
-
-# sys.path.append(lib_path)
-# os.chdir(lib_path)
-# from emtk import parsers, visualization, util, aoi
-
 def scasim(
     exp_a: tuple,
     exp_b: tuple,
