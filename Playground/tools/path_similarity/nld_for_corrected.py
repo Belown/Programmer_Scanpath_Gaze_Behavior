@@ -13,7 +13,7 @@ sys.path.append(lib_path)
 os.chdir(lib_path)
 from emtk import parsers, visualization, util, aoi
 
-def nld(
+def nld_for_corrected(
     exp_a: tuple,
     exp_b: tuple,
     eye_events: pd.DataFrame
