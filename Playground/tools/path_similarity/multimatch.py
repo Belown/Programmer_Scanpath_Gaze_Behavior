@@ -1,6 +1,6 @@
 import multimatch_gaze as m
 import numpy as np
-import sys, os, json
+import sys, os
 import pandas as pd
 from .auxiliary import gen_random_fixations
 
@@ -23,8 +23,7 @@ os.makedirs(output_dir, exist_ok=True)
 def multimatch(
     exp_a: tuple,
     exp_b: tuple,
-    eye_events: pd.DataFrame,
-    return_all_scores=False
+    eye_events: pd.DataFrame
 ):
     '''
     Compute scanpath similarity by using the library multimatch_gaze
@@ -58,29 +57,11 @@ def multimatch(
     for name in original_score_dict.keys():
         final_score_dict[name] = original_score_dict[name] - base_line_score_dict[name]
 
-
-    output = {
-        "exp_id_str_a": exp_id_str_a,
-        "trial_id_str_a": trial_id_str_a,
-        "exp_id_str_b": exp_id_str_b,
-        "trial_id_str_b": trial_id_str_b,
+    return {
         "original_score": original_score_dict,
         "base_line_score": base_line_score_dict,
         "final_score": final_score_dict
     }
-    output_path = os.path.join(output_dir, "multimatch_output.json")
-    with open(output_path, "w") as f:
-        json.dump(output, f, indent=2)
-    print(f"Results saved to {output_path}")
-
-    if return_all_scores:
-        return {
-            "original_score": original_score_dict,
-            "base_line_score": base_line_score_dict,
-            "final_score": final_score_dict
-        }
-    else:
-        return final_score_dict
 
 def make_dict(score):
     score_names = ["Shape", "Length", "Direction", "Position", "Duration"]

@@ -25,7 +25,7 @@ def gen_random_fixations(n, screensize=(1920, 1080), seed=None):
     
     return arr
 
-def visualize_multimatch_scores(score, title="Multimatch Scores"):
+def visualize_multimatch_scores(all_scores, title="Multimatch Scores"):
     """
     Create a bar chart to visualize multimatch scores with adaptive y-axis
     
@@ -34,15 +34,15 @@ def visualize_multimatch_scores(score, title="Multimatch Scores"):
         title: Title for the plot
     """
     # Get the score metrics and values
-    categories = list(score.keys())
-    values = [score[key] for key in categories]
+    categories = list(all_scores["original_score"].keys())
+    values = [all_scores["final_score"][key] for key in categories]
     
     # Create the plot
     fig, ax = plt.subplots(figsize=(12, 6))
     
     # Create bars with different colors
     bar_colors = ['#2C3E50', '#34495E', '#566573', '#78909C', '#90A4AE']
-    bars = ax.bar(categories, values, color=bar_colors, width=0.6)
+    bars = ax.bar(categories, values, color=bar_colors, width=0.5)
     
     # Add value annotations on top of each bar
     for i, bar in enumerate(bars):
