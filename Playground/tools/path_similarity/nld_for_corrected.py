@@ -19,15 +19,18 @@ def nld_for_corrected(
     eye_events: pd.DataFrame
 ):
     '''
-    Compute Normalized Levenshtein Distance (NLD) between two scanpaths based on AOI sequence
+    Compute Normalized Levenshtein Distance (NLD) between two scanpaths based on line and part
     :param exp_a: Tuple of (experiment_id, trial_id) for first scanpath
     :param exp_b: Tuple of (experiment_id, trial_id) for second scanpath
     :param eye_events: Parsed data frame for eye event
     :return: distance, nld
     '''
 
-    vec_a = build_vector(exp_a, eye_events)
-    vec_b = build_vector(exp_b, eye_events)
+    exp_id_a, trial_id_a = exp_a
+    exp_id_b, trial_id_b = exp_b
+    
+    vec_a = build_vector(exp_id_a, trial_id_a, eye_events)
+    vec_b = build_vector(exp_id_b, trial_id_b, eye_events)
 
     if vec_a.size == 0 or vec_b.size == 0:
         print("No matching data")
@@ -51,14 +54,27 @@ def nld_for_corrected(
 
         for i in range(1, m+1):
             for j in range(1, n+1):
-                aoi_a = vec_a[i-1]['aoi_name']
-                aoi_b = vec_b[j-1]['aoi_name']
-                if pd.isna(aoi_a) or pd.isna(aoi_b):
-                    cost = 1.0
-                elif aoi_a == aoi_b:
-                    cost = 0.0
+                # Check if both line and part fields exist in the records
+                if 'line' in vec_a.dtype.names and 'part' in vec_a.dtype.names and \
+                   'line' in vec_b.dtype.names and 'part' in vec_b.dtype.names:
+                    line_a = vec_a[i-1]['line']
+                    part_a = vec_a[i-1]['part']
+                    line_b = vec_b[j-1]['line']
+                    part_b = vec_b[j-1]['part']
+                    
+                    # Check for NaN values
+                    if pd.isna(line_a) or pd.isna(part_a) or pd.isna(line_b) or pd.isna(part_b):
+                        cost = 1.0
+                    # Compare both line and part - only if both match, cost is 0
+                    elif line_a == line_b and part_a == part_b:
+                        cost = 0.0
+                    else:
+                        cost = 1.0
                 else:
-                    cost = 1.0
+                    # Fallback to coordinate-based comparison if line/part not available
+                    print("Warning: 'line' or 'part' fields not available for comparison")
+                    cost = 1.0  # Default to different if we can't compare
+                
                 dp[i][j] = min(
                     dp[i][j-1] + 1,      # deletion
                     dp[i-1][j] + 1,      # insertion
@@ -68,31 +84,44 @@ def nld_for_corrected(
         nld = distance / max(m, n)
         return distance, nld
 
-
-def build_vector(exp, eye_events):
-    aoi_fixation = get_fixation_aoi(exp, eye_events)
-
-    exp_id, trial_id = exp
-    filtered_events = aoi_fixation.loc[
-        (aoi_fixation['experiment_id'] == exp_id) & 
-        (aoi_fixation['trial_id'] == trial_id),
+def build_vector(exp_id, trial_id, eye_events):
+    # Filter eye events for the specified experiment and trial
+    filtered_events = eye_events.loc[
+        (eye_events['experiment_id'] == exp_id) &
+        (eye_events['trial_id'] == trial_id) &
+        (eye_events['eye_event_type'] == 'fixation')
     ]
 
-    df = filtered_events[['timestamp', 'duration', 'x0', 'y0', 'aoi_name', 'aoi_x', 'aoi_y']]
+    # Select the required columns, including the new ones
+    columns_to_select = ['x0', 'y0', 'duration']
+    
+    # Check if additional columns exist and include them
+    additional_columns = ['aoi_x', 'aoi_y', 'line', 'part']
+    
+    # Check specifically for 'line' and 'part' as they're critical now
+    if 'line' not in filtered_events.columns:
+        print("Critical warning: 'line' column not found in data - NLD comparison may not work correctly")
+    if 'part' not in filtered_events.columns:
+        print("Critical warning: 'part' column not found in data - NLD comparison may not work correctly")
+    
+    for col in additional_columns:
+        if col in filtered_events.columns:
+            columns_to_select.append(col)
+        else:
+            print(f"Warning: Column '{col}' not found in data")
+    
+    df = filtered_events[columns_to_select]
+    df = df.rename(columns={'x0': 'start_x', 'y0': 'start_y'})
+    df['duration'] = df['duration'] / 1000.0  # Convert to seconds
+
+    # Ensure all numeric columns have the correct data types
+    float_columns = ['start_x', 'start_y', 'duration']
+    for col in float_columns:
+        df[col] = df[col].astype('float64')
+    
+    # Convert additional columns to appropriate types if they exist
+    for col in ['aoi_x', 'aoi_y']:
+        if col in df.columns:
+            df[col] = df[col].astype('float64')
+    
     return df.to_records(index=False)
-
-def get_fixation_aoi(exp, eye_events):
-    exp_id, trial_id = exp
-    trial_data = get_trial_data(eye_events, exp_id, trial_id)
-    trial_data_fixation = trial_data.loc[trial_data['eye_event_type'] == 'fixation']
-    aoi_data = get_aoi(eye_events, exp_id, trial_id)
-    return aoi.hit_test(trial_data_fixation, aoi_data, radius = 25)
-
-def get_aoi(eye_events, exp_id, trial_id):
-    trial_data = get_trial_data(eye_events, exp_id, trial_id)
-    return aoi.find_aoi(trial_data)
-
-def get_trial_data(eye_events, exp_id, trial_id):
-    return eye_events.loc[(eye_events['experiment_id'] == exp_id) & 
-                            (eye_events['trial_id'] == trial_id)]
-
