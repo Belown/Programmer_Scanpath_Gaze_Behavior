@@ -207,8 +207,9 @@ def parse_corrected_emip_data(info = False):
 
     return emip_df
 
-def build_vector(exp_id, trial_id, eye_events):
+def build_vector(exp, eye_events):
     # Filter eye events for the specified experiment and trial
+    exp_id, trial_id = exp
     filtered_events = eye_events.loc[
         (eye_events['experiment_id'] == exp_id) &
         (eye_events['trial_id'] == trial_id) &

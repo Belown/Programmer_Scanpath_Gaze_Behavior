@@ -3,13 +3,14 @@ import pandas as pd
 import numpy as np
 import json
 from math import pi, sin, cos, acos
-from tools.auxiliary import build_vector
+from tools.auxiliary import build_vector, parse_corrected_emip_data
 
 def scasim(
     exp_a: tuple,
     exp_b: tuple,
     eye_events: pd.DataFrame,
     normalize: str = None,
+    data_set: str = None
 ):
     '''
     Compute similarity based on the method from https://github.com/DiLi-Lab/ScanDL-2.0/blob/main/scandl_fixdur/fix_dur_module/scasim.py
@@ -19,11 +20,16 @@ def scasim(
     :param normalize: If we normalize the result at the end. Three option: 'durations', 'fixations' or 'None'
     :return: path similarity score
     '''
-    exp_id_str_a, trial_id_str_a = exp_a
-    exp_id_str_b, trial_id_str_b = exp_b
 
-    fix_vec1 = build_vector(exp_id_str_a, trial_id_str_a, eye_events)
-    fix_vec2 = build_vector(exp_id_str_b, trial_id_str_b, eye_events)
+    if data_set == "corrected":
+        parsed_data = parse_corrected_emip_data()
+        fix_vec1 = build_vector(exp_a, parsed_data)
+        fix_vec2 = build_vector(exp_b, parsed_data)
+    elif data_set == "original":
+        fix_vec1 = build_vector(exp_a, eye_events)
+        fix_vec2 = build_vector(exp_b, eye_events)
+    else:
+        raise ValueError("data_set must be either 'corrected' or 'original'")
 
     if fix_vec1.size == 0 or fix_vec2.size == 0:
         print("No matching data")

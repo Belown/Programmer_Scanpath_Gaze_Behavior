@@ -7,7 +7,7 @@ def nld(
     exp_a: tuple,
     exp_b: tuple,
     eye_events: pd.DataFrame,
-    data_set: str = "corrected" 
+    data_set: str = None
 ):
     '''
     Compute Normalized Levenshtein Distance (NLD) between two scanpaths based on AOI sequence
@@ -20,11 +20,11 @@ def nld(
     '''
     if data_set == "corrected":
         parsed_data = parse_corrected_emip_data()
-        vec_a = build_vector(exp_a, parsed_data, data_set)
-        vec_b = build_vector(exp_b, parsed_data, data_set)
+        vec_a = build_vector_nld(exp_a, parsed_data, data_set)
+        vec_b = build_vector_nld(exp_b, parsed_data, data_set)
     elif data_set == "original":
-        vec_a = build_vector(exp_a, eye_events, data_set)
-        vec_b = build_vector(exp_b, eye_events, data_set)
+        vec_a = build_vector_nld(exp_a, eye_events, data_set)
+        vec_b = build_vector_nld(exp_b, eye_events, data_set)
     else:
         raise ValueError("data_set must be either 'corrected' or 'original'")
     
@@ -68,7 +68,7 @@ def nld(
         return distance, nld
 
 
-def build_vector(exp, eye_events, data_set):
+def build_vector_nld(exp, eye_events, data_set):
     temp = eye_events
     if data_set == "original":
         temp = get_fixation_aoi(exp, eye_events)
