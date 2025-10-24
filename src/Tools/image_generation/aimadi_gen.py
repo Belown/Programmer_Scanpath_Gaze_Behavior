@@ -1,7 +1,7 @@
 import sys, os
 import pandas as pd
 import matplotlib.pyplot as plt
-from tools import setup_paths
+from ..path import setup_paths
 from emtk import parsers, visualization, util
 
 # set up paths

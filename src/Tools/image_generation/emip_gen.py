@@ -2,7 +2,7 @@ import sys, os, json
 import pandas as pd
 import matplotlib.pyplot as plt
 from typing import Optional
-from tools import setup_paths
+from ..path import setup_paths
 from emtk import parsers, visualization, util, aoi
 
 # set up paths

@@ -2,7 +2,7 @@ import multimatch_gaze as m
 import numpy as np
 import sys, os
 import pandas as pd
-from tools.auxiliary import gen_random_fixations, build_vector
+from ..auxiliary import gen_random_fixations, build_vector
 
 def multimatch(
     exp_a: tuple,

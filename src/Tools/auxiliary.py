@@ -1,7 +1,11 @@
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+import os
 from .path import setup_paths
+
+paths = setup_paths()
+output_dir = paths["output_path"]
 
 def gen_random_fixations(n, screensize=(1920, 1080), seed=None):
     """
@@ -80,6 +84,9 @@ def visualize_multimatch_scores(all_scores, title="Multimatch Scores"):
     plt.xticks(fontsize=12)
     
     plt.tight_layout()
+    output_path = output_path = os.path.join(output_dir, f"multimatch_score.png")
+
+    plt.savefig(output_path, dpi=300, bbox_inches='tight')
     return fig, ax
 
 def visualize_all_scores(all_scores):
@@ -153,11 +160,14 @@ def visualize_all_scores(all_scores):
     
     # Add a horizontal line at y=0
     ax.axhline(y=0, color='black', linestyle='-', alpha=0.3)
+
+    output_path = output_path = os.path.join(output_dir, f"multimatch_score_all.png")
+    plt.savefig(output_path, dpi=300, bbox_inches='tight')
     
     plt.tight_layout()
     return fig, ax
 
-def parse_corrected_emip_data():
+def parse_corrected_emip_data(info = False):
     """
     Parse the corrected EMIP dataset from the given path.
 
@@ -189,10 +199,11 @@ def parse_corrected_emip_data():
 
     print(f"Processing data for {len(emip_df['experiment_id'].unique())} participants...")
 
-    print("Available corrected EMIP data for experiments:")
-    unique_ids = emip_df['experiment_id'].dropna().unique()
-    sorted_ids = sorted(unique_ids, key=lambda x: int(x) if x.isdigit() else x)
-    print("sorted_ids:", sorted_ids)
+    if info:
+        print("Available corrected EMIP data for experiments:")
+        unique_ids = emip_df['experiment_id'].dropna().unique()
+        sorted_ids = sorted(unique_ids, key=lambda x: int(x) if x.isdigit() else x)
+        print("sorted_ids:", sorted_ids)
 
     return emip_df
 
