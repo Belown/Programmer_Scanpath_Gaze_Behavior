@@ -3,6 +3,7 @@ import pandas as pd
 import numpy as np
 import json
 from math import pi, sin, cos, acos
+from tools.auxiliary import build_vector
 
 def scasim(
     exp_a: tuple,
@@ -88,18 +89,3 @@ def scasim(
         result /= (sum_fix_vec_1 + sum_fix_vec_2)
         
     return result
-
-def build_vector(exp_id, trial_id, eye_events):
-    # Filter eye events for the specified experiment and trial
-    filtered_events = eye_events.loc[
-        (eye_events['experiment_id'] == exp_id) &
-        (eye_events['trial_id'] == trial_id) &
-        (eye_events['eye_event_type'] == 'fixation')
-    ]
-
-    df = filtered_events[['x0', 'y0', 'duration']]
-    df = df.rename(columns={'x0': 'start_x', 'y0': 'start_y'})
-    df['duration'] = df['duration'] / 1000.0
-
-    df = df.astype({'start_x': 'float64', 'start_y': 'float64', 'duration': 'float64'})
-    return df.to_records(index=False)

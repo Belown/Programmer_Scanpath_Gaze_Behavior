@@ -1,12 +1,11 @@
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-import os
+from .path import setup_paths
 
 def gen_random_fixations(n, screensize=(1920, 1080), seed=None):
     """
-    Generate n random fixations as a baseline scanpath, following
-    Dewhurst et al. (2012)'s uniform sampling logic.
+    Generate n random fixations as a baseline scanpath.
     Each fixation has start_x, start_y (pixels) and duration (seconds).
     """
     dtype = [('start_x', 'f8'), ('start_y', 'f8'), ('duration', 'f8')]
@@ -158,94 +157,56 @@ def visualize_all_scores(all_scores):
     plt.tight_layout()
     return fig, ax
 
-def parse_corrected_emip_data(lib_dir):
+def parse_corrected_emip_data():
     """
-    Parse EMIP DataFrame to extract relevant eye events for multimatch analysis.
-    
-    Args:
-        lib_dir: Path to the library directory containing the data files.
+    Parse the corrected EMIP dataset from the given path.
 
-    Returns:
-        DataFrame: A DataFrame with columns compatible for build_vector function including
-                  'experiment_id' (was participant), 'trial_id' (was trial),
-                  'eye_event_type', 'x0' (was x_cord), 'y0' (was y_cord), 'duration' etc.
+    :param path: Path to the corrected EMIP dataset CSV file
+    :return: Parsed pandas DataFrame
     """
+    paths = setup_paths()
+    corrected_emip_path = paths['corrected_dataset']
+
     # Load the data
-    corrected_emip_data_path = os.path.join(lib_dir, 'emtk', 'datasets', 'Corrected EMIP Dataset', 'finalset_line_part.csv')
-    emip_df = pd.read_csv(corrected_emip_data_path)
-    
-    # Create an empty list to store all data
-    all_data = []
-    
-    participants = emip_df['participant'].unique()
-    print(f"Processing data for {len(participants)} participants...")
+    emip_df = pd.read_csv(corrected_emip_path)
 
-    for participant in participants:
-        participant_data = emip_df[emip_df['participant'] == participant]
-        trials = participant_data['trial'].unique()
+    # Drop the first unnamed column of df
+    emip_df.drop(emip_df.columns[0], axis=1, inplace=True)
 
-        for trial in trials:
-            trial_data = participant_data[participant_data['trial'] == trial]
-            
-            # Make a copy and reset index
-            processed_data = trial_data.reset_index(drop=True).copy()
-            
-            # Rename 'Unnamed: 0' to 'Sequence' if it exists
-            if 'Unnamed: 0' in processed_data.columns:
-                processed_data.rename(columns={'Unnamed: 0': 'Sequence'}, inplace=True)
-            
-            # Rename columns to match build_vector requirements
-            column_mapping = {
-                'participant': 'experiment_id',
-                'trial': 'trial_id',
-                'x_cord': 'x0',
-                'y_cord': 'y0'
-            }
-            
-            # Apply column renaming where columns exist
-            for old_col, new_col in column_mapping.items():
-                if old_col in processed_data.columns:
-                    processed_data.rename(columns={old_col: new_col}, inplace=True)
-            
-            # Add eye_event_type column with 'fixation' for all rows
-            processed_data['eye_event_type'] = 'fixation'
-            
-            # Convert ID columns to strings
-            if 'experiment_id' in processed_data.columns:
-                processed_data['experiment_id'] = processed_data['experiment_id'].astype(str)
-            else:
-                processed_data['experiment_id'] = str(participant)
-                
-            if 'trial_id' in processed_data.columns:
-                processed_data['trial_id'] = processed_data['trial_id'].astype(str)
-            else:
-                processed_data['trial_id'] = str(trial)
-            
-            # Add to our collection
-            all_data.append(processed_data)
-    
-    # Concatenate all dataframes
-    if not all_data:
-        print("Warning: No data processed")
-        return pd.DataFrame(columns=['experiment_id', 'trial_id', 'eye_event_type', 'x0', 'y0', 'duration'])
-    
-    combined_df = pd.concat(all_data, ignore_index=True)
-    
-    # Ensure data types are correct for numeric columns
-    if 'x0' in combined_df.columns:
-        combined_df['x0'] = combined_df['x0'].astype(float)
-    if 'y0' in combined_df.columns:
-        combined_df['y0'] = combined_df['y0'].astype(float)
-    if 'duration' in combined_df.columns:
-        combined_df['duration'] = combined_df['duration'].astype(float)
-    
-    print(f"Parsed corrected EMIP data with {len(combined_df)} rows.")
-    return combined_df
+    # Add columns required for build_vector function
+    emip_df['eye_event_type'] = 'fixation'
 
-# This function has been merged into parse_corrected_emip_data
-# Keeping as a comment for reference
-"""
-def prepare_data_for_build_vector(nested_data):
-    # Function merged into parse_corrected_emip_data
-    pass
-"""
+    # Change column names to match with build_vector function
+    emip_df.rename(columns={'x_cord': 'x0', 'y_cord': 'y0'}, inplace=True)
+    emip_df.rename(columns={'participant': 'experiment_id', 'trial': 'trial_id'}, inplace=True)
+
+    # Ensure experiment_id and trial_id are strings (remove surrounding whitespace)
+    emip_df['experiment_id'] = emip_df['experiment_id'].astype(str).str.strip()
+    emip_df['trial_id'] = emip_df['trial_id'].astype(str).str.strip()
+
+    # Create 'aoi_name' column for nld
+    emip_df['aoi_name'] = 'line ' + emip_df['line'].astype(str) + ' ' + 'part ' + emip_df['part'].astype(str)
+
+    print(f"Processing data for {len(emip_df['experiment_id'].unique())} participants...")
+
+    print("Available corrected EMIP data for experiments:")
+    unique_ids = emip_df['experiment_id'].dropna().unique()
+    sorted_ids = sorted(unique_ids, key=lambda x: int(x) if x.isdigit() else x)
+    print("sorted_ids:", sorted_ids)
+
+    return emip_df
+
+def build_vector(exp_id, trial_id, eye_events):
+    # Filter eye events for the specified experiment and trial
+    filtered_events = eye_events.loc[
+        (eye_events['experiment_id'] == exp_id) &
+        (eye_events['trial_id'] == trial_id) &
+        (eye_events['eye_event_type'] == 'fixation')
+    ]
+
+    df = filtered_events[['x0', 'y0', 'duration']]
+    df = df.rename(columns={'x0': 'start_x', 'y0': 'start_y'})
+    df['duration'] = df['duration'] / 1000.0
+
+    df = df.astype({'start_x': 'float64', 'start_y': 'float64', 'duration': 'float64'})
+    return df.to_records(index=False)

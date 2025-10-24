@@ -2,23 +2,33 @@ import pandas as pd
 import os, sys, math
 import numpy as np
 from emtk import parsers, visualization, util, aoi
+from tools.auxiliary import parse_corrected_emip_data
 
-def nld_for_original(
+def nld(
     exp_a: tuple,
     exp_b: tuple,
-    eye_events: pd.DataFrame
+    eye_events: pd.DataFrame,
+    data_set: str = "corrected" 
 ):
     '''
     Compute Normalized Levenshtein Distance (NLD) between two scanpaths based on AOI sequence
+
     :param exp_a: Tuple of (experiment_id, trial_id) for first scanpath
     :param exp_b: Tuple of (experiment_id, trial_id) for second scanpath
     :param eye_events: Parsed data frame for eye event
+    :param data_set: Specify which data set to use: "corrected" or "original"
     :return: distance, nld
     '''
-
-    vec_a = build_vector(exp_a, eye_events)
-    vec_b = build_vector(exp_b, eye_events)
-
+    if data_set == "corrected":
+        parsed_data = parse_corrected_emip_data()
+        vec_a = build_vector(exp_a, parsed_data, data_set)
+        vec_b = build_vector(exp_b, parsed_data, data_set)
+    elif data_set == "original":
+        vec_a = build_vector(exp_a, eye_events, data_set)
+        vec_b = build_vector(exp_b, eye_events, data_set)
+    else:
+        raise ValueError("data_set must be either 'corrected' or 'original'")
+    
     if vec_a.size == 0 or vec_b.size == 0:
         print("No matching data")
         raise SystemExit("No matching data")
@@ -59,13 +69,15 @@ def nld_for_original(
         return distance, nld
 
 
-def build_vector(exp, eye_events):
-    aoi_fixation = get_fixation_aoi(exp, eye_events)
+def build_vector(exp, eye_events, data_set):
+    temp = eye_events
+    if data_set == "original":
+        temp = get_fixation_aoi(exp, eye_events)
 
     exp_id, trial_id = exp
-    filtered_events = aoi_fixation.loc[
-        (aoi_fixation['experiment_id'] == exp_id) & 
-        (aoi_fixation['trial_id'] == trial_id),
+    filtered_events = temp.loc[
+        (temp['experiment_id'] == exp_id) & 
+        (temp['trial_id'] == trial_id),
     ]
 
     df = filtered_events[['timestamp', 'duration', 'x0', 'y0', 'aoi_name', 'aoi_x', 'aoi_y']]

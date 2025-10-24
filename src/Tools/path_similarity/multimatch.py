@@ -2,7 +2,7 @@ import multimatch_gaze as m
 import numpy as np
 import sys, os
 import pandas as pd
-from ..auxiliary import gen_random_fixations
+from tools.auxiliary import gen_random_fixations, build_vector
 
 def multimatch(
     exp_a: tuple,
@@ -57,19 +57,4 @@ def make_dict(score):
         for name, val in zip(score_names, score):
             score_dict[name] = val
     return score_dict
-
-def build_vector(exp_id, trial_id, eye_events):
-    # Filter eye events for the specified experiment and trial
-    filtered_events = eye_events.loc[
-        (eye_events['experiment_id'] == exp_id) &
-        (eye_events['trial_id'] == trial_id) &
-        (eye_events['eye_event_type'] == 'fixation')
-    ]
-
-    df = filtered_events[['x0', 'y0', 'duration']]
-    df = df.rename(columns={'x0': 'start_x', 'y0': 'start_y'})
-    df['duration'] = df['duration'] / 1000.0
-
-    df = df.astype({'start_x': 'float64', 'start_y': 'float64', 'duration': 'float64'})
-    return df.to_records(index=False)
 
