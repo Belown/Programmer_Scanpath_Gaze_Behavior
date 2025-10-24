@@ -3,7 +3,7 @@ import pandas as pd
 import numpy as np
 import json
 from math import pi, sin, cos, acos
-from tools.auxiliary import build_vector, parse_corrected_emip_data
+from tools.auxiliary import build_vector, parse_corrected_emip_data, gen_random_fixations
 
 def scasim(
     exp_a: tuple,
@@ -30,7 +30,27 @@ def scasim(
         fix_vec2 = build_vector(exp_b, eye_events)
     else:
         raise ValueError("data_set must be either 'corrected' or 'original'")
+    
+    random_vec1 = gen_random_fixations(len(fix_vec1))
+    random_vec2 = gen_random_fixations(len(fix_vec2))
 
+    original_score = scasim_helper(fix_vec1, fix_vec2, normalize)
+    base_line_score = scasim_helper(random_vec1, random_vec2, normalize)
+    final_score = original_score - base_line_score
+
+    return {
+        "original_score": original_score,
+        "base_line_score": base_line_score,
+        "final_score": final_score
+    }
+
+    
+
+def scasim_helper(
+    fix_vec1,
+    fix_vec2,
+    normalize: str = None
+):
     if fix_vec1.size == 0 or fix_vec2.size == 0:
         print("No matching data")
         raise SystemExit("No matching data")

@@ -2,12 +2,13 @@ import multimatch_gaze as m
 import numpy as np
 import sys, os
 import pandas as pd
-from ..auxiliary import gen_random_fixations, build_vector
+from ..auxiliary import gen_random_fixations, build_vector, parse_corrected_emip_data
 
 def multimatch(
     exp_a: tuple,
     exp_b: tuple,
-    eye_events: pd.DataFrame
+    eye_events: pd.DataFrame,
+    data_set: str = None
 ):
     '''
     Compute scanpath similarity by using the library multimatch_gaze
@@ -16,11 +17,16 @@ def multimatch(
     :param eye_events: Parsed data frame for eye event
     :return: path similarity score
     '''
-    exp_id_str_a, trial_id_str_a = exp_a
-    exp_id_str_b, trial_id_str_b = exp_b
 
-    fix_vec1 = build_vector(exp_id_str_a, trial_id_str_a, eye_events)
-    fix_vec2 = build_vector(exp_id_str_b, trial_id_str_b, eye_events)
+    if data_set == "corrected":
+        parsed_data = parse_corrected_emip_data()
+        fix_vec1 = build_vector(exp_a, parsed_data)
+        fix_vec2 = build_vector(exp_b, parsed_data)
+    elif data_set == "original":
+        fix_vec1 = build_vector(exp_a, eye_events)
+        fix_vec2 = build_vector(exp_b, eye_events)
+    else:
+        raise ValueError("data_set must be either 'corrected' or 'original'")
 
     random_vec1 = gen_random_fixations(len(fix_vec1))
     random_vec2 = gen_random_fixations(len(fix_vec2))

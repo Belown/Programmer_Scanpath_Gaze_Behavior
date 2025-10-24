@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
 from emtk import aoi
-from ..auxiliary import parse_corrected_emip_data
+from ..auxiliary import parse_corrected_emip_data, gen_random_fixations
 
 def nld(
     exp_a: tuple,
@@ -20,20 +20,41 @@ def nld(
     '''
     if data_set == "corrected":
         parsed_data = parse_corrected_emip_data()
-        vec_a = build_vector_nld(exp_a, parsed_data, data_set)
-        vec_b = build_vector_nld(exp_b, parsed_data, data_set)
+        fix_vec1 = build_vector_nld(exp_a, parsed_data, data_set)
+        fix_vec2 = build_vector_nld(exp_b, parsed_data, data_set)
     elif data_set == "original":
-        vec_a = build_vector_nld(exp_a, eye_events, data_set)
-        vec_b = build_vector_nld(exp_b, eye_events, data_set)
+        fix_vec1 = build_vector_nld(exp_a, eye_events, data_set)
+        fix_vec2 = build_vector_nld(exp_b, eye_events, data_set)
     else:
         raise ValueError("data_set must be either 'corrected' or 'original'")
     
-    if vec_a.size == 0 or vec_b.size == 0:
+    random_vec1 = gen_random_fixations(len(fix_vec1))
+    random_vec2 = gen_random_fixations(len(fix_vec2))
+
+    original_distance, original_nld = nld_helper(fix_vec1, fix_vec2)
+    base_line_distance, base_line_nld = nld_helper(random_vec1, random_vec2,if_random=True)
+    final_distance = original_distance - base_line_distance
+    final_nld = original_nld - base_line_nld
+
+    return {
+        "original_distance": original_distance,
+        "original_nld": original_nld,
+        "base_line_distance": base_line_distance,
+        "base_line_nld": base_line_nld,
+        "final_distance": final_distance,
+        "final_nld": final_nld
+    }
+    
+def nld_helper(
+    fix_vec1,
+    fix_vec2
+):
+    if fix_vec1.size == 0 or fix_vec2.size == 0:
         print("No matching data")
         raise SystemExit("No matching data")
 
-    m = len(vec_a)
-    n = len(vec_b)
+    m = len(fix_vec1)
+    n = len(fix_vec2)
 
     if m == 0 and n == 0:
         return 0.0
@@ -50,8 +71,8 @@ def nld(
 
         for i in range(1, m+1):
             for j in range(1, n+1):
-                aoi_a = vec_a[i-1]['aoi_name']
-                aoi_b = vec_b[j-1]['aoi_name']
+                aoi_a = fix_vec1[i-1]['aoi_name']
+                aoi_b = fix_vec2[j-1]['aoi_name']
                 if pd.isna(aoi_a) or pd.isna(aoi_b):
                     cost = 1.0
                 elif aoi_a == aoi_b:
@@ -66,12 +87,11 @@ def nld(
         distance = dp[m][n]
         nld = distance / max(m, n)
         return distance, nld
+    
 
 
-def build_vector_nld(exp, eye_events, data_set):
-    temp = eye_events
-    if data_set == "original":
-        temp = get_fixation_aoi(exp, eye_events)
+def build_vector_nld(exp, eye_events, if_random=False):
+    temp = get_fixation_aoi(exp, eye_events)
 
     exp_id, trial_id = exp
     filtered_events = temp.loc[
