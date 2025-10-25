@@ -207,6 +207,8 @@ def parse_corrected_emip_data(info = False):
     # Add columns required for build_vector function
     emip_df['eye_event_type'] = 'fixation'
     emip_df['eye_tracker'] = 'SMIRed250'
+    emip_df['stimuli_module'] = 'emtk/datasets/EMIP/EMIP-Toolkit- replication package/emip_dataset/stimuli'
+    emip_df['stimuli_name'] = emip_df['code_file']
 
     # Change column names to match with build_vector function
     emip_df.rename(columns={'x_cord': 'x0', 'y_cord': 'y0'}, inplace=True)

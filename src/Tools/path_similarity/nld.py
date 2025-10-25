@@ -19,37 +19,28 @@ def nld(
     :return: distance, nld
     '''
     if data_set == "corrected":
-        parsed_data = parse_corrected_emip_data()
-        fix_vec1 = parsed_data.loc[parsed_data['experiment_id'] == exp_a[0] & parsed_data['trial_id'] == exp_a[1]]
-        fix_vec2 = parsed_data.loc[parsed_data['experiment_id'] == exp_b[0] & parsed_data['trial_id'] == exp_b[1]]
+        fix_vec1 = eye_events.loc[(eye_events['experiment_id'] == exp_a[0]) & (eye_events['trial_id'] == exp_a[1])]
+        fix_vec2 = eye_events.loc[(eye_events['experiment_id'] == exp_b[0]) & (eye_events['trial_id'] == exp_b[1])]
 
         fix_vec1 = fix_vec1[['timestamp', 'duration', 'x0', 'y0', 'aoi_name', 'aoi_x', 'aoi_y']]
         fix_vec2 = fix_vec2[['timestamp', 'duration', 'x0', 'y0', 'aoi_name', 'aoi_x', 'aoi_y']]
 
         random_vec1 = gen_random_fixations(len(fix_vec1))
-        random_vec1.rename(columns={'start_x': 'x0', 'start_y': 'y0'}, inplace=True)
-
         random_vec2 = gen_random_fixations(len(fix_vec2))
-        random_vec2.rename(columns={'start_x': 'x0', 'start_y': 'y0'}, inplace=True)
 
-        final_v1 = gen_random_baseline_from_template(fix_vec1, random_vec1)
-        final_v2 = gen_random_baseline_from_template(fix_vec2, random_vec2)
+        final_v1 = random_helper(exp_a, eye_events, random_vec1)
+        final_v2 = random_helper(exp_b, eye_events, random_vec2)
 
 
     elif data_set == "original":
         fix_vec1 = build_vector_nld(exp_a, eye_events)
         fix_vec2 = build_vector_nld(exp_b, eye_events)
         random_vec1 = gen_random_fixations(len(fix_vec1))
-        random_vec1.rename(columns={'start_x': 'x0', 'start_y': 'y0'}, inplace=True)
-
-
         random_vec2 = gen_random_fixations(len(fix_vec2))
-        random_vec2.rename(columns={'start_x': 'x0', 'start_y': 'y0'}, inplace=True)
 
-        final_v1 = gen_random_baseline_from_template(fix_vec1, random_vec1)
-        final_v2 = gen_random_baseline_from_template(fix_vec2, random_vec2)
+        final_v1 = random_helper(exp_a, eye_events, random_vec1)
+        final_v2 = random_helper(exp_b, eye_events, random_vec2)
 
-    
     else:
         raise ValueError("data_set must be either 'corrected' or 'original'")
 
@@ -66,7 +57,19 @@ def nld(
         "final_distance": final_distance,
         "final_nld": final_nld
     }
-    
+
+def random_helper(exp, eye_events, random_vec):
+    trial_data = get_trial_data(eye_events, exp[0], exp[1])
+    random_trial_data = gen_random_baseline_from_template(trial_data, random_vec)
+    if 'participant_id' not in random_trial_data.columns:
+        random_trial_data['participant_id'] = exp[0]
+    if 'filename' not in random_trial_data.columns:
+        random_trial_data['filename'] = f"{exp[0]}_rawdata.tsv"  # 生成默认文件名
+    aoi_data = aoi.find_aoi(random_trial_data)
+    result = aoi.hit_test(random_trial_data, aoi_data, radius = 25)
+    result = result[['timestamp', 'duration', 'x0', 'y0', 'aoi_name', 'aoi_x', 'aoi_y']]
+    return result
+
 def nld_helper(
     df1,
     df2
@@ -161,7 +164,8 @@ def gen_random_baseline_from_template(fix_df, rand_df, rng=None):
     if n == 0:
         return fix_df.copy()
 
-    out = fix_df.copy()
+    out = fix_df.copy().reset_index(drop=True)
+    rand_df = rand_df.reset_index(drop=True)
 
     margin_x = 0.05 * screensize[0]
     margin_y = 0.05 * screensize[1] 
