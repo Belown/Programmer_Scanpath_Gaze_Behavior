@@ -47,64 +47,68 @@ def scasim(
     
 
 def scasim_helper(
-    fix_vec1,
-    fix_vec2,
+    df1: pd.DataFrame,
+    df2: pd.DataFrame,
     normalize: str = None
 ):
-    if fix_vec1.size == 0 or fix_vec2.size == 0:
+    if df1.empty or df2.empty:
         print("No matching data")
         raise SystemExit("No matching data")
 
     # lengths of scanpaths
-    m, n = len(fix_vec1), len(fix_vec2)
+    m, n = len(df1), len(df2)
 
-    # sum of fixation durations for scanpaths
-    sum_fix_vec_1 = fix_vec1['duration'].sum()
-    sum_fix_vec_2 = fix_vec2['duration'].sum()
+    # extract numpy arrays for positional access
+    dur1 = df1['duration'].to_numpy(dtype=float)
+    dur2 = df2['duration'].to_numpy(dtype=float)
+    x1 = df1['x0'].to_numpy(dtype=float)
+    y1 = df1['y0'].to_numpy(dtype=float)
+    x2 = df2['x0'].to_numpy(dtype=float)
+    y2 = df2['y0'].to_numpy(dtype=float)
+
+    sum_fix_vec_1 = dur1.sum()
+    sum_fix_vec_2 = dur2.sum()
 
 
     # initialize distance matrix with rows = len_vec_1 + 1 and cols = len_vec_2 + 1
-    mat = [list(map(lambda i: 0, range(n + 1))) for _ in range(m + 1)]
+    mat = [[0.0] * (n + 1) for _ in range(m + 1)]
 
-    acc = 0
+    acc = 0.0
     for fix_i in range(1, m + 1):
-        acc += fix_vec1[fix_i - 1]['duration']
+        acc += dur1[fix_i - 1]
         mat[fix_i][0] = acc
-    
-    acc = 0
+
+    acc = 0.0
     for fix_j in range(1, n + 1):
-        acc += fix_vec2[fix_j - 1]['duration']
+        acc += dur2[fix_j - 1]
         mat[0][fix_j] = acc
 
     for i in range(1, m + 1):
         for j in range(1, n + 1):
 
-            fix_i_idx = i - 1
-            fix_j_idx = j - 1
-
-            x1, y1 = fix_vec1[fix_i_idx]['start_x'], fix_vec1[fix_i_idx]['start_y']
-            x2, y2 = fix_vec2[fix_j_idx]['start_x'], fix_vec2[fix_j_idx]['start_y']
+            fi = i - 1
+            fj = j - 1
             
-            dist = np.sqrt((x2-x1)**2 + (y2-y1)**2)
+            dist = np.hypot(x2[fj] - x1[fi], y2[fj] - y1[fi])
             
             max_screen_dist = 1920
-            angle = min(dist / max_screen_dist * 180, 180)
+            angle = min(dist / max_screen_dist * 180.0, 180.0)
 
             modulator = 0.83
             mixer = modulator ** angle
             
             cost = (
-                abs(fix_vec2[fix_j_idx]['duration'] - fix_vec1[fix_i_idx]['duration']) * mixer +
-                (fix_vec2[fix_j_idx]['duration'] + fix_vec1[fix_i_idx]['duration']) * (1.0 - mixer)
+                abs(dur2[fj] - dur1[fi]) * mixer +
+                (dur2[fj] + dur1[fi]) * (1.0 - mixer)
             )
             
             ops = (
-                mat[i-1][j] + fix_vec1[fix_i_idx]['duration'],
-                mat[i][j-1] + fix_vec2[fix_j_idx]['duration'],
-                mat[i-1][j-1] + cost,
+                mat[i - 1][j] + dur1[fi],
+                mat[i][j - 1] + dur2[fj],
+                mat[i - 1][j - 1] + cost,
             )
             
-            mi = np.argmin(ops)
+            mi = int(np.argmin(ops))
             mat[i][j] = ops[mi]
     
     result = mat[m][n]
@@ -112,6 +116,8 @@ def scasim_helper(
     if normalize in ['fixations', 'fixation']:
         result /= (m + n)
     elif normalize in ['durations', 'duration']:
-        result /= (sum_fix_vec_1 + sum_fix_vec_2)
+        denom = (sum_fix_vec_1 + sum_fix_vec_2)
+        if denom != 0:
+            result /= denom
         
     return result

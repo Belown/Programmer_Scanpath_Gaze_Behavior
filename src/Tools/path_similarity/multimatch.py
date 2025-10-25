@@ -21,15 +21,25 @@ def multimatch(
     if data_set == "corrected":
         parsed_data = parse_corrected_emip_data()
         fix_vec1 = build_vector(exp_a, parsed_data)
+        fix_vec1 = fix_vec1.rename(columns={'x0': 'start_x', 'y0': 'start_y'})
+
         fix_vec2 = build_vector(exp_b, parsed_data)
+        fix_vec2 = fix_vec2.rename(columns={'x0': 'start_x', 'y0': 'start_y'})
+
     elif data_set == "original":
         fix_vec1 = build_vector(exp_a, eye_events)
+        fix_vec1 = fix_vec1.rename(columns={'x0': 'start_x', 'y0': 'start_y'})
+
         fix_vec2 = build_vector(exp_b, eye_events)
+        fix_vec2 = fix_vec2.rename(columns={'x0': 'start_x', 'y0': 'start_y'})
     else:
         raise ValueError("data_set must be either 'corrected' or 'original'")
 
     random_vec1 = gen_random_fixations(len(fix_vec1))
+    random_vec1 = random_vec1.rename(columns={'x0': 'start_x', 'y0': 'start_y'})
+
     random_vec2 = gen_random_fixations(len(fix_vec2))
+    random_vec2 = random_vec2.rename(columns={'x0': 'start_x', 'y0': 'start_y'})
 
     if fix_vec1.size == 0 or fix_vec2.size == 0:
         print("No matching data")

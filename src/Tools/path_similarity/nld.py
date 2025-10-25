@@ -20,19 +20,41 @@ def nld(
     '''
     if data_set == "corrected":
         parsed_data = parse_corrected_emip_data()
-        fix_vec1 = build_vector_nld(exp_a, parsed_data, data_set)
-        fix_vec2 = build_vector_nld(exp_b, parsed_data, data_set)
+        fix_vec1 = parsed_data.loc[parsed_data['experiment_id'] == exp_a[0] & parsed_data['trial_id'] == exp_a[1]]
+        fix_vec2 = parsed_data.loc[parsed_data['experiment_id'] == exp_b[0] & parsed_data['trial_id'] == exp_b[1]]
+
+        fix_vec1 = fix_vec1[['timestamp', 'duration', 'x0', 'y0', 'aoi_name', 'aoi_x', 'aoi_y']]
+        fix_vec2 = fix_vec2[['timestamp', 'duration', 'x0', 'y0', 'aoi_name', 'aoi_x', 'aoi_y']]
+
+        random_vec1 = gen_random_fixations(len(fix_vec1))
+        random_vec1.rename(columns={'start_x': 'x0', 'start_y': 'y0'}, inplace=True)
+
+        random_vec2 = gen_random_fixations(len(fix_vec2))
+        random_vec2.rename(columns={'start_x': 'x0', 'start_y': 'y0'}, inplace=True)
+
+        final_v1 = gen_random_baseline_from_template(fix_vec1, random_vec1)
+        final_v2 = gen_random_baseline_from_template(fix_vec2, random_vec2)
+
+
     elif data_set == "original":
-        fix_vec1 = build_vector_nld(exp_a, eye_events, data_set)
-        fix_vec2 = build_vector_nld(exp_b, eye_events, data_set)
+        fix_vec1 = build_vector_nld(exp_a, eye_events)
+        fix_vec2 = build_vector_nld(exp_b, eye_events)
+        random_vec1 = gen_random_fixations(len(fix_vec1))
+        random_vec1.rename(columns={'start_x': 'x0', 'start_y': 'y0'}, inplace=True)
+
+
+        random_vec2 = gen_random_fixations(len(fix_vec2))
+        random_vec2.rename(columns={'start_x': 'x0', 'start_y': 'y0'}, inplace=True)
+
+        final_v1 = gen_random_baseline_from_template(fix_vec1, random_vec1)
+        final_v2 = gen_random_baseline_from_template(fix_vec2, random_vec2)
+
+    
     else:
         raise ValueError("data_set must be either 'corrected' or 'original'")
-    
-    random_vec1 = gen_random_fixations(len(fix_vec1))
-    random_vec2 = gen_random_fixations(len(fix_vec2))
 
     original_distance, original_nld = nld_helper(fix_vec1, fix_vec2)
-    base_line_distance, base_line_nld = nld_helper(random_vec1, random_vec2,if_random=True)
+    base_line_distance, base_line_nld = nld_helper(final_v1, final_v2)
     final_distance = original_distance - base_line_distance
     final_nld = original_nld - base_line_nld
 
@@ -46,61 +68,67 @@ def nld(
     }
     
 def nld_helper(
-    fix_vec1,
-    fix_vec2
+    df1,
+    df2
 ):
-    if fix_vec1.size == 0 or fix_vec2.size == 0:
-        print("No matching data")
-        raise SystemExit("No matching data")
+    # empty checks
+    if df1.empty and df2.empty:
+        return 0.0, 0.0
+    if df1.empty:
+        return len(df2), 1.0
+    if df2.empty:
+        return len(df1), 1.0
 
-    m = len(fix_vec1)
-    n = len(fix_vec2)
+    m = len(df1)
+    n = len(df2)
 
-    if m == 0 and n == 0:
-        return 0.0
-    elif m == 0:
-        return n, 1.0
-    elif n == 0:
-        return m, 1.0
-    else:
-        dp = np.zeros((m + 1, n + 1), dtype=float)
-        for i in range(m+1):
-            dp[i][0] = i
-        for j in range(n+1):
-            dp[0][j] = j
+    dp = np.zeros((m + 1, n + 1), dtype=float)
+    for i in range(m + 1):
+        dp[i][0] = i
+    for j in range(n + 1):
+        dp[0][j] = j
 
-        for i in range(1, m+1):
-            for j in range(1, n+1):
-                aoi_a = fix_vec1[i-1]['aoi_name']
-                aoi_b = fix_vec2[j-1]['aoi_name']
-                if pd.isna(aoi_a) or pd.isna(aoi_b):
-                    cost = 1.0
-                elif aoi_a == aoi_b:
-                    cost = 0.0
-                else:
-                    cost = 1.0
-                dp[i][j] = min(
-                    dp[i][j-1] + 1,      # deletion
-                    dp[i-1][j] + 1,      # insertion
-                    dp[i-1][j-1] + cost  # substitution
-                )
-        distance = dp[m][n]
-        nld = distance / max(m, n)
-        return distance, nld
+    # use .iat for positional access (faster)
+    for i in range(1, m + 1):
+        for j in range(1, n + 1):
+            aoi_a = df1['aoi_name'].iat[i - 1]
+            aoi_b = df2['aoi_name'].iat[j - 1]
+            if pd.isna(aoi_a) or pd.isna(aoi_b):
+                cost = 1.0
+            elif aoi_a == aoi_b:
+                cost = 0.0
+            else:
+                cost = 1.0
+            dp[i][j] = min(
+                dp[i][j - 1] + 1,      # deletion
+                dp[i - 1][j] + 1,      # insertion
+                dp[i - 1][j - 1] + cost  # substitution
+            )
+
+    distance = dp[m][n]
+    nld = distance / max(m, n) if max(m, n) > 0 else 0.0
+    return distance, nld
     
-
-
-def build_vector_nld(exp, eye_events, if_random=False):
+def build_vector_nld(exp, eye_events):
     temp = get_fixation_aoi(exp, eye_events)
 
+    # if hit_test returned a numpy structured/recarray, convert to DataFrame
+    if isinstance(temp, np.ndarray) and getattr(temp, "dtype", None) and temp.dtype.names is not None:
+        temp_df = pd.DataFrame.from_records(temp)
+    elif isinstance(temp, pd.DataFrame):
+        temp_df = temp.copy()
+    else:
+        # unexpected type
+        temp_df = pd.DataFrame(temp)
+
     exp_id, trial_id = exp
-    filtered_events = temp.loc[
-        (temp['experiment_id'] == exp_id) & 
-        (temp['trial_id'] == trial_id),
+    filtered_events = temp_df.loc[
+        (temp_df['experiment_id'] == exp_id) & 
+        (temp_df['trial_id'] == trial_id),
     ]
 
     df = filtered_events[['timestamp', 'duration', 'x0', 'y0', 'aoi_name', 'aoi_x', 'aoi_y']]
-    return df.to_records(index=False)
+    return df
 
 def get_fixation_aoi(exp, eye_events):
     exp_id, trial_id = exp
@@ -117,3 +145,39 @@ def get_trial_data(eye_events, exp_id, trial_id):
     return eye_events.loc[(eye_events['experiment_id'] == exp_id) & 
                             (eye_events['trial_id'] == trial_id)]
 
+def gen_random_baseline_from_template(fix_df, rand_df, rng=None):
+    """
+    Generate a random baseline using fix_vec as template:
+    - preserve all fields from fix_vec except x0, y0, duration
+    - replace x0, y0, duration with values from gen_random_fixations(len(fix_vec))
+    """
+
+    rand_df.rename(columns={'start_x': 'x0', 'start_y': 'y0'}, inplace=True)
+    screensize = (1920, 1080)  # default screen size
+    # empty input -> return same-type empty
+    if fix_df is None:
+        return fix_df
+    n = len(fix_df)
+    if n == 0:
+        return fix_df.copy()
+
+    out = fix_df.copy()
+
+    margin_x = 0.05 * screensize[0]
+    margin_y = 0.05 * screensize[1] 
+
+    # replace fields if present in both template and generated vector
+    for fld in ("x0", "y0", "duration"):
+        if fld in out.columns and fld in rand_df.columns:
+            out[fld] = rand_df[fld]
+        elif fld in out.columns:
+            print(f"Warning: field '{fld}' not in generated random vector; using fallback values.")
+            # fallback sensible defaults if gen_random_fixations didn't provide the field
+            if fld == "x0":
+                out["x0"] = np.random.uniform(margin_x, screensize[0] - margin_x, size=n)
+            elif fld == "y0":
+                out["y0"] = np.random.uniform(margin_y, screensize[1] - margin_y, size=n)
+            else:  # duration
+                out["duration"] = np.random.uniform(800, 1500, size=n) / 1000.0
+
+    return out

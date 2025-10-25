@@ -7,27 +7,48 @@ from .path import setup_paths
 paths = setup_paths()
 output_dir = paths["output_path"]
 
+def build_vector(exp, eye_events):
+    # Filter eye events for the specified experiment and trial
+    exp_id, trial_id = exp
+    filtered_events = eye_events.loc[
+        (eye_events['experiment_id'] == exp_id) &
+        (eye_events['trial_id'] == trial_id) &
+        (eye_events['eye_event_type'] == 'fixation')
+    ]
+
+    df = filtered_events[['x0', 'y0', 'duration']].copy()
+
+    df['duration'] = df['duration'] / 1000.0
+    df = df.astype({'x0': 'float64', 'y0': 'float64', 'duration': 'float64'})
+    return df.reset_index(drop=True)
+
 def gen_random_fixations(n, screensize=(1920, 1080), seed=None):
     """
-    Generate n random fixations as a baseline scanpath.
-    Each fixation has start_x, start_y (pixels) and duration (seconds).
+    Generate n random fixations as a baseline scanpath and return a pandas.DataFrame.
+    Columns: x0, y0 (pixels), duration (seconds).
     """
-    dtype = [('start_x', 'f8'), ('start_y', 'f8'), ('duration', 'f8')]
+    cols = ['x0', 'y0', 'duration']
     if n <= 0:
-        return np.zeros(0, dtype=dtype)
-    
+        return pd.DataFrame({c: pd.Series(dtype='float64') for c in cols})
+
     if seed is not None:
         np.random.seed(seed)
-    
-    arr = np.zeros(n, dtype=dtype)
+
+    arr = pd.DataFrame({c: pd.Series(dtype='float64') for c in cols})
     margin_x = 0.05 * screensize[0]
     margin_y = 0.05 * screensize[1]
     
-    arr['start_x'] = np.random.uniform(margin_x, screensize[0] - margin_x, size=n)
-    arr['start_y'] = np.random.uniform(margin_y, screensize[1] - margin_y, size=n)
-    arr['duration'] = np.random.uniform(800, 1500, size=n) / 1000.0  # in seconds
+    start_x = np.random.uniform(margin_x, screensize[0] - margin_x, size=n)
+    start_y = np.random.uniform(margin_y, screensize[1] - margin_y, size=n)
+    duration = np.random.uniform(800, 1500, size=n) / 1000.0  # in seconds
     
-    return arr
+    df = pd.DataFrame({
+        'x0': start_x,
+        'y0': start_y,
+        'duration': duration
+    }).astype({'x0': 'float64', 'y0': 'float64', 'duration': 'float64'})
+
+    return df
 
 def visualize_multimatch_scores(all_scores, title="Multimatch Scores"):
     """
@@ -185,6 +206,7 @@ def parse_corrected_emip_data(info = False):
 
     # Add columns required for build_vector function
     emip_df['eye_event_type'] = 'fixation'
+    emip_df['eye_tracker'] = 'SMIRed250'
 
     # Change column names to match with build_vector function
     emip_df.rename(columns={'x_cord': 'x0', 'y_cord': 'y0'}, inplace=True)
@@ -206,19 +228,4 @@ def parse_corrected_emip_data(info = False):
         print("sorted_ids:", sorted_ids)
 
     return emip_df
-
-def build_vector(exp, eye_events):
-    # Filter eye events for the specified experiment and trial
-    exp_id, trial_id = exp
-    filtered_events = eye_events.loc[
-        (eye_events['experiment_id'] == exp_id) &
-        (eye_events['trial_id'] == trial_id) &
-        (eye_events['eye_event_type'] == 'fixation')
-    ]
-
-    df = filtered_events[['x0', 'y0', 'duration']]
-    df = df.rename(columns={'x0': 'start_x', 'y0': 'start_y'})
-    df['duration'] = df['duration'] / 1000.0
-
-    df = df.astype({'start_x': 'float64', 'start_y': 'float64', 'duration': 'float64'})
-    return df.to_records(index=False)
+    
