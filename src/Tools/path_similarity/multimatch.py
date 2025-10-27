@@ -1,6 +1,4 @@
 import multimatch_gaze as m
-import numpy as np
-import sys, os
 import pandas as pd
 from ..auxiliary import gen_random_fixations, build_vector, parse_corrected_emip_data
 
@@ -15,6 +13,8 @@ def multimatch(
     :param exp_a: Tuple of (experiment_id, trial_id) for first scanpath
     :param exp_b: Tuple of (experiment_id, trial_id) for second scanpath
     :param eye_events: Parsed data frame for eye event
+    :param data_set: Specify which data that is used: "corrected" or "original"
+
     :return: path similarity score
     '''
 
@@ -68,6 +68,7 @@ def make_dict(score):
             score_dict[name] = val
     return score_dict
 
+# Because multimatch_gaze use different column names, we need to change them
 def change_name(df):
     return df.rename(columns={'x0': 'start_x', 'y0': 'start_y'})
 

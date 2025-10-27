@@ -2,8 +2,8 @@ import sys, os
 import pandas as pd
 import numpy as np
 import json
-from math import pi, sin, cos, acos
-from tools.auxiliary import build_vector, parse_corrected_emip_data, gen_random_fixations
+from math import pi
+from ..auxiliary import build_vector, parse_corrected_emip_data, gen_random_fixations
 
 def scasim(
     exp_a: tuple,
@@ -18,6 +18,8 @@ def scasim(
     :param exp_b: Tuple of (experiment_id, trial_id) for second scanpath
     :param eye_events: Parsed data frame for eye event
     :param normalize: If we normalize the result at the end. Three option: 'durations', 'fixations' or 'None'
+    :param data_set: Specify which data that is used: "corrected" or "original"
+    
     :return: path similarity score
     '''
 

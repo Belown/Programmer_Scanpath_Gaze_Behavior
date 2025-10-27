@@ -4,6 +4,7 @@ from .auxiliary import visualize_multimatch_scores
 from .auxiliary import visualize_all_scores
 from .auxiliary import parse_corrected_emip_data
 from .auxiliary import build_vector
+from .metadata import metadata_query
 
 
 

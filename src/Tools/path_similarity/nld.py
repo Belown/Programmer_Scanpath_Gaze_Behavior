@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
 from emtk import aoi
-from ..auxiliary import parse_corrected_emip_data, gen_random_fixations
+from ..auxiliary import gen_random_fixations
 
 def nld(
     exp_a: tuple,
@@ -14,20 +14,25 @@ def nld(
 
     :param exp_a: Tuple of (experiment_id, trial_id) for first scanpath
     :param exp_b: Tuple of (experiment_id, trial_id) for second scanpath
-    :param eye_events: Parsed data frame for eye event
-    :param data_set: Specify which data set to use: "corrected" or "original"
+    :param eye_events: Parsed data frame for eye event (Can be either corrected EMIP or original EMIP)
+    :param data_set: Specify which data that is used: "corrected" or "original"
+    
     :return: distance, nld
     '''
     if data_set == "corrected":
-        fix_vec1 = eye_events.loc[(eye_events['experiment_id'] == exp_a[0]) & (eye_events['trial_id'] == exp_a[1])]
-        fix_vec2 = eye_events.loc[(eye_events['experiment_id'] == exp_b[0]) & (eye_events['trial_id'] == exp_b[1])]
+        # Because corrected data alread have AOI information, we can directly use get_trial_data
+        fix_vec1 = get_trial_data(eye_events, exp_a)
+        fix_vec2 = get_trial_data(eye_events, exp_b)
 
+        # Select only necessary columns
         fix_vec1 = fix_vec1[['timestamp', 'duration', 'x0', 'y0', 'aoi_name', 'aoi_x', 'aoi_y']]
         fix_vec2 = fix_vec2[['timestamp', 'duration', 'x0', 'y0', 'aoi_name', 'aoi_x', 'aoi_y']]
 
+        # Generate random baseline vectors
         random_vec1 = gen_random_fixations(len(fix_vec1))
         random_vec2 = gen_random_fixations(len(fix_vec2))
 
+        # Use the helper function to generate random baseline data frames (which only change x0, y0, duration)
         final_v1 = random_helper(exp_a, eye_events, random_vec1)
         final_v2 = random_helper(exp_b, eye_events, random_vec2)
 
@@ -59,12 +64,12 @@ def nld(
     }
 
 def random_helper(exp, eye_events, random_vec):
-    trial_data = get_trial_data(eye_events, exp[0], exp[1])
+    trial_data = get_trial_data(eye_events, exp)
     random_trial_data = gen_random_baseline_from_template(trial_data, random_vec)
     if 'participant_id' not in random_trial_data.columns:
         random_trial_data['participant_id'] = exp[0]
     if 'filename' not in random_trial_data.columns:
-        random_trial_data['filename'] = f"{exp[0]}_rawdata.tsv"  # 生成默认文件名
+        random_trial_data['filename'] = f"{exp[0]}_rawdata.tsv"
     aoi_data = aoi.find_aoi(random_trial_data)
     result = aoi.hit_test(random_trial_data, aoi_data, radius = 25)
     result = result[['timestamp', 'duration', 'x0', 'y0', 'aoi_name', 'aoi_x', 'aoi_y']]
@@ -135,16 +140,13 @@ def build_vector_nld(exp, eye_events):
 
 def get_fixation_aoi(exp, eye_events):
     exp_id, trial_id = exp
-    trial_data = get_trial_data(eye_events, exp_id, trial_id)
+    trial_data = get_trial_data(eye_events, exp)
     trial_data_fixation = trial_data.loc[trial_data['eye_event_type'] == 'fixation']
-    aoi_data = get_aoi(eye_events, exp_id, trial_id)
+    aoi_data = aoi.find_aoi(trial_data)
     return aoi.hit_test(trial_data_fixation, aoi_data, radius = 25)
 
-def get_aoi(eye_events, exp_id, trial_id):
-    trial_data = get_trial_data(eye_events, exp_id, trial_id)
-    return aoi.find_aoi(trial_data)
-
-def get_trial_data(eye_events, exp_id, trial_id):
+def get_trial_data(eye_events, exp):
+    exp_id, trial_id = exp
     return eye_events.loc[(eye_events['experiment_id'] == exp_id) & 
                             (eye_events['trial_id'] == trial_id)]
 

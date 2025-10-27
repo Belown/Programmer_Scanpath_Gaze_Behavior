@@ -3,6 +3,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from typing import Optional
 from ..path import setup_paths
+from ..metadata import metadata_query
 from emtk import parsers, visualization, util, aoi
 
 # set up paths
@@ -18,6 +19,7 @@ def emip_gen(
     samples: pd.DataFrame,
     query: bool = False,
     image_type: Optional[str] = None, # "heatmap", "fixation_duration", "fixation_timeline", "all"
+    compare_exp: Optional[tuple] = None,
 ):
     
     '''
@@ -33,28 +35,13 @@ def emip_gen(
     if samples is None or not isinstance(samples, pd.DataFrame) or samples.empty:
         raise ValueError("samples is required and must be a non-empty pandas.DataFrame")
     
+    if compare_exp is not None:
+        compare_experiments_heatmap(exp, compare_exp, eye_events, output_dir)
+        return
+
     experiment_id, trial_id = exp
 
-    if query:
-        # read metadata from EMIP dataset
-        metadata = pd.read_csv(metadata_file)
-
-        try:
-            with open(query_path, 'r') as f:
-                input_dict = json.load(f)
-        except FileNotFoundError:
-            print(f"Query file {query_path} not found. Using default query parameters.")
-            raise SystemExit("Query file not found")
-
-        # add masks to filter experiment ids
-        condition = pd.Series([True] * len(metadata))
-        for key, value in input_dict.items():
-            if value:
-                condition &= (metadata[key] == value)
-        result = metadata[condition]
-        experiment_ids = result["id"].tolist()
-    else:
-        experiment_ids = [experiment_id]
+    experiment_ids = metadata_query() if query else [experiment_id]
     
     # iterate through all experiment ids and generate graphs
     for experiment_id in experiment_ids:
@@ -124,5 +111,108 @@ def fixation_duration_graph(trial_data, output_path):
 def time_line_graph(trial_data, output_path):
     visualization.fixation_timeline(trial_data)
     plt.savefig(output_path, dpi=300, bbox_inches='tight')
+    plt.close()
+
+def overlapped_heatmap(tuple1, tuple2, output_path, alpha=0.6, colors=['red', 'blue']):
+    """
+    Generate an overlapped heatmap for comparing two experiments
+    
+    :param trial_data1: Trial data for first experiment
+    :param trial_data2: Trial data for second experiment  
+    :param output_path: Path to save the overlapped heatmap
+    :param alpha: Transparency level for overlapping (0-1)
+    :param colors: List of colors for each heatmap ['color1', 'color2']
+    """
+    import matplotlib.pyplot as plt
+    import seaborn as sns
+    from matplotlib.patches import Patch
+    from emtk.util import _get_meta_data, _get_stimuli
+
+    trial_data1, exp1 = tuple1
+    trial_data2, exp2 = tuple2
+    
+    # Get metadata and stimuli (assuming both experiments use same stimuli)
+    eye_tracker, stimuli_module, stimuli_name = _get_meta_data(
+        trial_data1, "eye_tracker", "stimuli_module", "stimuli_name"
+    )
+    stimuli = _get_stimuli(stimuli_module, stimuli_name, eye_tracker)
+    
+    # Extract fixations from both datasets
+    fixations1 = trial_data1.loc[trial_data1["eye_event_type"] == "fixation"]
+    fixations2 = trial_data2.loc[trial_data2["eye_event_type"] == "fixation"]
+    
+    # Create figure and axis
+    fig, ax = plt.subplots(figsize=(15, 10))
+    
+    # Display background stimuli
+    ax.imshow(stimuli)
+    
+    # Track if we have any plots for legend
+    legend_elements = []
+    
+    # Draw first heatmap
+    if not fixations1.empty:
+        x_cords1 = fixations1["x0"]
+        y_cords1 = fixations1["y0"]
+        sns.kdeplot(ax=ax, x=x_cords1, y=y_cords1,
+                    color=colors[0], fill=True,
+                    thresh=0.5, alpha=alpha)
+        legend_elements.append(Patch(facecolor=colors[0], alpha=alpha, 
+                                   label=f"Exp {exp1[0]}, Trial {exp1[1]}"))
+    
+    # Draw second heatmap
+    if not fixations2.empty:
+        x_cords2 = fixations2["x0"]
+        y_cords2 = fixations2["y0"]
+        sns.kdeplot(ax=ax, x=x_cords2, y=y_cords2,
+                    color=colors[1], fill=True,
+                    thresh=0.5, alpha=alpha)
+        legend_elements.append(Patch(facecolor=colors[1], alpha=alpha, 
+                                   label=f"Exp {exp2[0]}, Trial {exp2[1]}"))
+    
+    # Add legend only if we have elements
+    if legend_elements:
+        ax.legend(handles=legend_elements)
+    
+    ax.set_title('Overlapped Heatmap Comparison')
+    
+    # Save and close
+    plt.savefig(output_path, dpi=300, bbox_inches='tight')
+    plt.show()
+
+def compare_experiments_heatmap(exp1, exp2, eye_events, output_dir):
+    """
+    Compare two experiments using overlapped heatmap
+    
+    :param exp1: Tuple of (experiment_id, trial_id) for first experiment
+    :param exp2: Tuple of (experiment_id, trial_id) for second experiment
+    :param eye_events: Eye events DataFrame
+    :param samples: Samples DataFrame
+    :param output_dir: Directory to save the comparison image
+    """
+    experiment_id1, trial_id1 = exp1
+    experiment_id2, trial_id2 = exp2
+    
+    # Get trial data for both experiments
+    trial_data1 = eye_events.loc[
+        (eye_events['experiment_id'] == str(experiment_id1)) &
+        (eye_events['trial_id'] == trial_id1)
+    ]
+    
+    trial_data2 = eye_events.loc[
+        (eye_events['experiment_id'] == str(experiment_id2)) &
+        (eye_events['trial_id'] == trial_id2)
+    ]
+    
+    if trial_data1.empty or trial_data2.empty:
+        print("One or both experiments have no data")
+        return
+    
+    # Generate overlapped heatmap
+    filename = f"comparison_exp{experiment_id1}_trial{trial_id1}_vs_exp{experiment_id2}_trial{trial_id2}_heatmap.png"
+    output_path = os.path.join(output_dir, filename)
+
+    overlapped_heatmap((trial_data1,exp1), (trial_data2,exp2), output_path, alpha=0.6, colors=['red', 'blue'])
+    print(f"Overlapped heatmap saved to: {output_path}")
     plt.close()
 
