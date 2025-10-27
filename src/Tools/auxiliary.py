@@ -8,6 +8,14 @@ paths = setup_paths()
 output_dir = paths["output_path"]
 
 def build_vector(exp, eye_events):
+    '''
+    Build a fixation vector for the given experiment and trial from eye events DataFrame.
+
+    :param: exp: Tuple of (experiment_id, trial_id)
+    :param: eye_events: DataFrame containing eye event data
+
+    :return: DataFrame with columns ['x0', 'y0', 'duration'] for fixations
+    '''
     # Filter eye events for the specified experiment and trial
     exp_id, trial_id = exp
     filtered_events = eye_events.loc[
@@ -25,7 +33,12 @@ def build_vector(exp, eye_events):
 def gen_random_fixations(n, screensize=(1920, 1080), seed=None):
     """
     Generate n random fixations as a baseline scanpath and return a pandas.DataFrame.
-    Columns: x0, y0 (pixels), duration (seconds).
+    
+    :param: n: Number of random fixations to generate
+    :param: screensize: Tuple specifying the screen size (width, height)
+    :param: seed: Optional seed for random number generator for reproducibility
+
+    :return: pandas.DataFrame with columns ['x0', 'y0', 'duration']
     """
     cols = ['x0', 'y0', 'duration']
     if n <= 0:
@@ -54,9 +67,10 @@ def visualize_multimatch_scores(all_scores, title="Multimatch Scores"):
     """
     Create a bar chart to visualize multimatch scores with adaptive y-axis
     
-    Args:
-        score: Dictionary with multimatch scores
-        title: Title for the plot
+    :param: all_scores: Dictionary containing original_score, base_line_score, and final_score metrics
+    :param: title: Title of the plot
+
+    :return: Matplotlib figure and axis objects
     """
     # Get the score metrics and values
     categories = list(all_scores["original_score"].keys())
@@ -115,8 +129,9 @@ def visualize_all_scores(all_scores):
     Create a grouped bar chart comparing original, baseline, and final scores
     with adaptive y-axis
     
-    Args:
-        all_scores: Dictionary containing original_score, base_line_score, and final_score
+    :param: all_scores: Dictionary containing original_score, base_line_score, and final_score metrics
+
+    :return: Matplotlib figure and axis objects
     """
     # Get categories (metric names)
     categories = list(all_scores["original_score"].keys())
@@ -192,7 +207,8 @@ def parse_corrected_emip_data(info = False):
     """
     Parse the corrected EMIP dataset from the given path.
 
-    :param path: Path to the corrected EMIP dataset CSV file
+    :param: path: Path to the corrected EMIP dataset CSV file
+
     :return: Parsed pandas DataFrame
     """
     paths = setup_paths()

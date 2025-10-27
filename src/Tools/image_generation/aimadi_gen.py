@@ -17,10 +17,12 @@ def aimadi_gen(
     
     '''
     Generate eye-tracking visualization images from AIMadi dataset.
-    :param experiment_id: Experiment ID to generate
-    :param trial_id: Trial ID to generate (default: '1')
-    :param sample_size: Sample size for parsing (default: 8)
-    :param eye_events: Pre-parsed eye events DataFrame (optional)
+
+    :param: experiment_id: Experiment ID to generate
+    :param: trial_id: Trial ID to generate (default: '1')
+    :param: eye_events: Pre-parsed eye events DataFrame (optional)
+
+    :return: None
     '''
 
     trial_data = eye_events.loc[(eye_events['experiment_id'] == experiment_id) & (eye_events['trial_id'] == trial_id)]

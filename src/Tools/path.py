@@ -1,6 +1,11 @@
 import os, sys
 
 def setup_paths():
+    '''
+    Set up and manage file paths for the project.
+
+    :return: Dictionary containing various important paths
+    '''
     tools_path = os.path.dirname(os.path.abspath(__file__))
     src_path = os.path.dirname(tools_path)
     home_path = os.path.dirname(src_path)

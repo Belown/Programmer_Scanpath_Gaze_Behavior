@@ -7,7 +7,12 @@ metadata_file = paths["metadata_file"]
 query_path = paths["query_path"]
 
 def metadata_query():
-     # read metadata from EMIP dataset
+    '''
+    Query metadata file based on input JSON file (in the folder called 'query') and return list of experiment ids.
+
+    :return: List of experiment ids matching the query
+    '''
+    # read metadata from EMIP dataset
     metadata = pd.read_csv(metadata_file)
 
     try:

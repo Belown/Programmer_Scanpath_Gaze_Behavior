@@ -12,11 +12,11 @@ def nld(
     '''
     Compute Normalized Levenshtein Distance (NLD) between two scanpaths based on AOI sequence
 
-    :param exp_a: Tuple of (experiment_id, trial_id) for first scanpath
-    :param exp_b: Tuple of (experiment_id, trial_id) for second scanpath
-    :param eye_events: Parsed data frame for eye event (Can be either corrected EMIP or original EMIP)
-    :param data_set: Specify which data that is used: "corrected" or "original"
-    
+    :param: exp_a: Tuple of (experiment_id, trial_id) for first scanpath
+    :param: exp_b: Tuple of (experiment_id, trial_id) for second scanpath
+    :param: eye_events: Parsed data frame for eye event (Can be either corrected EMIP or original EMIP)
+    :param: data_set: Specify which data that is used: "corrected" or "original"
+
     :return: distance, nld
     '''
     if data_set == "corrected":
@@ -64,6 +64,15 @@ def nld(
     }
 
 def random_helper(exp, eye_events, random_vec):
+    """
+    Generate random trial data based on the given experiment and eye events.
+
+    :param: exp: Tuple of (experiment_id, trial_id) for the experiment.
+    :param: eye_events: DataFrame containing eye event data.
+    :param: random_vec: DataFrame containing random fixation data.
+
+    :return: DataFrame with random trial data including AOI information.
+    """
     trial_data = get_trial_data(eye_events, exp)
     random_trial_data = gen_random_baseline_from_template(trial_data, random_vec)
     if 'participant_id' not in random_trial_data.columns:
@@ -79,6 +88,14 @@ def nld_helper(
     df1,
     df2
 ):
+    """
+    Compute the Normalized Levenshtein Distance (NLD) between two dataframes.
+
+    :param: df1: First DataFrame containing AOI sequences.
+    :param: df2: Second DataFrame containing AOI sequences.
+
+    :return: Tuple of (distance, nld).
+    """
     # empty checks
     if df1.empty and df2.empty:
         return 0.0, 0.0
@@ -118,6 +135,14 @@ def nld_helper(
     return distance, nld
     
 def build_vector_nld(exp, eye_events):
+    """
+    Build a vector for NLD computation from eye event data.
+
+    :param: exp: Tuple of (experiment_id, trial_id) for the experiment.
+    :param: eye_events: DataFrame containing eye event data.
+
+    :return: DataFrame with fixation data and AOI information.
+    """
     temp = get_fixation_aoi(exp, eye_events)
 
     # if hit_test returned a numpy structured/recarray, convert to DataFrame
@@ -139,6 +164,14 @@ def build_vector_nld(exp, eye_events):
     return df
 
 def get_fixation_aoi(exp, eye_events):
+    """
+    Get fixation data with AOI information for a given experiment.
+
+    :param: exp: Tuple of (experiment_id, trial_id) for the experiment.
+    :param: eye_events: DataFrame containing eye event data.
+
+    :return: DataFrame with fixation data and AOI information.
+    """
     exp_id, trial_id = exp
     trial_data = get_trial_data(eye_events, exp)
     trial_data_fixation = trial_data.loc[trial_data['eye_event_type'] == 'fixation']
@@ -146,17 +179,27 @@ def get_fixation_aoi(exp, eye_events):
     return aoi.hit_test(trial_data_fixation, aoi_data, radius = 25)
 
 def get_trial_data(eye_events, exp):
+    """
+    Retrieve trial data for a specific experiment from eye events.
+
+    :param: eye_events: DataFrame containing eye event data.
+    :param: exp: Tuple of (experiment_id, trial_id) for the experiment.
+
+    :return: DataFrame with trial data.
+    """
     exp_id, trial_id = exp
     return eye_events.loc[(eye_events['experiment_id'] == exp_id) & 
                             (eye_events['trial_id'] == trial_id)]
 
-def gen_random_baseline_from_template(fix_df, rand_df, rng=None):
+def gen_random_baseline_from_template(fix_df, rand_df):
     """
-    Generate a random baseline using fix_vec as template:
-    - preserve all fields from fix_vec except x0, y0, duration
-    - replace x0, y0, duration with values from gen_random_fixations(len(fix_vec))
-    """
+    Generate a random baseline DataFrame from a template.
 
+    :param: fix_df: DataFrame containing fixation data.
+    :param: rand_df: DataFrame containing random fixation data.
+
+    :return: DataFrame with randomized fixation data.
+    """
     rand_df.rename(columns={'start_x': 'x0', 'start_y': 'y0'}, inplace=True)
     screensize = (1920, 1080)  # default screen size
     # empty input -> return same-type empty

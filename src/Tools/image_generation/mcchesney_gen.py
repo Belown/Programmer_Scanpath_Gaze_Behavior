@@ -19,10 +19,14 @@ def mcchesney_gen(
 ):
     '''
     Generate eye-tracking visualization images from McChesney dataset.
-    :param experiment_id: Experiment ID to generate (default: 'P131')
-    :param trial_id: Trial ID to generate (default: '2')
-    :param sample_size: Sample size for parsing (default: 3)
-    :param image_type: Type of image to generate. Options are "heatmap", "fixation_duration", "fixation_timeline", "all". If None, generates default graph.
+
+    :param: experiment_id: Experiment ID to generate (default: 'P131')
+    :param: trial_id: Trial ID to generate (default: '2')
+    :param: eye_events: Pre-parsed eye events DataFrame. If None, will parse the data.
+    :param: samples: Pre-parsed samples DataFrame.
+    :param: image_type: Type of image to generate. Options are "heatmap", "fixation_duration", "fixation_timeline", "all". If None, generates default graph.
+    
+    :return: None
     '''
 
     trial_data = eye_events.loc[(eye_events['experiment_id'] == experiment_id) & 
@@ -55,6 +59,16 @@ def mcchesney_gen(
         default_graph(trial_data, samples_data, output_path)
 
 def store_all_graphs(trial_data, samples_data, output_dir, base_filename):
+    """
+    Generate and save all types of graphs for the given trial data.
+
+    :param: trial_data: DataFrame containing trial data.
+    :param: samples_data: DataFrame containing sample data.
+    :param: output_dir: Directory where the graphs will be saved.
+    :param: base_filename: Base filename for the saved graphs.
+
+    :return: None
+    """
     heatmap_path = os.path.join(output_dir, f"{base_filename}_heatmap.png")
     heatmap_graph(trial_data, heatmap_path)
 
@@ -68,19 +82,52 @@ def store_all_graphs(trial_data, samples_data, output_dir, base_filename):
     default_graph(trial_data, samples_data, default_path)
 
 def default_graph(trial_data, samples_data, output_path):
+    """
+    Generate and save the default graph for the given trial and sample data.
+
+    :param: trial_data: DataFrame containing trial data.
+    :param: samples_data: DataFrame containing sample data.
+    :param: output_path: Path where the graph will be saved.
+
+    :return: None
+    """
     visualization.draw_trial(trial_data, samples_data, draw_raw_data = True, draw_fixation=True,
                         draw_aoi=True, sample_x_col="Gaze point X [DACS px]", 
                         sample_y_col="Gaze point Y [DACS px]", save_image = output_path)
 
 def heatmap_graph(trial_data, output_path):
+    """
+    Generate and save a heatmap graph for the given trial data.
+
+    :param: trial_data: DataFrame containing trial data.
+    :param: output_path: Path where the heatmap will be saved.
+
+    :return: None
+    """
     visualization.heatmap(trial_data)
     plt.savefig(output_path, dpi=300, bbox_inches='tight')
     plt.close()
 
 def fixation_duration_graph(trial_data, output_path):
+    """
+    Generate and save a fixation duration graph for the given trial data.
+
+    :param: trial_data: DataFrame containing trial data.
+    :param: output_path: Path where the graph will be saved.
+
+    :return: None
+    """
     img = visualization.fixation_duration(trial_data, unit_height = .01)
     img.save(output_path)
 
 def time_line_graph(trial_data, output_path):
+    """
+    Generate and save a timeline graph for the given trial data.
+
+    :param: trial_data: DataFrame containing trial data.
+    :param: output_path: Path where the graph will be saved.
+
+    :return: None
+    """
     visualization.fixation_timeline(trial_data)
     plt.savefig(output_path, dpi=300, bbox_inches='tight')

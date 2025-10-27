@@ -10,10 +10,11 @@ def multimatch(
 ):
     '''
     Compute scanpath similarity by using the library multimatch_gaze
-    :param exp_a: Tuple of (experiment_id, trial_id) for first scanpath
-    :param exp_b: Tuple of (experiment_id, trial_id) for second scanpath
-    :param eye_events: Parsed data frame for eye event
-    :param data_set: Specify which data that is used: "corrected" or "original"
+    
+    :param: exp_a: Tuple of (experiment_id, trial_id) for first scanpath
+    :param: exp_b: Tuple of (experiment_id, trial_id) for second scanpath
+    :param: eye_events: Parsed data frame for eye event
+    :param: data_set: Specify which data that is used: "corrected" or "original"
 
     :return: path similarity score
     '''
@@ -58,6 +59,13 @@ def multimatch(
     }
 
 def make_dict(score):
+    '''
+    Convert the multimatch score list into a dictionary for better readability.
+    
+    :param: score: List of multimatch scores.
+    
+    :return: Dictionary of multimatch scores.
+    '''
     score_names = ["Shape", "Length", "Direction", "Position", "Duration"]
     score_dict = {}
     if isinstance(score, list) and len(score) == 1 and isinstance(score[0], list):
@@ -70,6 +78,13 @@ def make_dict(score):
 
 # Because multimatch_gaze use different column names, we need to change them
 def change_name(df):
+    '''
+    Change the column names of the DataFrame to match the multimatch_gaze requirements.
+
+    :param: df: DataFrame with original column names.
+
+    :return: DataFrame with changed column names.
+    '''
     return df.rename(columns={'x0': 'start_x', 'y0': 'start_y'})
 
 
