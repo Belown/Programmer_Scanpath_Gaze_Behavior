@@ -28,18 +28,39 @@ def nld(
         fix_vec1 = fix_vec1[['timestamp', 'duration', 'x0', 'y0', 'aoi_name', 'aoi_x', 'aoi_y']]
         fix_vec2 = fix_vec2[['timestamp', 'duration', 'x0', 'y0', 'aoi_name', 'aoi_x', 'aoi_y']]
 
+        # Generate random baseline vectors
+        random_vec1 = gen_random_fixations(len(fix_vec1))
+        random_vec2 = gen_random_fixations(len(fix_vec2))
+
+        # Use the helper function to generate random baseline data frames (which only change x0, y0, duration)
+        final_v1 = random_helper(exp_a, eye_events, random_vec1)
+        final_v2 = random_helper(exp_b, eye_events, random_vec2)
+
+
     elif data_set == "original":
         fix_vec1 = build_vector_nld(exp_a, eye_events)
         fix_vec2 = build_vector_nld(exp_b, eye_events)
+        random_vec1 = gen_random_fixations(len(fix_vec1))
+        random_vec2 = gen_random_fixations(len(fix_vec2))
+
+        final_v1 = random_helper(exp_a, eye_events, random_vec1)
+        final_v2 = random_helper(exp_b, eye_events, random_vec2)
 
     else:
         raise ValueError("data_set must be either 'corrected' or 'original'")
 
     original_distance, original_nld = nld_helper(fix_vec1, fix_vec2)
+    base_line_distance, base_line_nld = nld_helper(final_v1, final_v2)
+    final_distance = original_distance - base_line_distance
+    final_nld = original_nld - base_line_nld
 
     return {
         "original_distance": original_distance,
         "original_nld": original_nld,
+        "base_line_distance": base_line_distance,
+        "base_line_nld": base_line_nld,
+        "final_distance": final_distance,
+        "final_nld": final_nld
     }
 
 def random_helper(exp, eye_events, random_vec):

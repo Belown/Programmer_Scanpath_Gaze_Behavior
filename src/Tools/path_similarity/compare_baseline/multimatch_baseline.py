@@ -32,6 +32,10 @@ def multimatch(
     else:
         raise ValueError("data_set must be either 'corrected' or 'original'")
 
+    random_vec1 = change_name(gen_random_fixations(len(fix_vec1)))
+
+    random_vec2 = change_name(gen_random_fixations(len(fix_vec2)))
+
     if fix_vec1.size == 0 or fix_vec2.size == 0:
         print("No matching data")
         raise SystemExit("No matching data")
@@ -39,9 +43,19 @@ def multimatch(
     score = m.docomparison(fix_vec1, fix_vec2, screensize=[1920, 1080])
 
     original_score_dict = make_dict(score)
+    
+    base_line_score = m.docomparison(random_vec1, random_vec2, screensize=[1920, 1080])
+
+    base_line_score_dict = make_dict(base_line_score)
+    
+    final_score_dict = {}
+    for name in original_score_dict.keys():
+        final_score_dict[name] = original_score_dict[name] - base_line_score_dict[name]
 
     return {
         "original_score": original_score_dict,
+        "base_line_score": base_line_score_dict,
+        "final_score": final_score_dict
     }
 
 def make_dict(score):

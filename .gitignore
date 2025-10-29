@@ -12,3 +12,5 @@ __pycache__/
 # 忽略输出目录
 output/
 thesis.egg-info/
+
+/src/Tools/note.txt

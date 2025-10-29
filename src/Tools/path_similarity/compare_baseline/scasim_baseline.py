@@ -34,11 +34,17 @@ def scasim(
     else:
         raise ValueError("data_set must be either 'corrected' or 'original'")
     
+    random_vec1 = gen_random_fixations(len(fix_vec1))
+    random_vec2 = gen_random_fixations(len(fix_vec2))
 
     original_score = scasim_helper(fix_vec1, fix_vec2, normalize)
+    base_line_score = scasim_helper(random_vec1, random_vec2, normalize)
+    final_score = original_score - base_line_score
 
     return {
         "original_score": original_score,
+        "base_line_score": base_line_score,
+        "final_score": final_score
     }
 
     
