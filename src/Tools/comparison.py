@@ -59,7 +59,7 @@ def within_group_comparison(base_path, eye_events, data_set="corrected", output_
     :return: Dictionary containing comparison results for each group.
     """
     results = {}
-    trial_id = '2'
+    trial_id = '5'
 
     # Ensure the output directory exists
     os.makedirs(output_dir, exist_ok=True)
@@ -76,7 +76,7 @@ def within_group_comparison(base_path, eye_events, data_set="corrected", output_
         group_data = pd.read_csv(group_path)
         group_ids = group_data["experiment_id"].tolist()
 
-        print(f"Processing group: {group_file} with {len(group_ids)} IDs")
+        print(f"Processing group: {group_file} with {len(group_ids)} IDs with trial_id {trial_id}")
 
         # Perform pairwise comparison within the group using ThreadPoolExecutor
         group_results = []
