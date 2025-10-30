@@ -35,9 +35,9 @@ def parse_corrected_emip_data(info = False):
     # Create 'aoi_name' column for nld
     emip_df['aoi_name'] = 'line ' + emip_df['line'].astype(str) + ' ' + 'part ' + emip_df['part'].astype(str)
 
-    print(f"Processing data for {len(emip_df['experiment_id'].unique())} participants...")
 
     if info:
+        print(f"Processing data for {len(emip_df['experiment_id'].unique())} participants...")
         print("Available corrected EMIP data for experiments:")
         unique_ids = emip_df['experiment_id'].dropna().unique()
         sorted_ids = sorted(unique_ids, key=lambda x: int(x) if x.isdigit() else x)

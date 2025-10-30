@@ -33,7 +33,7 @@ def multimatch(
         raise ValueError("data_set must be either 'corrected' or 'original'")
 
     if fix_vec1.size == 0 or fix_vec2.size == 0:
-        print("No matching data")
+        print(f"No matching data for {exp_a} and {exp_b}")
         raise SystemExit("No matching data")
 
     score = m.docomparison(fix_vec1, fix_vec2, screensize=[1920, 1080])
