@@ -1,6 +1,52 @@
 import os
 import pandas as pd
+from concurrent.futures import ThreadPoolExecutor
 from .path_similarity import multimatch
+
+def compare_experiment_pair(exp_a, exp_b, trial_id, eye_events, data_set):
+    """
+    Compare a pair of experiments using multimatch.
+
+    :param exp_a: Experiment ID for the first experiment.
+    :param exp_b: Experiment ID for the second experiment.
+    :param trial_id: Trial ID for both experiments.
+    :param eye_events: DataFrame containing eye event data.
+    :param data_set: Specify which data set to use ("original" or "corrected").
+    :return: Dictionary containing comparison results for the pair.
+    """
+    # Ensure exp_a and exp_b are strings
+    exp_a = str(exp_a)
+    exp_b = str(exp_b)
+
+    # Check if trial_id is valid for exp_a and exp_b
+    valid_trial_a = not eye_events[
+        (eye_events["experiment_id"] == exp_a) & (eye_events["trial_id"] == trial_id)
+    ].empty
+    valid_trial_b = not eye_events[
+        (eye_events["experiment_id"] == exp_b) & (eye_events["trial_id"] == trial_id)
+    ].empty
+
+    if not valid_trial_a or not valid_trial_b:
+        return None
+
+    try:
+        scores = multimatch(
+            exp_a=(exp_a, trial_id),
+            exp_b=(exp_b, trial_id),
+            eye_events=eye_events,
+            data_set=data_set,
+        )
+        row = {
+            "exp_a": exp_a,
+            "exp_b": exp_b,
+            "trial_id": trial_id,
+        }
+        row.update(scores.get("original_score", {}))
+        return row
+    except Exception as e:
+        print(f"Error comparing {exp_a} and {exp_b}: {e}")
+        return None
+
 
 def within_group_comparison(base_path, eye_events, data_set="corrected", output_dir="comparison_results"):
     """
@@ -32,63 +78,19 @@ def within_group_comparison(base_path, eye_events, data_set="corrected", output_
 
         print(f"Processing group: {group_file} with {len(group_ids)} IDs")
 
-        # Perform pairwise comparison within the group
+        # Perform pairwise comparison within the group using ThreadPoolExecutor
         group_results = []
-        for i, exp_a in enumerate(group_ids):
-            for j, exp_b in enumerate(group_ids):
-                if i >= j:  # Avoid duplicate comparisons and self-comparison
-                    continue
-
-                # Ensure exp_a and exp_b are strings
-                exp_a = str(exp_a)
-                exp_b = str(exp_b)
-
-                # Check if exp_a and exp_b exist in eye_events
-                if exp_a not in eye_events["experiment_id"].values:
-                    print(f"Experiment {exp_a} not found in eye_events.")
-                    continue
-                if exp_b not in eye_events["experiment_id"].values:
-                    print(f"Experiment {exp_b} not found in eye_events.")
-                    continue
-
-                # Check if trial_id is valid for exp_a and exp_b
-                valid_trial_a = not eye_events[
-                    (eye_events["experiment_id"] == exp_a) &
-                    (eye_events["trial_id"] == trial_id)
-                ].empty
-                valid_trial_b = not eye_events[
-                    (eye_events["experiment_id"] == exp_b) &
-                    (eye_events["trial_id"] == trial_id)
-                ].empty
-
-                if not valid_trial_a:
-                    print(f"Trial ID {trial_id} not valid for Experiment {exp_a}.")
-                    continue
-                if not valid_trial_b:
-                    print(f"Trial ID {trial_id} not valid for Experiment {exp_b}.")
-                    continue
-
-                # Perform multimatch comparison
-                try:
-                    print(f"Comparing {exp_a} and {exp_b}")
-                    scores = multimatch(
-                        exp_a=(exp_a, trial_id),
-                        exp_b=(exp_b, trial_id),
-                        eye_events=eye_events,
-                        data_set=data_set
-                    )
-                    # Create a dictionary for the row
-                    row = {
-                        "exp_a": exp_a,
-                        "exp_b": exp_b,
-                        "trial_id": trial_id
-                    }
-                    # Add scores to the row
-                    row.update(scores.get("original_score", {}))
-                    group_results.append(row)
-                    print(f"Finished comparing {exp_a} and {exp_b}")
-                except Exception as e:
-                    print(f"Error comparing {exp_a} and {exp_b}: {e}")
+        with ThreadPoolExecutor() as executor:
+            futures = [
+                executor.submit(compare_experiment_pair, exp_a, exp_b, trial_id, eye_events, data_set)
+                for i, exp_a in enumerate(group_ids)
+                for j, exp_b in enumerate(group_ids)
+                if i < j  # Avoid duplicate comparisons and self-comparison
+            ]
+            for future in futures:
+                result = future.result()
+                if result:
+                    group_results.append(result)
 
         # Store results for the group
         results[group_file] = group_results
