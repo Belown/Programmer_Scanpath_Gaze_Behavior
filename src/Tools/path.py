@@ -12,6 +12,7 @@ def setup_paths():
     lib_path = os.path.join(home_path, "src", "EMIP-Toolkit")
     metadata_file = os.path.join(lib_path, "emtk", "datasets", "EMIP", "EMIP-Toolkit- replication package", "emip_dataset", "emip_metadata.csv")
     query_path = os.path.join(home_path, "query", "emip_query.json")
+    query_output_path = os.path.join(home_path, "query", "output")
 
     corrected_dataset = os.path.join(lib_path, "emtk", "datasets", "Corrected EMIP Dataset", "finalset_line_part.csv")
 
@@ -26,5 +27,6 @@ def setup_paths():
         "metadata_file": metadata_file,
         "corrected_dataset": corrected_dataset,
         "query_path": query_path,
+        "query_output_path": query_output_path,
         "output_path": output_path
     }
