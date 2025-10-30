@@ -1,7 +1,6 @@
 import pandas as pd
 import numpy as np
 from emtk import aoi
-from ..auxiliary import gen_random_fixations
 
 def nld(
     exp_a: tuple,
@@ -41,27 +40,6 @@ def nld(
         "original_distance": original_distance,
         "original_nld": original_nld,
     }
-
-def random_helper(exp, eye_events, random_vec):
-    """
-    Generate random trial data based on the given experiment and eye events.
-
-    :param: exp: Tuple of (experiment_id, trial_id) for the experiment.
-    :param: eye_events: DataFrame containing eye event data.
-    :param: random_vec: DataFrame containing random fixation data.
-
-    :return: DataFrame with random trial data including AOI information.
-    """
-    trial_data = get_trial_data(eye_events, exp)
-    random_trial_data = gen_random_baseline_from_template(trial_data, random_vec)
-    if 'participant_id' not in random_trial_data.columns:
-        random_trial_data['participant_id'] = exp[0]
-    if 'filename' not in random_trial_data.columns:
-        random_trial_data['filename'] = f"{exp[0]}_rawdata.tsv"
-    aoi_data = aoi.find_aoi(random_trial_data)
-    result = aoi.hit_test(random_trial_data, aoi_data, radius = 25)
-    result = result[['timestamp', 'duration', 'x0', 'y0', 'aoi_name', 'aoi_x', 'aoi_y']]
-    return result
 
 def nld_helper(
     df1,
@@ -169,43 +147,3 @@ def get_trial_data(eye_events, exp):
     exp_id, trial_id = exp
     return eye_events.loc[(eye_events['experiment_id'] == exp_id) & 
                             (eye_events['trial_id'] == trial_id)]
-
-def gen_random_baseline_from_template(fix_df, rand_df):
-    """
-    Generate a random baseline DataFrame from a template.
-
-    :param: fix_df: DataFrame containing fixation data.
-    :param: rand_df: DataFrame containing random fixation data.
-
-    :return: DataFrame with randomized fixation data.
-    """
-    rand_df.rename(columns={'start_x': 'x0', 'start_y': 'y0'}, inplace=True)
-    screensize = (1920, 1080)  # default screen size
-    # empty input -> return same-type empty
-    if fix_df is None:
-        return fix_df
-    n = len(fix_df)
-    if n == 0:
-        return fix_df.copy()
-
-    out = fix_df.copy().reset_index(drop=True)
-    rand_df = rand_df.reset_index(drop=True)
-
-    margin_x = 0.05 * screensize[0]
-    margin_y = 0.05 * screensize[1] 
-
-    # replace fields if present in both template and generated vector
-    for fld in ("x0", "y0", "duration"):
-        if fld in out.columns and fld in rand_df.columns:
-            out[fld] = rand_df[fld]
-        elif fld in out.columns:
-            print(f"Warning: field '{fld}' not in generated random vector; using fallback values.")
-            # fallback sensible defaults if gen_random_fixations didn't provide the field
-            if fld == "x0":
-                out["x0"] = np.random.uniform(margin_x, screensize[0] - margin_x, size=n)
-            elif fld == "y0":
-                out["y0"] = np.random.uniform(margin_y, screensize[1] - margin_y, size=n)
-            else:  # duration
-                out["duration"] = np.random.uniform(800, 1500, size=n) / 1000.0
-
-    return out

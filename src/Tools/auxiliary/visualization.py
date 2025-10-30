@@ -1,67 +1,10 @@
-import numpy as np
-import pandas as pd
 import matplotlib.pyplot as plt
+import numpy as np
 import os
-from .path import setup_paths
+from ..path import setup_paths
 
 paths = setup_paths()
 output_dir = paths["output_path"]
-
-def build_vector(exp, eye_events):
-    '''
-    Build a fixation vector for the given experiment and trial from eye events DataFrame.
-
-    :param: exp: Tuple of (experiment_id, trial_id)
-    :param: eye_events: DataFrame containing eye event data
-
-    :return: DataFrame with columns ['x0', 'y0', 'duration'] for fixations
-    '''
-    # Filter eye events for the specified experiment and trial
-    exp_id, trial_id = exp
-    filtered_events = eye_events.loc[
-        (eye_events['experiment_id'] == exp_id) &
-        (eye_events['trial_id'] == trial_id) &
-        (eye_events['eye_event_type'] == 'fixation')
-    ]
-
-    df = filtered_events[['x0', 'y0', 'duration']].copy()
-
-    df['duration'] = df['duration'] / 1000.0
-    df = df.astype({'x0': 'float64', 'y0': 'float64', 'duration': 'float64'})
-    return df.reset_index(drop=True)
-
-def gen_random_fixations(n, screensize=(1920, 1080), seed=None):
-    """
-    Generate n random fixations as a baseline scanpath and return a pandas.DataFrame.
-    
-    :param: n: Number of random fixations to generate
-    :param: screensize: Tuple specifying the screen size (width, height)
-    :param: seed: Optional seed for random number generator for reproducibility
-
-    :return: pandas.DataFrame with columns ['x0', 'y0', 'duration']
-    """
-    cols = ['x0', 'y0', 'duration']
-    if n <= 0:
-        return pd.DataFrame({c: pd.Series(dtype='float64') for c in cols})
-
-    if seed is not None:
-        np.random.seed(seed)
-
-    arr = pd.DataFrame({c: pd.Series(dtype='float64') for c in cols})
-    margin_x = 0.05 * screensize[0]
-    margin_y = 0.05 * screensize[1]
-    
-    start_x = np.random.uniform(margin_x, screensize[0] - margin_x, size=n)
-    start_y = np.random.uniform(margin_y, screensize[1] - margin_y, size=n)
-    duration = np.random.uniform(800, 1500, size=n) / 1000.0  # in seconds
-    
-    df = pd.DataFrame({
-        'x0': start_x,
-        'y0': start_y,
-        'duration': duration
-    }).astype({'x0': 'float64', 'y0': 'float64', 'duration': 'float64'})
-
-    return df
 
 def visualize_multimatch_scores(all_scores, title="Multimatch Scores"):
     """
@@ -202,48 +145,3 @@ def visualize_all_scores(all_scores):
     
     plt.tight_layout()
     return fig, ax
-
-def parse_corrected_emip_data(info = False):
-    """
-    Parse the corrected EMIP dataset from the given path.
-
-    :param: path: Path to the corrected EMIP dataset CSV file
-
-    :return: Parsed pandas DataFrame
-    """
-    paths = setup_paths()
-    corrected_emip_path = paths['corrected_dataset']
-
-    # Load the data
-    emip_df = pd.read_csv(corrected_emip_path)
-
-    # Drop the first unnamed column of df
-    emip_df.drop(emip_df.columns[0], axis=1, inplace=True)
-
-    # Add columns required for build_vector function
-    emip_df['eye_event_type'] = 'fixation'
-    emip_df['eye_tracker'] = 'SMIRed250'
-    emip_df['stimuli_module'] = 'emtk/datasets/EMIP/EMIP-Toolkit- replication package/emip_dataset/stimuli'
-    emip_df['stimuli_name'] = emip_df['code_file']
-
-    # Change column names to match with build_vector function
-    emip_df.rename(columns={'x_cord': 'x0', 'y_cord': 'y0'}, inplace=True)
-    emip_df.rename(columns={'participant': 'experiment_id', 'trial': 'trial_id'}, inplace=True)
-
-    # Ensure experiment_id and trial_id are strings (remove surrounding whitespace)
-    emip_df['experiment_id'] = emip_df['experiment_id'].astype(str).str.strip()
-    emip_df['trial_id'] = emip_df['trial_id'].astype(str).str.strip()
-
-    # Create 'aoi_name' column for nld
-    emip_df['aoi_name'] = 'line ' + emip_df['line'].astype(str) + ' ' + 'part ' + emip_df['part'].astype(str)
-
-    print(f"Processing data for {len(emip_df['experiment_id'].unique())} participants...")
-
-    if info:
-        print("Available corrected EMIP data for experiments:")
-        unique_ids = emip_df['experiment_id'].dropna().unique()
-        sorted_ids = sorted(unique_ids, key=lambda x: int(x) if x.isdigit() else x)
-        print("sorted_ids:", sorted_ids)
-
-    return emip_df
-    

@@ -1,6 +1,6 @@
 import multimatch_gaze as m
 import pandas as pd
-from ..auxiliary import gen_random_fixations, build_vector, parse_corrected_emip_data
+from ..auxiliary import build_vector, parse_corrected_emip_data
 
 def multimatch(
     exp_a: tuple,

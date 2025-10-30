@@ -3,7 +3,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from typing import Optional
 from ..path import setup_paths
-from ..metadata import metadata_query
+from ..auxiliary.metadata import metadata_query
 from emtk import parsers, visualization, util, aoi
 
 # set up paths
@@ -45,7 +45,7 @@ def emip_gen(
 
     experiment_id, trial_id = exp
 
-    experiment_ids = metadata_query() if query else [experiment_id]
+    experiment_ids = metadata_query(eye_events) if query else [experiment_id]
     
     # iterate through all experiment ids and generate graphs
     for experiment_id in experiment_ids:
