@@ -85,19 +85,18 @@ def within_group_comparison(base_path, eye_events, trial_id, data_set="corrected
                 executor.submit(compare_experiment_pair, exp_a, exp_b, trial_id, eye_events, data_set)
                 for i, exp_a in enumerate(group_ids)
                 for j, exp_b in enumerate(group_ids)
-                if i < j  # Avoid duplicate comparisons and self-comparison
+                if i != j  # Avoid self-comparison
             ]
             for future in futures:
                 result = future.result()
                 if result:
                     group_results.append(result)
-
         # Store results for the group
         results[group_file] = group_results
 
         # Save the results for the current group to a local file
-        os.makedirs(os.path.join(output_dir, "within_group"), exist_ok=True)
-        output_file = os.path.join(output_dir, "within_group", f"{group_file.replace('.csv', f'_trial_id_{trial_id}_results.csv')}")
+        os.makedirs(os.path.join(output_dir, "within_group", f"trial_{str(trial_id)}"), exist_ok=True)
+        output_file = os.path.join(output_dir, "within_group", f"trial_{str(trial_id)}", f"{group_file.replace('.csv', f'_results.csv')}")
         pd.DataFrame(group_results).to_csv(output_file, index=False)
         print(f"Results for group {group_file} saved to {output_file}")
 
@@ -125,7 +124,7 @@ def between_group_comparison(base_path, eye_events, trial_id, data_set="correcte
     # Perform pairwise comparison between groups
     for i, group_file_a in enumerate(group_files):
         for j, group_file_b in enumerate(group_files):
-            if i >= j:  # Avoid duplicate comparisons and self-comparison
+            if i >= j:  # Avoid self-comparison and duplicate comparisons
                 continue
 
             group_path_a = os.path.join(base_path, group_file_a)
@@ -146,6 +145,7 @@ def between_group_comparison(base_path, eye_events, trial_id, data_set="correcte
                     executor.submit(compare_experiment_pair, exp_a, exp_b, trial_id, eye_events, data_set)
                     for exp_a in group_ids_a
                     for exp_b in group_ids_b
+                    if exp_a != exp_b  # Avoid self-comparison
                 ]
                 for future in futures:
                     result = future.result()
@@ -157,8 +157,8 @@ def between_group_comparison(base_path, eye_events, trial_id, data_set="correcte
             results[group_pair_key] = group_results
 
             # Save the results for the current group pair to a local file
-            os.makedirs(os.path.join(output_dir, "between_group"), exist_ok=True)
-            output_file = os.path.join(output_dir, "between_group", f"{group_file_a}_vs_{group_file_b}_trial_id_{trial_id}_results.csv")
+            os.makedirs(os.path.join(output_dir, "between_group", f"trial_{str(trial_id)}"), exist_ok=True)
+            output_file = os.path.join(output_dir, "between_group", f"trial_{str(trial_id)}", f"{group_file_a}_vs_{group_file_b}_results.csv")
             pd.DataFrame(group_results).to_csv(output_file, index=False)
             print(f"Results for group pair {group_file_a} vs {group_file_b} saved to {output_file}")
 

@@ -49,20 +49,23 @@ def metadata_query(
     # Save the filtered experiment IDs to the query output path
     os.makedirs(query_output_path, exist_ok=True)
 
-    # Assume only one key is applied for the filter
-    if len(applied_filters_key) == 1:
-        folder_name = applied_filters_key[0]  # Use the key as the folder name
-        folder_path = os.path.join(query_output_path, folder_name)
-        os.makedirs(folder_path, exist_ok=True)
-
-        # Generate filename based on the applied value
-        filters_str = applied_filters_value[0] if applied_filters_value else "no_filters"
+    # Create hierarchical folder structure based on applied filters
+    if applied_filters_key:
+        # Start with the query output path
+        current_path = query_output_path
+        
+        # Create nested folders for each filter key
+        for filter_key in applied_filters_key:
+            current_path = os.path.join(current_path, filter_key)
+            os.makedirs(current_path, exist_ok=True)
+        
+        # Generate filename based on all applied values
+        filters_str = "_".join(str(value) for value in applied_filters_value) if applied_filters_value else "no_filters"
         filename = f"{filters_str}.csv"
-        file_path = os.path.join(folder_path, filename)
+        file_path = os.path.join(current_path, filename)
     else:
-        # Fallback if multiple keys are applied (unlikely in this case)
-        filters_str = "_".join(applied_filters_value) if applied_filters_value else "no_filters"
-        filename = f"{filters_str}.csv"
+        # No filters applied
+        filename = "no_filters.csv"
         file_path = os.path.join(query_output_path, filename)
 
     # Save the filtered experiment IDs
