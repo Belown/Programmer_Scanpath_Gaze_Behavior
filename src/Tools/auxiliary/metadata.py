@@ -14,13 +14,13 @@ def metadata_query(
     '''
     Query metadata file based on input JSON file (in the folder called 'query') and return list of experiment ids that are contained in the input data.
 
+    :param: data: Input data set containing experiment ids (either original or corrected)
+
     :return: List of experiment ids matching the query
     '''
     
     # read metadata from EMIP dataset
     metadata = pd.read_csv(metadata_file)
-
-    exp_id_dataset = data["experiment_id"].unique().tolist()
 
     try:
         with open(query_path, 'r') as f:
@@ -41,10 +41,18 @@ def metadata_query(
             applied_filters_value.append(value)  # Add filter value to the list
     result = metadata[condition]
 
-    # Ensure the result is also in the exp_id_dataset
-    experiment_ids = result["id"].tolist()
+    # IDs from data set
+    exp_id_dataset_set = set(data["experiment_id"].astype(str))
 
-    filtered_experiment_ids = [str(exp_id) for exp_id in experiment_ids if str(exp_id) in exp_id_dataset]
+    # Ensure the result is also in the exp_id_dataset
+    filtered_result = result[result["id"].astype(str).isin(exp_id_dataset_set)]
+
+    # change "id" to "experiment_id" for consistency
+    filtered_result = filtered_result.rename(columns={"id": "experiment_id"})
+
+    # only store columns that are in applied_filter_key plus "experiment_id"
+    columns_to_store = ["experiment_id"] + applied_filters_key
+    filtered_result = filtered_result[columns_to_store]
 
     # Save the filtered experiment IDs to the query output path
     os.makedirs(query_output_path, exist_ok=True)
@@ -69,7 +77,7 @@ def metadata_query(
         file_path = os.path.join(query_output_path, filename)
 
     # Save the filtered experiment IDs
-    pd.DataFrame(filtered_experiment_ids, columns=["experiment_id"]).to_csv(file_path, index=False)
+    filtered_result.to_csv(file_path, index=False)
     print(f"Filtered experiment IDs saved to {file_path}")
 
-    return filtered_experiment_ids
+    return filtered_result

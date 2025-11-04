@@ -3,7 +3,7 @@ import pandas as pd
 from concurrent.futures import ThreadPoolExecutor
 from .path_similarity import multimatch
 
-def compare_experiment_pair(exp_a, exp_b, trial_id, eye_events, data_set):
+def compare_experiment_pair(exp_a, exp_b, trial_id, eye_events, data_set, expertise):
     """
     Compare a pair of experiments using multimatch.
 
@@ -28,6 +28,8 @@ def compare_experiment_pair(exp_a, exp_b, trial_id, eye_events, data_set):
 
     if not valid_trial_a or not valid_trial_b:
         return None
+    
+    expertise_a, expertise_b = expertise
 
     try:
         scores = multimatch(
@@ -40,6 +42,8 @@ def compare_experiment_pair(exp_a, exp_b, trial_id, eye_events, data_set):
             "exp_a": exp_a,
             "exp_b": exp_b,
             "trial_id": trial_id,
+            "expertise_a": expertise_a,
+            "expertise_b": expertise_b,
         }
         row.update(scores.get("original_score", {}))
         return row
@@ -81,12 +85,19 @@ def within_group_comparison(base_path, eye_events, trial_id, data_set="corrected
         # Perform pairwise comparison within the group using ThreadPoolExecutor
         group_results = []
         with ThreadPoolExecutor() as executor:
-            futures = [
-                executor.submit(compare_experiment_pair, exp_a, exp_b, trial_id, eye_events, data_set)
-                for i, exp_a in enumerate(group_ids)
-                for j, exp_b in enumerate(group_ids)
-                if i != j  # Avoid self-comparison
-            ]
+            futures = []
+            for i, exp_a in enumerate(group_ids):
+                for j, exp_b in enumerate(group_ids):
+                    if i != j:  # Avoid self-comparison
+                        # Get expertise for both experiments
+                        expertise_a = group_data[group_data["experiment_id"] == exp_a]["expertise_experiment_language"].iloc[0]
+                        expertise_b = group_data[group_data["experiment_id"] == exp_b]["expertise_experiment_language"].iloc[0]
+                        expertise = (expertise_a, expertise_b)
+                        
+                        futures.append(
+                            executor.submit(compare_experiment_pair, exp_a, exp_b, trial_id, eye_events, data_set, expertise)
+                        )
+            
             for future in futures:
                 result = future.result()
                 if result:
@@ -141,12 +152,19 @@ def between_group_comparison(base_path, eye_events, trial_id, data_set="correcte
             # Perform pairwise comparison between the groups using ThreadPoolExecutor
             group_results = []
             with ThreadPoolExecutor() as executor:
-                futures = [
-                    executor.submit(compare_experiment_pair, exp_a, exp_b, trial_id, eye_events, data_set)
-                    for exp_a in group_ids_a
-                    for exp_b in group_ids_b
-                    if exp_a != exp_b  # Avoid self-comparison
-                ]
+                futures = []
+                for exp_a in group_ids_a:
+                    for exp_b in group_ids_b:
+                        if exp_a != exp_b:  # Avoid self-comparison
+                            # Get expertise for both experiments from their respective groups
+                            expertise_a = group_data_a[group_data_a["experiment_id"] == exp_a]["expertise_experiment_language"].iloc[0]
+                            expertise_b = group_data_b[group_data_b["experiment_id"] == exp_b]["expertise_experiment_language"].iloc[0]
+                            expertise = (expertise_a, expertise_b)
+                            
+                            futures.append(
+                                executor.submit(compare_experiment_pair, exp_a, exp_b, trial_id, eye_events, data_set, expertise)
+                            )
+                
                 for future in futures:
                     result = future.result()
                     if result:
