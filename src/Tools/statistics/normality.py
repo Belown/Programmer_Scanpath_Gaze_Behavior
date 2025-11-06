@@ -2,7 +2,7 @@ import pandas as pd
 from scipy.stats import shapiro
 import os
 
-def normality_test(data_dir, if_graph = False):
+def normality_test(data_dir, if_graph = False, trial_id = None):
 
     """
     Perform Shapiro-Wilk normality test on multiple CSV files in a directory.
@@ -15,6 +15,8 @@ def normality_test(data_dir, if_graph = False):
         
     # Define the five dimensions
     dimensions = ["Shape", "Length", "Direction", "Position", "Duration"]
+
+    data_dir = os.path.join(data_dir, f"trial_{trial_id}")
 
     # Dictionary to store normality results for each dimension
     normality_results = {dim: {"normal": 0, "not_normal": 0, "result": None} for dim in dimensions}
