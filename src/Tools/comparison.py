@@ -12,6 +12,7 @@ def compare_experiment_pair(exp_a, exp_b, trial_id, eye_events, data_set, expert
     :param: trial_id: Trial ID for both experiments.
     :param: eye_events: DataFrame containing eye event data.
     :param: data_set: Specify which data set to use ("original" or "corrected").
+
     :return: Dictionary containing comparison results for the pair.
     """
     # Ensure exp_a and exp_b are strings
@@ -61,6 +62,7 @@ def within_group_comparison(base_path, eye_events, trial_id, data_set="corrected
     :param: trial_id: The trial ID to use for the comparison.
     :param: data_set: Specify which data set to use ("original" or "corrected").
     :param: output_dir: Directory to save the comparison results.
+
     :return: Dictionary containing comparison results for each group.
     """
     results = {}
@@ -122,6 +124,7 @@ def between_group_comparison(base_path, eye_events, trial_id, data_set="correcte
     :param: data_set: Specify which data set to use ("original" or "corrected").
     :param: trial_id: The trial ID to use for the comparison.
     :param: output_dir: Directory to save the comparison results.
+    
     :return: Dictionary containing comparison results for each group pair.
     """
     results = {}
