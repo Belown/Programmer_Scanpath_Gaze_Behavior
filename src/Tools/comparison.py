@@ -179,7 +179,7 @@ def between_group_comparison(base_path, eye_events, trial_id, data_set="correcte
 
             # Save the results for the current group pair to a local file
             os.makedirs(os.path.join(output_dir, "between_group", f"trial_{str(trial_id)}"), exist_ok=True)
-            output_file = os.path.join(output_dir, "between_group", f"trial_{str(trial_id)}", f"{group_file_a}_vs_{group_file_b}_results.csv")
+            output_file = os.path.join(output_dir, "between_group", f"trial_{str(trial_id)}", f"{group_file_a.replace('.csv', '')}_{group_file_b.replace('.csv', '')}_results.csv")
             pd.DataFrame(group_results).to_csv(output_file, index=False)
             print(f"Results for group pair {group_file_a} vs {group_file_b} saved to {output_file}")
 
