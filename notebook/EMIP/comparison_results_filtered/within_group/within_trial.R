@@ -1,106 +1,56 @@
 ## =========================================
-## Linear mixed model for ONE trial (within-group)
-## Uses: Java_none/low/medium/high_results.csv
+## Linear mixed model for one combined trial file
 ## =========================================
 
-## ---- 0. Setup ----
-setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
-
 library(tidyverse)
+library(dplyr)
 library(lme4)
 library(lmerTest)
 library(broom.mixed)
 
-## =========================================
-## 1. Choose trial folder
-## =========================================
+setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 
-## ---- 1.1 Select trial ----
-## Set this to "trial_2" OR "trial_5"
-trial_folder <- "trial_5"
+# --- Parameters ---
+trial_folder <- "trial_2"
+# path to your combined CSV
+combined_path <- file.path(trial_folder, "combined_data.csv")
+responses <- c("Shape", "Length", "Direction", "Position", "Duration")
 
-## =========================================
-## 2. Load data
-## =========================================
-
-## ---- 2.1 Helper to read one expertise level ----
-read_group <- function(folder, level) {
-  file_path <- file.path(folder, paste0("Java_", level, "_results.csv"))
-  if (!file.exists(file_path)) {
-    stop("File not found: ", file_path)
-  }
-  
-  read_csv(file_path, show_col_types = FALSE) %>%
-    mutate(
-      ExpertiseGroup = factor(
-        level,
-        levels = c("none", "low", "medium", "high"),
-        ordered = TRUE
-      ),
-      exp_a = factor(exp_a),
-      exp_b = factor(exp_b)
-    )
-}
-
-## ---- 2.2 Load all groups for selected trial ----
-df <- bind_rows(
-  read_group(trial_folder, "none"),
-  read_group(trial_folder, "low"),
-  read_group(trial_folder, "medium"),
-  read_group(trial_folder, "high")
-)
+# --- Load data ---
+df <- read_csv(combined_path, show_col_types = FALSE) %>%
+  mutate(
+    # since this is for within-group comparison, they have same expertise
+    expertise_a = factor(expertise_a,
+                         levels = c("none", "low", "medium", "high"),
+                         ordered = TRUE),
+    across(c(exp_a, exp_b), as.factor)
+  )
 
 cat("Rows loaded:", nrow(df), "\n")
-print(table(df$ExpertiseGroup))
+print(table(df$expertise_a))
 
-## =========================================
-## 3. LMM: Effect of expertise on similarity
-## =========================================
-## Model: SimilarityDimension ~ ExpertiseGroup
-## Random: crossed random intercepts for exp_a and exp_b
-
-## ---- 3.1 Helper: pretty-print fixed effects with significance stars ----
+# --- Helper: print fixed effects neatly ---
 print_model_with_sig <- function(mod, response_name) {
   cat("\n====", response_name, "====\n")
-  
   tidy(mod, effects = "fixed") %>%
     mutate(
-      signif = case_when(
+      stars = case_when(
         p.value < 0.001 ~ "***",
         p.value < 0.01  ~ "**",
         p.value < 0.05  ~ "*",
         p.value < 0.1   ~ ".",
         TRUE            ~ ""
-      ),
-      term = if_else(
-        term == "(Intercept)",
-        "(Intercept)",
-        paste0(term, " ", signif)
       )
     ) %>%
-    select(effect, term, estimate, std.error, statistic, df, p.value, signif) %>%
+    select(term, estimate, std.error, statistic, df, p.value, stars) %>%
     print(n = Inf)
 }
 
-## ---- 3.2 Detailed output for Shape ----
-#m_shape <- lmer(
-#  Shape ~ ExpertiseGroup +
-#    (1 | exp_a) + (1 | exp_b),
-#  data = df
-#)
-#
-#summary(m_shape)
-#anova(m_shape)
-#print_model_with_sig(m_shape, "Shape")
+# --- Fit and print models for each response ---
+message("Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1")
 
-## ---- 3.3 Run same model for all dimensions ----
-print("Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1")
-
-responses <- c("Shape", "Length", "Direction", "Position", "Duration")
-
-models <- lapply(responses, function(y) {
-  form <- as.formula(paste0(y, " ~ ExpertiseGroup + (1 | exp_a) + (1 | exp_b)"))
+for (y in responses) {
+  form <- as.formula(paste0(y, " ~ expertise_a + (1 | exp_a) + (1 | exp_b)"))
   mod <- lmer(form, data = df)
   print_model_with_sig(mod, y)
-  invisible(mod)
-})
+}
