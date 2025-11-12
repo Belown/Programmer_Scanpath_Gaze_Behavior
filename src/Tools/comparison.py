@@ -45,7 +45,7 @@ def compare_experiment_pair(exp_a, exp_b, trial_id, eye_events, data_set, expert
             "expertise_a": expertise_a,
             "expertise_b": expertise_b,
         }
-        row.update(scores.get("original_score", {}))
+        row.update(scores.get("final_score", {}))
         return row
     except Exception as e:
         print(f"Error comparing {exp_a} and {exp_b}: {e}")

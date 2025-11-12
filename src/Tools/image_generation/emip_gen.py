@@ -129,7 +129,6 @@ def heatmap_graph(trial_data, output_path):
     """
     visualization.heatmap(trial_data)
     plt.savefig(output_path, dpi=300, bbox_inches='tight')
-    plt.close()
 
 def fixation_duration_graph(trial_data, output_path):
     """
@@ -154,7 +153,6 @@ def time_line_graph(trial_data, output_path):
     """
     visualization.fixation_timeline(trial_data)
     plt.savefig(output_path, dpi=300, bbox_inches='tight')
-    plt.close()
 
 def overlapped_heatmap(tuple1, tuple2, output_path, alpha=0.6, colors=['red', 'blue']):
     """
@@ -259,5 +257,4 @@ def compare_experiments_heatmap(exp1, exp2, eye_events, output_dir):
 
     overlapped_heatmap((trial_data1,exp1), (trial_data2,exp2), output_path, alpha=0.6, colors=['red', 'blue'])
     print(f"Overlapped heatmap saved to: {output_path}")
-    plt.close()
 

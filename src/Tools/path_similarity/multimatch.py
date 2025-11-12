@@ -1,6 +1,6 @@
 import multimatch_gaze as m
 import pandas as pd
-from ..auxiliary import build_vector, parse_corrected_emip_data
+from ..auxiliary import build_vector, gen_random_fixations
 
 def multimatch(
     exp_a: tuple,
@@ -18,8 +18,10 @@ def multimatch(
     '''
 
     fix_vec1 = change_name(build_vector(exp_a, eye_events))
-
     fix_vec2 = change_name(build_vector(exp_b, eye_events))
+
+    random_vec1 = change_name(gen_random_fixations(len(fix_vec1)))
+    random_vec2 = change_name(gen_random_fixations(len(fix_vec2)))
 
     if fix_vec1.size == 0 or fix_vec2.size == 0:
         print(f"No matching data for {exp_a} and {exp_b}")
@@ -29,8 +31,18 @@ def multimatch(
 
     original_score_dict = make_dict(score)
 
+    base_line_score = m.docomparison(random_vec1, random_vec2, screensize=[1920, 1080])
+
+    base_line_score_dict = make_dict(base_line_score)
+
+    final_score_dict = {}
+    for name in original_score_dict.keys():
+        final_score_dict[name] = original_score_dict[name] - base_line_score_dict[name]
+
     return {
         "original_score": original_score_dict,
+        "base_line_score": base_line_score_dict,
+        "final_score": final_score_dict
     }
 
 def make_dict(score):
