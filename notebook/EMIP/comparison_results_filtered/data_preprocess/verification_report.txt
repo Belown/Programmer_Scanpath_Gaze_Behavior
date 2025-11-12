@@ -8,73 +8,73 @@ Success rate: 100.0%
 Detailed Results:
 ------------------------------
 
-File: between_group\trial_2/Java_high.csv_vs_Java_low.csv_results.csv
+File: between_group\trial_2/Java_high_Java_low_results.csv
 Status: success
   Original rows: 473
   Processed rows: 473
   Removed duplicates: 0
 
-File: between_group\trial_2/Java_high.csv_vs_Java_medium.csv_results.csv
+File: between_group\trial_2/Java_high_Java_medium_results.csv
 Status: success
   Original rows: 726
   Processed rows: 726
   Removed duplicates: 0
 
-File: between_group\trial_2/Java_high.csv_vs_Java_none.csv_results.csv
+File: between_group\trial_2/Java_high_Java_none_results.csv
 Status: success
   Original rows: 253
   Processed rows: 253
   Removed duplicates: 0
 
-File: between_group\trial_2/Java_low.csv_vs_Java_medium.csv_results.csv
+File: between_group\trial_2/Java_low_Java_medium_results.csv
 Status: success
   Original rows: 2838
   Processed rows: 2838
   Removed duplicates: 0
 
-File: between_group\trial_2/Java_low.csv_vs_Java_none.csv_results.csv
+File: between_group\trial_2/Java_low_Java_none_results.csv
 Status: success
   Original rows: 989
   Processed rows: 989
   Removed duplicates: 0
 
-File: between_group\trial_2/Java_medium.csv_vs_Java_none.csv_results.csv
+File: between_group\trial_2/Java_medium_Java_none_results.csv
 Status: success
   Original rows: 1518
   Processed rows: 1518
   Removed duplicates: 0
 
-File: between_group\trial_5/Java_high.csv_vs_Java_low.csv_results.csv
+File: between_group\trial_5/Java_high_Java_low_results.csv
 Status: success
   Original rows: 360
   Processed rows: 360
   Removed duplicates: 0
 
-File: between_group\trial_5/Java_high.csv_vs_Java_medium.csv_results.csv
+File: between_group\trial_5/Java_high_Java_medium_results.csv
 Status: success
   Original rows: 504
   Processed rows: 504
   Removed duplicates: 0
 
-File: between_group\trial_5/Java_high.csv_vs_Java_none.csv_results.csv
+File: between_group\trial_5/Java_high_Java_none_results.csv
 Status: success
   Original rows: 153
   Processed rows: 153
   Removed duplicates: 0
 
-File: between_group\trial_5/Java_low.csv_vs_Java_medium.csv_results.csv
+File: between_group\trial_5/Java_low_Java_medium_results.csv
 Status: success
   Original rows: 2240
   Processed rows: 2240
   Removed duplicates: 0
 
-File: between_group\trial_5/Java_low.csv_vs_Java_none.csv_results.csv
+File: between_group\trial_5/Java_low_Java_none_results.csv
 Status: success
   Original rows: 680
   Processed rows: 680
   Removed duplicates: 0
 
-File: between_group\trial_5/Java_medium.csv_vs_Java_none.csv_results.csv
+File: between_group\trial_5/Java_medium_Java_none_results.csv
 Status: success
   Original rows: 952
   Processed rows: 952

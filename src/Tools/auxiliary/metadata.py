@@ -41,6 +41,9 @@ def metadata_query(
             applied_filters_value.append(value)  # Add filter value to the list
     result = metadata[condition]
 
+    specified = {k: v for k, v in input_dict.items() if v}
+    print(f"\nQuery parameters: {specified}")
+
     # IDs from data set
     exp_id_dataset_set = set(data["experiment_id"].astype(str))
 

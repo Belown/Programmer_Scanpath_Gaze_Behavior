@@ -3,7 +3,7 @@ import pandas as pd
 from concurrent.futures import ThreadPoolExecutor
 from .path_similarity import multimatch
 
-def compare_experiment_pair(exp_a, exp_b, trial_id, eye_events, data_set, expertise):
+def compare_experiment_pair(exp_a, exp_b, trial_id, eye_events, expertise):
     """
     Compare a pair of experiments using multimatch.
 
@@ -11,7 +11,7 @@ def compare_experiment_pair(exp_a, exp_b, trial_id, eye_events, data_set, expert
     :param: exp_b: Experiment ID for the second experiment.
     :param: trial_id: Trial ID for both experiments.
     :param: eye_events: DataFrame containing eye event data.
-    :param: data_set: Specify which data set to use ("original" or "corrected").
+    :param: expertise: Tuple containing expertise levels for both experiments.
 
     :return: Dictionary containing comparison results for the pair.
     """
@@ -52,14 +52,13 @@ def compare_experiment_pair(exp_a, exp_b, trial_id, eye_events, data_set, expert
         return None
 
 
-def within_group_comparison(base_path, eye_events, trial_id, data_set="corrected", output_dir="comparison_results"):
+def within_group_comparison(base_path, eye_events, trial_id, output_dir="comparison_results"):
     """
     Perform within-group comparison using multimatch for each group in the specified directory.
 
     :param: base_path: Path to the directory containing group_ids.
     :param: eye_events: DataFrame containing eye event data.
     :param: trial_id: The trial ID to use for the comparison.
-    :param: data_set: Specify which data set to use ("original" or "corrected").
     :param: output_dir: Directory to save the comparison results.
 
     :return: Dictionary containing comparison results for each group.
@@ -96,7 +95,7 @@ def within_group_comparison(base_path, eye_events, trial_id, data_set="corrected
                         expertise = (expertise_a, expertise_b)
                         
                         futures.append(
-                            executor.submit(compare_experiment_pair, exp_a, exp_b, trial_id, eye_events, data_set, expertise)
+                            executor.submit(compare_experiment_pair, exp_a, exp_b, trial_id, eye_events, expertise)
                         )
             
             for future in futures:
@@ -114,7 +113,7 @@ def within_group_comparison(base_path, eye_events, trial_id, data_set="corrected
 
     return results
 
-def between_group_comparison(base_path, eye_events, trial_id, data_set="corrected", output_dir="comparison_results"):
+def between_group_comparison(base_path, eye_events, trial_id, output_dir="comparison_results"):
     """
     Perform between-group comparison using multimatch for experiments in different groups.
 
@@ -164,7 +163,7 @@ def between_group_comparison(base_path, eye_events, trial_id, data_set="correcte
                             expertise = (expertise_a, expertise_b)
                             
                             futures.append(
-                                executor.submit(compare_experiment_pair, exp_a, exp_b, trial_id, eye_events, data_set, expertise)
+                                executor.submit(compare_experiment_pair, exp_a, exp_b, trial_id, eye_events, expertise)
                             )
                 
                 for future in futures:
