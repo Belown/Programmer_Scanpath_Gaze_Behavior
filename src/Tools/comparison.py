@@ -37,7 +37,6 @@ def compare_experiment_pair(exp_a, exp_b, trial_id, eye_events, data_set, expert
             exp_a=(exp_a, trial_id),
             exp_b=(exp_b, trial_id),
             eye_events=eye_events,
-            data_set=data_set,
         )
         row = {
             "exp_a": exp_a,

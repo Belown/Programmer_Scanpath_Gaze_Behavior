@@ -8,6 +8,7 @@ from emtk.parsers.samples import get_samples_columns
 paths = setup_paths()
 lib_path = paths["lib_path"]
 
+# Constants
 EYE_TRACKER = "SMIRed250"
 RAWDATA_MODULE = os.path.join(lib_path, "emtk", "datasets", "EMIP", "EMIP-Toolkit- replication package", "emip_dataset", "rawdata")
 STIMULI_MODULE = os.path.join(lib_path, "emtk", "datasets", "EMIP", "EMIP-Toolkit- replication package", "emip_dataset", "stimuli")
@@ -21,7 +22,15 @@ SAMPLE_BASE_COLUMNS = ['Time', 'Type', 'Trial', 'L Raw X [px]', 'L Raw Y [px]', 
                        'R EPOS Z', 'L GVEC X', 'L GVEC Y', 'L GVEC Z', 'R GVEC X', 'R GVEC Y',
                        'R GVEC Z', 'Frame', 'Aux1']
 
+
 def parse_single_experiment(experiment_id):
+    """
+    Parse a single experiment's eye events and samples from the raw data.
+    
+    :param: experiment_id: Experiment ID to parse
+    
+    :return: Tuple of (eye_events DataFrame, samples DataFrame)
+    """
 
     eye_events = []
     samples = []

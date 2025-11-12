@@ -129,7 +129,6 @@ def get_fixation_aoi(exp, eye_events):
 
     :return: DataFrame with fixation data and AOI information.
     """
-    exp_id, trial_id = exp
     trial_data = get_trial_data(eye_events, exp)
     trial_data_fixation = trial_data.loc[trial_data['eye_event_type'] == 'fixation']
     aoi_data = aoi.find_aoi(trial_data)

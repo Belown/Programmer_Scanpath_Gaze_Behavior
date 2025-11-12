@@ -39,7 +39,7 @@ def normality_test(data_dir, if_graph = False, trial_id = None):
                     else:
                         normality_results[dim]["not_normal"] += 1
                 else:
-                    print(f"  {dim:10s}  → Dimension not found in file ❌")
+                    print(f"  {dim:10s}  → Dimension not found in file.")
 
     # Determine majority normality for each dimension
     print("\nOverall normality results based on majority:")
@@ -48,10 +48,10 @@ def normality_test(data_dir, if_graph = False, trial_id = None):
         not_normal_count = results["not_normal"]
         if normal_count > not_normal_count:
             normality_results[dim]["result"] = "Likely normal"
-            print(f"{dim:10s} → Likely normal ✅ (Normal: {normal_count}, Not normal: {not_normal_count})")
+            print(f"{dim:10s} → Likely normal (Normal: {normal_count}, Not normal: {not_normal_count})")
         else:
             normality_results[dim]["result"] = "Not normal"
-            print(f"{dim:10s} → Not normal ❌ (Normal: {normal_count}, Not normal: {not_normal_count})")
+            print(f"{dim:10s} → Not normal (Normal: {normal_count}, Not normal: {not_normal_count})")
 
     if if_graph:
         import matplotlib.pyplot as plt

@@ -5,7 +5,7 @@ def parse_corrected_emip_data(info = False):
     """
     Parse the corrected EMIP dataset from the given path.
 
-    :param: path: Path to the corrected EMIP dataset CSV file
+    :param: info: If True, print information about the dataset
 
     :return: Parsed pandas DataFrame
     """

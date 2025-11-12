@@ -1,10 +1,9 @@
-import sys, os, json
+import os
 import pandas as pd
 import matplotlib.pyplot as plt
 from typing import Optional
 from ..path import setup_paths
-from ..auxiliary.metadata import metadata_query
-from emtk import parsers, visualization, util, aoi
+from emtk import visualization
 
 # set up paths
 paths = setup_paths()
@@ -17,7 +16,6 @@ def emip_gen(
     exp: tuple,
     eye_events: pd.DataFrame,
     samples: pd.DataFrame,
-    query: bool = False,
     image_type: Optional[str] = None, # "heatmap", "fixation_duration", "fixation_timeline", "all"
     compare_exp: Optional[tuple] = None,
 ):
@@ -28,60 +26,58 @@ def emip_gen(
     :param: exp: Tuple of (experiment_id, trial_id) to generate images for
     :param: eye_events: Pre-parsed eye events DataFrame. If None, will parse the data.
     :param: samples: Pre-parsed samples DataFrame.
-    :param: query: Use query to determine experiment ids (then experiment_id is ignored)
     :param: image_type: Type of image to generate. Options are "heatmap", "fixation_duration", "fixation_timeline", "all". If None, generates default graph.
     :param: compare_exp: Tuple of (experiment_id, trial_id) to compare with using overlapped heatmap. If provided, will generate comparison heatmap instead.
 
     :return: None
     '''
+
     if eye_events is None or not isinstance(eye_events, pd.DataFrame) or eye_events.empty:
         raise ValueError("eye_events is required and must be a non-empty pandas.DataFrame")
     if samples is None or not isinstance(samples, pd.DataFrame) or samples.empty:
         raise ValueError("samples is required and must be a non-empty pandas.DataFrame")
     
+    # If compare_exp is provided, generate comparison heatmap
     if compare_exp is not None:
         compare_experiments_heatmap(exp, compare_exp, eye_events, output_dir)
         return
 
     experiment_id, trial_id = exp
-
-    experiment_ids = metadata_query(eye_events) if query else [experiment_id]
     
-    # iterate through all experiment ids and generate graphs
-    for experiment_id in experiment_ids:
-        # convert to string for matching
-        exp_id_str = str(experiment_id)
+    # convert to string for matching
+    exp_id_str = str(experiment_id)
 
-        trial_data = eye_events.loc[
-            (eye_events['experiment_id'] == exp_id_str) &
-            (eye_events['trial_id'] == trial_id)
-        ]
-        samples_data = samples.loc[
-            (samples['experiment_id'] == exp_id_str) &
-            (samples['trial_id'] == trial_id)
-        ]
+    # Filter eye_events and samples for the specified experiment_id and trial_id
+    trial_data = eye_events.loc[
+        (eye_events['experiment_id'] == exp_id_str) &
+        (eye_events['trial_id'] == trial_id)
+    ]
+    samples_data = samples.loc[
+        (samples['experiment_id'] == exp_id_str) &
+        (samples['trial_id'] == trial_id)
+    ]
 
-        # Check if data is empty
-        if trial_data.empty or samples_data.empty:
-            print(f"experiment_id={experiment_id}, trial_id={trial_id} No matching data")
-            continue
+    # Check if data is empty
+    if trial_data.empty or samples_data.empty:
+        print(f"experiment_id={experiment_id}, trial_id={trial_id} No matching data")
+        raise SystemExit("No matching data")
 
-        # basefile name
-        base_filename = f"EMIP_experiment_{experiment_id}_trial_{trial_id}"
-        if image_type == "all":
-            store_all_graphs(trial_data, samples_data, output_dir, base_filename)
-        elif image_type == "heatmap":
-            output_path = os.path.join(output_dir, f"{base_filename}_heatmap.png")
-            heatmap_graph(trial_data, output_path)
-        elif image_type == "fixation_duration":
-            output_path = os.path.join(output_dir, f"{base_filename}_fixation_duration.png")
-            fixation_duration_graph(trial_data, output_path)
-        elif image_type == "fixation_timeline":
-            output_path = os.path.join(output_dir, f"{base_filename}_fixation_timeline.png")
-            time_line_graph(trial_data, output_path)
-        else:
-            output_path = os.path.join(output_dir, f"{base_filename}_default.png")
-            default_graph(trial_data, samples_data, output_path)
+    # basefile name
+    base_filename = f"EMIP_experiment_{experiment_id}_trial_{trial_id}"
+    if image_type == "all":
+        store_all_graphs(trial_data, samples_data, output_dir, base_filename)
+    elif image_type == "heatmap":
+        output_path = os.path.join(output_dir, f"{base_filename}_heatmap.png")
+        heatmap_graph(trial_data, output_path)
+    elif image_type == "fixation_duration":
+        output_path = os.path.join(output_dir, f"{base_filename}_fixation_duration.png")
+        fixation_duration_graph(trial_data, output_path)
+    elif image_type == "fixation_timeline":
+        output_path = os.path.join(output_dir, f"{base_filename}_fixation_timeline.png")
+        time_line_graph(trial_data, output_path)
+    else:
+        output_path = os.path.join(output_dir, f"{base_filename}_default.png")
+        default_graph(trial_data, samples_data, output_path)
 
 def store_all_graphs(trial_data, samples_data, output_dir, base_filename):
     """
@@ -162,7 +158,7 @@ def time_line_graph(trial_data, output_path):
 
 def overlapped_heatmap(tuple1, tuple2, output_path, alpha=0.6, colors=['red', 'blue']):
     """
-    Generate an overlapped heatmap for comparing two experiments.
+    Helper function for compare_experiments_heatmap.
 
     :param: tuple1: Tuple containing (trial_data1, exp1), where exp1 is (experiment_id, trial_id).
     :param: tuple2: Tuple containing (trial_data2, exp2), where exp2 is (experiment_id, trial_id).
@@ -172,7 +168,6 @@ def overlapped_heatmap(tuple1, tuple2, output_path, alpha=0.6, colors=['red', 'b
 
     :return: None
     """
-    import matplotlib.pyplot as plt
     import seaborn as sns
     from matplotlib.patches import Patch
     from emtk.util import _get_meta_data, _get_stimuli
@@ -231,7 +226,7 @@ def overlapped_heatmap(tuple1, tuple2, output_path, alpha=0.6, colors=['red', 'b
 
 def compare_experiments_heatmap(exp1, exp2, eye_events, output_dir):
     """
-    Compare two experiments using overlapped heatmap.
+    Generate overlapped heatmap.
 
     :param: exp1: Tuple of (experiment_id, trial_id) for the first experiment.
     :param: exp2: Tuple of (experiment_id, trial_id) for the second experiment.

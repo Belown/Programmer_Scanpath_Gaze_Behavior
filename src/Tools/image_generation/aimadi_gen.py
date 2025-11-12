@@ -2,7 +2,7 @@ import sys, os
 import pandas as pd
 import matplotlib.pyplot as plt
 from ..path import setup_paths
-from emtk import parsers, visualization, util
+from emtk import visualization
 
 # set up paths
 paths = setup_paths()
@@ -20,11 +20,11 @@ def aimadi_gen(
 
     :param: experiment_id: Experiment ID to generate
     :param: trial_id: Trial ID to generate (default: '1')
-    :param: eye_events: Pre-parsed eye events DataFrame (optional)
+    :param: eye_events: Pre-parsed eye events DataFrame
 
     :return: None
     '''
-
+    # Filter eye_events for the specified experiment_id and trial_id
     trial_data = eye_events.loc[(eye_events['experiment_id'] == experiment_id) & (eye_events['trial_id'] == trial_id)]
 
     # Check if trial data is empty
@@ -32,6 +32,8 @@ def aimadi_gen(
         print(f"experiment_id={experiment_id}, trial_id={trial_id} No matching data")
         raise SystemExit("No matching data")
 
+    # Generate output path
     output_path = os.path.join(output_dir, f"AIMadi_experiment_{experiment_id}_trial_{trial_id}_default.png")
     
+    # Display and save the visualization
     visualization.draw_trial(trial_data, draw_aoi = True, draw_number = True, draw_saccade=True, save_image = output_path)

@@ -3,6 +3,7 @@
 ## =========================================
 
 library(tidyverse)
+library(dplyr)
 library(lme4)
 library(lmerTest)
 library(broom.mixed)

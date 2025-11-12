@@ -17,13 +17,13 @@ def gen_random_fixations(n, screensize=(1920, 1080), seed=None):
 
     if seed is not None:
         np.random.seed(seed)
-
-    arr = pd.DataFrame({c: pd.Series(dtype='float64') for c in cols})
-    margin_x = 0.05 * screensize[0]
-    margin_y = 0.05 * screensize[1]
     
-    start_x = np.random.uniform(margin_x, screensize[0] - margin_x, size=n)
-    start_y = np.random.uniform(margin_y, screensize[1] - margin_y, size=n)
+    # Generate normalized coordinates first, then scale to screen size
+    # Follow a Uniform distribution between 0.05 and 0.95 of the screen dimensions
+    start_x_norm = np.random.uniform(0.05, 0.95, size=n)
+    start_y_norm = np.random.uniform(0.05, 0.95, size=n)
+    start_x = start_x_norm * screensize[0]
+    start_y = start_y_norm * screensize[1]
     duration = np.random.uniform(800, 1500, size=n) / 1000.0  # in seconds
     
     df = pd.DataFrame({

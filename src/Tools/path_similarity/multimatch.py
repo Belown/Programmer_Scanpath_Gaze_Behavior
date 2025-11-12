@@ -6,31 +6,20 @@ def multimatch(
     exp_a: tuple,
     exp_b: tuple,
     eye_events: pd.DataFrame,
-    data_set: str = None
 ):
     '''
     Compute scanpath similarity by using the library multimatch_gaze
     
     :param: exp_a: Tuple of (experiment_id, trial_id) for first scanpath
     :param: exp_b: Tuple of (experiment_id, trial_id) for second scanpath
-    :param: eye_events: Parsed data frame for eye event
-    :param: data_set: Specify which data that is used: "corrected" or "original"
+    :param: eye_events: Parsed data frame for eye event, can be either corrected EMIP or original EMIP
 
     :return: path similarity score
     '''
 
-    if data_set == "corrected":
-        parsed_data = parse_corrected_emip_data()
-        fix_vec1 = change_name(build_vector(exp_a, parsed_data))
+    fix_vec1 = change_name(build_vector(exp_a, eye_events))
 
-        fix_vec2 = change_name(build_vector(exp_b, parsed_data))
-
-    elif data_set == "original":
-        fix_vec1 = change_name(build_vector(exp_a, eye_events))
-
-        fix_vec2 = change_name(build_vector(exp_b, eye_events))
-    else:
-        raise ValueError("data_set must be either 'corrected' or 'original'")
+    fix_vec2 = change_name(build_vector(exp_b, eye_events))
 
     if fix_vec1.size == 0 or fix_vec2.size == 0:
         print(f"No matching data for {exp_a} and {exp_b}")

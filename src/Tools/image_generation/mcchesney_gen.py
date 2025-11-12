@@ -1,9 +1,9 @@
-import sys, os, json
+import os
 import pandas as pd
 import matplotlib.pyplot as plt
 from typing import Optional
 from ..path import setup_paths
-from emtk import parsers, visualization, util, aoi
+from emtk import visualization
 
 # set up paths
 paths = setup_paths()
@@ -29,6 +29,7 @@ def mcchesney_gen(
     :return: None
     '''
 
+    # Filter eye_events and samples for the specified experiment_id and trial_id
     trial_data = eye_events.loc[(eye_events['experiment_id'] == experiment_id) & 
                             (eye_events['trial_id'] == trial_id)]
 
