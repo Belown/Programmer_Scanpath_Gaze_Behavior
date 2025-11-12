@@ -83,15 +83,15 @@ print_model_with_sig <- function(mod, response_name) {
 }
 
 ## ---- 3.2 Detailed output for Shape ----
-m_shape <- lmer(
-  Shape ~ ExpertiseGroup +
-    (1 | exp_a) + (1 | exp_b),
-  data = df
-)
-
-summary(m_shape)
-anova(m_shape)
-print_model_with_sig(m_shape, "Shape")
+#m_shape <- lmer(
+#  Shape ~ ExpertiseGroup +
+#    (1 | exp_a) + (1 | exp_b),
+#  data = df
+#)
+#
+#summary(m_shape)
+#anova(m_shape)
+#print_model_with_sig(m_shape, "Shape")
 
 ## ---- 3.3 Run same model for all dimensions ----
 print("Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1")
@@ -104,64 +104,3 @@ models <- lapply(responses, function(y) {
   print_model_with_sig(mod, y)
   invisible(mod)
 })
-
-## =========================================
-## 4. Visualizations
-## =========================================
-
-## ---- 4.1 Boxplot: Shape by ExpertiseGroup ----
-ggplot(df, aes(x = ExpertiseGroup, y = Shape)) +
-  geom_boxplot(outlier.alpha = 0.2) +
-  labs(
-    title = paste0("Shape similarity by expertise (", trial_folder, ")"),
-    x = "Expertise group",
-    y = "Shape similarity"
-  ) +
-  theme_minimal(base_size = 13)
-
-## ---- 4.2 Boxplots: All dimensions (faceted) ----
-df_long <- df %>%
-  pivot_longer(
-    cols = c(Shape, Length, Direction, Position, Duration),
-    names_to = "Dimension",
-    values_to = "Similarity"
-  )
-
-ggplot(df_long, aes(x = ExpertiseGroup, y = Similarity)) +
-  geom_boxplot(outlier.alpha = 0.15) +
-  facet_wrap(~ Dimension, scales = "free_y") +
-  labs(
-    title = paste0("MultiMatch similarity by expertise (", trial_folder, ")"),
-    x = "Expertise group",
-    y = "Similarity"
-  ) +
-  theme_minimal(base_size = 13)
-
-## ---- 4.3 Means + 95% CI for each dimension ----
-summary_means <- df_long %>%
-  group_by(ExpertiseGroup, Dimension) %>%
-  summarise(
-    mean = mean(Similarity, na.rm = TRUE),
-    se   = sd(Similarity, na.rm = TRUE) / sqrt(n()),
-    .groups = "drop"
-  ) %>%
-  mutate(
-    lower = mean - 1.96 * se,
-    upper = mean + 1.96 * se
-  )
-
-ggplot(summary_means, aes(x = ExpertiseGroup, y = mean, group = Dimension, color = Dimension)) +
-  geom_point(position = position_dodge(width = 0.3)) +
-  geom_errorbar(
-    aes(ymin = lower, ymax = upper),
-    width = 0.1,
-    position = position_dodge(width = 0.3)
-  ) +
-  facet_wrap(~ Dimension, scales = "free_y") +
-  labs(
-    title = paste0("Mean similarity ± 95% CI by expertise (", trial_folder, ")"),
-    x = "Expertise group",
-    y = "Mean similarity"
-  ) +
-  theme_minimal(base_size = 13) +
-  theme(legend.position = "none")

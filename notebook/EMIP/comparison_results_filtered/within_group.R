@@ -83,14 +83,14 @@ print_model_with_sig <- function(mod, response_name) {
 }
 
 ## ---- 2.2 Detailed model for Shape ----
-m_shape <- lmer(
-  Shape ~ ExpertiseGroup * Trial + (1 | exp_a) + (1 | exp_b),
-  data = df
-)
-
-summary(m_shape)
-anova(m_shape)
-print_model_with_sig(m_shape, "Shape")
+#m_shape <- lmer(
+#  Shape ~ ExpertiseGroup * Trial + (1 | exp_a) + (1 | exp_b),
+#  data = df
+#)
+#
+#summary(m_shape)
+#anova(m_shape)
+#print_model_with_sig(m_shape, "Shape")
 
 ## =========================================
 ## 3. LMM for all MultiMatch dimensions
@@ -107,65 +107,3 @@ models <- lapply(responses, function(y) {
   print_model_with_sig(mod, y)
   invisible(mod)
 })
-
-## =========================================
-## 4. Visualizations
-## =========================================
-
-## ---- 4.1 Boxplot: Shape by ExpertiseGroup and Trial ----
-ggplot(df, aes(x = ExpertiseGroup, y = Shape, fill = Trial)) +
-  geom_boxplot(alpha = 0.7) +
-  labs(
-    title = "Shape similarity across expertise levels and trials",
-    x = "Expertise group",
-    y = "Shape similarity"
-  ) +
-  theme_minimal(base_size = 13)
-
-## ---- 4.2 Boxplots: All dimensions (faceted), by Trial ----
-df_long <- df %>%
-  pivot_longer(
-    cols = c(Shape, Length, Direction, Position, Duration),
-    names_to = "Dimension",
-    values_to = "Similarity"
-  )
-
-ggplot(df_long, aes(x = ExpertiseGroup, y = Similarity, fill = Trial)) +
-  geom_boxplot(alpha = 0.7, outlier.alpha = 0.15) +
-  facet_wrap(~ Dimension, scales = "free_y") +
-  labs(
-    title = "MultiMatch similarity by expertise and trial",
-    x = "Expertise group",
-    y = "Similarity"
-  ) +
-  theme_minimal(base_size = 13)
-
-## ---- 4.3 Mean ± 95% CI by ExpertiseGroup, Trial, and Dimension ----
-summary_means <- df_long %>%
-  group_by(ExpertiseGroup, Trial, Dimension) %>%
-  summarise(
-    mean = mean(Similarity, na.rm = TRUE),
-    se   = sd(Similarity, na.rm = TRUE) / sqrt(n()),
-    .groups = "drop"
-  ) %>%
-  mutate(
-    lower = mean - 1.96 * se,
-    upper = mean + 1.96 * se
-  )
-
-ggplot(summary_means,
-       aes(x = ExpertiseGroup, y = mean,
-           group = Trial, color = Trial)) +
-  geom_point(position = position_dodge(width = 0.3)) +
-  geom_errorbar(
-    aes(ymin = lower, ymax = upper),
-    width = 0.1,
-    position = position_dodge(width = 0.3)
-  ) +
-  facet_wrap(~ Dimension, scales = "free_y") +
-  labs(
-    title = "Mean similarity ± 95% CI by expertise and trial",
-    x = "Expertise group",
-    y = "Mean similarity"
-  ) +
-  theme_minimal(base_size = 13)
