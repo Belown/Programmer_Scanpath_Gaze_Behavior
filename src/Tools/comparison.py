@@ -126,7 +126,6 @@ def between_group_comparison(query_output_path, eye_events, trial_id, dataset):
 
     :param: query_output_path: Path to the directory containing group_ids.
     :param: eye_events: DataFrame containing eye event data.
-    :param: data_set: Specify which data set to use ("original" or "corrected").
     :param: trial_id: The trial ID to use for the comparison.
     :param: dataset: Specify which data set we have used.
     

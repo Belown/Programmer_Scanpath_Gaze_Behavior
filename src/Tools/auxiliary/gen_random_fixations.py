@@ -5,11 +5,14 @@ def gen_random_fixations(n, screensize=(1920, 1080), seed=None):
     """
     Generate n random fixations as a baseline scanpath and return a pandas.DataFrame.
     
+    Coordinates follow uniform distribution U(0.05, 0.95) in normalized screen coordinates,
+    then scaled to actual screen size. Duration follows uniform distribution U(0.8, 1.5) seconds.
+    
     :param: n: Number of random fixations to generate
     :param: screensize: Tuple specifying the screen size (width, height)
     :param: seed: Optional seed for random number generator for reproducibility
 
-    :return: pandas.DataFrame with columns ['x0', 'y0', 'duration']
+    :return: pandas.DataFrame with columns ['x0', 'y0', 'duration'] where coordinates are in pixels and duration in seconds
     """
     cols = ['x0', 'y0', 'duration']
     if n <= 0:

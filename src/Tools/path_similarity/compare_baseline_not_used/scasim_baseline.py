@@ -3,7 +3,7 @@ import pandas as pd
 import numpy as np
 import json
 from math import pi
-from ..auxiliary import build_vector, parse_corrected_emip_data, gen_random_fixations
+from ...auxiliary import build_vector, parse_corrected_emip_data, gen_random_fixations
 
 def scasim(
     exp_a: tuple,

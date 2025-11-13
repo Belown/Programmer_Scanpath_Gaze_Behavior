@@ -24,8 +24,8 @@ def emip_gen(
     Generate eye-tracking visualization images from EMIP dataset.
 
     :param: exp: Tuple of (experiment_id, trial_id) to generate images for
-    :param: eye_events: Pre-parsed eye events DataFrame. If None, will parse the data.
-    :param: samples: Pre-parsed samples DataFrame.
+    :param: eye_events: Pre-parsed eye events DataFrame. Must be a non-empty pandas DataFrame.
+    :param: samples: Pre-parsed samples DataFrame. Must be a non-empty pandas DataFrame.
     :param: image_type: Type of image to generate. Options are "heatmap", "fixation_duration", "fixation_timeline", "all". If None, generates default graph.
     :param: compare_exp: Tuple of (experiment_id, trial_id) to compare with using overlapped heatmap. If provided, will generate comparison heatmap instead.
 

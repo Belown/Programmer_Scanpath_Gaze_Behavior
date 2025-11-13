@@ -12,11 +12,11 @@ def metadata_query(
     data: pd.DataFrame
 ):
     '''
-    Query metadata file based on input JSON file (in the folder called 'query') and return list of experiment ids that are contained in the input data.
+    Query metadata file based on input JSON file (in the folder called 'query') and return filtered DataFrame of experiments that match the query criteria.
 
     :param: data: Input data set containing experiment ids (either original or corrected)
 
-    :return: List of experiment ids matching the query
+    :return: pandas DataFrame containing filtered experiment data with experiment_id and applied filter columns
     '''
     
     # read metadata from EMIP dataset

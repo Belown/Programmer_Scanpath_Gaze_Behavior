@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
 from emtk import aoi
-from ..auxiliary import gen_random_fixations
+from ...auxiliary import gen_random_fixations
 
 def nld(
     exp_a: tuple,

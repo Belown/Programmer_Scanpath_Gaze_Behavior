@@ -22,8 +22,8 @@ def mcchesney_gen(
 
     :param: experiment_id: Experiment ID to generate (default: 'P131')
     :param: trial_id: Trial ID to generate (default: '2')
-    :param: eye_events: Pre-parsed eye events DataFrame. If None, will parse the data.
-    :param: samples: Pre-parsed samples DataFrame.
+    :param: eye_events: Pre-parsed eye events DataFrame. Must be a non-empty pandas DataFrame.
+    :param: samples: Pre-parsed samples DataFrame. Must be a non-empty pandas DataFrame.
     :param: image_type: Type of image to generate. Options are "heatmap", "fixation_duration", "fixation_timeline", "all". If None, generates default graph.
     
     :return: None
