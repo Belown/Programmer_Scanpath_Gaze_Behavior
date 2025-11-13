@@ -74,7 +74,6 @@ df$PairType <- case_when(
 # Mentioned I should have a baseline here? But I am not sure if order is important
 df$PairType <- factor(df$PairType, levels = c("LN", "LM", "MN", "HN", "HL", "HM"))
 
-
 cat("Rows loaded:", nrow(df), "\n")
 print(table(df$expertise_a, df$Trial))
 
