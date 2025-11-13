@@ -9,8 +9,8 @@ from emtk import visualization
 paths = setup_paths()
 metadata_file = paths["metadata_file"]
 query_path = paths["query_path"]
-output_dir = paths["output_path"]
-
+output_dir = os.path.join(paths["output_path"], "dataset_images", "emip")
+os.makedirs(output_dir, exist_ok=True)
 
 def emip_gen(
     exp: tuple,
@@ -63,7 +63,7 @@ def emip_gen(
         raise SystemExit("No matching data")
 
     # basefile name
-    base_filename = f"EMIP_experiment_{experiment_id}_trial_{trial_id}"
+    base_filename = f"{experiment_id}_trial_{trial_id}"
     if image_type == "all":
         store_all_graphs(trial_data, samples_data, output_dir, base_filename)
     elif image_type == "heatmap":

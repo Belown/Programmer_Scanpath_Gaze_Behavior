@@ -2,6 +2,12 @@ import os
 import pandas as pd
 from concurrent.futures import ThreadPoolExecutor
 from .path_similarity import multimatch
+from .path import setup_paths
+
+paths = setup_paths()
+output_base_dir = os.path.join(paths["output_path"], "processed_dataset")
+os.makedirs(output_base_dir, exist_ok=True)
+
 
 def compare_experiment_pair(exp_a, exp_b, trial_id, eye_events, expertise):
     """
@@ -52,25 +58,26 @@ def compare_experiment_pair(exp_a, exp_b, trial_id, eye_events, expertise):
         return None
 
 
-def within_group_comparison(base_path, eye_events, trial_id, output_dir="comparison_results"):
+def within_group_comparison(query_output_path, eye_events, trial_id, dataset):
     """
     Perform within-group comparison using multimatch for each group in the specified directory.
 
-    :param: base_path: Path to the directory containing group_ids.
+    :param: query_output_path: Path to the directory containing group_ids.
     :param: eye_events: DataFrame containing eye event data.
     :param: trial_id: The trial ID to use for the comparison.
-    :param: output_dir: Directory to save the comparison results.
+    :param: dataset: Specify which data set we have used.
 
     :return: Dictionary containing comparison results for each group.
     """
     results = {}
 
     # Ensure the output directory exists
-    os.makedirs(output_dir, exist_ok=True)
+    comparation_output_dir = os.path.join(output_base_dir, dataset)
+    os.makedirs(comparation_output_dir, exist_ok=True)
 
     # Iterate through each group folder
-    for group_file in os.listdir(base_path):
-        group_path = os.path.join(base_path, group_file)
+    for group_file in os.listdir(query_output_path):
+        group_path = os.path.join(query_output_path, group_file)
 
         # Skip if not a CSV file
         if not group_file.endswith(".csv"):
@@ -106,32 +113,33 @@ def within_group_comparison(base_path, eye_events, trial_id, output_dir="compari
         results[group_file] = group_results
 
         # Save the results for the current group to a local file
-        os.makedirs(os.path.join(output_dir, "within_group", f"trial_{str(trial_id)}"), exist_ok=True)
-        output_file = os.path.join(output_dir, "within_group", f"trial_{str(trial_id)}", f"{group_file.replace('.csv', f'_results.csv')}")
+        os.makedirs(os.path.join(comparation_output_dir, "within_group", f"trial_{str(trial_id)}"), exist_ok=True)
+        output_file = os.path.join(comparation_output_dir, "within_group", f"trial_{str(trial_id)}", f"{group_file.replace('.csv', f'_results.csv')}")
         pd.DataFrame(group_results).to_csv(output_file, index=False)
         print(f"Results for group {group_file} saved to {output_file}")
 
     return results
 
-def between_group_comparison(base_path, eye_events, trial_id, output_dir="comparison_results"):
+def between_group_comparison(query_output_path, eye_events, trial_id, dataset):
     """
     Perform between-group comparison using multimatch for experiments in different groups.
 
-    :param: base_path: Path to the directory containing group_ids.
+    :param: query_output_path: Path to the directory containing group_ids.
     :param: eye_events: DataFrame containing eye event data.
     :param: data_set: Specify which data set to use ("original" or "corrected").
     :param: trial_id: The trial ID to use for the comparison.
-    :param: output_dir: Directory to save the comparison results.
+    :param: dataset: Specify which data set we have used.
     
     :return: Dictionary containing comparison results for each group pair.
     """
     results = {}
 
     # Ensure the output directory exists
-    os.makedirs(output_dir, exist_ok=True)
+    comparation_output_dir = os.path.join(output_base_dir, dataset)
+    os.makedirs(comparation_output_dir, exist_ok=True)
 
     # Get all group files
-    group_files = [f for f in os.listdir(base_path) if f.endswith(".csv")]
+    group_files = [f for f in os.listdir(query_output_path) if f.endswith(".csv")]
 
     # Perform pairwise comparison between groups
     for i, group_file_a in enumerate(group_files):
@@ -139,8 +147,8 @@ def between_group_comparison(base_path, eye_events, trial_id, output_dir="compar
             if i >= j:  # Avoid self-comparison and duplicate comparisons
                 continue
 
-            group_path_a = os.path.join(base_path, group_file_a)
-            group_path_b = os.path.join(base_path, group_file_b)
+            group_path_a = os.path.join(query_output_path, group_file_a)
+            group_path_b = os.path.join(query_output_path, group_file_b)
 
             # Read group IDs
             group_data_a = pd.read_csv(group_path_a)
@@ -176,8 +184,8 @@ def between_group_comparison(base_path, eye_events, trial_id, output_dir="compar
             results[group_pair_key] = group_results
 
             # Save the results for the current group pair to a local file
-            os.makedirs(os.path.join(output_dir, "between_group", f"trial_{str(trial_id)}"), exist_ok=True)
-            output_file = os.path.join(output_dir, "between_group", f"trial_{str(trial_id)}", f"{group_file_a.replace('.csv', '')}_{group_file_b.replace('.csv', '')}_results.csv")
+            os.makedirs(os.path.join(comparation_output_dir, "between_group", f"trial_{str(trial_id)}"), exist_ok=True)
+            output_file = os.path.join(comparation_output_dir, "between_group", f"trial_{str(trial_id)}", f"{group_file_a.replace('.csv', '')}_{group_file_b.replace('.csv', '')}_results.csv")
             pd.DataFrame(group_results).to_csv(output_file, index=False)
             print(f"Results for group pair {group_file_a} vs {group_file_b} saved to {output_file}")
 

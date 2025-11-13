@@ -1,16 +1,15 @@
-# 忽略大型数据集
+# Ignore large dataset files
 src/EMIP-Toolkit/emtk/datasets/EMIP/
 src/EMIP-Toolkit/emtk/datasets/AlMadi2018
 src/EMIP-Toolkit/emtk/datasets/EMIP.zip
 
-# 忽略Python相关文件
+# Ignore Python relevant files
 __pycache__/
 *.py[cod]
 *$py.class
 .ipynb_checkpoints/
 
-# 忽略输出目录
-output/
+# Ignore folders
 thesis.egg-info/
 
 /src/Tools/note.txt

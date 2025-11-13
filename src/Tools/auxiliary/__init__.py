@@ -5,3 +5,4 @@ from .parse_corrected_emip_data import parse_corrected_emip_data
 from .visualize_score import visualize_multimatch_scores
 from .visualize_score import visualize_all_scores
 from .parse_single_experiment import parse_single_experiment
+from .remove_duplicate import process_files_with_structure_verified

@@ -226,16 +226,3 @@ def process_files_with_structure_verified(source_path: str, output_path: str, ou
     print(f"  Successfully processed: {successful_files}")
     print(f"  Success rate: {successful_files/total_files*100:.1f}%")
     print(f"  Verification report saved to: {report_file}")
-
-# Usage example
-if __name__ == "__main__":
-    # Define paths
-    # source_path = r"d:\Storage\ETH\Thesis\Code\notebook\EMIP\comparison_results"
-    source_path = r"E:\Storage\ETH\7. Semester\Thesis\Code\notebook\EMIP\comparison_results"
-    # output_path = r"d:\Storage\ETH\Thesis\Code\notebook\EMIP\comparison_results_filtered"
-    output_path = r"E:\Storage\ETH\7. Semester\Thesis\Code\notebook\EMIP\comparison_results_filtered"
-    
-    # Process all files with verification
-    process_files_with_structure_verified(source_path, output_path, "")
-    
-    print("\nProcessing complete!")

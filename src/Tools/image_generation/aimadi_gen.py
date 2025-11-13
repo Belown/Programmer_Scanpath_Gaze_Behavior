@@ -6,8 +6,8 @@ from emtk import visualization
 
 # set up paths
 paths = setup_paths()
-output_dir = paths["output_path"]
-
+output_dir = os.path.join(paths["output_path"], "dataset_images", "aimadi")
+os.makedirs(output_dir, exist_ok=True)
 
 def aimadi_gen(
     experiment_id: str,
@@ -33,7 +33,7 @@ def aimadi_gen(
         raise SystemExit("No matching data")
 
     # Generate output path
-    output_path = os.path.join(output_dir, f"AIMadi_experiment_{experiment_id}_trial_{trial_id}_default.png")
+    output_path = os.path.join(output_dir, f"{experiment_id}_trial_{trial_id}_default.png")
     
     # Display and save the visualization
     visualization.draw_trial(trial_data, draw_aoi = True, draw_number = True, draw_saccade=True, save_image = output_path)

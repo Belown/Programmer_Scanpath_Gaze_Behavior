@@ -7,8 +7,8 @@ from emtk import visualization
 
 # set up paths
 paths = setup_paths()
-output_dir = paths["output_path"]
-
+output_dir = os.path.join(paths["output_path"], "dataset_images", "mcchesney")
+os.makedirs(output_dir, exist_ok=True)
 
 def mcchesney_gen(
     experiment_id: str,
@@ -42,7 +42,7 @@ def mcchesney_gen(
         raise SystemExit("No matching data")
 
     # basefile name
-    base_filename = f"McChesney_experiment_{experiment_id}_trial_{trial_id}"
+    base_filename = f"{experiment_id}_trial_{trial_id}"
 
     if image_type == "all":
         store_all_graphs(trial_data, samples_data, output_dir, base_filename)
