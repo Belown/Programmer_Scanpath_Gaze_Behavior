@@ -1,181 +1,113 @@
 ## =========================================
-## Linear mixed model across BOTH trials
-## Pairwise expertise files:
-##   Java_<lvlA>_Java_<lvlB>_results.csv
+## LMM: Expertise × Trial (2 vs 5), using combined CSVs from between_group comparison
 ## =========================================
 
-## ---- 0. Setup ----
-setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
-setwd("between_group")
+## install.packages(c("tidyverse", "dplyr", "lme4", "lmerTest", "broom.mixed", "here"))
 
 library(tidyverse)
+library(dplyr)
 library(lme4)
 library(lmerTest)
 library(broom.mixed)
-library(stringr)
+library(here)
 
-## =========================================
-## 1. Trials to include
-## =========================================
+base_path <- file.path(here(), "output", "processed_dataset")
+print(base_path)
 
-trial_folders <- c("trial_2", "trial_5")
+# ---- Parameters ----
+data_set <- "EMIP_corrected"
+result <- "comparison_results_filtered"
+group_path <- file.path(base_path, data_set, result, "between_group")
+setwd(group_path)
 
-## =========================================
-## 2. Helper: read one pairwise file
-##    File name pattern:
-##      Java_<lvlA>_Java_<lvlB>_results.csv
-## =========================================
+combined_filename <- "combined_data.csv"
+responses <- c("Shape", "Length", "Direction", "Position", "Duration")
 
-read_pairwise <- function(file_path) {
-  file_name <- basename(file_path)
+# which trials to include
+trials <- c("trial_2", "trial_5")
+# which model type to run
+case <- "mean_diff"   # "mean_diff", "pairtype", or "both"
+
+# ---- Helper: load one trial's combined CSV and tag Trial ----
+load_trial <- function(trial_folder, file_name) {
+  path <- file.path(trial_folder, file_name)
+  if (!file.exists(path)) stop("File not found: ", path)
   
-  # Extract levels from filename
-  parts <- str_match(file_name, "^Java_([a-z]+)_Java_([a-z]+)_results\\.csv$")
-  if (is.na(parts[1,2]) || is.na(parts[1,3])) {
-    stop("Cannot extract expertise levels from file name: ", file_name)
-  }
-  
-  level_a <- parts[1,2]
-  level_b <- parts[1,3]
-  
-  # Read CSV and attach expertise + ids
-  df <- read_csv(file_path, show_col_types = FALSE)
-  
-  df %>%
+  read_csv(path, show_col_types = FALSE) %>%
     mutate(
-      ExpertiseA = factor(
-        level_a,
-        levels = c("none", "low", "medium", "high"),
-        ordered = TRUE
-      ),
-      ExpertiseB = factor(
-        level_b,
-        levels = c("none", "low", "medium", "high"),
-        ordered = TRUE
-      ),
+      # Use the expertise column from your combined file
+      expertise_a = factor(expertise_a,
+                           levels = c("none", "low", "medium", "high"),
+                           ordered = TRUE),
+      expertise_b = factor(expertise_b,
+                           levels = c("none", "low", "medium", "high"),
+                           ordered = TRUE),
+      # Trial as factor "2"/"5" from folder name
+      Trial = factor(gsub("^trial_", "", trial_folder), levels = c("2","5")),
       exp_a = factor(exp_a),
       exp_b = factor(exp_b)
     )
 }
 
-## =========================================
-## 3. Helper: read all files for one trial
-## =========================================
+# ---- Load both trials and stack ----
+df <- map_dfr(trials, load_trial, file_name = combined_filename)
 
-read_one_trial <- function(trial_folder) {
-  files <- list.files(
-    trial_folder,
-    pattern = "^Java_.*_results\\.csv$",
-    full.names = TRUE
-  )
-  
-  if (length(files) == 0) {
-    stop("No matching files found in folder: ", trial_folder)
-  }
-  
-  map_dfr(files, read_pairwise) %>%
-    mutate(
-      trial_id = factor(trial_folder)  # label rows by trial
-    )
-}
+# Convert ordered levels to numeric for calculations
+df$expertise_a_num <- as.integer(df$expertise_a)
+df$expertise_b_num <- as.integer(df$expertise_b)
 
-## =========================================
-## 4. Load ALL trials into one data frame
-## =========================================
+# Expertise Mean
+df$expertise_mean <- (df$expertise_a_num + df$expertise_b_num) / 2
+# Expertise Difference
+df$expertise_diff <- abs(df$expertise_a_num - df$expertise_b_num)
 
-df <- map_dfr(trial_folders, read_one_trial)
+# PairType
+df$PairType <- case_when(
+  df$expertise_a == "high" & df$expertise_b == "low" ~ "HL",
+  df$expertise_a == "high" & df$expertise_b == "medium" ~ "HM",
+  df$expertise_a == "high" & df$expertise_b == "none" ~ "HN",
+  df$expertise_a == "low" & df$expertise_b == "medium" ~ "LM",
+  df$expertise_a == "low" & df$expertise_b == "none" ~ "LN",
+  df$expertise_a == "medium"  & df$expertise_b == "none"  ~ "MN"
+)
+
+# Mentioned I should have a baseline here? But I am not sure if order is important
+df$PairType <- factor(df$PairType, levels = c("LN", "LM", "MN", "HN", "HL", "HM"))
+
 
 cat("Rows loaded:", nrow(df), "\n")
-cat("ExpertiseA x ExpertiseB combinations:\n")
-print(table(df$ExpertiseA, df$ExpertiseB))
-cat("Trials:\n")
-print(table(df$trial_id))
+print(table(df$expertise_a, df$Trial))
 
-## =========================================
-## 5. Build symmetric PairType (Option A)
-## =========================================
-
-df <- df %>%
-  mutate(
-    # order the two expertise levels to ensure symmetry
-    Exp_min = if_else(
-      as.numeric(ExpertiseA) <= as.numeric(ExpertiseB),
-      as.character(ExpertiseA),
-      as.character(ExpertiseB)
-    ),
-    Exp_max = if_else(
-      as.numeric(ExpertiseA) <= as.numeric(ExpertiseB),
-      as.character(ExpertiseB),
-      as.character(ExpertiseA)
-    ),
-    
-    PairType = paste0(Exp_min, "_", Exp_max),
-    PairType = factor(PairType)
-  )
-
-cat("PairType counts:\n")
-print(table(df$PairType))
-
-## Choose a baseline PairType (adjust if needed)
-if ("none_low" %in% levels(df$PairType)) {
-  df$PairType <- relevel(df$PairType, ref = "none_low")
-}
-
-## Also choose a baseline trial if you like
-df$trial_id <- relevel(df$trial_id, ref = "trial_2")
-
-## =========================================
-## 6. Pretty-print fixed effects
-## =========================================
-
+# ---- Pretty printer for fixed effects with stars ----
 print_model_with_sig <- function(mod, response_name) {
   cat("\n====", response_name, "====\n")
-  
   tidy(mod, effects = "fixed") %>%
     mutate(
-      # clean up term names for readability
-      term = str_replace(term, "^trial_id", ""),       # remove 'trial_id' prefix
-      term = str_replace(term, "^PairType", ""),       # also optional cleanup for PairType
-      term = str_replace_all(term, ":", " × "),        # nicer for interactions
-      term = str_trim(term),
-      
-      signif = case_when(
+      stars = case_when(
         p.value < 0.001 ~ "***",
         p.value < 0.01  ~ "**",
         p.value < 0.05  ~ "*",
         p.value < 0.1   ~ ".",
         TRUE            ~ ""
-      ),
-      term = if_else(
-        term == "(Intercept)",
-        "(Intercept)",
-        paste0(term, " ", signif)
       )
     ) %>%
-    select(effect, term, estimate, std.error, statistic, df, p.value, signif) %>%
+    select(term, estimate, std.error, statistic, df, p.value, stars) %>%
     print(n = Inf)
 }
 
+message("Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1")
 
-cat("Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1\n")
-
-## =========================================
-## 7. Run model for each similarity dimension
-##    Model: y ~ PairType + trial_id + (1 | exp_a) + (1 | exp_b)
-## =========================================
-
-responses <- c("Shape", "Length", "Direction", "Position", "Duration")
-
-models <- lapply(responses, function(y) {
-  form <- as.formula(paste0(
-    y,
-    " ~ PairType + trial_id + (1 | exp_a) + (1 | exp_b)"
-  ))
-  
-  mod <- lmer(form, data = df)
-  print_model_with_sig(mod, y)
-  invisible(mod)
-})
-
-## Cross-check:
-xtabs(~ PairType + trial_id, df)
+# ---- Fit: response ~ expertise_a * Trial + (1|exp_a) + (1|exp_b) ----
+rand <- "(1 | exp_a) + (1 | exp_b)"
+for (y in responses) {
+  if (case %in% c("mean_diff", "both")) {
+    form_md <- as.formula(paste0(y, " ~ expertise_mean + expertise_diff + ", rand))
+    mod_md  <- lmer(form_md, data = df)
+    print_model_with_sig(mod_md, paste0(y, " (Mean + Diff)"))
+  }
+  if (case %in% c("pairtype", "both")) {
+    form_pt <- as.formula(paste0(y, " ~ PairType + ", rand))
+    mod_pt  <- lmer(form_pt, data = df)
+    print_model_with_sig(mod_pt, paste0(y, " (PairType)"))
+  }
+}

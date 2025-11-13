@@ -2,6 +2,8 @@
 ## Linear mixed model for one combined trial file
 ## =========================================
 
+## install.packages(c("tidyverse", "dplyr", "lme4", "lmerTest", "broom.mixed", "here"))
+
 library(tidyverse)
 library(dplyr)
 library(lme4)
@@ -14,10 +16,11 @@ base_path <- file.path(here(), "output", "processed_dataset")
 # --- Parameters ---
 data_set <- "EMIP_corrected"
 result <- "comparison_results_filtered"
+comp_type <- "within_group"
 trial_folder <- "trial_5"
 
 # path to your combined CSV
-combined_path <- file.path(base_path, data_set, result, "within_group", trial_folder, "combined_data.csv")
+combined_path <- file.path(base_path, data_set, result, comp_type, trial_folder, "combined_data.csv")
 
 responses <- c("Shape", "Length", "Direction", "Position", "Duration")
 
@@ -52,7 +55,7 @@ print_model_with_sig <- function(mod, response_name) {
 }
 
 # --- Fit and print models for each response ---
-message("Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1")
+message("Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1")
 
 for (y in responses) {
   form <- as.formula(paste0(y, " ~ expertise_a + (1 | exp_a) + (1 | exp_b)"))

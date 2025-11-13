@@ -1,6 +1,8 @@
 ## =========================================
-## LMM: Expertise × Trial (2 vs 5), using combined CSVs
+## LMM: Expertise × Trial (2 vs 5), using combined CSVs from within_group comparison
 ## =========================================
+
+## install.packages(c("tidyverse", "dplyr", "lme4", "lmerTest", "broom.mixed", "here"))
 
 library(tidyverse)
 library(dplyr)
@@ -10,13 +12,12 @@ library(broom.mixed)
 library(here)
 
 base_path <- file.path(here(), "output", "processed_dataset")
-print(base_path)
 
 # ---- Parameters ----
 data_set <- "EMIP_corrected"
 result <- "comparison_results_filtered"
-combined_path <- file.path(base_path, data_set, result, "within_group")
-setwd(combined_path)
+group_path <- file.path(base_path, data_set, result, "within_group")
+setwd(group_path)
 
 combined_filename <- "combined_data.csv"
 trials <- c("trial_2", "trial_5")                  # which trials to include
@@ -63,7 +64,7 @@ print_model_with_sig <- function(mod, response_name) {
     print(n = Inf)
 }
 
-message("Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1")
+message("Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1")
 
 # ---- Fit: response ~ expertise_a * Trial + (1|exp_a) + (1|exp_b) ----
 rand <- "(1 | exp_a) + (1 | exp_b)"
