@@ -7,13 +7,18 @@ library(dplyr)
 library(lme4)
 library(lmerTest)
 library(broom.mixed)
+library(here)
 
-setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
+base_path <- file.path(here(), "output", "processed_dataset")
 
 # --- Parameters ---
-trial_folder <- "trial_2"
+data_set <- "EMIP_corrected"
+result <- "comparison_results_filtered"
+trial_folder <- "trial_5"
+
 # path to your combined CSV
-combined_path <- file.path(trial_folder, "combined_data.csv")
+combined_path <- file.path(base_path, data_set, result, "within_group", trial_folder, "combined_data.csv")
+
 responses <- c("Shape", "Length", "Direction", "Position", "Duration")
 
 # --- Load data ---
