@@ -1,28 +1,33 @@
-
 library(lme4)
+library(here)
 
-## 1. Create an lmerMod object
-m_lmer <- lmer(Reaction ~ Days + (Days | Subject), data = sleepstudy)
+source(file.path(here(), "src", "R", "workflow.R"))
+source(file.path(here(), "src", "R", "models.R"))
 
-## 2. Create a glmerMod object
-m_glmer <- glmer(cbind(incidence, size - incidence) ~ period + (1 | herd),
-                 data = cbpp, family = binomial)
+base_path <- file.path(here(), "output", "processed_dataset")
 
-## 3. Create a non-mixed model (lm)
-m_lm <- lm(Sepal.Length ~ Sepal.Width, data = iris)
+# --- Parameters ---
+data_set <- "EMIP_corrected"
+result <- "comparison_results_filtered"
+comp_type <- "between_group"
+trial_folder <- "trial_5"
 
-## Function to test model type
-check_model_type <- function(final_model) {
-  if (inherits(final_model, "lmerMod")) {
-    message("Final model is a linear mixed model (lmerMod).")
-  } else if (inherits(final_model, "glmerMod")) {
-    message("Final model is a generalized linear mixed model (glmerMod).")
-  } else {
-    stop("Final model is of unknown type.")
-  }
-}
+trial_path <- file.path(base_path, data_set, result, comp_type, trial_folder)
+trial_path_nobaseline <- file.path(base_path, data_set, "data_without_baseline", result, comp_type)
 
-## Test all three cases
-check_model_type(m_lmer)
-check_model_type(m_glmer)
-try(check_model_type(m_lm))   # wrapped in try() to prevent stopping the script
+# --- Diagnostics config ---
+# diag_base_dir <- file.path(base_path, data_set, "diagnostics")
+# diag_base_dir <- trial_path
+diag_base_dir <- trial_path_nobaseline
+
+config <- list(
+  results_log   = file.path(diag_base_dir, paste0("assumptions_", trial_folder, ".txt")),
+  figures_dir   = file.path(diag_base_dir, "figures", trial_folder),
+  output_prefix = paste(data_set, trial_folder, sep = "_")
+)
+
+model_list <- between_group(trial_path_nobaseline)
+
+result <- work_flow(model_list, config)
+
+

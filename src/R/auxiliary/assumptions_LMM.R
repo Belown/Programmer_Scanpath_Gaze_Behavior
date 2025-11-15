@@ -13,7 +13,7 @@
 #' @param config Analysis configuration list
 #' @return List with assumption check results
 check_all_assumptions <- function(model, y, config) {
-  cat("Checking model assumptions for", y, "...\n")
+  cat("--- Checking model assumptions for", y, "---\n")
   
   write(strrep("=", 60), config$results_log, append = TRUE)
   write("MODEL ASSUMPTION CHECKS", config$results_log, append = TRUE)

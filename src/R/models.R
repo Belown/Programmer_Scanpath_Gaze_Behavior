@@ -19,14 +19,11 @@ dimensions <- c("Shape", "Length", "Direction", "Position", "Duration")
 
 #' Generate LMMs for within-trial comparisons
 #' 
-#' @param data_set The dataset name (e.g., "EMIP_corrected")
-#' @param data_folder The data folder name (e.g., "comparison_results_filtered")
-#' @param comp_type The comparison type (e.g., "within_group")
-#' @param trial_folder The trial folder name (e.g., "trial_5")
+#' @param folder_path The folder path containing the combined CSV
 #' @return A list of fitted LMMs for each dimension
-within_trial <- function(data_set, data_folder, comp_type, trial_folder){
+within_trial <- function(folder_path){
   # Construct path to combined CSV
-  combined_path <- file.path(base_data_path, data_set, data_folder, comp_type, trial_folder, "combined_data.csv")
+  combined_path <- file.path(folder_path, "combined_data.csv")
   cat("Loading data from:", combined_path, "\n")
   
   # Read and preprocess data
@@ -55,13 +52,12 @@ within_trial <- function(data_set, data_folder, comp_type, trial_folder){
 
 #' Generate LMMs for within-group comparisons across trials
 #' 
-#' @param data_set The dataset name (e.g., "EMIP_corrected")
-#' @param datafolder The data folder name (e.g., "comparison_results_filtered")
+#' @param folder_path The base folder path containing trial subfolders
 #' @return A list of fitted LMMs for each dimension
-within_group <- function(data_set, data_folder){
+within_group <- function(folder_path){
   # Construct paths
-  trial_2_path <- file.path(base_data_path, data_set, data_folder, "within_group", "trial_2")
-  trial_5_path <- file.path(base_data_path, data_set, data_folder, "within_group", "trial_5")
+  trial_2_path <- file.path(folder_path, "trial_2")
+  trial_5_path <- file.path(folder_path, "trial_5")
   combined_filename <- "combined_data.csv"
   trials <- c(trial_2_path, trial_5_path)
   dimensions <- c("Shape", "Length", "Direction", "Position", "Duration")
@@ -111,14 +107,13 @@ within_group <- function(data_set, data_folder){
 
 #' Generate LMMs for between-group comparisons across trials
 #' 
-#' @param data_set The dataset name (e.g., "EMIP_corrected")
-#' @param data_folder The data folder name (e.g., "comparison_results_filtered")
+#' @param folder_path The base folder path containing trial subfolders
 #' @param case The model type to run ("mean_diff", "pairtype", or "both")
 #' @return A list of fitted LMMs for each dimension 
-between_group <- function(data_set, data_folder, case){
+between_group <- function(folder_path){
   # Construct paths
-  trial_2_path <- file.path(base_path, data_set, data_folder, "between_group", "trial_2")
-  trial_5_path <- file.path(base_path, data_set, data_folder, "between_group", "trial_5")
+  trial_2_path <- file.path(folder_path, "trial_2")
+  trial_5_path <- file.path(folder_path, "trial_5")
   combined_filename <- "combined_data.csv"
   trials <- c(trial_2_path, trial_5_path)
   dimensions <- c("Shape", "Length", "Direction", "Position", "Duration")
