@@ -51,7 +51,12 @@ def compare_experiment_pair(exp_a, exp_b, trial_id, eye_events, expertise):
             "expertise_a": expertise_a,
             "expertise_b": expertise_b,
         }
-        row.update(scores.get("final_score", {}))
+        # Add final_score with prefix
+        for key, value in scores.get("final_score", {}).items():
+            row[key] = value
+        # Add base_line_score with prefix
+        for key, value in scores.get("base_line_score", {}).items():
+            row[f"baseline_{key}"] = value
         return row
     except Exception as e:
         print(f"Error comparing {exp_a} and {exp_b}: {e}")
@@ -112,10 +117,13 @@ def within_group_comparison(query_output_path, eye_events, trial_id, dataset):
         # Store results for the group
         results[group_file] = group_results
 
+        df_results = pd.DataFrame(group_results)
+        df_results_filtered = filter_duplicates(df_results)
+
         # Save the results for the current group to a local file
         os.makedirs(os.path.join(comparation_output_dir, "within_group", f"trial_{str(trial_id)}"), exist_ok=True)
         output_file = os.path.join(comparation_output_dir, "within_group", f"trial_{str(trial_id)}", f"{group_file.replace('.csv', f'_results.csv')}")
-        pd.DataFrame(group_results).to_csv(output_file, index=False)
+        df_results_filtered.to_csv(output_file, index=False)
         print(f"Results for group {group_file} saved to {output_file}")
 
     return results
@@ -182,10 +190,26 @@ def between_group_comparison(query_output_path, eye_events, trial_id, dataset):
             group_pair_key = f"{group_file_a}_vs_{group_file_b}"
             results[group_pair_key] = group_results
 
+            df_results = pd.DataFrame(group_results)
+            df_results_filtered = filter_duplicates(df_results)
+
             # Save the results for the current group pair to a local file
             os.makedirs(os.path.join(comparation_output_dir, "between_group", f"trial_{str(trial_id)}"), exist_ok=True)
             output_file = os.path.join(comparation_output_dir, "between_group", f"trial_{str(trial_id)}", f"{group_file_a.replace('.csv', '')}_{group_file_b.replace('.csv', '')}_results.csv")
-            pd.DataFrame(group_results).to_csv(output_file, index=False)
+            df_results_filtered.to_csv(output_file, index=False)
             print(f"Results for group pair {group_file_a} vs {group_file_b} saved to {output_file}")
 
     return results
+
+def filter_duplicates(df: pd.DataFrame):
+    '''
+    Filter dataframe that has symmetric exp_a and exp_b entries to only keep one of them.
+    :param df: DataFrame from .csv file.
+
+    :return: filtered DataFrame.
+    '''
+    df = df.copy()
+    df['pair_id'] = df.apply(lambda x: tuple(sorted([x['exp_a'], x['exp_b']])), axis=1)
+    df = df.drop_duplicates(subset='pair_id', keep='first')
+    df = df.drop(columns='pair_id')
+    return df
