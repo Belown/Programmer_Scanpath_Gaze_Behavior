@@ -39,6 +39,12 @@ within_trial <- function(folder_path){
   # Provide basic info about loaded data
   cat("Rows loaded:", nrow(df), "\n")
   print(table(df$expertise_a))
+
+  config <- list(
+    results_log   = file.path(folder_path, "assumptions.txt"),
+    figures_dir   = file.path(folder_path, "figures"),
+    output_prefix = "within_trial"
+  )
   
   # Generate LMMs for each dimension and add them to the list
   models_list <- list()
@@ -47,7 +53,12 @@ within_trial <- function(folder_path){
     mod <- lmer(form, data = df)
     models_list[[y]] <- mod
   }
-  return (models_list)
+
+  return (list(
+    data = df,
+    models = models_list,
+    config = config
+  ))
 }
 
 #' Generate LMMs for within-group comparisons across trials
@@ -101,8 +112,18 @@ within_group <- function(folder_path){
     mod <- lmer(form, data = df)
     models_list[[y]] <- mod
   }
+
+  config <- list(
+    results_log   = file.path(folder_path, "assumptions.txt"),
+    figures_dir   = file.path(folder_path, "figures"),
+    output_prefix = basename(folder_path)
+  )
   
-  return (models_list)
+  return (list(
+    data = df,
+    models = models_list,
+    config = config
+  ))
 }
 
 #' Generate LMMs for between-group comparisons across trials
@@ -110,7 +131,7 @@ within_group <- function(folder_path){
 #' @param folder_path The base folder path containing trial subfolders
 #' @param case The model type to run ("mean_diff", "pairtype", or "both")
 #' @return A list of fitted LMMs for each dimension 
-between_group <- function(folder_path){
+between_group <- function(folder_path, case){
   # Construct paths
   trial_2_path <- file.path(folder_path, "trial_2")
   trial_5_path <- file.path(folder_path, "trial_5")
@@ -186,24 +207,90 @@ between_group <- function(folder_path){
       models_list[[y]] <- mod_pt
     }
   }
+
+  config <- list(
+    results_log   = file.path(folder_path, "assumptions.txt"),
+    figures_dir   = file.path(folder_path, "figures"),
+    output_prefix = basename(folder_path)
+  )
   
-  return (models_list)
+  return (list(
+    data = df,
+    models = models_list,
+    config = config
+  ))
 }
 
-# Helper function to print the model in a neat way
+#' Print model summary with significance stars
+#' 
+#' @param mod Fitted model (lmerMod or glmmTMB)
+#' @param dimension_name Name of the dimension for display
 print_model_with_sig <- function(mod, dimension_name) {
+  require(dplyr)
+  
   cat("\n====", dimension_name, "====\n")
-  tidy(mod, effects = "fixed") %>%
-    mutate(
-      stars = case_when(
-        p.value < 0.001 ~ "***",
-        p.value < 0.01  ~ "**",
-        p.value < 0.05  ~ "*",
-        p.value < 0.1   ~ ".",
-        TRUE            ~ ""
+  cat("Formula:", deparse(formula(mod)), "\n")
+  
+  if (inherits(mod, "glmmTMB")) {
+    cat("Type: glmmTMB | Family:", family(mod)$family, "\n\n")
+    
+    # 提取系数表
+    coef_df <- as.data.frame(summary(mod)$coefficients$cond)
+    coef_df$term <- rownames(coef_df)
+    rownames(coef_df) <- NULL
+    
+    # 重命名列
+    names(coef_df) <- c("estimate", "std.error", "statistic", "p.value", "term")
+    
+    # 调整列顺序并添加星号
+    coef_df <- coef_df %>%
+      select(term, estimate, std.error, statistic, p.value) %>%
+      mutate(
+        stars = case_when(
+          p.value < 0.001 ~ "***",
+          p.value < 0.01  ~ "**",
+          p.value < 0.05  ~ "*",
+          p.value < 0.1   ~ ".",
+          TRUE            ~ ""
+        )
       )
-    ) %>%
-    select(term, estimate, std.error, statistic, df, p.value, stars) %>%
-    print(n = Inf)
+    
+  } else if (inherits(mod, "lmerMod")) {
+    cat("Type: lmer\n\n")
+    
+    # 使用lmerTest或计算p值
+    coef_df <- as.data.frame(summary(mod)$coefficients)
+    coef_df$term <- rownames(coef_df)
+    rownames(coef_df) <- NULL
+    
+    # 检查列名并重命名
+    if ("Pr(>|t|)" %in% names(coef_df)) {
+      names(coef_df)[names(coef_df) == "Pr(>|t|)"] <- "p.value"
+    }
+    
+    coef_df <- coef_df %>%
+      select(term, Estimate, `Std. Error`, `t value`, 
+             any_of(c("df", "p.value"))) %>%
+      rename(estimate = Estimate, 
+             std.error = `Std. Error`,
+             statistic = `t value`) %>%
+      mutate(
+        stars = if("p.value" %in% names(.)) {
+          case_when(
+            p.value < 0.001 ~ "***",
+            p.value < 0.01  ~ "**",
+            p.value < 0.05  ~ "*",
+            p.value < 0.1   ~ ".",
+            TRUE            ~ ""
+          )
+        } else {
+          ""
+        }
+      )
+  }
+  
+  print(coef_df, row.names = FALSE)
   message("Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1")
+  
+  invisible(coef_df)
 }

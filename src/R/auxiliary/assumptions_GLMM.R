@@ -16,8 +16,8 @@
 #' @param family_used Family used in GLMM
 #' @param config Analysis configuration list
 #' @return List with assumption check results
-check_all_glmm_assumptions <- function(glmm_model, family_used, config) {
-  cat("Checking GLMM assumptions...\n")
+check_all_glmm_assumptions <- function(glmm_model, family_used, config, y) {
+  cat("--- Checking GLMM assumptions for", y, "---\n")
 
   write(strrep("=", 60), config$results_log, append = TRUE)
   write("GLMM ASSUMPTION CHECKS", config$results_log, append = TRUE)

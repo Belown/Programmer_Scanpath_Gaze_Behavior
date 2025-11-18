@@ -1,4 +1,5 @@
 library(here)
+library(glmmTMB)
 source(file.path(here(), "src", "R", "auxiliary", "assumptions_LMM.R"))
 source(file.path(here(), "src", "R", "auxiliary", "assumptions_GLMM.R"))
 dimensions <- c("Shape", "Length", "Direction", "Position", "Duration")
@@ -16,40 +17,35 @@ work_flow <- function(m_list, config){
   cat("============ Workflow stage 1 ============\n")
   result_1 <- sub_workflow(m_list, config)
   if (result_1$pass) {
-    return (result_1)
+    return (result_1$models)
   } else {
     cat("============ Workflow stage 2 ============\n")
     ms <- m_list
-    ms_log <- list()
+    ms_logit <- list()
     for (dim in dimensions) {
       m <- ms[[dim]]
-      # Check if any of the data is non-positive
-      response_data <- model.response(model.frame(m))
-      if (any(response_data <= 0, na.rm = TRUE)) {
-        # Use log1p transformation if zero or negative values are present
-        ms_log[[dim]] <- update(m, formula = update(formula(m), log1p(.) ~ .))
-        message("Using log1p transformation for ", dim, " due to zero/negative values")
-      } else {
-        ms_log[[dim]] <- update(m, formula = update(formula(m), log(.) ~ .))
-      }
+      
+      # Just refit with transformed response, keeping RHS the same
+      ms_logit[[dim]] <- update(m, formula = update(formula(m), logit01(.) ~ .)
+      )
+      message("Using logit-style transformation ([-1,1] -> [0,1] -> logit) for ", dim)
     }
-    result_2 <- sub_workflow(ms_log, config)
+    result_2 <- sub_workflow(ms_logit, config)
     if (result_2$pass) {
-      return (result_2)
+      return (result_2$models)
     } else {
       cat("============ Workflow stage 3 ============\n")
-      # family_list <- setNames(
-      #   replicate(length(dimensions), Gamma(link = "log"), simplify = FALSE),
-      #   dimensions
-      # )
-      # glmms <- lmm_to_glmm(ms, family_list)
-      # result_3 <- sub_workflow(glmms, config)
-      # if (result_3$pass) {
-      #   return (result_3)
-      # } else {
-      #   stop("All model transformations failed to meet assumptions.")
-      # }
-      stop("Stage 3 skipped")
+      family_list <- setNames(
+        replicate(length(dimensions), gaussian(), simplify = FALSE),
+        dimensions
+      )
+      glmms <- lmm_to_glmm(ms, family_list)
+      result_3 <- sub_workflow(glmms, config)
+      if (result_3$pass) {
+        return (result_3$models)
+      } else {
+        stop("All model transformations failed to meet assumptions.")
+      }
     }
   }
 }
@@ -63,19 +59,6 @@ work_flow <- function(m_list, config){
 #' @return A list containing the final models and pass/fail status
 sub_workflow <- function(m_list, config){
   final_models <- check_interaction(m_list)
-  
-  for (dim in dimensions) {
-    final_model <- final_models[[dim]]
-    # Print model type information
-    if (inherits(final_model, "lmerMod")) {
-      message("Model for ", dim, " is a linear mixed model (LMM).")
-    } else if (inherits(final_model, "glmerMod")) {
-      message("Model for ", dim, " is a generalized linear mixed model (GLMM).")
-    } else {
-      stop("Model for ", dim, " is of unknown type.")
-    }
-    # --------------------------------------
-  }
   
   # Check assumptions (function handles model type internally)
   message("Checking model assumptions...")
@@ -93,7 +76,7 @@ sub_workflow <- function(m_list, config){
   }
   
   return(list(
-    model = final_models,
+    models = final_models,
     pass = assumption_results$overall_pass
   ))
 }
@@ -111,7 +94,7 @@ check_interaction <- function(m_list) {
   for (dim in dimensions) {
     m <- m_list[[dim]]
 
-    # Extract ALL interaction terms
+    # Extract all interaction terms
     tt <- terms(m)
     term_lbl  <- attr(tt, "term.labels")
     
@@ -132,7 +115,7 @@ check_interaction <- function(m_list) {
       next
     }
     
-    # Use likelihood ratio test to check if the interaction significant?
+    # Use likelihood ratio test to check if the interaction is significant
     lrt <- anova(m_add, m)
     p_int <- lrt$`Pr(>Chisq)`[2]
     alpha <- 0.05
@@ -140,10 +123,10 @@ check_interaction <- function(m_list) {
     # Choose final model
     if (!is.na(p_int) && p_int < alpha) {
       final_model <- m
-      message("Interaction is significant (p = ", signif(p_int, 3), "). Using the interaction model.")
+      cat("✅️ Interaction for ", dim, "is significant (p = ", signif(p_int, 3), "). Using the interaction model.")
     } else {
       final_model <- m_add
-      message("Interaction is NOT significant (p = ", signif(p_int, 3), "). Using additive model.")
+      cat("❌️ Interaction for ", dim, "is NOT significant (p = ", signif(p_int, 3), "). Using additive model.")
     }
     final_result[[dim]] <- final_model
   }
@@ -165,14 +148,20 @@ check_assumptions_all_dimensions <- function(model_list, config) {
     if (inherits(model, "lmerMod")) {
       # Linear Mixed Model
       result <- check_all_assumptions(model, dim, config)
-    } else if (inherits(model, "glmerMod")) {
+    # } else if (inherits(model, "glmerMod")) {
+    } else{
       # Generalized Linear Mixed Model
       # Need to determine family - extract from model
-      family_used <- family(model)$family
-      result <- check_all_glmm_assumptions(model, family_used, config)
-    } else {
-      stop("Unsupported model type: ", class(model))
+      family_obj <- family(model)
+      if (is.null(family_obj)) {
+        stop("Can not determine family for GLMM model.")
+      }
+      family_used <- family_obj$family
+      result <- check_all_glmm_assumptions(model, family_used, config, dim)
     }
+    # } else {
+    #   stop("Unsupported model type: ", class(model))
+    # }
     
     results[[dim]] <- result
     
@@ -208,10 +197,37 @@ lmm_to_glmm <- function(model_list, family_list) {
     
     # Extract formula and data
     f <- formula(model)
-    dat <- getData(model)  # works for lmer model objects
+    dat <- model@frame
+
+    # Fit GLMM using glmmTMB
+    update_list[[dim]] <- glmmTMB(
+      formula = f, 
+      data = dat, 
+      family = family,
+      control = glmmTMBControl(
+        optimizer = nlminb,
+        optCtrl = list(eval.max = 1000, iter.max = 500),
+        parallel = 1)
+    )
+    # Check convergence
+    if (update_list[[dim]]$fit$convergence != 0) {
+      warning("Model for ", dim, " did not converge properly")
+    }
     
-    # Refit as GLMM
-    update_list[[dim]] <- glmer(formula = f, data = dat, family = family)
   }
   return (update_list)
+}
+
+#' Apply logit transformation
+#' 
+#' @param x Numeric vector with values in [-1, 1]
+#' @param eps Small value to avoid log(0)
+#' @return Numeric vector with logit-transformed values
+logit01 <- function(x, eps = 1e-5) {
+  # rescale [-1,1] -> [0,1]
+  p <- (x + 1) / 2
+  # clamp to avoid exact 0 or 1
+  p <- pmin(pmax(p, eps), 1 - eps)
+  
+  return (log(p / (1 - p)))
 }
