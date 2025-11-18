@@ -8,9 +8,9 @@ source(file.path(here(), "src", "R", "models.R"))
 base_path <- file.path(here(), "output", "processed_dataset")
 
 # --- Parameters ---
-exp_type <- "within_group"
+exp_type <- "within_trial"
 data_set <- "EMIP_corrected"
-comp_type <- "between_group"
+comp_type <- "within_group"
 trial_folder <- "trial_2"
 
 model_pack <- switch(

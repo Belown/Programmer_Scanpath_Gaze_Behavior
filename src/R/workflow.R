@@ -101,18 +101,33 @@ check_interaction <- function(m_list) {
     # Detect all terms containing ":" (i.e., interactions of any order)
     interaction_terms <- term_lbl[grepl(":", term_lbl)]
     
-    # Build the additive model by removing ALL interaction terms
-    if (length(interaction_terms) > 0) {
-      # construct the drop formula
-      drop_formula <- as.formula(
-        paste(". ~ . -", paste(interaction_terms, collapse = " - "))
-      )
-      # Change the full model to additive model
-      m_add <- update(m, drop_formula)
-    } else {
-      # No interactions detected
+    if(length(interaction_terms) == 0) {
+      # No interaction terms present
       final_result[[dim]] <- m
       next
+    }
+
+    drop_formula <- as.formula(
+      paste(". ~ . -", paste(interaction_terms, collapse = " - "))
+    )
+
+    if (inherits(m, "glmmTMB")) {
+      updated_formula <- update(formula(m), drop_formula)
+      dat <- m$frame
+      family_used <- family(m)
+      control_params <- m$modelInfo$control
+      m_add <- glmmTMB(
+        formula = updated_formula,
+        data = dat,
+        family = family_used,
+        control = glmmTMBControl(
+          optimizer = nlminb,
+          optCtrl = list(eval.max = 1000, iter.max = 500),
+          parallel = 1)
+      )
+    } else {
+      # 对于 lmerMod 模型
+      m_add <- update(m, drop_formula)
     }
     
     # Use likelihood ratio test to check if the interaction is significant
@@ -123,10 +138,10 @@ check_interaction <- function(m_list) {
     # Choose final model
     if (!is.na(p_int) && p_int < alpha) {
       final_model <- m
-      cat("✅️ Interaction for ", dim, "is significant (p = ", signif(p_int, 3), "). Using the interaction model.")
+      cat("✅️ Interaction for ", dim, "is significant (p = ", signif(p_int, 3), "). Using the interaction model.\n")
     } else {
       final_model <- m_add
-      cat("❌️ Interaction for ", dim, "is NOT significant (p = ", signif(p_int, 3), "). Using additive model.")
+      cat("❌️ Interaction for ", dim, "is NOT significant (p = ", signif(p_int, 3), "). Using additive model.\n")
     }
     final_result[[dim]] <- final_model
   }
