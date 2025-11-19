@@ -234,15 +234,15 @@ print_model_with_sig <- function(mod, dimension_name) {
   if (inherits(mod, "glmmTMB")) {
     cat("Type: glmmTMB | Family:", family(mod)$family, "\n\n")
     
-    # 提取系数表
+    # Get coefficients table
     coef_df <- as.data.frame(summary(mod)$coefficients$cond)
     coef_df$term <- rownames(coef_df)
     rownames(coef_df) <- NULL
     
-    # 重命名列
+    # Rename columns for consistency
     names(coef_df) <- c("estimate", "std.error", "statistic", "p.value", "term")
     
-    # 调整列顺序并添加星号
+    # Change column order and add starts
     coef_df <- coef_df %>%
       select(term, estimate, std.error, statistic, p.value) %>%
       mutate(
@@ -258,12 +258,11 @@ print_model_with_sig <- function(mod, dimension_name) {
   } else if (inherits(mod, "lmerMod")) {
     cat("Type: lmer\n\n")
     
-    # 使用lmerTest或计算p值
+    # Use lmerTest or compute p value
     coef_df <- as.data.frame(summary(mod)$coefficients)
     coef_df$term <- rownames(coef_df)
     rownames(coef_df) <- NULL
     
-    # 检查列名并重命名
     if ("Pr(>|t|)" %in% names(coef_df)) {
       names(coef_df)[names(coef_df) == "Pr(>|t|)"] <- "p.value"
     }
