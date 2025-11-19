@@ -1,3 +1,16 @@
+# =========================================================
+# Workflow module
+# =========================================================
+# This module implements a multi-stage model validation workflow for linear and 
+# generalized linear mixed models (LMMs/GLMMs). It provides functions to:
+#   1. Check and validate model assumptions
+#   2. Test significance of interaction terms
+#   3. Apply transformations when models fail assumption checks
+#   4. Convert between model types (LMM to GLMM) when necessary
+# The workflow follows a systematic approach to ensure statistical validity,
+# with three progressive stages of model refinement.
+# =========================================================
+
 library(here)
 library(glmmTMB)
 source(file.path(here(), "src", "R", "auxiliary", "assumptions_LMM.R"))
@@ -12,7 +25,7 @@ dimensions <- c("Shape", "Length", "Direction", "Position", "Duration")
 #' 3. If it still fails, convert the LMM to a GLMM and re-check.
 #' @param m_list A list of fitted models (either LMM or GLMM)
 #' @param config Configuration for assumption checks
-#' @return A list containing the final models and pass/fail status
+#' @return A list containing the final models and pass/fail status from sub workflow
 work_flow <- function(m_list, config){
   cat("============ Workflow stage 1 ============\n")
   result_1 <- sub_workflow(m_list, config)
@@ -52,11 +65,12 @@ work_flow <- function(m_list, config){
 
 #' Sub-workflow to check interaction and model assumptions based on model type
 #' 
-#' This function takes a list of fitted model and configuration, checks for interaction significance,
-#' and then applies the appropriate assumption checks based on whether the model is an LMM or GLMM.
+#' This function takes a list of fitted model and configuration, checks for 
+#' interaction significance, and then applies the appropriate assumption checks 
+#' based on whether the model is an LMM or GLMM.
 #' @param m_list A list of fitted models (either LMMs or GLMMs)
 #' @param config Configuration for assumption checks
-#' @return A list containing the final models and pass/fail status
+#' @return A list containing checked models and pass/fail status
 sub_workflow <- function(m_list, config){
   final_models <- check_interaction(m_list)
   
@@ -83,11 +97,12 @@ sub_workflow <- function(m_list, config){
 
 #' Check Significance of Interaction Terms in a LMM
 #' 
-#' This function checks whether interaction terms in a given list of LMMs are statistically significant.
-#' If the interaction terms are not significant, it returns an additive model without interactions.
-#' If they are significant, it returns the original model.
+#' This function checks whether interaction terms in a given list of LMMs are 
+#' statistically significant. If the interaction terms are not significant, it 
+#' returns an additive model without interactions. If they are significant, it 
+#' returns the original model.
 #' 
-#' @param m_list A list of fitted linear mixed model (LMM) objects.
+#' @param m_list A list of fitted LMM/GLMM objects.
 #' @return A list of fitted LMM objects, either the original model or the additive model.
 check_interaction <- function(m_list) {
   final_result <- list()
@@ -150,7 +165,14 @@ check_interaction <- function(m_list) {
 
 #' Check assumptions for all dimensions with automatic model type detection
 #' 
-#' @param model_list A list oof fitted models (LMM or GLMM)
+#' Based on type of model (LMM or GLMM) do different assumption testing
+#' For LMM: Linearity of the relationship between predictors and response, 
+#'          Homoscedasticity of residual variance, Independence of observations, 
+#'          Normality of residuals, Normality of random effects
+#' For GLMM: Distributional assumption, Correct link function, Independence, 
+#'           Random effects normality, No overdispersion/zero inflation
+#' 
+#' @param model_list A list of fitted models (LMM or GLMM)
 #' @param config Configuration for assumption checks
 #' @return List with overall status and detailed results for each dimension/model
 check_assumptions_all_dimensions <- function(model_list, config) {
@@ -163,7 +185,6 @@ check_assumptions_all_dimensions <- function(model_list, config) {
     if (inherits(model, "lmerMod")) {
       # Linear Mixed Model
       result <- check_all_assumptions(model, dim, config)
-    # } else if (inherits(model, "glmerMod")) {
     } else{
       # Generalized Linear Mixed Model
       # Need to determine family - extract from model
@@ -174,9 +195,6 @@ check_assumptions_all_dimensions <- function(model_list, config) {
       family_used <- family_obj$family
       result <- check_all_glmm_assumptions(model, family_used, config, dim)
     }
-    # } else {
-    #   stop("Unsupported model type: ", class(model))
-    # }
     
     results[[dim]] <- result
     
@@ -200,6 +218,8 @@ check_assumptions_all_dimensions <- function(model_list, config) {
 }
 
 #' Convert list of LMMs to list of GLMMs with specified family
+#' 
+#' Convert LMM to GLMM by reading the formula and data from each LMM and use manual control
 #' 
 #' @param model_list A list of fitted LMM models (lmerMod)
 #' @param family_list A list of family objects for GLMM (e.g., binomial, poisson

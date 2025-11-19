@@ -46,6 +46,11 @@ within_trial <- function(folder_path){
     output_prefix = "within_trial"
   )
   
+  # Clear previous log if exists
+  if (file.exists(config$results_log)) {
+    write("", file = config$results_log)
+  }
+  
   # Generate LMMs for each dimension and add them to the list
   models_list <- list()
   for (y in dimensions) {
@@ -57,7 +62,8 @@ within_trial <- function(folder_path){
   return (list(
     data = df,
     models = models_list,
-    config = config
+    config = config,
+    folder_path = folder_path
   ))
 }
 
@@ -119,10 +125,16 @@ within_group <- function(folder_path){
     output_prefix = basename(folder_path)
   )
   
+  # Clear previous log if exists
+  if (file.exists(config$results_log)) {
+    write("", file = config$results_log)
+  }
+  
   return (list(
     data = df,
     models = models_list,
-    config = config
+    config = config,
+    folder_path = folder_path
   ))
 }
 
@@ -214,10 +226,16 @@ between_group <- function(folder_path, case){
     output_prefix = basename(folder_path)
   )
   
+  # Clear previous log if exists
+  if (file.exists(config$results_log)) {
+    write("", file = config$results_log)
+  }
+  
   return (list(
     data = df,
     models = models_list,
-    config = config
+    config = config,
+    folder_path = folder_path
   ))
 }
 
@@ -287,9 +305,7 @@ print_model_with_sig <- function(mod, dimension_name) {
         }
       )
   }
-  
   print(coef_df, row.names = FALSE)
   message("Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1")
-  
   invisible(coef_df)
 }

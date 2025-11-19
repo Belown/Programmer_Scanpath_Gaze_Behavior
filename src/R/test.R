@@ -1,8 +1,8 @@
 library(lme4)
 library(here)
 
-source(file.path(here(), "src", "R", "workflow.R"))
-source(file.path(here(), "src", "R", "models.R"))
+source(file.path(here(), "src", "R", "auxiliary", "workflow.R"))
+source(file.path(here(), "src", "R", "auxiliary", "models.R"))
 # source(file.path(here(), "src", "R", "diag.R"))
 
 base_path <- file.path(here(), "output", "processed_dataset")

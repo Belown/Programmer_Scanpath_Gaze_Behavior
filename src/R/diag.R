@@ -239,8 +239,8 @@ diag <- function(lmer_model, response_var = NULL) {
 library(lme4)
 library(here)
 
-source(file.path(here(), "src", "R", "workflow.R"))
-source(file.path(here(), "src", "R", "models.R"))
+source(file.path(here(), "src", "R", "auxiliary", "workflow.R"))
+source(file.path(here(), "src", "R", "auxiliary", "models.R"))
 
 # 获取lmer模型
 base_path <- file.path(here(), "output", "processed_dataset")
