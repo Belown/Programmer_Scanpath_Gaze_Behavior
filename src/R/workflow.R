@@ -126,7 +126,7 @@ check_interaction <- function(m_list) {
           parallel = 1)
       )
     } else {
-      # 对于 lmerMod 模型
+      # For lmerMod models
       m_add <- update(m, drop_formula)
     }
     
