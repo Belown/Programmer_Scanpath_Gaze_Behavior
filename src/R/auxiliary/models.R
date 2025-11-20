@@ -20,7 +20,7 @@ dimensions <- c("Shape", "Length", "Direction", "Position", "Duration")
 #' 
 #' @param folder_path The folder path containing the combined CSV
 #' @return A list of fitted LMMs for each dimension and other info
-within_trial <- function(folder_path, random_effect){
+within_trial <- function(folder_path, random_effect, info){
   # Construct path to combined CSV
   combined_path <- file.path(folder_path, "combined_data.csv")
   # cat("Loading data from:", combined_path, "\n")
@@ -36,8 +36,10 @@ within_trial <- function(folder_path, random_effect){
     )
   
   # Provide basic info about loaded data
-  cat("Rows loaded:", nrow(df), "\n")
-  # print(table(df$expertise_a))
+  if (info) {
+    cat("Rows loaded:", nrow(df), "\n")
+    print(table(df$expertise_a))
+  }
 
   config <- list(
     results_log   = file.path(folder_path, "assumptions.txt"),
@@ -54,19 +56,30 @@ within_trial <- function(folder_path, random_effect){
   models_list <- list()
   
   # For investigating random effect
-  if (random_effect %in% c("a")) {
+  if (random_effect %in% c("exp_a")) {
     rand <- "(1 | exp_a)"
-  } else if (random_effect %in% c("b")) {
+    use_lmer <- TRUE
+  } else if (random_effect %in% c("exp_b")) {
     rand <- "(1 | exp_b)"
+    use_lmer <- TRUE
   } else if (random_effect %in% c("both")) {
     rand <- "(1 | exp_a) + (1 | exp_b)"
-  } else {
+    use_lmer <- TRUE
+  } else if (random_effect %in% c("none")) {
+    rand <- ""
+    use_lmer <- FALSE
+  }else {
     stop("Invalid random_effect specified.")
   }
 
   for (y in dimensions) {
-    form <- as.formula(paste0(y, " ~ expertise_a + ", rand))
-    mod <- lmer(form, data = df)
+    if (use_lmer) {
+      form <- as.formula(paste0(y, " ~ expertise_a + ", rand))
+      mod <- lmer(form, data = df)
+    } else {
+      form <- as.formula(paste0(y, " ~ expertise_a"))
+      mod <- lm(form, data = df)
+    }
     models_list[[y]] <- mod
   }
 
@@ -82,7 +95,7 @@ within_trial <- function(folder_path, random_effect){
 #' 
 #' @param folder_path The base folder path containing trial subfolders
 #' @return A list of fitted LMMs for each dimension and other info
-within_group <- function(folder_path, random_effect){
+within_group <- function(folder_path, random_effect, info){
   # Construct paths
   trial_2_path <- file.path(folder_path, "trial_2")
   trial_5_path <- file.path(folder_path, "trial_5")
@@ -117,26 +130,39 @@ within_group <- function(folder_path, random_effect){
   df <- map_dfr(trials, load_trial, file_name = combined_filename)
   
   # Provide basic info about loaded data
-  cat("Rows loaded:", nrow(df), "\n")
-  # print(table(df$expertise_a, df$trial))
+  if (info) {
+    cat("Rows loaded:", nrow(df), "\n")
+    print(table(df$expertise_a))
+  }
   
   # Generate LMMs for each dimension and add them to the list
   models_list <- list()
   
   # For investigating random effect
-  if (random_effect %in% c("a")) {
+  if (random_effect %in% c("exp_a")) {
     rand <- "(1 | exp_a)"
-  } else if (random_effect %in% c("b")) {
+    use_lmer <- TRUE
+  } else if (random_effect %in% c("exp_b")) {
     rand <- "(1 | exp_b)"
+    use_lmer <- TRUE
   } else if (random_effect %in% c("both")) {
     rand <- "(1 | exp_a) + (1 | exp_b)"
+    use_lmer <- TRUE
+  } else if (random_effect %in% c("none")) {
+    rand <- ""
+    use_lmer <- FALSE
   } else {
     stop("Invalid random_effect specified.")
   }
   
   for (y in dimensions) {
-    form <- as.formula(paste0(y, " ~ expertise_a * trial + ", rand))
-    mod <- lmer(form, data = df)
+    if (use_lmer) {
+      form <- as.formula(paste0(y, " ~ expertise_a * trial + ", rand))
+      mod <- lmer(form, data = df)
+    } else {
+      form <- as.formula(paste0(y, " ~ expertise_a * trial"))
+      mod <- lm(form, data = df)
+    }
     models_list[[y]] <- mod
   }
 
@@ -159,12 +185,13 @@ within_group <- function(folder_path, random_effect){
   ))
 }
 
+
 #' Generate LMMs for between-group comparisons across trials
 #' 
 #' @param folder_path The base folder path containing trial subfolders
 #' @param case The model type to run ("mean_diff", "pairtype", or "both")
 #' @return A list of fitted LMMs for each dimension and other info
-between_group <- function(folder_path, case, random_effect){
+between_group <- function(folder_path, case, random_effect, info){
   # Construct paths
   trial_2_path <- file.path(folder_path, "trial_2")
   trial_5_path <- file.path(folder_path, "trial_5")
@@ -221,35 +248,54 @@ between_group <- function(folder_path, case, random_effect){
   df$PairType <- factor(df$PairType, levels = c("LN", "LM", "MN", "HN", "HL", "HM"))
   
   # Provide basic info about loaded data
-  cat("Rows loaded:", nrow(df), "\n")
-  # print(table(df$expertise_a, df$trial))
+  if (info) {
+    cat("Rows loaded:", nrow(df), "\n")
+    print(table(df$expertise_a))
+  }
 
   # Generate LMMs for each dimension and add them to the list  
   models_list <- list()
   
   # For investigating random effect
-  if (random_effect %in% c("a")) {
+  if (random_effect %in% c("exp_a")) {
     rand <- "(1 | exp_a)"
-  } else if (random_effect %in% c("b")) {
+    use_lmer <- TRUE
+  } else if (random_effect %in% c("exp_b")) {
     rand <- "(1 | exp_b)"
+    use_lmer <- TRUE
   } else if (random_effect %in% c("both")) {
     rand <- "(1 | exp_a) + (1 | exp_b)"
+    use_lmer <- TRUE
+  } else if (random_effect %in% c("none")) {
+    rand <- ""
+    use_lmer <- FALSE
   } else {
     stop("Invalid random_effect specified.")
   }
   
   for (y in dimensions) {
     if (case %in% c("mean_diff")) {
-      form_md <- as.formula(paste0(y, " ~ expertise_mean * expertise_diff + ", rand))
-      mod_md  <- lmer(form_md, data = df)
+      if (use_lmer) {
+        form_md <- as.formula(paste0(y, " ~ expertise_mean * expertise_diff + ", rand))
+        mod_md  <- lmer(form_md, data = df)
+      } else {
+        form_md <- as.formula(paste0(y, " ~ expertise_mean * expertise_diff"))
+        mod_md  <- lm(form_md, data = df)
+      }
       models_list[[y]] <- mod_md
     }
     if (case %in% c("pairtype")) {
-      form_pt <- as.formula(paste0(y, " ~ PairType + ", rand))
-      mod_pt  <- lmer(form_pt, data = df)
+      if (use_lmer) {
+        form_pt <- as.formula(paste0(y, " ~ PairType + ", rand))
+        mod_pt  <- lmer(form_pt, data = df)
+      } else {
+        form_pt <- as.formula(paste0(y, " ~ PairType"))
+        mod_pt  <- lm(form_pt, data = df)
+      }
       models_list[[y]] <- mod_pt
     }
   }
+
 
   config <- list(
     results_log   = file.path(folder_path, "assumptions.txt"),

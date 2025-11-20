@@ -3,15 +3,15 @@ source(file.path(here(), "src", "R", "auxiliary", "helper.R"))
 
 #' Get all experiment model packages for a given random effect structure
 #' 
-#' @param random_effect The random effect structure ("a", "b", or "both")
+#' @param random_effect The random effect structure ("exp_a", "exp_b", or "both")
 #' @return A named list of model packages for all experiments
-get_all_exps <- function(random_effect) {
-  within_trial_within_2 <- get_model_pack("within_trial", "EMIP_corrected", "within_group", "trial_2", "mean_diff", random_effect)
-  within_trial_within_5 <- get_model_pack("within_trial", "EMIP_corrected", "within_group", "trial_5", "mean_diff", random_effect)
-  within_trial_between_2 <- get_model_pack("within_trial", "EMIP_corrected", "between_group", "trial_2", "mean_diff", random_effect)
-  within_trial_between_5 <- get_model_pack("within_trial", "EMIP_corrected", "between_group", "trial_5", "mean_diff", random_effect)
-  within_group <- get_model_pack("within_group", "EMIP_corrected", "", "", "", random_effect)
-  between_group <- get_model_pack("between_group", "EMIP_corrected", "", "", "mean_diff", random_effect)
+get_all_exps <- function(random_effect, info) {
+  within_trial_within_2 <- get_model_pack("within_trial", "EMIP_corrected", "within_group", "trial_2", "mean_diff", random_effect, info)
+  within_trial_within_5 <- get_model_pack("within_trial", "EMIP_corrected", "within_group", "trial_5", "mean_diff", random_effect, info)
+  within_trial_between_2 <- get_model_pack("within_trial", "EMIP_corrected", "between_group", "trial_2", "mean_diff", random_effect, info)
+  within_trial_between_5 <- get_model_pack("within_trial", "EMIP_corrected", "between_group", "trial_5", "mean_diff", random_effect, info)
+  within_group <- get_model_pack("within_group", "EMIP_corrected", "", "", "", random_effect, info)
+  between_group <- get_model_pack("between_group", "EMIP_corrected", "", "", "mean_diff", random_effect, info)
   
   result_list <- list(
     within_trial_within_2 = within_trial_within_2,
@@ -21,16 +21,36 @@ get_all_exps <- function(random_effect) {
     within_group = within_group,
     between_group = between_group
   )
+  
+  cat("Finish loading all models for random effect:", random_effect, "\n")
+  
   return(result_list)
 }
 
-#' Test random effects by printing AIC and BIC for all experiments
+#' Test random effects by storing AIC and BIC for all experiments in a CSV file
 test_random_effects <- function() {
-  rand_a <- get_all_exps("a")
-  rand_b <- get_all_exps("b")
-  rand_both <- get_all_exps("both")
+  output_path <- file.path(here(), "output", "R", "random_effect_result.csv")
+  if(!dir.exists(dirname(output_path))) {
+    dir.create(dirname(output_path), recursive = TRUE)
+  }
   
-  all_random_effect_list = list(rand_a = rand_a, rand_b = rand_b, rand_both = rand_both)
+  cat("Loading models for random effect analysis\n")
+  rand_a <- get_all_exps("exp_a", FALSE)
+  rand_b <- get_all_exps("exp_b", FALSE)
+  rand_both <- get_all_exps("both", FALSE)
+  rand_none <- get_all_exps("none", FALSE)
+  
+  all_random_effect_list = list(rand_a = rand_a, rand_b = rand_b, rand_both = rand_both, rand_none = rand_none)
+  
+  # Create an empty data frame to store results
+  results_df <- data.frame(
+    random_effect = character(),
+    experiment = character(),
+    dimension = character(),
+    AIC = numeric(),
+    BIC = numeric(),
+    stringsAsFactors = FALSE
+  )
   
   for (random_effect_list in names(all_random_effect_list)) {
     cat("============== Results for", random_effect_list, "==============\n")
@@ -38,10 +58,35 @@ test_random_effects <- function() {
     for (exp_pack in names(all_exps)) {
       cat("------------ Experiment:", exp_pack, "------------\n")
       model_pack <- all_exps[[exp_pack]]
-      model_list_aic_bic(model_pack$m_list)
+      
+      # Extract AIC and BIC values for each model and add to data frame
+      for (dim in names(model_pack$m_list)) {
+        m <- model_pack$m_list[[dim]]
+        aic_value <- AIC(m)
+        bic_value <- BIC(m)
+        
+        # Print to console
+        cat("AIC for ", dim, " is:", aic_value, "\n")
+        cat("BIC for ", dim, " is:", bic_value, "\n")
+        
+        # Add to data frame
+        results_df <- rbind(results_df, data.frame(
+          random_effect = random_effect_list,
+          experiment = exp_pack,
+          dimension = dim,
+          AIC = aic_value,
+          BIC = bic_value,
+          stringsAsFactors = FALSE
+        ))
+      }
     }
   }
+  
+  # Write results to CSV file
+  write.csv(results_df, file = output_path, row.names = FALSE)
+  cat("\nResults have been saved to:", output_path, "\n")
 }
+
 
 #' Print AIC and BIC values for a list of models
 #' 

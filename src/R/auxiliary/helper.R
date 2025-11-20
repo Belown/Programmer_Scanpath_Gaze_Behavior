@@ -15,20 +15,20 @@ base_path <- file.path(here(), "output", "processed_dataset")
 #' @param comp_type The comparison type ("between_group" or "within_group")
 #' @param trial_folder The trial folder name ("trial_2", "trial_5")
 #' @return A model package, which contain data frame, models, config, and folder_path
-get_model_pack <- function(exp_type, data_set, comp_type, trial_folder, case, random_effect) {
+get_model_pack <- function(exp_type, data_set, comp_type, trial_folder, case, random_effect, info = TRUE) {
   model_pack <- switch(
     exp_type,
     "within_trial" = {
       folder_path <- file.path(base_path, data_set, comp_type,trial_folder)
-      within_trial_pack <- within_trial(folder_path, random_effect)
+      within_trial_pack <- within_trial(folder_path, random_effect, info)
     },
     "within_group" = {
       folder_path <- file.path(base_path, data_set, "within_group")
-      within_group_pack <- within_group(folder_path, random_effect)
+      within_group_pack <- within_group(folder_path, random_effect, info)
     },
     "between_group" = {
       folder_path <- file.path(base_path, data_set, "between_group")
-      between_group_pack <- between_group(folder_path, case, random_effect)
+      between_group_pack <- between_group(folder_path, case, random_effect, info)
     }
   )
   return (model_pack)
