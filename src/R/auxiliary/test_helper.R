@@ -29,7 +29,7 @@ get_all_exps <- function(random_effect, info) {
 
 #' Test random effects by storing AIC and BIC for all experiments in a CSV file
 test_random_effects <- function() {
-  output_path <- file.path(here(), "output", "R", "random_effect_result.csv")
+  output_path <- file.path(here(), "output", "R", "random_effect_analysis", "random_effect_result.csv")
   if(!dir.exists(dirname(output_path))) {
     dir.create(dirname(output_path), recursive = TRUE)
   }
