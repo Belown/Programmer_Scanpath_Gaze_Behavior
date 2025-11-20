@@ -13,18 +13,17 @@ library(lmerTest)
 library(broom.mixed)
 library(here)
 
-# Set up base path and constant variables
-base_data_path <- file.path(here(), "output", "processed_dataset")
+# Set up constant variables
 dimensions <- c("Shape", "Length", "Direction", "Position", "Duration")
 
 #' Generate LMMs for within-trial comparisons
 #' 
 #' @param folder_path The folder path containing the combined CSV
-#' @return A list of fitted LMMs for each dimension
-within_trial <- function(folder_path){
+#' @return A list of fitted LMMs for each dimension and other info
+within_trial <- function(folder_path, random_effect){
   # Construct path to combined CSV
   combined_path <- file.path(folder_path, "combined_data.csv")
-  cat("Loading data from:", combined_path, "\n")
+  # cat("Loading data from:", combined_path, "\n")
   
   # Read and preprocess data
   # Since for within_trial, all data share the same expertise
@@ -38,7 +37,7 @@ within_trial <- function(folder_path){
   
   # Provide basic info about loaded data
   cat("Rows loaded:", nrow(df), "\n")
-  print(table(df$expertise_a))
+  # print(table(df$expertise_a))
 
   config <- list(
     results_log   = file.path(folder_path, "assumptions.txt"),
@@ -53,15 +52,27 @@ within_trial <- function(folder_path){
   
   # Generate LMMs for each dimension and add them to the list
   models_list <- list()
+  
+  # For investigating random effect
+  if (random_effect %in% c("a")) {
+    rand <- "(1 | exp_a)"
+  } else if (random_effect %in% c("b")) {
+    rand <- "(1 | exp_b)"
+  } else if (random_effect %in% c("both")) {
+    rand <- "(1 | exp_a) + (1 | exp_b)"
+  } else {
+    stop("Invalid random_effect specified.")
+  }
+
   for (y in dimensions) {
-    form <- as.formula(paste0(y, " ~ expertise_a + (1 | exp_a) + (1 | exp_b)"))
+    form <- as.formula(paste0(y, " ~ expertise_a + ", rand))
     mod <- lmer(form, data = df)
     models_list[[y]] <- mod
   }
 
   return (list(
     data = df,
-    models = models_list,
+    m_list = models_list,
     config = config,
     folder_path = folder_path
   ))
@@ -70,16 +81,15 @@ within_trial <- function(folder_path){
 #' Generate LMMs for within-group comparisons across trials
 #' 
 #' @param folder_path The base folder path containing trial subfolders
-#' @return A list of fitted LMMs for each dimension
-within_group <- function(folder_path){
+#' @return A list of fitted LMMs for each dimension and other info
+within_group <- function(folder_path, random_effect){
   # Construct paths
   trial_2_path <- file.path(folder_path, "trial_2")
   trial_5_path <- file.path(folder_path, "trial_5")
   combined_filename <- "combined_data.csv"
   trials <- c(trial_2_path, trial_5_path)
-  dimensions <- c("Shape", "Length", "Direction", "Position", "Duration")
   
-  # Helper function to load one trial's combined CSV and tag Trial
+  # Helper function to load one trial's combined CSV and tag trial
   load_trial <- function(trial_folder, file_name) {
     path <- file.path(trial_folder, file_name)
     if (!file.exists(path)) stop("File not found: ", path)
@@ -96,8 +106,8 @@ within_group <- function(folder_path){
         expertise_a = factor(expertise_a,
                              levels = c("none", "low", "medium", "high"),
                              ordered = TRUE),
-        # Trial as factor "2"/"5" from folder name
-        Trial = factor(trial_num, levels = c("2","5")),
+        # trial as factor "2"/"5" from folder name
+        trial = factor(trial_num, levels = c("2","5")),
         exp_a = factor(exp_a),
         exp_b = factor(exp_b)
       )
@@ -108,13 +118,24 @@ within_group <- function(folder_path){
   
   # Provide basic info about loaded data
   cat("Rows loaded:", nrow(df), "\n")
-  print(table(df$expertise_a, df$Trial))
+  # print(table(df$expertise_a, df$trial))
   
   # Generate LMMs for each dimension and add them to the list
   models_list <- list()
-  rand <- "(1 | exp_a) + (1 | exp_b)"
+  
+  # For investigating random effect
+  if (random_effect %in% c("a")) {
+    rand <- "(1 | exp_a)"
+  } else if (random_effect %in% c("b")) {
+    rand <- "(1 | exp_b)"
+  } else if (random_effect %in% c("both")) {
+    rand <- "(1 | exp_a) + (1 | exp_b)"
+  } else {
+    stop("Invalid random_effect specified.")
+  }
+  
   for (y in dimensions) {
-    form <- as.formula(paste0(y, " ~ expertise_a * Trial + ", rand))
+    form <- as.formula(paste0(y, " ~ expertise_a * trial + ", rand))
     mod <- lmer(form, data = df)
     models_list[[y]] <- mod
   }
@@ -132,7 +153,7 @@ within_group <- function(folder_path){
   
   return (list(
     data = df,
-    models = models_list,
+    m_list = models_list,
     config = config,
     folder_path = folder_path
   ))
@@ -142,16 +163,15 @@ within_group <- function(folder_path){
 #' 
 #' @param folder_path The base folder path containing trial subfolders
 #' @param case The model type to run ("mean_diff", "pairtype", or "both")
-#' @return A list of fitted LMMs for each dimension 
-between_group <- function(folder_path, case){
+#' @return A list of fitted LMMs for each dimension and other info
+between_group <- function(folder_path, case, random_effect){
   # Construct paths
   trial_2_path <- file.path(folder_path, "trial_2")
   trial_5_path <- file.path(folder_path, "trial_5")
   combined_filename <- "combined_data.csv"
   trials <- c(trial_2_path, trial_5_path)
-  dimensions <- c("Shape", "Length", "Direction", "Position", "Duration")
 
-  # Helper function to load one trial's combined CSV and tag Trial
+  # Helper function to load one trial's combined CSV and tag trial
   load_trial <- function(trial_folder, file_name) {
     path <- file.path(trial_folder, file_name)
     if (!file.exists(path)) stop("File not found: ", path)
@@ -169,7 +189,7 @@ between_group <- function(folder_path, case){
         expertise_b = factor(expertise_b,
                              levels = c("none", "low", "medium", "high"),
                              ordered = TRUE),
-        Trial = factor(trial_num, levels = c("2","5")),
+        trial = factor(trial_num, levels = c("2","5")),
         exp_a = factor(exp_a),
         exp_b = factor(exp_b)
       )
@@ -202,18 +222,29 @@ between_group <- function(folder_path, case){
   
   # Provide basic info about loaded data
   cat("Rows loaded:", nrow(df), "\n")
-  print(table(df$expertise_a, df$Trial))
+  # print(table(df$expertise_a, df$trial))
 
   # Generate LMMs for each dimension and add them to the list  
   models_list <- list()
-  rand <- "(1 | exp_a) + (1 | exp_b)"
+  
+  # For investigating random effect
+  if (random_effect %in% c("a")) {
+    rand <- "(1 | exp_a)"
+  } else if (random_effect %in% c("b")) {
+    rand <- "(1 | exp_b)"
+  } else if (random_effect %in% c("both")) {
+    rand <- "(1 | exp_a) + (1 | exp_b)"
+  } else {
+    stop("Invalid random_effect specified.")
+  }
+  
   for (y in dimensions) {
-    if (case %in% c("mean_diff", "both")) {
+    if (case %in% c("mean_diff")) {
       form_md <- as.formula(paste0(y, " ~ expertise_mean * expertise_diff + ", rand))
       mod_md  <- lmer(form_md, data = df)
       models_list[[y]] <- mod_md
     }
-    if (case %in% c("pairtype", "both")) {
+    if (case %in% c("pairtype")) {
       form_pt <- as.formula(paste0(y, " ~ PairType + ", rand))
       mod_pt  <- lmer(form_pt, data = df)
       models_list[[y]] <- mod_pt
@@ -233,79 +264,8 @@ between_group <- function(folder_path, case){
   
   return (list(
     data = df,
-    models = models_list,
+    m_list = models_list,
     config = config,
     folder_path = folder_path
   ))
-}
-
-#' Print model summary with significance stars
-#' 
-#' @param mod Fitted model (lmerMod or glmmTMB)
-#' @param dimension_name Name of the dimension for display
-print_model_with_sig <- function(mod, dimension_name) {
-  require(dplyr)
-  
-  cat("\n====", dimension_name, "====\n")
-  cat("Formula:", deparse(formula(mod)), "\n")
-  
-  if (inherits(mod, "glmmTMB")) {
-    cat("Type: glmmTMB | Family:", family(mod)$family, "\n\n")
-    
-    # Get coefficients table
-    coef_df <- as.data.frame(summary(mod)$coefficients$cond)
-    coef_df$term <- rownames(coef_df)
-    rownames(coef_df) <- NULL
-    
-    # Rename columns for consistency
-    names(coef_df) <- c("estimate", "std.error", "statistic", "p.value", "term")
-    
-    # Change column order and add starts
-    coef_df <- coef_df %>%
-      select(term, estimate, std.error, statistic, p.value) %>%
-      mutate(
-        stars = case_when(
-          p.value < 0.001 ~ "***",
-          p.value < 0.01  ~ "**",
-          p.value < 0.05  ~ "*",
-          p.value < 0.1   ~ ".",
-          TRUE            ~ ""
-        )
-      )
-    
-  } else if (inherits(mod, "lmerMod")) {
-    cat("Type: lmer\n\n")
-    
-    # Use lmerTest or compute p value
-    coef_df <- as.data.frame(summary(mod)$coefficients)
-    coef_df$term <- rownames(coef_df)
-    rownames(coef_df) <- NULL
-    
-    if ("Pr(>|t|)" %in% names(coef_df)) {
-      names(coef_df)[names(coef_df) == "Pr(>|t|)"] <- "p.value"
-    }
-    
-    coef_df <- coef_df %>%
-      select(term, Estimate, `Std. Error`, `t value`, 
-             any_of(c("df", "p.value"))) %>%
-      rename(estimate = Estimate, 
-             std.error = `Std. Error`,
-             statistic = `t value`) %>%
-      mutate(
-        stars = if("p.value" %in% names(.)) {
-          case_when(
-            p.value < 0.001 ~ "***",
-            p.value < 0.01  ~ "**",
-            p.value < 0.05  ~ "*",
-            p.value < 0.1   ~ ".",
-            TRUE            ~ ""
-          )
-        } else {
-          ""
-        }
-      )
-  }
-  print(coef_df, row.names = FALSE)
-  message("Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1")
-  invisible(coef_df)
 }

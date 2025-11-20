@@ -1,0 +1,45 @@
+
+==== Shape ====
+Formula: Shape ~ expertise_mean + expertise_diff + (1 | exp_a) + (1 |      exp_b) 
+Type: glmmTMB | Family: gaussian 
+
+           term      estimate    std.error  statistic     p.value stars
+    (Intercept)  0.1189730547 0.0011979160 99.3166905 0.000000000   ***
+ expertise_mean -0.0011841286 0.0004545486 -2.6050647 0.009185691    **
+ expertise_diff  0.0001836626 0.0002041808  0.8995094 0.368381403      
+
+==== Length ====
+Formula: Length ~ expertise_mean + expertise_diff + (1 | exp_a) + (1 |      exp_b) 
+Type: glmmTMB | Family: gaussian 
+
+           term      estimate   std.error statistic      p.value stars
+    (Intercept) -0.0362900808 0.007609638 -4.768963 1.851770e-06   ***
+ expertise_mean -0.0099600650 0.002835128 -3.513092 4.429241e-04   ***
+ expertise_diff  0.0007113629 0.001153636  0.616627 5.374808e-01      
+
+==== Direction ====
+Formula: Direction ~ expertise_mean + expertise_diff + (1 | exp_a) + (1 |      exp_b) 
+Type: glmmTMB | Family: gaussian 
+
+           term      estimate    std.error statistic       p.value stars
+    (Intercept)  0.1286764498 0.0035074375 36.686740 1.188409e-294   ***
+ expertise_mean -0.0028413018 0.0013280721 -2.139418  3.240180e-02     *
+ expertise_diff -0.0003707161 0.0005490812 -0.675157  4.995760e-01      
+
+==== Position ====
+Formula: Position ~ expertise_mean + expertise_diff + (1 | exp_a) + (1 |      exp_b) 
+Type: glmmTMB | Family: gaussian 
+
+           term      estimate    std.error  statistic       p.value stars
+    (Intercept)  0.1517706855 0.0046049923 32.9578590 3.264404e-238   ***
+ expertise_mean -0.0021353964 0.0017236633 -1.2388710  2.153933e-01      
+ expertise_diff -0.0004793264 0.0007818159 -0.6130936  5.398144e-01      
+
+==== Duration ====
+Formula: Duration ~ expertise_mean + expertise_diff + (1 | exp_a) + (1 |      exp_b) 
+Type: glmmTMB | Family: gaussian 
+
+           term      estimate   std.error    statistic      p.value stars
+    (Intercept) -1.556035e-01 0.013340984 -11.66357194 1.956585e-31   ***
+ expertise_mean -7.165557e-03 0.005028496  -1.42499019 1.541600e-01      
+ expertise_diff -6.635167e-05 0.001248268  -0.05315499 9.576084e-01      

@@ -1,0 +1,50 @@
+
+==== Shape ====
+Formula: Shape ~ expertise_a + (1 | exp_b) 
+Type: glmmTMB | Family: gaussian 
+
+          term      estimate    std.error   statistic   p.value stars
+   (Intercept)  0.1161729929 0.0005338378 217.6185161 0.0000000   ***
+ expertise_a.L -0.0016925619 0.0013489298  -1.2547442 0.2095716      
+ expertise_a.Q -0.0005747280 0.0010683989  -0.5379339 0.5906227      
+ expertise_a.C  0.0002006679 0.0006825564   0.2939946 0.7687620      
+
+==== Length ====
+Formula: Length ~ expertise_a + (1 | exp_b) 
+Type: glmmTMB | Family: gaussian 
+
+          term      estimate   std.error    statistic       p.value stars
+   (Intercept) -0.0545163090 0.002568738 -21.22299204 5.857537e-100   ***
+ expertise_a.L -0.0173890872 0.006539149  -2.65922795  7.831995e-03    **
+ expertise_a.Q  0.0158593933 0.005136062   3.08785073  2.016097e-03    **
+ expertise_a.C -0.0001451075 0.003159291  -0.04593039  9.633657e-01      
+
+==== Direction ====
+Formula: Direction ~ expertise_a + (1 | exp_b) 
+Type: glmmTMB | Family: gaussian 
+
+          term     estimate   std.error  statistic   p.value stars
+   (Intercept)  0.120629249 0.001559616 77.3454903 0.0000000   ***
+ expertise_a.L -0.003186523 0.003914896 -0.8139483 0.4156746      
+ expertise_a.Q -0.001134273 0.003119326 -0.3636275 0.7161362      
+ expertise_a.C  0.001005166 0.002038625  0.4930609 0.6219695      
+
+==== Position ====
+Formula: Position ~ expertise_a + (1 | exp_b) 
+Type: glmmTMB | Family: gaussian 
+
+          term      estimate   std.error  statistic     p.value stars
+   (Intercept)  0.1517258555 0.001825245 83.1263175 0.000000000   ***
+ expertise_a.L -0.0078680020 0.004631057 -1.6989648 0.089325821     .
+ expertise_a.Q  0.0095090296 0.003650151  2.6051061 0.009184581    **
+ expertise_a.C -0.0008018664 0.002281215 -0.3515085 0.725206886      
+
+==== Duration ====
+Formula: Duration ~ expertise_a + (1 | exp_b) 
+Type: glmmTMB | Family: gaussian 
+
+          term      estimate   std.error    statistic   p.value stars
+   (Intercept) -0.1819997005 0.004450983 -40.88977456 0.0000000   ***
+ expertise_a.L -0.0132983549 0.011185887  -1.18885113 0.2344983      
+ expertise_a.Q -0.0095403687 0.008905579  -1.07127998 0.2840436      
+ expertise_a.C  0.0002977861 0.005777374   0.05154349 0.9588924      

@@ -13,9 +13,9 @@
 
 library(here)
 library(glmmTMB)
+
 source(file.path(here(), "src", "R", "auxiliary", "assumptions_LMM.R"))
 source(file.path(here(), "src", "R", "auxiliary", "assumptions_GLMM.R"))
-dimensions <- c("Shape", "Length", "Direction", "Position", "Duration")
 
 #' Main workflow to check model assumptions with transformations
 #' 
@@ -30,12 +30,12 @@ work_flow <- function(m_list, config){
   cat("============ Workflow stage 1 ============\n")
   result_1 <- sub_workflow(m_list, config)
   if (result_1$pass) {
-    return (result_1$models)
+    return (result_1$m_list)
   } else {
     cat("============ Workflow stage 2 ============\n")
     ms <- m_list
     ms_logit <- list()
-    for (dim in dimensions) {
+    for (dim in names(ms)) {
       m <- ms[[dim]]
       
       # Just refit with transformed response, keeping RHS the same
@@ -45,17 +45,17 @@ work_flow <- function(m_list, config){
     }
     result_2 <- sub_workflow(ms_logit, config)
     if (result_2$pass) {
-      return (result_2$models)
+      return (result_2$m_list)
     } else {
       cat("============ Workflow stage 3 ============\n")
       family_list <- setNames(
-        replicate(length(dimensions), gaussian(), simplify = FALSE),
-        dimensions
+        replicate(length(names(m_list)), gaussian(), simplify = FALSE),
+        names(m_list)
       )
       glmms <- lmm_to_glmm(ms, family_list)
       result_3 <- sub_workflow(glmms, config)
       if (result_3$pass) {
-        return (result_3$models)
+        return (result_3$m_list)
       } else {
         stop("All model transformations failed to meet assumptions.")
       }
@@ -90,7 +90,7 @@ sub_workflow <- function(m_list, config){
   }
   
   return(list(
-    models = final_models,
+    m_list = final_models,
     pass = assumption_results$overall_pass
   ))
 }
@@ -106,7 +106,7 @@ sub_workflow <- function(m_list, config){
 #' @return A list of fitted LMM objects, either the original model or the additive model.
 check_interaction <- function(m_list) {
   final_result <- list()
-  for (dim in dimensions) {
+  for (dim in names(m_list)) {
     m <- m_list[[dim]]
 
     # Extract all interaction terms
@@ -172,15 +172,15 @@ check_interaction <- function(m_list) {
 #' For GLMM: Distributional assumption, Correct link function, Independence, 
 #'           Random effects normality, No overdispersion/zero inflation
 #' 
-#' @param model_list A list of fitted models (LMM or GLMM)
+#' @param m_list A list of fitted models (LMM or GLMM)
 #' @param config Configuration for assumption checks
 #' @return List with overall status and detailed results for each dimension/model
-check_assumptions_all_dimensions <- function(model_list, config) {
+check_assumptions_all_dimensions <- function(m_list, config) {
   results <- list()
   pass_count <- 0
   
-  for (dim in dimensions) {
-    model <- model_list[[dim]]
+  for (dim in names(m_list)) {
+    model <- m_list[[dim]]
     # Determine model type and call appropriate assumption check
     if (inherits(model, "lmerMod")) {
       # Linear Mixed Model
@@ -206,13 +206,13 @@ check_assumptions_all_dimensions <- function(model_list, config) {
   }
   
   # Majority rule: more than half of dimensions must pass
-  majority_threshold <- ceiling(length(dimensions) / 2)
+  majority_threshold <- ceiling(length(names(m_list)) / 2)
   overall_pass <- pass_count >= majority_threshold
   
   return(list(
     overall_pass = overall_pass,
     pass_count = pass_count,
-    total_dimensions = length(dimensions),
+    total_dimensions = length(names(m_list)),
     detailed_results = results
   ))
 }
@@ -221,13 +221,13 @@ check_assumptions_all_dimensions <- function(model_list, config) {
 #' 
 #' Convert LMM to GLMM by reading the formula and data from each LMM and use manual control
 #' 
-#' @param model_list A list of fitted LMM models (lmerMod)
+#' @param m_list A list of fitted LMM models (lmerMod)
 #' @param family_list A list of family objects for GLMM (e.g., binomial, poisson
 #' @return A list of fitted GLMM models (glmerMod)
-lmm_to_glmm <- function(model_list, family_list) {
+lmm_to_glmm <- function(m_list, family_list) {
   update_list <- list()
-  for (dim in dimensions) {
-    model <- model_list[[dim]]
+  for (dim in names(m_list)) {
+    model <- m_list[[dim]]
     family <- family_list[[dim]]
     
     # Extract formula and data

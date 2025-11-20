@@ -1,0 +1,308 @@
+---------------------within_trial---------------------
+---------------------within_group trial_2---------------------
+
+==== Shape ====
+Formula: Shape ~ expertise_a + (1 | exp_a) + (1 | exp_b) 
+Type: glmmTMB | Family: gaussian 
+
+          term      estimate    std.error   statistic   p.value stars
+   (Intercept)  0.1162596024 0.0005512742 210.8925011 0.0000000   ***
+ expertise_a.L -0.0020101720 0.0013583512  -1.4798617 0.1389102      
+ expertise_a.Q  0.0002153142 0.0011023428   0.1953242 0.8451392      
+ expertise_a.C -0.0006078393 0.0007630516  -0.7965900 0.4256892      
+
+==== Length ====
+Formula: Length ~ expertise_a + (1 | exp_a) + (1 | exp_b) 
+Type: glmmTMB | Family: gaussian 
+
+          term      estimate   std.error    statistic      p.value stars
+   (Intercept) -0.0536930200 0.003114006 -17.24242805 1.275647e-66   ***
+ expertise_a.L -0.0103578757 0.007668914  -1.35063141 1.768135e-01      
+ expertise_a.Q  0.0133063132 0.006227529   2.13669240 3.262302e-02     *
+ expertise_a.C -0.0003520472 0.004312328  -0.08163739 9.349351e-01      
+
+==== Direction ====
+Formula: Direction ~ expertise_a + (1 | exp_a) + (1 | exp_b) 
+Type: glmmTMB | Family: gaussian 
+
+          term      estimate   std.error  statistic   p.value stars
+   (Intercept)  0.1213169184 0.001518354 79.9002690 0.0000000   ***
+ expertise_a.L -0.0031940935 0.003732556 -0.8557388 0.3921423      
+ expertise_a.Q  0.0005458718 0.003036932  0.1797445 0.8573532      
+ expertise_a.C -0.0005320641 0.002118212 -0.2511855 0.8016707      
+
+==== Position ====
+Formula: Position ~ expertise_a + (1 | exp_a) + (1 | exp_b) 
+Type: glmmTMB | Family: gaussian 
+
+          term     estimate   std.error  statistic    p.value stars
+   (Intercept)  0.144214448 0.001906508 75.6432313 0.00000000   ***
+ expertise_a.L -0.007843538 0.004717314 -1.6627128 0.09636994     .
+ expertise_a.Q -0.002636300 0.003812842 -0.6914264 0.48929764      
+ expertise_a.C -0.006733161 0.002630229 -2.5599143 0.01046980     *
+
+==== Duration ====
+Formula: Duration ~ expertise_a + (1 | exp_a) + (1 | exp_b) 
+Type: glmmTMB | Family: gaussian 
+
+          term     estimate   std.error   statistic       p.value stars
+   (Intercept) -0.175687718 0.004963228 -35.3978736 1.841073e-274   ***
+ expertise_a.L -0.019383610 0.012117434  -1.5996465  1.096770e-01      
+ expertise_a.Q -0.003642302 0.009925449  -0.3669659  7.136444e-01      
+ expertise_a.C  0.004628313 0.007081999   0.6535319  5.134134e-01      
+
+---------------------within_group trial_5---------------------
+
+==== Shape ====
+Formula: Shape ~ expertise_a + (1 | exp_a) + (1 | exp_b) 
+Type: glmmTMB | Family: gaussian 
+
+          term      estimate    std.error    statistic   p.value stars
+   (Intercept)  1.163429e-01 0.0006366597 182.73946776 0.0000000   ***
+ expertise_a.L -1.999311e-03 0.0015911473  -1.25652147 0.2089270      
+ expertise_a.Q -3.440698e-04 0.0012737462  -0.27012433 0.7870646      
+ expertise_a.C  4.228048e-05 0.0008469823   0.04991896 0.9601870      
+
+==== Length ====
+Formula: Length ~ expertise_a + (1 | exp_a) + (1 | exp_b) 
+Type: glmmTMB | Family: gaussian 
+
+          term      estimate   std.error   statistic      p.value stars
+   (Intercept) -0.0540623526 0.003053439 -17.7053959 3.809922e-70   ***
+ expertise_a.L -0.0178663131 0.007668328  -2.3298837 1.981230e-02     *
+ expertise_a.Q  0.0166398702 0.006105475   2.7254015 6.422333e-03    **
+ expertise_a.C -0.0008072374 0.003964805  -0.2036008 8.386655e-01      
+
+==== Direction ====
+Formula: Direction ~ expertise_a + (1 | exp_a) + (1 | exp_b) 
+Type: glmmTMB | Family: gaussian 
+
+          term      estimate   std.error  statistic   p.value stars
+   (Intercept)  0.1214790889 0.001880537 64.5980859 0.0000000   ***
+ expertise_a.L -0.0032950897 0.004675743 -0.7047200 0.4809845      
+ expertise_a.Q -0.0005207163 0.003760054 -0.1384864 0.8898560      
+ expertise_a.C  0.0007984821 0.002537586  0.3146620 0.7530183      
+
+==== Position ====
+Formula: Position ~ expertise_a + (1 | exp_a) + (1 | exp_b) 
+Type: glmmTMB | Family: gaussian 
+
+          term      estimate   std.error  statistic    p.value stars
+   (Intercept)  0.1519827521 0.002307822 65.8554934 0.00000000   ***
+ expertise_a.L -0.0060941988 0.005765475 -1.0570158 0.29050437      
+ expertise_a.Q  0.0081400086 0.004615587  1.7635913 0.07780081     .
+ expertise_a.C -0.0005064318 0.003062202 -0.1653816 0.86864365      
+
+==== Duration ====
+Formula: Duration ~ expertise_a + (1 | exp_a) + (1 | exp_b) 
+Type: glmmTMB | Family: gaussian 
+
+          term     estimate   std.error   statistic       p.value stars
+   (Intercept) -0.182472983 0.005945744 -30.6896782 7.815915e-207   ***
+ expertise_a.L -0.018715410 0.014723345  -1.2711384  2.036794e-01      
+ expertise_a.Q -0.015056654 0.011895548  -1.2657385  2.056067e-01      
+ expertise_a.C  0.004467648 0.008130472   0.5494943  5.826663e-01      
+
+---------------------between_group trial_2---------------------
+
+==== Shape ====
+Formula: Shape ~ expertise_a + (1 | exp_a) + (1 | exp_b) 
+Type: glmmTMB | Family: gaussian 
+
+          term      estimate    std.error   statistic   p.value stars
+   (Intercept)  0.1161468251 0.0004165584 278.8248243 0.0000000   ***
+ expertise_a.L -0.0006242360 0.0005802154  -1.0758694 0.2819857      
+ expertise_a.Q -0.0001836162 0.0004507544  -0.4073531 0.6837487      
+
+==== Length ====
+Formula: Length ~ expertise_a + (1 | exp_a) + (1 | exp_b) 
+Type: glmmTMB | Family: gaussian 
+
+          term      estimate   std.error   statistic       p.value stars
+   (Intercept) -0.0593354132 0.002623943 -22.6130731 3.223001e-113   ***
+ expertise_a.L  0.0007336324 0.004099343   0.1789634  8.579664e-01      
+ expertise_a.Q  0.0027606494 0.003090551   0.8932548  3.717207e-01      
+
+==== Direction ====
+Formula: Direction ~ expertise_a + (1 | exp_a) + (1 | exp_b) 
+Type: glmmTMB | Family: gaussian 
+
+          term      estimate   std.error  statistic   p.value stars
+   (Intercept)  0.1210587345 0.001261564 95.9592303 0.0000000   ***
+ expertise_a.L -0.0013802609 0.001833579 -0.7527687 0.4515889      
+ expertise_a.Q -0.0009463789 0.001388484 -0.6815916 0.4954973      
+
+==== Position ====
+Formula: Position ~ expertise_a + (1 | exp_a) + (1 | exp_b) 
+Type: glmmTMB | Family: gaussian 
+
+          term     estimate   std.error statistic    p.value stars
+   (Intercept)  0.144012228 0.001490859 96.596810 0.00000000   ***
+ expertise_a.L -0.003559748 0.002280761 -1.560772 0.11857756      
+ expertise_a.Q -0.003139714 0.001767597 -1.776261 0.07568988     .
+
+==== Duration ====
+Formula: Duration ~ expertise_a + (1 | exp_a) + (1 | exp_b) 
+Type: glmmTMB | Family: gaussian 
+
+          term     estimate   std.error   statistic       p.value stars
+   (Intercept) -0.173968835 0.004537436 -38.3407763 1.284571e-321   ***
+ expertise_a.L -0.007445731 0.007475868  -0.9959688  3.192653e-01      
+ expertise_a.Q  0.002029310 0.005431569   0.3736139  7.086916e-01      
+
+---------------------between_group trial_5---------------------
+
+==== Shape ====
+Formula: Shape ~ expertise_a + (1 | exp_a) + (1 | exp_b) 
+Type: glmmTMB | Family: gaussian 
+
+          term      estimate    std.error     statistic   p.value stars
+   (Intercept)  1.165435e-01 0.0004984221 233.824842047 0.0000000   ***
+ expertise_a.L -7.031307e-04 0.0007083344  -0.992653651 0.3208788      
+ expertise_a.Q  1.923610e-06 0.0005532199   0.003477118 0.9972257      
+
+==== Length ====
+Formula: Length ~ expertise_a + (1 | exp_a) + (1 | exp_b) 
+Type: glmmTMB | Family: gaussian 
+
+          term      estimate   std.error    statistic      p.value stars
+   (Intercept) -0.0578569625 0.002839061 -20.37890535 2.573461e-92   ***
+ expertise_a.L  0.0004455656 0.004470743   0.09966255 9.206122e-01      
+ expertise_a.Q  0.0017501965 0.003418087   0.51203974 6.086232e-01      
+
+==== Direction ====
+Formula: Direction ~ expertise_a + (1 | exp_a) + (1 | exp_b) 
+Type: glmmTMB | Family: gaussian 
+
+          term      estimate   std.error  statistic   p.value stars
+   (Intercept)  0.1211318144 0.001545596 78.3722336 0.0000000   ***
+ expertise_a.L -0.0023468262 0.002284549 -1.0272601 0.3042980      
+ expertise_a.Q  0.0006776992 0.001727120  0.3923868 0.6947725      
+
+==== Position ====
+Formula: Position ~ expertise_a + (1 | exp_a) + (1 | exp_b) 
+Type: glmmTMB | Family: gaussian 
+
+          term     estimate   std.error  statistic   p.value stars
+   (Intercept) 0.1480343264 0.001781294 83.1049292 0.0000000   ***
+ expertise_a.L 0.0006266015 0.002882224  0.2174021 0.8278950      
+ expertise_a.Q 0.0020963403 0.002216994  0.9455779 0.3443639      
+
+==== Duration ====
+Formula: Duration ~ expertise_a + (1 | exp_a) + (1 | exp_b) 
+Type: glmmTMB | Family: gaussian 
+
+          term     estimate   std.error   statistic       p.value stars
+   (Intercept) -0.178519514 0.004794173 -37.2367673 1.735084e-303   ***
+ expertise_a.L -0.009994355 0.007649435  -1.3065481  1.913662e-01      
+ expertise_a.Q -0.001652737 0.005615756  -0.2943036  7.685259e-01      
+
+---------------------within_group---------------------
+
+==== Shape ====
+Formula: Shape ~ expertise_a + trial + (1 | exp_a) + (1 | exp_b) 
+Type: glmmTMB | Family: gaussian 
+
+          term      estimate    std.error   statistic   p.value stars
+   (Intercept)  0.1161988530 0.0004551970 255.2715456 0.0000000   ***
+ expertise_a.L -0.0021069425 0.0011089971  -1.8998630 0.0574511     .
+ expertise_a.Q -0.0003727409 0.0008969770  -0.4155524 0.6777375      
+ expertise_a.C -0.0002493128 0.0006134516  -0.4064099 0.6844415      
+        trial5 -0.0001607316 0.0002083019  -0.7716282 0.4403347      
+
+==== Length ====
+Formula: Length ~ expertise_a + trial + (1 | exp_a) + (1 | exp_b) 
+Type: glmmTMB | Family: gaussian 
+
+          term     estimate   std.error   statistic       p.value stars
+   (Intercept) -0.053514924 0.002480286 -21.5761127 3.011473e-103   ***
+ expertise_a.L -0.012786238 0.006039760  -2.1170108  3.425893e-02     *
+ expertise_a.Q  0.013211230 0.004879931   2.7072573  6.784165e-03    **
+ expertise_a.C  0.001064935 0.003329002   0.3198963  7.490469e-01      
+        trial5 -0.002980883 0.001158933  -2.5720924  1.010859e-02     *
+
+==== Direction ====
+Formula: Direction ~ expertise_a + trial + (1 | exp_a) + (1 | exp_b) 
+Type: glmmTMB | Family: gaussian 
+
+          term      estimate    std.error  statistic   p.value stars
+   (Intercept)  0.1212225771 0.0012965223 93.4982592 0.0000000   ***
+ expertise_a.L -0.0033315161 0.0031590920 -1.0545803 0.2916173      
+ expertise_a.Q -0.0005492428 0.0025618270 -0.2143950 0.8302391      
+ expertise_a.C  0.0003806810 0.0017689219  0.2152051 0.8296074      
+        trial5 -0.0005342741 0.0005371688 -0.9946111 0.3199255      
+
+==== Position ====
+Formula: Position ~ expertise_a * trial + (1 | exp_a) + (1 | exp_b) 
+Type: glmmTMB | Family: gaussian 
+
+                 term     estimate   std.error  statistic      p.value stars
+          (Intercept)  0.144110926 0.001762408 81.7693208 0.000000e+00   ***
+        expertise_a.L -0.007954773 0.004392212 -1.8111088 7.012401e-02     .
+        expertise_a.Q -0.002653019 0.003524022 -0.7528383 4.515471e-01      
+        expertise_a.C -0.005083536 0.002365842 -2.1487217 3.165647e-02     *
+               trial5  0.007027440 0.001726278  4.0708625 4.683939e-05   ***
+ expertise_a.L:trial5  0.001137203 0.004501809  0.2526103 8.005694e-01      
+ expertise_a.Q:trial5  0.009764228 0.003451605  2.8288952 4.670900e-03    **
+ expertise_a.C:trial5  0.003641742 0.001885243  1.9317099 5.339533e-02     .
+
+==== Duration ====
+Formula: Duration ~ expertise_a * trial + (1 | exp_a) + (1 | exp_b) 
+Type: glmmTMB | Family: gaussian 
+
+                 term     estimate   std.error   statistic       p.value stars
+          (Intercept) -0.174962288 0.004730523 -36.9858241 1.935361e-299   ***
+        expertise_a.L -0.020590251 0.011620099  -1.7719514  7.640262e-02     .
+        expertise_a.Q -0.006660347 0.009460879  -0.7039882  4.814402e-01      
+        expertise_a.C  0.004024498 0.006631983   0.6068318  5.439626e-01      
+               trial5 -0.009750442 0.002877617  -3.3883737  7.030841e-04   ***
+ expertise_a.L:trial5  0.006817031 0.007522866   0.9061748  3.648433e-01      
+ expertise_a.Q:trial5 -0.010005103 0.005755634  -1.7383147  8.215537e-02     .
+ expertise_a.C:trial5 -0.003833222 0.003111581  -1.2319209  2.179786e-01      
+
+---------------------between_group---------------------
+
+==== Shape ====
+Formula: Shape ~ expertise_mean + expertise_diff + (1 | exp_a) + (1 |      exp_b) 
+Type: glmmTMB | Family: gaussian 
+
+           term      estimate    std.error  statistic     p.value stars
+    (Intercept)  0.1189730547 0.0011979160 99.3166905 0.000000000   ***
+ expertise_mean -0.0011841286 0.0004545486 -2.6050647 0.009185691    **
+ expertise_diff  0.0001836626 0.0002041808  0.8995094 0.368381403      
+
+==== Length ====
+Formula: Length ~ expertise_mean + expertise_diff + (1 | exp_a) + (1 |      exp_b) 
+Type: glmmTMB | Family: gaussian 
+
+           term      estimate   std.error statistic      p.value stars
+    (Intercept) -0.0362900808 0.007609638 -4.768963 1.851770e-06   ***
+ expertise_mean -0.0099600650 0.002835128 -3.513092 4.429241e-04   ***
+ expertise_diff  0.0007113629 0.001153636  0.616627 5.374808e-01      
+
+==== Direction ====
+Formula: Direction ~ expertise_mean + expertise_diff + (1 | exp_a) + (1 |      exp_b) 
+Type: glmmTMB | Family: gaussian 
+
+           term      estimate    std.error statistic       p.value stars
+    (Intercept)  0.1286764498 0.0035074375 36.686740 1.188409e-294   ***
+ expertise_mean -0.0028413018 0.0013280721 -2.139418  3.240180e-02     *
+ expertise_diff -0.0003707161 0.0005490812 -0.675157  4.995760e-01      
+
+==== Position ====
+Formula: Position ~ expertise_mean + expertise_diff + (1 | exp_a) + (1 |      exp_b) 
+Type: glmmTMB | Family: gaussian 
+
+           term      estimate    std.error  statistic       p.value stars
+    (Intercept)  0.1517706855 0.0046049923 32.9578590 3.264404e-238   ***
+ expertise_mean -0.0021353964 0.0017236633 -1.2388710  2.153933e-01      
+ expertise_diff -0.0004793264 0.0007818159 -0.6130936  5.398144e-01      
+
+==== Duration ====
+Formula: Duration ~ expertise_mean + expertise_diff + (1 | exp_a) + (1 |      exp_b) 
+Type: glmmTMB | Family: gaussian 
+
+           term      estimate   std.error    statistic      p.value stars
+    (Intercept) -1.556035e-01 0.013340984 -11.66357194 1.956585e-31   ***
+ expertise_mean -7.165557e-03 0.005028496  -1.42499019 1.541600e-01      
+ expertise_diff -6.635167e-05 0.001248268  -0.05315499 9.576084e-01      
