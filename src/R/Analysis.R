@@ -11,8 +11,10 @@ trial_folder <- "trial_2"
 # Only used for between_group exp_type
 case <- "mean_diff" # "mean_diff" or "pairtype"
 
+rand_effect <- "(1 | exp_a) + (1 | exp_b)"
+
 # --- Get models and other information ---
-model_pack <- get_model_pack(exp_type, data_set, comp_type, trial_folder, case, "both")
+model_pack <- get_model_pack(exp_type, data_set, comp_type, trial_folder, case, rand_effect, TRUE)
 folder_path <- model_pack$folder_path
 dataframe <- model_pack$data
 
