@@ -17,6 +17,11 @@ library(glmmTMB)
 source(file.path(here(), "src", "R", "auxiliary", "assumptions_LMM.R"))
 source(file.path(here(), "src", "R", "auxiliary", "assumptions_GLMM.R"))
 
+#' Helper function that combine function workflow and print_model_table
+#' 
+#' @param m_list A list of fitted models (either LMM or GLMM)
+#' @param config Configuration for assumption checks
+#' @return A list containing the final models after workflow
 work_flow_with_print <- function(m_list, config) {
   # --- Run workflow to check model assumptions and get final models ---
   final_result <- work_flow(model_pack$m_list, model_pack$config)
@@ -258,7 +263,6 @@ lmm_to_glmm <- function(m_list, family_list) {
     if (update_list[[dim]]$fit$convergence != 0) {
       warning("Model for ", dim, " did not converge properly")
     }
-    
   }
   return (update_list)
 }

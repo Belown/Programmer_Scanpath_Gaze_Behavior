@@ -4,6 +4,7 @@ source(file.path(here(), "src", "R", "auxiliary", "helper.R"))
 #' Get all experiment model packages for a given random effect structure
 #' 
 #' @param random_effect The random effect structure ("exp_a", "exp_b", or "both")
+#' @param info Whether to print info messages
 #' @return A named list of model packages for all experiments
 get_all_exps <- function(random_effect, info) {
   within_trial_within_2 <- get_model_pack("within_trial", "EMIP_corrected", "within_group", "trial_2", "", random_effect, info)
@@ -30,6 +31,9 @@ get_all_exps <- function(random_effect, info) {
 }
 
 #' Test random effects by storing AIC and BIC for all experiments in a CSV file
+#' and store the result into a .csv file
+#' 
+#' @param rand_effect_list A named list of random effect structures to test
 test_random_effects <- function(rand_effect_list) {
   output_path <- file.path(here(), "output", "R", "random_effect_analysis", "random_effect_result.csv")
   if(!dir.exists(dirname(output_path))) {
@@ -67,7 +71,6 @@ test_random_effects <- function(rand_effect_list) {
         aic_value <- AIC(m)
         bic_value <- BIC(m)
         
-        # Print to console
         cat("AIC for ", dim, " is:", aic_value, "\n")
         cat("BIC for ", dim, " is:", bic_value, "\n")
         

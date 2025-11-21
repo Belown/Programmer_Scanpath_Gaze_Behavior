@@ -5,7 +5,6 @@
 # for within-trial, within-group, and between-group comparisons.
 # =========================================================
 
-## install.packages(c("tidyverse", "dplyr", "lme4", "lmerTest", "broom.mixed", "here"))
 library(tidyverse)
 library(dplyr)
 library(lme4)
@@ -18,11 +17,12 @@ dimensions <- c("Shape", "Length", "Direction", "Position", "Duration")
 #' Generate LMMs for within-trial comparisons
 #' 
 #' @param folder_path The folder path containing the combined CSV
+#' @param rand_effect The random effect formula string
+#' @param info Whether to print basic info about loaded data
 #' @return A list of fitted LMMs for each dimension and other info
-within_trial <- function(folder_path, rand_effect, info){
+within_trial <- function(folder_path, rand_effect, info) {
   # Construct path to combined CSV
   combined_path <- file.path(folder_path, "combined_data.csv")
-  # cat("Loading data from:", combined_path, "\n")
   
   # Read and preprocess data
   # Since for within_trial, all data share the same expertise
@@ -43,13 +43,13 @@ within_trial <- function(folder_path, rand_effect, info){
   trial_folder <- basename(folder_path)
   comp_type <- basename(dirname(folder_path))
   combined_path <- paste(comp_type, trial_folder, sep = "_")
-
   output_path <- file.path(here(), "output", "R", "workflow", "within_trial", combined_path)
 
   if (!dir.exists(output_path)) {
     dir.create(output_path, recursive = TRUE)
   }
 
+  # Construct config for output
   config <- list(
     results_log   = file.path(output_path, "assumptions.txt"),
     figures_dir   = file.path(output_path, "figures"),
@@ -64,7 +64,7 @@ within_trial <- function(folder_path, rand_effect, info){
   # Generate LMMs for each dimension and add them to the list
   models_list <- list()
   
-  # For investigating random effect
+  # Construct models based on rand_effect
   for (y in dimensions) {
     if (str_length(rand_effect) == 0) {
       form <- as.formula(paste0(y, " ~ expertise_a"))
@@ -87,8 +87,10 @@ within_trial <- function(folder_path, rand_effect, info){
 #' Generate LMMs for within-group comparisons across trials
 #' 
 #' @param folder_path The base folder path containing trial subfolders
+#' @param rand_effect The random effect formula string
+#' @param info Whether to print basic info about loaded data
 #' @return A list of fitted LMMs for each dimension and other info
-within_group <- function(folder_path, rand_effect, info){
+within_group <- function(folder_path, rand_effect, info) {
   # Construct paths
   trial_2_path <- file.path(folder_path, "trial_2")
   trial_5_path <- file.path(folder_path, "trial_5")
@@ -131,8 +133,7 @@ within_group <- function(folder_path, rand_effect, info){
   # Generate LMMs for each dimension and add them to the list
   models_list <- list()
   
-  # For investigating random effect
-
+  # Construct models based on rand_effect
   for (y in dimensions) {
     if (str_length(rand_effect) == 0) {
       form <- as.formula(paste0(y, " ~ expertise_a * trial"))
@@ -149,6 +150,7 @@ within_group <- function(folder_path, rand_effect, info){
     dir.create(output_path, recursive = TRUE)
   }
 
+  # Construct config for output
   config <- list(
     results_log   = file.path(output_path, "assumptions.txt"),
     figures_dir   = file.path(output_path, "figures"),
@@ -174,7 +176,7 @@ within_group <- function(folder_path, rand_effect, info){
 #' @param folder_path The base folder path containing trial subfolders
 #' @param case The model type to run ("mean_diff", "pairtype", or "both")
 #' @return A list of fitted LMMs for each dimension and other info
-between_group <- function(folder_path, case, rand_effect, info){
+between_group <- function(folder_path, case, rand_effect, info) {
   # Construct paths
   trial_2_path <- file.path(folder_path, "trial_2")
   trial_5_path <- file.path(folder_path, "trial_5")
@@ -239,8 +241,7 @@ between_group <- function(folder_path, case, rand_effect, info){
   # Generate LMMs for each dimension and add them to the list  
   models_list <- list()
   
-  # For investigating random effect
-
+  # Construct models based on the rand_effect and specified case
   for (y in dimensions) {
     if (case %in% c("mean_diff")) {
       if (str_length(rand_effect) == 0) {
@@ -269,6 +270,7 @@ between_group <- function(folder_path, case, rand_effect, info){
     dir.create(output_path, recursive = TRUE)
   }
 
+  # Construct config for output
   config <- list(
     results_log   = file.path(output_path, "assumptions.txt"),
     figures_dir   = file.path(output_path, "figures"),

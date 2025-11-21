@@ -1,8 +1,6 @@
 # =========================================================
 # Helper function module
 # =========================================================
-# Helper functions that make the main code cleaner
-# =========================================================
 
 source(file.path(here(), "src", "R", "auxiliary", "models.R"))
 
@@ -14,6 +12,9 @@ base_path <- file.path(here(), "output", "processed_dataset")
 #' @param data_set The name of the data set
 #' @param comp_type The comparison type ("between_group" or "within_group")
 #' @param trial_folder The trial folder name ("trial_2", "trial_5")
+#' @param case The case for between-group comparison ("mean_diff", "pairtype")
+#' @param random_effect The random effect structure to use
+#' @param info Whether to print info messages
 #' @return A model package, which contain data frame, models, config, and folder_path
 get_model_pack <- function(exp_type, data_set, comp_type, trial_folder, case, random_effect, info = TRUE) {
   model_pack <- switch(
@@ -40,11 +41,10 @@ get_model_pack <- function(exp_type, data_set, comp_type, trial_folder, case, ra
 #' @param mod Fitted model (lmerMod or glmmTMB)
 #' @param dimension_name Name of the dimension for display
 print_model_with_sig <- function(mod, dimension_name) {
-  require(dplyr)
-  
   cat("\n====", dimension_name, "====\n")
   cat("Formula:", deparse(formula(mod)), "\n")
   
+  # Case extinction 
   if (inherits(mod, "glmmTMB")) {
     cat("Type: glmmTMB | Family:", family(mod)$family, "\n\n")
     
@@ -86,7 +86,7 @@ print_model_with_sig <- function(mod, dimension_name) {
              std.error = `Std. Error`,
              statistic = `t value`) %>%
       mutate(
-        stars = if("p.value" %in% names(.)) {
+        stars = if ("p.value" %in% names(.)) {
           case_when(
             p.value < 0.001 ~ "***",
             p.value < 0.01  ~ "**",

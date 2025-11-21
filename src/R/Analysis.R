@@ -1,26 +1,38 @@
+# =========================================================
+# Analysis Script for Mixed Effects Models
+# =========================================================
+# This script performs statistical analysis using linear mixed effects models
+# (LMM) and generalized linear mixed effects models (GLMM) for experimental data.
+# =========================================================
+
 library(here)
 
+# Load auxiliary functions for model building and validation workflow
 source(file.path(here(), "src", "R", "auxiliary", "workflow.R"))
 source(file.path(here(), "src", "R", "auxiliary", "helper.R"))
 
-# --- Parameters ---
-exp_type <- "within_trial"
-data_set <- "EMIP_corrected"
-comp_type <- "within_group"
+# --- Experiment Type Configuration ---
+exp_type <- "within_trial"    # Options: "within_trial", "within_group", "between_group"
+data_set <- "EMIP_corrected"  # Dataset identifier
+comp_type <- "within_group"   # Comparison type: "within_group" or "between_group"
 
-# Only used for within_trial exp_type
-trial_folder <- "trial_2"
+# only used for within_trial experiments
+trial_folder <- "trial_2"  # Specific trial folder to analyze
 
-# Only used for between_group exp_type
-case <- "pairtype" # "mean_diff" or "pairtype"
+# only used for between_group experiments
+case <- "pairtype"  # Analysis case: "mean_diff" or "pairtype"
 
+# --- Random Effects Specification ---
+# Options include: "(1 | exp_a)", "(1 | exp_b)", "(1 | exp_a) + (1 | exp_b)", or ""
 rand_effect <- "(1 | exp_a) + (1 | exp_b)"
 
-# --- Get models and other information ---
+# This includes fitted models, data, and config for the specified experiment type
 model_pack <- get_model_pack(exp_type, data_set, comp_type, trial_folder, case, rand_effect, TRUE)
-folder_path <- model_pack$folder_path
-dataframe <- model_pack$data
 
-# --- Run workflow to check model assumptions and get final models ---
-# The output from work_flow will be stored under folder output/workflow
+# Extract components from model package
+folder_path <- model_pack$folder_path  # Output folder path
+dataframe <- model_pack$data           # Processed dataset
+
+# Run workflow to validate model assumptions and obtain final models
+# Output is saved to: output/workflow/[experiment_path]/model_summary.txt
 final_result <- work_flow_with_print(model_pack$m_list, model_pack$config)
