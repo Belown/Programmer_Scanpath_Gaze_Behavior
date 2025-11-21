@@ -264,7 +264,7 @@ between_group <- function(folder_path, case, rand_effect, info){
     }
   }
 
-  output_path <- file.path(here(), "output", "R", "workflow", "between_group")
+  output_path <- file.path(here(), "output", "R", "workflow", "between_group", case)
   if (!dir.exists(output_path)) {
     dir.create(output_path, recursive = TRUE)
   }

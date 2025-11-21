@@ -17,6 +17,16 @@ library(glmmTMB)
 source(file.path(here(), "src", "R", "auxiliary", "assumptions_LMM.R"))
 source(file.path(here(), "src", "R", "auxiliary", "assumptions_GLMM.R"))
 
+work_flow_with_print <- function(m_list, config) {
+  # --- Run workflow to check model assumptions and get final models ---
+  final_result <- work_flow(model_pack$m_list, model_pack$config)
+  
+  # --- Print model summaries with significance annotations ---
+  print_model_table(dirname(model_pack$config$results_log), final_result)
+  
+  return(final_result)
+}
+
 #' Main workflow to check model assumptions with transformations
 #' 
 #' This function attempts to validate a list of fitted models through a series of transformations:
@@ -26,7 +36,7 @@ source(file.path(here(), "src", "R", "auxiliary", "assumptions_GLMM.R"))
 #' @param m_list A list of fitted models (either LMM or GLMM)
 #' @param config Configuration for assumption checks
 #' @return A list containing the final models and pass/fail status from sub workflow
-work_flow <- function(m_list, config){
+work_flow <- function(m_list, config) {
   cat("============ Workflow stage 1 ============\n")
   result_1 <- sub_workflow(m_list, config)
   if (result_1$pass) {

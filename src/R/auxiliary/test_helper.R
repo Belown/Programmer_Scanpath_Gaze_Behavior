@@ -5,13 +5,16 @@ source(file.path(here(), "src", "R", "auxiliary", "helper.R"))
 #' 
 #' @param random_effect The random effect structure ("exp_a", "exp_b", or "both")
 #' @return A named list of model packages for all experiments
-get_all_exps <- function(random_effect, info, case) {
+get_all_exps <- function(random_effect, info) {
   within_trial_within_2 <- get_model_pack("within_trial", "EMIP_corrected", "within_group", "trial_2", "", random_effect, info)
   within_trial_within_5 <- get_model_pack("within_trial", "EMIP_corrected", "within_group", "trial_5", "", random_effect, info)
   within_trial_between_2 <- get_model_pack("within_trial", "EMIP_corrected", "between_group", "trial_2", "", random_effect, info)
   within_trial_between_5 <- get_model_pack("within_trial", "EMIP_corrected", "between_group", "trial_5", "", random_effect, info)
   within_group <- get_model_pack("within_group", "EMIP_corrected", "", "", "", random_effect, info)
-  between_group <- get_model_pack("between_group", "EMIP_corrected", "", "", case, random_effect, info)
+  between_group_mean_diff <- get_model_pack("between_group", "EMIP_corrected", "", "", "mean_diff", random_effect, info)
+  between_group_pairtype <- get_model_pack("between_group", "EMIP_corrected", "", "", "pairtype", random_effect, info)
+  
+  between_group_name <- paste0("between_group_", case)
   
   result_list <- list(
     within_trial_within_2 = within_trial_within_2,
@@ -19,14 +22,15 @@ get_all_exps <- function(random_effect, info, case) {
     within_trial_between_2 = within_trial_between_2,
     within_trial_between_5 = within_trial_between_5,
     within_group = within_group,
-    between_group = between_group
+    between_group_mean_diff = between_group_mean_diff,
+    between_group_pairtype = between_group_pairtype
   )
   
   return(result_list)
 }
 
 #' Test random effects by storing AIC and BIC for all experiments in a CSV file
-test_random_effects <- function(rand_effect_list, case) {
+test_random_effects <- function(rand_effect_list) {
   output_path <- file.path(here(), "output", "R", "random_effect_analysis", "random_effect_result.csv")
   if(!dir.exists(dirname(output_path))) {
     dir.create(dirname(output_path), recursive = TRUE)
@@ -36,14 +40,9 @@ test_random_effects <- function(rand_effect_list, case) {
   all_random_effect_list <- list()
   for (re in names(rand_effect_list)) {
     cat("    Loading models for random effect:", re, "\n")
-    all_random_effect_list[[re]] <- get_all_exps(rand_effect_list[[re]], FALSE, case)
+    all_random_effect_list[[re]] <- get_all_exps(rand_effect_list[[re]], FALSE)
     cat("    Finish loading models for random effect:", re, "\n")
   }
-  # rand_a <- get_all_exps("exp_a", FALSE)
-  # rand_b <- get_all_exps("exp_b", FALSE)
-  # rand_both <- get_all_exps("both", FALSE)
-  # rand_none <- get_all_exps("none", FALSE)
-  # -----------------------------------------------------------------------------------------------------------
   
   # Create an empty data frame to store results
   results_df <- data.frame(

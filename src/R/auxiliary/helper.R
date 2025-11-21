@@ -109,7 +109,11 @@ print_model_with_sig <- function(mod, dimension_name) {
 #' @param folder_path The folder path where the output file will be saved
 #' @param final_result A list of final fitted models for each dimension
 print_model_table <- function(folder_path, final_result) {
-  sink_file <- file.path(folder_path, "model_summary.txt")
+  txt_path = file.path(folder_path)
+  if (!dir.exists(txt_path)) {
+    dir.create(txt_path, recursive = TRUE)
+  }
+  sink_file <- file.path(txt_path, "model_summary.txt")
   sink(sink_file, split = TRUE)
   tryCatch({
     for (dim in names(final_result)) {

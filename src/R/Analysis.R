@@ -4,12 +4,15 @@ source(file.path(here(), "src", "R", "auxiliary", "workflow.R"))
 source(file.path(here(), "src", "R", "auxiliary", "helper.R"))
 
 # --- Parameters ---
-exp_type <- "between_group"
+exp_type <- "within_trial"
 data_set <- "EMIP_corrected"
-comp_type <- "between_group"
+comp_type <- "within_group"
+
+# Only used for within_trial exp_type
 trial_folder <- "trial_2"
+
 # Only used for between_group exp_type
-case <- "mean_diff" # "mean_diff" or "pairtype"
+case <- "pairtype" # "mean_diff" or "pairtype"
 
 rand_effect <- "(1 | exp_a) + (1 | exp_b)"
 
@@ -19,7 +22,5 @@ folder_path <- model_pack$folder_path
 dataframe <- model_pack$data
 
 # --- Run workflow to check model assumptions and get final models ---
-final_result <- work_flow(model_pack$m_list, model_pack$config)
-
-# --- Print model summaries with significance annotations ---
-print_model_table(folder_path, final_result)
+# The output from work_flow will be stored under folder output/workflow
+final_result <- work_flow_with_print(model_pack$m_list, model_pack$config)

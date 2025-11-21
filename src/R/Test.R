@@ -14,4 +14,4 @@ rand_effect_list <- list(
 case <- "mean_diff" # "mean_diff" or "pairtype" for between_group experiment
 
 # Use this function to test random effect in model
-test_random_effects(rand_effect_list, case)
+test_random_effects(rand_effect_list)
