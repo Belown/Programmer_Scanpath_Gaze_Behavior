@@ -19,8 +19,9 @@ dimensions <- c("Shape", "Length", "Direction", "Position", "Duration")
 #' @param folder_path The folder path containing the combined CSV
 #' @param formula_set A list containing fixed and random effect formula strings
 #' @param info Whether to print basic info about loaded data
+#' @param reml Whether to use REML for LMM fitting
 #' @return A list of fitted LMMs for each dimension and other info
-within_trial <- function(folder_path, formula_set, info) {
+within_trial <- function(folder_path, formula_set, info, reml = TRUE) {
   # Construct path to combined CSV
   combined_path <- file.path(folder_path, "combined_data.csv")
   
@@ -74,7 +75,7 @@ within_trial <- function(folder_path, formula_set, info) {
       mod <- lm(form, data = df)
     } else {
       form <- as.formula(paste0(y, " ~ ", fix_effect, " + ", rand_effect))
-      mod <- lmer(form, data = df)
+      mod <- lmer(form, data = df, REML = reml)
     }
     models_list[[y]] <- mod
   }
@@ -92,8 +93,9 @@ within_trial <- function(folder_path, formula_set, info) {
 #' @param folder_path The base folder path containing trial subfolders
 #' @param formula_set A list containing fixed and random effect formula strings
 #' @param info Whether to print basic info about loaded data
+#' @param reml Whether to use REML for LMM fitting
 #' @return A list of fitted LMMs for each dimension and other info
-within_group <- function(folder_path, formula_set, info) {
+within_group <- function(folder_path, formula_set, info, reml = TRUE) {
   
   fix_effect <- formula_set$fix_effect
   rand_effect <- formula_set$rand_effect
@@ -147,7 +149,7 @@ within_group <- function(folder_path, formula_set, info) {
       mod <- lm(form, data = df)
     } else {
       form <- as.formula(paste0(y, " ~ ", fix_effect, " + ", rand_effect))
-      mod <- lmer(form, data = df)
+      mod <- lmer(form, data = df, REML = reml)
     }
     models_list[[y]] <- mod
   }
@@ -183,8 +185,9 @@ within_group <- function(folder_path, formula_set, info) {
 #' @param formula_set A list containing fixed and random effect formula strings
 #' @param info Whether to print basic info about loaded data
 #' @param case The case for between-group comparison ("mean_diff", "pairtype")
+#' @param reml Whether to use REML for LMM fitting
 #' @return A list of fitted LMMs for each dimension and other info
-between_group <- function(folder_path, formula_set, info, case) {
+between_group <- function(folder_path, formula_set, info, case, reml = TRUE) {
   
   fix_effect <- formula_set$fix_effect
   rand_effect <- formula_set$rand_effect
@@ -260,7 +263,7 @@ between_group <- function(folder_path, formula_set, info, case) {
       mod_md  <- lm(form, data = df)
     } else {
       form <- as.formula(paste0(y, " ~ ", fix_effect, " + ", rand_effect))
-      mod_md  <- lmer(form, data = df)
+      mod_md  <- lmer(form, data = df, REML = reml)
     }
     models_list[[y]] <- mod_md
   }

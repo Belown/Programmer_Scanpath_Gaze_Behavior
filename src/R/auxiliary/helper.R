@@ -16,7 +16,7 @@ base_path <- file.path(here(), "output", "processed_dataset")
 #' @param formula_set A list containing fixed and random effect formula strings
 #' @param info Whether to print info messages
 #' @return A model package, which contain data frame, models, config, and folder_path
-get_model_pack <- function(exp_type, data_set, comp_type, trial_folder, case, rand_effect = NULL, info = TRUE) {
+get_exp_pack <- function(exp_type, data_set, comp_type, trial_folder, case, rand_effect = NULL, info = TRUE, reml) {
   model_pack <- switch(
     exp_type,
     "within_trial" = {
@@ -26,7 +26,7 @@ get_model_pack <- function(exp_type, data_set, comp_type, trial_folder, case, ra
         fix_effect = "expertise_a",
         rand_effect = if (!is.null(rand_effect)) rand_effect else default_rand_effect)
       folder_path <- file.path(base_path, data_set, comp_type,trial_folder)
-      within_trial(folder_path, formula_set, info)
+      within_trial(folder_path, formula_set, info, reml)
     },
     "within_group" = {
       default_rand_effect <- "(1 | exp_a) + (1 | exp_b)"
@@ -35,7 +35,7 @@ get_model_pack <- function(exp_type, data_set, comp_type, trial_folder, case, ra
         fix_effect = "expertise_a * trial",
         rand_effect = if (!is.null(rand_effect)) rand_effect else default_rand_effect)
       folder_path <- file.path(base_path, data_set, "within_group")
-      within_group(folder_path, formula_set, info)
+      within_group(folder_path, formula_set, info, reml)
     },
     "between_group" = {
       default_rand_effect <- "(1 | exp_a) + (1 | exp_b)"
@@ -52,7 +52,7 @@ get_model_pack <- function(exp_type, data_set, comp_type, trial_folder, case, ra
         )
       )
       folder_path <- file.path(base_path, data_set, "between_group")
-      between_group(folder_path, formula_set, info, case)
+      between_group(folder_path, formula_set, info, case, reml)
     }
   )
   return (model_pack)

@@ -23,7 +23,8 @@ trial_folder <- "trial_2"  # Specific trial folder to analyze
 case <- "pairtype"  # Analysis case: "mean_diff" or "pairtype"
 
 # This includes fitted models, data, and config for the specified experiment type
-model_pack <- get_model_pack(exp_type, data_set, comp_type, trial_folder, case, rand_effect = NULL, info = TRUE)
+# Modify fixed and random effects in get_exp_pack() if needed
+model_pack <- get_exp_pack(exp_type, data_set, comp_type, trial_folder, case, rand_effect = NULL, info = TRUE, reml = TRUE)
 
 # Extract components from model package
 folder_path <- model_pack$folder_path  # Output folder path
