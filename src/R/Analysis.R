@@ -12,7 +12,7 @@ source(file.path(here(), "src", "R", "auxiliary", "workflow.R"))
 source(file.path(here(), "src", "R", "auxiliary", "helper.R"))
 
 # --- Experiment Type Configuration ---
-exp_type <- "between_group"    # Options: "within_trial", "within_group", "between_group"
+exp_type <- "within_group"    # Options: "within_trial", "within_group", "between_group"
 data_set <- "EMIP_corrected"  # Dataset identifier
 comp_type <- "within_group"   # Comparison type: "within_group" or "between_group"
 
@@ -20,7 +20,7 @@ comp_type <- "within_group"   # Comparison type: "within_group" or "between_grou
 trial_folder <- "trial_2"  # Specific trial folder to analyze
 
 # only used for between_group experiments
-case <- "pairtype"  # Analysis case: "mean_diff" or "pairtype"
+case <- "mean_diff"  # Analysis case: "mean_diff" or "pairtype"
 
 # This includes fitted models, data, and config for the specified experiment type
 # Modify fixed and random effects in get_exp_pack() if needed
