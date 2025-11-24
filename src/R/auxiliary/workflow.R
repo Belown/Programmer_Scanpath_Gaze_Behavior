@@ -110,71 +110,99 @@ sub_workflow <- function(m_list, config){
   ))
 }
 
-#' Check Significance of Interaction Terms in a LMM
+#' Check Significance of Interaction Terms in LMM/GLMM with hierarchical model
 #' 
-#' This function checks whether interaction terms in a given list of LMMs are 
-#' statistically significant. If the interaction terms are not significant, it 
-#' returns an additive model without interactions. If they are significant, it 
-#' returns the original model.
+#' This function takes a list of fitted LMM/GLMM models and performs a
+#' hierarchical, backward elimination of interaction terms based on
+#' likelihood ratio tests (LRTs).
 #' 
 #' @param m_list A list of fitted LMM/GLMM objects.
-#' @return A list of fitted LMM objects, either the original model or the additive model.
-check_interaction <- function(m_list) {
+#' @param alpha Significance level for LRTs (default is 0.05
+#' @return A list of fitted LMM/GLMM objects with non-significant interactions removed.
+check_interaction <- function(m_list, alpha = 0.05) {
   final_result <- list()
+  
   for (dim in names(m_list)) {
-    m <- m_list[[dim]]
-
-    # Extract all interaction terms
-    tt <- terms(m)
-    term_lbl  <- attr(tt, "term.labels")
+    m_full <- m_list[[dim]]
     
-    # Detect all terms containing ":" (i.e., interactions of any order)
-    interaction_terms <- term_lbl[grepl(":", term_lbl)]
+    # Extract fixed-effect terms labels from the full model
+    tt <- terms(m_full)
+    term_lbl <- attr(tt, "term.labels")
     
-    if(length(interaction_terms) == 0) {
-      # No interaction terms present
-      final_result[[dim]] <- m
+    # Get all interaction terms
+    int_terms <- term_lbl[grepl(":", term_lbl)]
+    
+    if (length(int_terms) == 0) {
+      cat("No interaction terms in model for ", dim, ".\n")
+      final_result[[dim]] <- m_full
       next
     }
-
-    drop_formula <- as.formula(
-      paste(". ~ . -", paste(interaction_terms, collapse = " - "))
-    )
-
-    if (inherits(m, "glmmTMB")) {
-      updated_formula <- update(formula(m), drop_formula)
-      dat <- m$frame
-      family_used <- family(m)
-      control_params <- m$modelInfo$control
-      m_add <- glmmTMB(
-        formula = updated_formula,
-        data = dat,
-        family = family_used,
-        control = glmmTMBControl(
-          optimizer = nlminb,
-          optCtrl = list(eval.max = 1000, iter.max = 500),
-          parallel = 1)
-      )
-    } else {
-      # For lmerMod models
-      m_add <- update(m, drop_formula)
+    
+    # Determine interaction order for the hierarchical model
+    int_order <- vapply(strsplit(int_terms, ":", fixed = TRUE),
+                        length, integer(1))
+    max_order <- max(int_order)
+    
+    # Start with current model and remove interaction terms stepwise
+    m_current <- m_full
+    
+    for (k in seq(from = max_order, to = 2, by = -1)) {
+      term_k <- int_terms[int_order == k]
+      if (length(term_k) == 0) {
+        next
+      }
+      cat("  Testing all", k, "-way interactions for", dim, "...\n")
+      
+      for (term_j in term_k) {
+        #  This term might already be dropped from previous step
+        current_terms <- attr(terms(m_current), "term.labels")
+        if (!(term_j %in% current_terms)) {
+          next
+        }
+        drop_formula <- as.formula(paste(". ~ . -", term_j))
+        
+        # Fit reduced model depending on class
+        if (inherits(m_current, "glmmTMB")) {
+          updated_formula <- update(formula(m_current), drop_formula)
+          dat             <- m_current$frame
+          family_used     <- family(m_current)
+          
+          m_reduced <- glmmTMB(
+            formula = updated_formula,
+            data    = dat,
+            family  = family_used,
+            control = glmmTMBControl(
+              optimizer = nlminb,
+              optCtrl  = list(eval.max = 1000, iter.max = 500),
+              parallel = 1
+            )
+          )
+        } else {
+          # lmer / glmer / lmerMod / glmerMod etc.
+          m_reduced <- update(m_current, drop_formula)
+        }
+        
+        # Likelihood ratio test: reduced vs current
+        lrt <- anova(m_reduced, m_current)
+        p_j <- lrt$`Pr(>Chisq)`[2]
+        
+        if (!is.na(p_j) && p_j < alpha) {
+          # Interaction is significant -> keep it
+          cat("✅️ Interaction", term_j, "for", dim,
+              "is significant (p =", signif(p_j, 3), "). Keeping it.\n")
+          # m_current unchanged
+        } else {
+          # Interaction is not significant -> drop it
+          cat("❌️ Interaction", term_j, "for", dim,
+              "is NOT significant (p =", signif(p_j, 3), "). Dropping it.\n")
+          m_current <- m_reduced
+        }
+      }
     }
     
-    # Use likelihood ratio test to check if the interaction is significant
-    lrt <- anova(m_add, m)
-    p_int <- lrt$`Pr(>Chisq)`[2]
-    alpha <- 0.05
-    
-    # Choose final model
-    if (!is.na(p_int) && p_int < alpha) {
-      final_model <- m
-      cat("✅️ Interaction for ", dim, "is significant (p = ", signif(p_int, 3), "). Using the interaction model.\n")
-    } else {
-      final_model <- m_add
-      cat("❌️ Interaction for ", dim, "is NOT significant (p = ", signif(p_int, 3), "). Using additive model.\n")
-    }
-    final_result[[dim]] <- final_model
+    final_result[[dim]] <- m_current
   }
+  
   return (final_result)
 }
 

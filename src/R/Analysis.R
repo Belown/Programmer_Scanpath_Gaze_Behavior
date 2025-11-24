@@ -12,7 +12,7 @@ source(file.path(here(), "src", "R", "auxiliary", "workflow.R"))
 source(file.path(here(), "src", "R", "auxiliary", "helper.R"))
 
 # --- Experiment Type Configuration ---
-exp_type <- "within_trial"    # Options: "within_trial", "within_group", "between_group"
+exp_type <- "between_group"    # Options: "within_trial", "within_group", "between_group"
 data_set <- "EMIP_corrected"  # Dataset identifier
 comp_type <- "within_group"   # Comparison type: "within_group" or "between_group"
 
@@ -20,7 +20,7 @@ comp_type <- "within_group"   # Comparison type: "within_group" or "between_grou
 trial_folder <- "trial_2"  # Specific trial folder to analyze
 
 # only used for between_group experiments
-case <- "pairtype"  # Analysis case: "mean_diff" or "pairtype"
+case <- "mean_diff"  # Analysis case: "mean_diff" or "pairtype"
 
 # --- Random Effects Specification ---
 # Options include: "(1 | exp_a)", "(1 | exp_b)", "(1 | exp_a) + (1 | exp_b)", or ""
@@ -32,6 +32,9 @@ model_pack <- get_model_pack(exp_type, data_set, comp_type, trial_folder, case, 
 # Extract components from model package
 folder_path <- model_pack$folder_path  # Output folder path
 dataframe <- model_pack$data           # Processed dataset
+
+# temp <- check_interaction_multiple(model_pack$m_list)
+# cat(deparse(formula(temp$Shape)))
 
 # Run workflow to validate model assumptions and obtain final models
 # Output is saved to: output/workflow/[experiment_path]/model_summary.txt
