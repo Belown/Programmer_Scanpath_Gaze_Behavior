@@ -15,8 +15,6 @@ get_all_exps <- function(random_effect, info) {
   between_group_mean_diff <- get_model_pack("between_group", "EMIP_corrected", "", "", "mean_diff", random_effect, info)
   between_group_pairtype <- get_model_pack("between_group", "EMIP_corrected", "", "", "pairtype", random_effect, info)
   
-  between_group_name <- paste0("between_group_", case)
-  
   result_list <- list(
     within_trial_within_2 = within_trial_within_2,
     within_trial_within_5 = within_trial_within_5,

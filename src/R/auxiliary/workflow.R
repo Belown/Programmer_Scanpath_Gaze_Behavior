@@ -24,10 +24,10 @@ source(file.path(here(), "src", "R", "auxiliary", "assumptions_GLMM.R"))
 #' @return A list containing the final models after workflow
 work_flow_with_print <- function(m_list, config) {
   # --- Run workflow to check model assumptions and get final models ---
-  final_result <- work_flow(model_pack$m_list, model_pack$config)
+  final_result <- work_flow(m_list, config)
   
   # --- Print model summaries with significance annotations ---
-  print_model_table(dirname(model_pack$config$results_log), final_result)
+  print_model_table(dirname(config$results_log), final_result)
   
   return(final_result)
 }
@@ -117,7 +117,7 @@ sub_workflow <- function(m_list, config){
 #' likelihood ratio tests (LRTs).
 #' 
 #' @param m_list A list of fitted LMM/GLMM objects.
-#' @param alpha Significance level for LRTs (default is 0.05
+#' @param alpha Significance level for LRTs (default is 0.05)
 #' @return A list of fitted LMM/GLMM objects with non-significant interactions removed.
 check_interaction <- function(m_list, alpha = 0.05) {
   final_result <- list()
@@ -265,7 +265,7 @@ check_assumptions_all_dimensions <- function(m_list, config) {
 #' Convert LMM to GLMM by reading the formula and data from each LMM and use manual control
 #' 
 #' @param m_list A list of fitted LMM models (lmerMod)
-#' @param family_list A list of family objects for GLMM (e.g., binomial, poisson
+#' @param family_list A list of family objects for GLMM (e.g., binomial, poisson)
 #' @return A list of fitted GLMM models (glmerMod)
 lmm_to_glmm <- function(m_list, family_list) {
   update_list <- list()

@@ -8,28 +8,51 @@ base_path <- file.path(here(), "output", "processed_dataset")
 
 #' Get the model package based on experiment type and data set
 #' 
-#' @param exp_type The type of experiment ("within_trial", "within_group", "between_group)
+#' @param exp_type The type of experiment ("within_trial", "within_group", "between_group")
 #' @param data_set The name of the data set
 #' @param comp_type The comparison type ("between_group" or "within_group")
 #' @param trial_folder The trial folder name ("trial_2", "trial_5")
 #' @param case The case for between-group comparison ("mean_diff", "pairtype")
-#' @param random_effect The random effect structure to use
+#' @param formula_set A list containing fixed and random effect formula strings
 #' @param info Whether to print info messages
 #' @return A model package, which contain data frame, models, config, and folder_path
-get_model_pack <- function(exp_type, data_set, comp_type, trial_folder, case, random_effect, info = TRUE) {
+get_model_pack <- function(exp_type, data_set, comp_type, trial_folder, case, rand_effect = NULL, info = TRUE) {
   model_pack <- switch(
     exp_type,
     "within_trial" = {
+      default_rand_effect <- "(1 | exp_a) + (1 | exp_b)"
+        # If rand_effect exists, use it, otherwise, use default
+      formula_set <- list(
+        fix_effect = "expertise_a",
+        rand_effect = if (!is.null(rand_effect)) rand_effect else default_rand_effect)
       folder_path <- file.path(base_path, data_set, comp_type,trial_folder)
-      within_trial_pack <- within_trial(folder_path, random_effect, info)
+      within_trial(folder_path, formula_set, info)
     },
     "within_group" = {
+      default_rand_effect <- "(1 | exp_a) + (1 | exp_b)"
+      # If rand_effect exists, use it, otherwise, use default
+      formula_set <- list(
+        fix_effect = "expertise_a * trial",
+        rand_effect = if (!is.null(rand_effect)) rand_effect else default_rand_effect)
       folder_path <- file.path(base_path, data_set, "within_group")
-      within_group_pack <- within_group(folder_path, random_effect, info)
+      within_group(folder_path, formula_set, info)
     },
     "between_group" = {
+      default_rand_effect <- "(1 | exp_a) + (1 | exp_b)"
+      # If rand_effect exists, use it, otherwise, use default
+      formula_set <- switch(
+        case,
+        "mean_diff" = list(
+          fix_effect = "expertise_mean * expertise_diff",
+          rand_effect = if (!is.null(rand_effect)) rand_effect else default_rand_effect
+        ),
+        "pairtype" = list(
+          fix_effect = "PairType",
+          rand_effect = if (!is.null(rand_effect)) rand_effect else default_rand_effect
+        )
+      )
       folder_path <- file.path(base_path, data_set, "between_group")
-      between_group_pack <- between_group(folder_path, case, random_effect, info)
+      between_group(folder_path, formula_set, info, case)
     }
   )
   return (model_pack)
@@ -44,7 +67,7 @@ print_model_with_sig <- function(mod, dimension_name) {
   cat("\n====", dimension_name, "====\n")
   cat("Formula:", deparse(formula(mod)), "\n")
   
-  # Case extinction 
+  # Case distinction 
   if (inherits(mod, "glmmTMB")) {
     cat("Type: glmmTMB | Family:", family(mod)$family, "\n\n")
     

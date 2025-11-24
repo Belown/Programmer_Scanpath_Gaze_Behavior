@@ -20,21 +20,14 @@ comp_type <- "within_group"   # Comparison type: "within_group" or "between_grou
 trial_folder <- "trial_2"  # Specific trial folder to analyze
 
 # only used for between_group experiments
-case <- "mean_diff"  # Analysis case: "mean_diff" or "pairtype"
-
-# --- Random Effects Specification ---
-# Options include: "(1 | exp_a)", "(1 | exp_b)", "(1 | exp_a) + (1 | exp_b)", or ""
-rand_effect <- "(1 | exp_a) + (1 | exp_b)"
+case <- "pairtype"  # Analysis case: "mean_diff" or "pairtype"
 
 # This includes fitted models, data, and config for the specified experiment type
-model_pack <- get_model_pack(exp_type, data_set, comp_type, trial_folder, case, rand_effect, TRUE)
+model_pack <- get_model_pack(exp_type, data_set, comp_type, trial_folder, case, rand_effect = NULL, info = TRUE)
 
 # Extract components from model package
 folder_path <- model_pack$folder_path  # Output folder path
 dataframe <- model_pack$data           # Processed dataset
-
-# temp <- check_interaction_multiple(model_pack$m_list)
-# cat(deparse(formula(temp$Shape)))
 
 # Run workflow to validate model assumptions and obtain final models
 # Output is saved to: output/workflow/[experiment_path]/model_summary.txt

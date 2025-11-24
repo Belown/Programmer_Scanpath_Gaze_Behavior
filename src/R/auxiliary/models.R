@@ -17,12 +17,15 @@ dimensions <- c("Shape", "Length", "Direction", "Position", "Duration")
 #' Generate LMMs for within-trial comparisons
 #' 
 #' @param folder_path The folder path containing the combined CSV
-#' @param rand_effect The random effect formula string
+#' @param formula_set A list containing fixed and random effect formula strings
 #' @param info Whether to print basic info about loaded data
 #' @return A list of fitted LMMs for each dimension and other info
-within_trial <- function(folder_path, rand_effect, info) {
+within_trial <- function(folder_path, formula_set, info) {
   # Construct path to combined CSV
   combined_path <- file.path(folder_path, "combined_data.csv")
+  
+  fix_effect <- formula_set$fix_effect
+  rand_effect <- formula_set$rand_effect
   
   # Read and preprocess data
   # Since for within_trial, all data share the same expertise
@@ -67,10 +70,10 @@ within_trial <- function(folder_path, rand_effect, info) {
   # Construct models based on rand_effect
   for (y in dimensions) {
     if (str_length(rand_effect) == 0) {
-      form <- as.formula(paste0(y, " ~ expertise_a"))
+      form <- as.formula(paste0(y, " ~ ", fix_effect))
       mod <- lm(form, data = df)
     } else {
-      form <- as.formula(paste0(y, " ~ expertise_a + ", rand_effect))
+      form <- as.formula(paste0(y, " ~ ", fix_effect, " + ", rand_effect))
       mod <- lmer(form, data = df)
     }
     models_list[[y]] <- mod
@@ -87,10 +90,14 @@ within_trial <- function(folder_path, rand_effect, info) {
 #' Generate LMMs for within-group comparisons across trials
 #' 
 #' @param folder_path The base folder path containing trial subfolders
-#' @param rand_effect The random effect formula string
+#' @param formula_set A list containing fixed and random effect formula strings
 #' @param info Whether to print basic info about loaded data
 #' @return A list of fitted LMMs for each dimension and other info
-within_group <- function(folder_path, rand_effect, info) {
+within_group <- function(folder_path, formula_set, info) {
+  
+  fix_effect <- formula_set$fix_effect
+  rand_effect <- formula_set$rand_effect
+  
   # Construct paths
   trial_2_path <- file.path(folder_path, "trial_2")
   trial_5_path <- file.path(folder_path, "trial_5")
@@ -136,10 +143,10 @@ within_group <- function(folder_path, rand_effect, info) {
   # Construct models based on rand_effect
   for (y in dimensions) {
     if (str_length(rand_effect) == 0) {
-      form <- as.formula(paste0(y, " ~ expertise_a * trial"))
+      form <- as.formula(paste0(y, " ~ ", fix_effect))
       mod <- lm(form, data = df)
     } else {
-      form <- as.formula(paste0(y, " ~ expertise_a * trial + ", rand_effect))
+      form <- as.formula(paste0(y, " ~ ", fix_effect, " + ", rand_effect))
       mod <- lmer(form, data = df)
     }
     models_list[[y]] <- mod
@@ -170,13 +177,18 @@ within_group <- function(folder_path, rand_effect, info) {
   ))
 }
 
-
 #' Generate LMMs for between-group comparisons across trials
 #' 
 #' @param folder_path The base folder path containing trial subfolders
-#' @param case The model type to run ("mean_diff", "pairtype", or "both")
+#' @param formula_set A list containing fixed and random effect formula strings
+#' @param info Whether to print basic info about loaded data
+#' @param case The case for between-group comparison ("mean_diff", "pairtype")
 #' @return A list of fitted LMMs for each dimension and other info
-between_group <- function(folder_path, case, rand_effect, info) {
+between_group <- function(folder_path, formula_set, info, case) {
+  
+  fix_effect <- formula_set$fix_effect
+  rand_effect <- formula_set$rand_effect
+  
   # Construct paths
   trial_2_path <- file.path(folder_path, "trial_2")
   trial_5_path <- file.path(folder_path, "trial_5")
@@ -243,26 +255,14 @@ between_group <- function(folder_path, case, rand_effect, info) {
   
   # Construct models based on the rand_effect and specified case
   for (y in dimensions) {
-    if (case %in% c("mean_diff")) {
-      if (str_length(rand_effect) == 0) {
-        form_md <- as.formula(paste0(y, " ~ expertise_mean * expertise_diff"))
-        mod_md  <- lm(form_md, data = df)
-      } else {
-        form_md <- as.formula(paste0(y, " ~ expertise_mean * expertise_diff + ", rand_effect))
-        mod_md  <- lmer(form_md, data = df)
-      }
-      models_list[[y]] <- mod_md
+    if (str_length(rand_effect) == 0) {
+      form <- as.formula(paste0(y, " ~ ", fix_effect))
+      mod_md  <- lm(form, data = df)
+    } else {
+      form <- as.formula(paste0(y, " ~ ", fix_effect, " + ", rand_effect))
+      mod_md  <- lmer(form, data = df)
     }
-    if (case %in% c("pairtype")) {
-      if (str_length(rand_effect) == 0) {
-        form_pt <- as.formula(paste0(y, " ~ PairType"))
-        mod_pt  <- lm(form_pt, data = df)
-      } else {
-        form_pt <- as.formula(paste0(y, " ~ PairType + ", rand_effect))
-        mod_pt  <- lmer(form_pt, data = df)
-      }
-      models_list[[y]] <- mod_pt
-    }
+    models_list[[y]] <- mod_md
   }
 
   output_path <- file.path(here(), "output", "R", "workflow", "between_group", case)

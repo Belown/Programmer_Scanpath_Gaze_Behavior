@@ -17,9 +17,6 @@ rand_effect_list <- list(
   none = ""                                 # No random effects (fixed effects model)
 )
 
-# Analysis case for between-group experiments
-case <- "mean_diff"     # "mean_diff" and "pairtype" as possible input
-
-# Results will be stored in: output/R/random_effect_analysis/
+# Results will be stored in: output/R/random_effect_analysis/random_effect_result.csv
 # Use the Python notebook Visualization.ipynb to explore the results
 test_random_effects(rand_effect_list)

@@ -17,7 +17,7 @@ model_pack <- switch(
   exp_type,
   "within_trial" = {
     trial_level_path <- file.path(base_path, data_set, comp_type,trial_folder)
-    within_tiral_pack <- within_trial(trial_level_path)
+    within_trial_pack <- within_trial(trial_level_path)
   },
   "within_group" = {
     within_group_path <- file.path(base_path, data_set, "within_group")
@@ -29,7 +29,7 @@ model_pack <- switch(
   }
 )
 
-model_list <- model_pack$models
+model_list <- model_pack$m_list
 config <- model_pack$config
 
 # # --- Print models ---
