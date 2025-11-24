@@ -24,12 +24,12 @@ case <- "mean_diff"  # Analysis case: "mean_diff" or "pairtype"
 
 # This includes fitted models, data, and config for the specified experiment type
 # Modify fixed and random effects in get_exp_pack() if needed
-model_pack <- get_exp_pack(exp_type, data_set, comp_type, trial_folder, case, rand_effect = NULL, info = TRUE, reml = TRUE)
+exp_pack <- get_exp_pack(exp_type, data_set, comp_type, trial_folder, case, rand_effect = NULL, info = TRUE, reml = TRUE)
 
 # Extract components from model package
-folder_path <- model_pack$folder_path  # Output folder path
-dataframe <- model_pack$data           # Processed dataset
+folder_path <- exp_pack$folder_path  # Output folder path
+dataframe <- exp_pack$data           # Processed dataset
 
 # Run workflow to validate model assumptions and obtain final models
 # Output is saved to: output/workflow/[experiment_path]/model_summary.txt
-final_result <- work_flow_with_print(model_pack$m_list, model_pack$config)
+final_result <- work_flow_with_print(exp_pack$m_list, exp_pack$config)
