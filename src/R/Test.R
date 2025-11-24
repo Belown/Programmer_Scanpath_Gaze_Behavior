@@ -19,4 +19,4 @@ rand_effect_list <- list(
 
 # Results will be stored in: output/R/random_effect_analysis/random_effect_result.csv
 # Use the Python notebook Visualization.ipynb to explore the results
-test_random_effects(rand_effect_list)
+compare_random_effects_aicbic(rand_effect_list)

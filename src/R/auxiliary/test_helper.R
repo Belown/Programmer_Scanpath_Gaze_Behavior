@@ -32,8 +32,8 @@ get_all_exps <- function(random_effect, info) {
 #' and store the result into a .csv file
 #' 
 #' @param rand_effect_list A named list of random effect structures to test
-test_random_effects <- function(rand_effect_list) {
-  output_path <- file.path(here(), "output", "R", "random_effect_analysis", "random_effect_result.csv")
+compare_random_effects_aicbic <- function(rand_effect_list) {
+  output_path <- file.path(here(), "output", "R", "random_effect_aicbic_analysis", "random_effect_aicbic_result.csv")
   if(!dir.exists(dirname(output_path))) {
     dir.create(dirname(output_path), recursive = TRUE)
   }
