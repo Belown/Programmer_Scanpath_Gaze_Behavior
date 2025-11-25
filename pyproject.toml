@@ -24,4 +24,4 @@ packages = ["emtk", "tools"]
 
 [tool.setuptools.package-dir]
 emtk = "src/EMIP-Toolkit/emtk"
-tools = "src/Tools"
+tools = "src/tools"

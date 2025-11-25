@@ -55,12 +55,8 @@ def make_dict(score):
     '''
     score_names = ["Shape", "Direction", "Length", "Position", "Duration"]
     score_dict = {}
-    if isinstance(score, list) and len(score) == 1 and isinstance(score[0], list):
-        for name, val in zip(score_names, score[0]):
-            score_dict[name] = val
-    else:
-        for name, val in zip(score_names, score):
-            score_dict[name] = val
+    for name, val in zip(score_names, score):
+        score_dict[name] = val
     return score_dict
 
 # Because multimatch_gaze use different column names, we need to change them

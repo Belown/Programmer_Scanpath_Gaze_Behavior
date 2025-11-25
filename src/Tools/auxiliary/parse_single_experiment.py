@@ -43,7 +43,12 @@ def parse_single_experiment(experiment_id):
     experiment_found = False
     for root, _, files in os.walk(RAWDATA_MODULE):
         for file in files:
-            if file.endswith(".tsv") and file.startswith(experiment_id):
+            if not file.endswith(".tsv"):
+                continue
+
+            # Require exact id before the first underscore
+            file_id = file.split("_", 1)[0]
+            if file_id == experiment_id:
                 experiment_found = True
                 print(f"Parsing experiment: {experiment_id} from file: {file}")
 
