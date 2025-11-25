@@ -3,48 +3,48 @@
 Formula: Shape ~ expertise_a + (1 | exp_a) + (1 | exp_b) 
 Type: glmmTMB | Family: gaussian 
 
-          term      estimate    std.error   statistic   p.value stars
-   (Intercept)  0.1162596024 0.0005512742 210.8925011 0.0000000   ***
- expertise_a.L -0.0020101720 0.0013583512  -1.4798617 0.1389102      
- expertise_a.Q  0.0002153142 0.0011023428   0.1953242 0.8451392      
- expertise_a.C -0.0006078393 0.0007630516  -0.7965900 0.4256892      
+          term      estimate  std.error    statistic   p.value stars
+   (Intercept)  0.5539508928 0.01191301 46.499653427 0.0000000   ***
+ expertise_a.L -0.0012137687 0.03100863 -0.039142930 0.9687764      
+ expertise_a.Q  0.0001545090 0.02382602  0.006484883 0.9948258      
+ expertise_a.C -0.0002877962 0.01318421 -0.021828847 0.9825845      
 
 ==== Length ====
 Formula: Length ~ expertise_a + (1 | exp_a) + (1 | exp_b) 
 Type: glmmTMB | Family: gaussian 
 
-          term      estimate   std.error  statistic   p.value stars
-   (Intercept)  0.1213169184 0.001518354 79.9002690 0.0000000   ***
- expertise_a.L -0.0031940935 0.003732556 -0.8557388 0.3921423      
- expertise_a.Q  0.0005458718 0.003036932  0.1797445 0.8573532      
- expertise_a.C -0.0005320641 0.002118212 -0.2511855 0.8016707      
+          term      estimate  std.error   statistic   p.value stars
+   (Intercept)  0.5551442717 0.01181193 46.99862294 0.0000000   ***
+ expertise_a.L -0.0020318845 0.03074552 -0.06608718 0.9473084      
+ expertise_a.Q  0.0009076296 0.02362385  0.03842005 0.9693528      
+ expertise_a.C -0.0003824094 0.01307234 -0.02925333 0.9766626      
 
 ==== Direction ====
 Formula: Direction ~ expertise_a + (1 | exp_a) + (1 | exp_b) 
 Type: glmmTMB | Family: gaussian 
 
-          term      estimate   std.error    statistic      p.value stars
-   (Intercept) -0.0536930200 0.003114006 -17.24242805 1.275647e-66   ***
- expertise_a.L -0.0103578757 0.007668914  -1.35063141 1.768135e-01      
- expertise_a.Q  0.0133063132 0.006227529   2.13669240 3.262302e-02     *
- expertise_a.C -0.0003520472 0.004312328  -0.08163739 9.349351e-01      
+          term     estimate  std.error  statistic       p.value stars
+   (Intercept)  0.323912869 0.01041763 31.0927471 3.018564e-212   ***
+ expertise_a.L -0.005460544 0.02711628 -0.2013751  8.404053e-01      
+ expertise_a.Q  0.007672136 0.02083527  0.3682283  7.127030e-01      
+ expertise_a.C  0.002975830 0.01152927  0.2581109  7.963213e-01      
 
 ==== Position ====
 Formula: Position ~ expertise_a + (1 | exp_a) + (1 | exp_b) 
 Type: glmmTMB | Family: gaussian 
 
-          term     estimate   std.error  statistic    p.value stars
-   (Intercept)  0.144214448 0.001906508 75.6432313 0.00000000   ***
- expertise_a.L -0.007843538 0.004717314 -1.6627128 0.09636994     .
- expertise_a.Q -0.002636300 0.003812842 -0.6914264 0.48929764      
- expertise_a.C -0.006733161 0.002630229 -2.5599143 0.01046980     *
+          term     estimate  std.error  statistic   p.value stars
+   (Intercept)  0.524338729 0.01038446 50.4926331 0.0000000   ***
+ expertise_a.L -0.007541629 0.02702993 -0.2790103 0.7802370      
+ expertise_a.Q -0.003884044 0.02076892 -0.1870123 0.8516510      
+ expertise_a.C -0.005740780 0.01149255 -0.4995217 0.6174119      
 
 ==== Duration ====
 Formula: Duration ~ expertise_a + (1 | exp_a) + (1 | exp_b) 
 Type: glmmTMB | Family: gaussian 
 
-          term     estimate   std.error   statistic       p.value stars
-   (Intercept) -0.175687718 0.004963228 -35.3978736 1.841073e-274   ***
- expertise_a.L -0.019383610 0.012117434  -1.5996465  1.096770e-01      
- expertise_a.Q -0.003642302 0.009925449  -0.3669659  7.136444e-01      
- expertise_a.C  0.004628313 0.007081999   0.6535319  5.134134e-01      
+          term     estimate  std.error  statistic       p.value stars
+   (Intercept)  0.244093575 0.01145719 21.3048392 1.023784e-100   ***
+ expertise_a.L -0.017401122 0.02982216 -0.5834963  5.595592e-01      
+ expertise_a.Q -0.002272937 0.02291438 -0.0991926  9.209854e-01      
+ expertise_a.C  0.004303525 0.01267975  0.3394014  7.343074e-01      

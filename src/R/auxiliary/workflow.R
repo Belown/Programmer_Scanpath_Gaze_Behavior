@@ -133,7 +133,7 @@ check_interaction <- function(m_list, alpha = 0.05) {
     int_terms <- term_lbl[grepl(":", term_lbl)]
     
     if (length(int_terms) == 0) {
-      cat("No interaction terms in model for ", dim, ".\n")
+      cat("No interaction terms in model for", dim, ".\n")
       final_result[[dim]] <- m_full
       next
     }
