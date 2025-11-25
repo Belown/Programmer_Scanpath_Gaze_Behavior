@@ -14,23 +14,23 @@ Type: glmmTMB | Family: gaussian
 Formula: Length ~ expertise_a + trial + (1 | exp_a) + (1 | exp_b) 
 Type: glmmTMB | Family: gaussian 
 
-          term     estimate   std.error   statistic       p.value stars
-   (Intercept) -0.053514924 0.002480286 -21.5761127 3.011473e-103   ***
- expertise_a.L -0.012786238 0.006039760  -2.1170108  3.425893e-02     *
- expertise_a.Q  0.013211230 0.004879931   2.7072573  6.784165e-03    **
- expertise_a.C  0.001064935 0.003329002   0.3198963  7.490469e-01      
-        trial5 -0.002980883 0.001158933  -2.5720924  1.010859e-02     *
-
-==== Direction ====
-Formula: Direction ~ expertise_a + trial + (1 | exp_a) + (1 | exp_b) 
-Type: glmmTMB | Family: gaussian 
-
           term      estimate    std.error  statistic   p.value stars
    (Intercept)  0.1212225771 0.0012965223 93.4982592 0.0000000   ***
  expertise_a.L -0.0033315161 0.0031590920 -1.0545803 0.2916173      
  expertise_a.Q -0.0005492428 0.0025618270 -0.2143950 0.8302391      
  expertise_a.C  0.0003806810 0.0017689219  0.2152051 0.8296074      
         trial5 -0.0005342741 0.0005371688 -0.9946111 0.3199255      
+
+==== Direction ====
+Formula: Direction ~ expertise_a + trial + (1 | exp_a) + (1 | exp_b) 
+Type: glmmTMB | Family: gaussian 
+
+          term     estimate   std.error   statistic       p.value stars
+   (Intercept) -0.053514924 0.002480286 -21.5761127 3.011473e-103   ***
+ expertise_a.L -0.012786238 0.006039760  -2.1170108  3.425893e-02     *
+ expertise_a.Q  0.013211230 0.004879931   2.7072573  6.784165e-03    **
+ expertise_a.C  0.001064935 0.003329002   0.3198963  7.490469e-01      
+        trial5 -0.002980883 0.001158933  -2.5720924  1.010859e-02     *
 
 ==== Position ====
 Formula: Position ~ expertise_a * trial + (1 | exp_a) + (1 | exp_b) 

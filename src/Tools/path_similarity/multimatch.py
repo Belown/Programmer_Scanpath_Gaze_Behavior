@@ -53,7 +53,7 @@ def make_dict(score):
     
     :return: Dictionary of multimatch scores.
     '''
-    score_names = ["Shape", "Length", "Direction", "Position", "Duration"]
+    score_names = ["Shape", "Direction", "Length", "Position", "Duration"]
     score_dict = {}
     if isinstance(score, list) and len(score) == 1 and isinstance(score[0], list):
         for name, val in zip(score_names, score[0]):
