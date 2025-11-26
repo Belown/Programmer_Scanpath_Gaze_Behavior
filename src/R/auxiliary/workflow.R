@@ -42,12 +42,23 @@ work_flow_with_print <- function(m_list, config) {
 #' @param config Configuration for assumption checks
 #' @return A list containing the final models and pass/fail status from sub workflow
 work_flow <- function(m_list, config) {
+  # Clear previous log if exists
+  if (file.exists(config$results_log)) {
+    write("", file = config$results_log)
+  }
+  
   cat("============ Workflow stage 1 ============\n")
+  line <- paste0("\n", strrep("=", 40), " Workflow Stage 1 ", strrep("=", 40))
+  write(line, config$results_log, append = TRUE)
+  
   result_1 <- sub_workflow(m_list, config)
   if (result_1$pass) {
     return (result_1$m_list)
   } else {
     cat("============ Workflow stage 2 ============\n")
+    line <- paste0("\n", strrep("=", 40), " Workflow Stage 2 ", strrep("=", 40))
+    write(line, config$results_log, append = TRUE)
+    
     ms <- m_list
     ms_logit <- list()
     for (dim in names(ms)) {
@@ -63,6 +74,9 @@ work_flow <- function(m_list, config) {
       return (result_2$m_list)
     } else {
       cat("============ Workflow stage 3 ============\n")
+      line <- paste0("\n", strrep("=", 40), " Workflow Stage 3 ", strrep("=", 40))
+      write(line, config$results_log, append = TRUE)
+      
       family_list <- setNames(
         replicate(length(names(m_list)), gaussian(), simplify = FALSE),
         names(m_list)

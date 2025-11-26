@@ -3,48 +3,48 @@
 Formula: Shape ~ expertise_a + (1 | exp_a) + (1 | exp_b) 
 Type: glmmTMB | Family: gaussian 
 
-          term      estimate  std.error    statistic       p.value stars
-   (Intercept)  5.539777e-01 0.01489671 37.187923906 1.069679e-302   ***
- expertise_a.L -1.525199e-03 0.03903529 -0.039072307  9.688327e-01      
- expertise_a.Q -2.154909e-04 0.02979342 -0.007232835  9.942291e-01      
- expertise_a.C  5.096969e-05 0.01586007  0.003213712  9.974358e-01      
+          term      estimate    std.error    statistic   p.value stars
+   (Intercept)  0.9915815981 0.0002124539 4667.2791019 0.0000000   ***
+ expertise_a.L -0.0005167359 0.0005217470   -0.9903956 0.3219808      
+ expertise_a.Q -0.0003903767 0.0004249076   -0.9187332 0.3582352      
+ expertise_a.C  0.0003890126 0.0002980906    1.3050147 0.1918878      
 
 ==== Length ====
 Formula: Length ~ expertise_a + (1 | exp_a) + (1 | exp_b) 
 Type: glmmTMB | Family: gaussian 
 
-          term      estimate  std.error   statistic       p.value stars
-   (Intercept)  0.5549378166 0.01477051 37.57065366 6.482225e-309   ***
- expertise_a.L -0.0029515491 0.03870460 -0.07625834  9.392136e-01      
- expertise_a.Q -0.0005101725 0.02954103 -0.01726997  9.862212e-01      
- expertise_a.C  0.0003542521 0.01572571  0.02252694  9.820276e-01      
+          term      estimate    std.error    statistic   p.value stars
+   (Intercept)  0.9884358746 0.0003469987 2848.5291417 0.0000000   ***
+ expertise_a.L -0.0003157294 0.0008533049   -0.3700077 0.7113768      
+ expertise_a.Q -0.0008742613 0.0006940187   -1.2597085 0.2077745      
+ expertise_a.C  0.0007166708 0.0004846546    1.4787250 0.1392138      
 
 ==== Direction ====
 Formula: Direction ~ expertise_a + (1 | exp_a) + (1 | exp_b) 
 Type: glmmTMB | Family: gaussian 
 
-          term     estimate  std.error   statistic       p.value stars
-   (Intercept)  0.326474690 0.01304115 25.03419837 2.594971e-138   ***
- expertise_a.L -0.011437239 0.03417298 -0.33468659  7.378615e-01      
- expertise_a.Q  0.016645961 0.02608230  0.63820916  5.233375e-01      
- expertise_a.C  0.000581287 0.01388451  0.04186587  9.666056e-01      
+          term     estimate   std.error   statistic    p.value stars
+   (Intercept)  0.705465206 0.004343586 162.4153847 0.00000000   ***
+ expertise_a.L -0.006137535 0.010785787  -0.5690391 0.56932960      
+ expertise_a.Q  0.016035168 0.008684191   1.8464781 0.06482282     .
+ expertise_a.C -0.001664856 0.005885740  -0.2828626 0.77728218      
 
 ==== Position ====
 Formula: Position ~ expertise_a + (1 | exp_a) + (1 | exp_b) 
 Type: glmmTMB | Family: gaussian 
 
-          term      estimate  std.error   statistic   p.value stars
-   (Intercept)  0.5326934575 0.01299843 40.98137608 0.0000000   ***
- expertise_a.L -0.0043307151 0.03406104 -0.12714571 0.8988251      
- expertise_a.Q  0.0082753779 0.02599686  0.31832226 0.7502405      
- expertise_a.C -0.0001432899 0.01383902 -0.01035405 0.9917388      
+          term      estimate   std.error   statistic   p.value stars
+   (Intercept)  0.9128670032 0.002152234 424.1485321 0.0000000   ***
+ expertise_a.L -0.0022726493 0.005356579  -0.4242725 0.6713671      
+ expertise_a.Q  0.0057837927 0.004305193   1.3434457 0.1791277      
+ expertise_a.C -0.0005296837 0.002898335  -0.1827545 0.8549907      
 
 ==== Duration ====
 Formula: Duration ~ expertise_a + (1 | exp_a) + (1 | exp_b) 
 Type: glmmTMB | Family: gaussian 
 
-          term     estimate  std.error  statistic      p.value stars
-   (Intercept)  0.235417290 0.01435992 16.3940508 2.109093e-60   ***
- expertise_a.L -0.016867302 0.03762869 -0.4482564 6.539682e-01      
- expertise_a.Q -0.014050086 0.02871984 -0.4892118 6.246918e-01      
- expertise_a.C  0.001995885 0.01528857  0.1305475 8.961332e-01      
+          term     estimate   std.error   statistic   p.value stars
+   (Intercept)  0.651247070 0.005948792 109.4755163 0.0000000   ***
+ expertise_a.L -0.018600917 0.014717866  -1.2638325 0.2062902      
+ expertise_a.Q -0.018241337 0.011901800  -1.5326537 0.1253612      
+ expertise_a.C  0.004802706 0.008154304   0.5889781 0.5558760      

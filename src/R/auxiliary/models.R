@@ -60,11 +60,6 @@ within_trial <- function(folder_path, formula_set, info, reml = TRUE) {
     output_prefix = "within_trial"
   )
   
-  # Clear previous log if exists
-  if (file.exists(config$results_log)) {
-    write("", file = config$results_log)
-  }
-  
   # Generate LMMs for each dimension and add them to the list
   models_list <- list()
   
