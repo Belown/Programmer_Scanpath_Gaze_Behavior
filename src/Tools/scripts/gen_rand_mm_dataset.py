@@ -136,10 +136,13 @@ def generate_random_multimatch_parallel(k_samples, best_name, best_params,
 if __name__ == "__main__":
     # Example usage
     paths = setup_paths()
+    output_base_path = os.path.join(paths['output_path'], "dataset")
+    os.makedirs(output_base_path, exist_ok=True)
     
     # Load and fit distribution (example)
-    df = pd.read_csv(os.path.join(paths['output_path'], "dataset", "length_list.csv"))
+    df = pd.read_csv(os.path.join(output_base_path, "length_list.csv"))
     data = df['length']
+
     
     # Fit distributions
     fits = {}
@@ -160,9 +163,31 @@ if __name__ == "__main__":
     
     best_name = min(fits, key=lambda k: fits[k][0])
     best_aic, best_params = fits[best_name]
-    
+
     print(f"Best distribution: {best_name}")
-    
+
+    distribution_info = {
+        'distribution_name': best_name,
+        'aic': best_aic,
+    }
+
+    if best_name == 'normal':
+        distribution_info['param_mu'] = best_params[0]
+        distribution_info['param_sigma'] = best_params[1]
+    elif best_name == 'lognormal':
+        distribution_info['param_s'] = best_params[0]
+        distribution_info['param_loc'] = best_params[1]
+        distribution_info['param_scale'] = best_params[2]
+    elif best_name == 'gamma':
+        distribution_info['param_a'] = best_params[0]
+        distribution_info['param_loc'] = best_params[1]
+        distribution_info['param_scale'] = best_params[2]
+
+    distribution_df = pd.DataFrame([distribution_info])
+    distribution_info_path = os.path.join(output_base_path, "distribution_info.csv")
+    distribution_df.to_csv(distribution_info_path, index=False)
+    print(f"Distribution info saved to: {distribution_info_path}")
+
     # Generate results
     df_results = generate_random_multimatch_parallel(
         k_samples=1000,
