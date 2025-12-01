@@ -16,6 +16,7 @@ library(glmmTMB)
 
 source(file.path(here(), "src", "R", "auxiliary", "assumptions_LMM.R"))
 source(file.path(here(), "src", "R", "auxiliary", "assumptions_GLMM.R"))
+source(file.path(here(), "src", "R", "auxiliary", "helper.R"))
 
 #' Helper function that combine function workflow and print_model_table
 #' 

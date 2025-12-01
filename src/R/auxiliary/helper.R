@@ -16,7 +16,7 @@ base_path <- file.path(here(), "output", "processed_dataset")
 #' @param formula_set A list containing fixed and random effect formula strings
 #' @param info Whether to print info messages
 #' @return A model package, which contain data frame, models, config, and folder_path
-get_exp_pack <- function(exp_type, data_set, comp_type, trial_folder, case, rand_effect = NULL, info = TRUE, reml) {
+get_exp_pack <- function(data_set, exp_type, comp_type, trial_folder, case, rand_effect = NULL, info = TRUE, reml) {
   model_pack <- switch(
     exp_type,
     "within_trial" = {
@@ -132,10 +132,8 @@ print_model_with_sig <- function(mod, dimension_name) {
 #' @param folder_path The folder path where the output file will be saved
 #' @param final_result A list of final fitted models for each dimension
 print_model_table <- function(folder_path, final_result) {
-  txt_path = file.path(folder_path)
-  if (!dir.exists(txt_path)) {
-    dir.create(txt_path, recursive = TRUE)
-  }
+  txt_path <- assign_path(file.path(folder_path))
+
   sink_file <- file.path(txt_path, "model_summary.txt")
   sink(sink_file, split = TRUE)
   tryCatch({
@@ -145,4 +143,15 @@ print_model_table <- function(folder_path, final_result) {
   }, finally = {
     sink()  # Ensure sink is closed even if an error occurs
   })
+}
+
+#' Ensure the specified path exists, creating it if necessary
+#' 
+#' @param path The directory path to check or create
+#' @return The original path
+assign_path <- function(path){
+  if(!dir.exists(path)) {
+    dir.create(path, recursive = TRUE)
+  }
+  return (path)
 }

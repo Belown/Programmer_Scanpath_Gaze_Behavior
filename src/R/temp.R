@@ -1,13 +1,25 @@
 library(here)
-source(file.path(here(), "src", "R", "auxiliary", "helper.R"))
+# source(file.path(here(), "src", "R", "auxiliary", "helper.R"))
+source(file.path(here(), "src", "R", "auxiliary", "models.R"))
+source(file.path(here(), "src", "R", "auxiliary", "workflow.R"))
 
-random_effect = "(1 | exp_a) + (1 | exp_b)"
-info = FALSE
+base_path <- file.path(here(), "output", "processed_dataset")
+folder_path <- file.path(base_path, "EMIP_corrected", "between_group")
 
-within_trial_within_2 <- get_exp_pack("within_trial", "EMIP_corrected", "within_group", "trial_2", "", random_effect, info, reml = TRUE)
-within_trial_within_5 <- get_exp_pack("within_trial", "EMIP_corrected", "within_group", "trial_5", "", random_effect, info, reml = TRUE)
-within_trial_between_2 <- get_exp_pack("within_trial", "EMIP_corrected", "between_group", "trial_2", "", random_effect, info, reml = TRUE)
-within_trial_between_5 <- get_exp_pack("within_trial", "EMIP_corrected", "between_group", "trial_5", "", random_effect, info, reml = TRUE)
-within_group <- get_exp_pack("within_group", "EMIP_corrected", "", "", "", random_effect, info, reml = TRUE)
-between_group_mean_diff <- get_exp_pack("between_group", "EMIP_corrected", "", "", "mean_diff", random_effect, info, reml = TRUE)
-between_group_pairtype <- get_exp_pack("between_group", "EMIP_corrected", "", "", "pairtype", random_effect, info, reml = TRUE)
+formula_set <- list(
+  fix_effect = "expertise_mean * expertise_diff",
+  rand_effect = "(1 | exp_a) + (1 | exp_b)"
+)
+
+model_pack <- between_group(folder_path, formula_set, info = TRUE, "mean_diff", reml = TRUE)
+
+m_list <- model_pack$m_list
+
+check_interaction(m_list)
+
+# for (dim in names(m_list)) {
+#   cat("Model for dimension:", dim, "\n")
+#   model <- m_list[[dim]]
+#   print(check_interaction(model))
+#   cat("============================\n")
+# }

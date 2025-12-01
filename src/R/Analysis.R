@@ -24,7 +24,7 @@ case <- "mean_diff"  # Analysis case: "mean_diff" or "pairtype"
 
 # This includes fitted models, data, and config for the specified experiment type
 # Modify fixed and random effects in get_exp_pack() if needed
-exp_pack <- get_exp_pack(exp_type, data_set, comp_type, trial_folder, case, rand_effect = NULL, info = TRUE, reml = TRUE)
+exp_pack <- get_exp_pack(data_set, exp_type, comp_type, trial_folder, case, rand_effect = NULL, info = TRUE, reml = TRUE)
 
 # Extract components from model package
 folder_path <- exp_pack$folder_path  # Output folder path

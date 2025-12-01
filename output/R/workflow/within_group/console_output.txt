@@ -1,0 +1,210 @@
+Processing model for experiment: within_group 
+============ Workflow stage 1 ============
+  Testing all 2 -way interactions for Shape ...
+✅️ Interaction expertise_a:trial for Shape is significant (p = 5.4e-14 ). Keeping it.
+  Testing all 2 -way interactions for Length ...
+✅️ Interaction expertise_a:trial for Length is significant (p = 2.83e-08 ). Keeping it.
+  Testing all 2 -way interactions for Direction ...
+✅️ Interaction expertise_a:trial for Direction is significant (p = 3.37e-05 ). Keeping it.
+  Testing all 2 -way interactions for Position ...
+✅️ Interaction expertise_a:trial for Position is significant (p = 4.5e-06 ). Keeping it.
+  Testing all 2 -way interactions for Duration ...
+✅️ Interaction expertise_a:trial for Duration is significant (p = 0.000211 ). Keeping it.
+--- Checking model assumptions for Shape ---
+       LINEARITY : ❌ FAILED 
+       NORMALITY : ❌ FAILED 
+       HOMOSCEDASTICITY : ❌ FAILED 
+       INDEPENDENCE : ❌ FAILED 
+       RANDOM_EFFECTS : ❌ FAILED 
+🚨 Major assumption violations for Shape 
+--- Checking model assumptions for Length ---
+       LINEARITY : ❌ FAILED 
+       NORMALITY : ❌ FAILED 
+       HOMOSCEDASTICITY : ❌ FAILED 
+       INDEPENDENCE : ❌ FAILED 
+       RANDOM_EFFECTS : ❌ FAILED 
+🚨 Major assumption violations for Length 
+--- Checking model assumptions for Direction ---
+       LINEARITY : ❌ FAILED 
+       NORMALITY : ❌ FAILED 
+       HOMOSCEDASTICITY : ❌ FAILED 
+       INDEPENDENCE : ❌ FAILED 
+       RANDOM_EFFECTS : ❌ FAILED 
+🚨 Major assumption violations for Direction 
+--- Checking model assumptions for Position ---
+       LINEARITY : ❌ FAILED 
+       NORMALITY : ❌ FAILED 
+       HOMOSCEDASTICITY : ❌ FAILED 
+       INDEPENDENCE : ✅ PASSED 
+       RANDOM_EFFECTS : ❌ FAILED 
+🚨 Major assumption violations for Position 
+--- Checking model assumptions for Duration ---
+       LINEARITY : ❌ FAILED 
+       NORMALITY : ❌ FAILED 
+       HOMOSCEDASTICITY : ❌ FAILED 
+       INDEPENDENCE : ❌ FAILED 
+       RANDOM_EFFECTS : ❌ FAILED 
+🚨 Major assumption violations for Duration 
+============ Workflow stage 2 ============
+  Testing all 2 -way interactions for Shape ...
+✅️ Interaction expertise_a:trial for Shape is significant (p = 6.79e-14 ). Keeping it.
+  Testing all 2 -way interactions for Length ...
+✅️ Interaction expertise_a:trial for Length is significant (p = 8.56e-08 ). Keeping it.
+  Testing all 2 -way interactions for Direction ...
+✅️ Interaction expertise_a:trial for Direction is significant (p = 1.21e-05 ). Keeping it.
+  Testing all 2 -way interactions for Position ...
+✅️ Interaction expertise_a:trial for Position is significant (p = 9.02e-07 ). Keeping it.
+  Testing all 2 -way interactions for Duration ...
+✅️ Interaction expertise_a:trial for Duration is significant (p = 3.28e-05 ). Keeping it.
+--- Checking model assumptions for Shape ---
+       LINEARITY : ❌ FAILED 
+       NORMALITY : ✅ PASSED 
+       HOMOSCEDASTICITY : ❌ FAILED 
+       INDEPENDENCE : ❌ FAILED 
+       RANDOM_EFFECTS : ✅ PASSED 
+🚨 Major assumption violations for Shape 
+--- Checking model assumptions for Length ---
+       LINEARITY : ❌ FAILED 
+       NORMALITY : ✅ PASSED 
+       HOMOSCEDASTICITY : ❌ FAILED 
+       INDEPENDENCE : ❌ FAILED 
+       RANDOM_EFFECTS : ✅ PASSED 
+🚨 Major assumption violations for Length 
+--- Checking model assumptions for Direction ---
+       LINEARITY : ❌ FAILED 
+       NORMALITY : ✅ PASSED 
+       HOMOSCEDASTICITY : ❌ FAILED 
+       INDEPENDENCE : ❌ FAILED 
+       RANDOM_EFFECTS : ❌ FAILED 
+🚨 Major assumption violations for Direction 
+--- Checking model assumptions for Position ---
+       LINEARITY : ❌ FAILED 
+       NORMALITY : ❌ FAILED 
+       HOMOSCEDASTICITY : ✅ PASSED 
+       INDEPENDENCE : ✅ PASSED 
+       RANDOM_EFFECTS : ❌ FAILED 
+🚨 Major assumption violations for Position 
+--- Checking model assumptions for Duration ---
+       LINEARITY : ❌ FAILED 
+       NORMALITY : ❌ FAILED 
+       HOMOSCEDASTICITY : ❌ FAILED 
+       INDEPENDENCE : ✅ PASSED 
+       RANDOM_EFFECTS : ❌ FAILED 
+🚨 Major assumption violations for Duration 
+============ Workflow stage 3 ============
+  Testing all 2 -way interactions for Shape ...
+✅️ Interaction expertise_a:trial for Shape is significant (p = 5.4e-14 ). Keeping it.
+  Testing all 2 -way interactions for Length ...
+✅️ Interaction expertise_a:trial for Length is significant (p = 2.83e-08 ). Keeping it.
+  Testing all 2 -way interactions for Direction ...
+✅️ Interaction expertise_a:trial for Direction is significant (p = 3.37e-05 ). Keeping it.
+  Testing all 2 -way interactions for Position ...
+✅️ Interaction expertise_a:trial for Position is significant (p = 4.5e-06 ). Keeping it.
+  Testing all 2 -way interactions for Duration ...
+✅️ Interaction expertise_a:trial for Duration is significant (p = 0.000211 ). Keeping it.
+--- Checking GLMM assumptions for Shape ---
+       DISTRIBUTIONAL : ✅ PASSED 
+       LINK_FUNCTION : ✅ PASSED 
+       INDEPENDENCE : ❌ FAILED 
+       RANDOM_EFFECTS : ✅ PASSED 
+       OVERDISPERSION : ✅ PASSED 
+⚠️  Minor GLMM assumption violations
+--- Checking GLMM assumptions for Length ---
+       DISTRIBUTIONAL : ✅ PASSED 
+       LINK_FUNCTION : ✅ PASSED 
+       INDEPENDENCE : ❌ FAILED 
+       RANDOM_EFFECTS : ✅ PASSED 
+       OVERDISPERSION : ✅ PASSED 
+⚠️  Minor GLMM assumption violations
+--- Checking GLMM assumptions for Direction ---
+       DISTRIBUTIONAL : ✅ PASSED 
+       LINK_FUNCTION : ✅ PASSED 
+       INDEPENDENCE : ❌ FAILED 
+       RANDOM_EFFECTS : ✅ PASSED 
+       OVERDISPERSION : ✅ PASSED 
+⚠️  Minor GLMM assumption violations
+--- Checking GLMM assumptions for Position ---
+       DISTRIBUTIONAL : ✅ PASSED 
+       LINK_FUNCTION : ✅ PASSED 
+       INDEPENDENCE : ✅ PASSED 
+       RANDOM_EFFECTS : ✅ PASSED 
+       OVERDISPERSION : ✅ PASSED 
+🎉 All GLMM assumptions satisfied
+--- Checking GLMM assumptions for Duration ---
+       DISTRIBUTIONAL : ✅ PASSED 
+       LINK_FUNCTION : ✅ PASSED 
+       INDEPENDENCE : ❌ FAILED 
+       RANDOM_EFFECTS : ✅ PASSED 
+       OVERDISPERSION : ✅ PASSED 
+⚠️  Minor GLMM assumption violations
+
+==== Shape ====
+Formula: Shape ~ expertise_a * trial + (1 | exp_a) + (1 | exp_b) 
+Type: glmmTMB | Family: gaussian 
+
+                 term      estimate    std.error    statistic      p.value stars
+          (Intercept)  0.9915240598 1.650995e-04 6005.6147549 0.0000000000   ***
+        expertise_a.L -0.0002174539 4.033538e-04   -0.5391147 0.5898077347      
+        expertise_a.Q -0.0001398128 3.301986e-04   -0.4234202 0.6719886924      
+        expertise_a.C  0.0001502371 2.353353e-04    0.6383960 0.5232159245      
+               trial5 -0.0001827179 7.065758e-05   -2.5859635 0.0097107210    **
+ expertise_a.L:trial5 -0.0003431982 1.847994e-04   -1.8571391 0.0632913617     .
+ expertise_a.Q:trial5 -0.0004757105 1.413103e-04   -3.3664258 0.0007614908   ***
+ expertise_a.C:trial5  0.0002638232 7.606707e-05    3.4682970 0.0005237681   ***
+
+==== Length ====
+Formula: Length ~ expertise_a * trial + (1 | exp_a) + (1 | exp_b) 
+Type: glmmTMB | Family: gaussian 
+
+                 term      estimate    std.error     statistic     p.value stars
+          (Intercept)  9.883858e-01 0.0002680722 3687.01424329 0.000000000   ***
+        expertise_a.L -4.100857e-05 0.0006557597   -0.06253597 0.950136021      
+        expertise_a.Q -4.269789e-04 0.0005361435   -0.79638937 0.425805754      
+        expertise_a.C  4.158120e-04 0.0003807000    1.09223005 0.274731997      
+               trial5 -2.171600e-04 0.0001266486   -1.71466511 0.086406644     .
+ expertise_a.L:trial5 -2.220187e-04 0.0003311891   -0.67036840 0.502622974      
+ expertise_a.Q:trial5 -6.066360e-04 0.0002533017   -2.39491462 0.016624236     *
+ expertise_a.C:trial5  4.402687e-04 0.0001364888    3.22567634 0.001256754    **
+
+==== Direction ====
+Formula: Direction ~ expertise_a * trial + (1 | exp_a) + (1 | exp_b) 
+Type: glmmTMB | Family: gaussian 
+
+                 term      estimate   std.error   statistic    p.value stars
+          (Intercept)  0.7018202924 0.003418866 205.2786645 0.00000000   ***
+        expertise_a.L  0.0025011418 0.008455674   0.2957945 0.76738703      
+        expertise_a.Q  0.0055996950 0.006838951   0.8187944 0.41290373      
+        expertise_a.C  0.0014916379 0.004698202   0.3174912 0.75087088      
+               trial5  0.0057036349 0.002764805   2.0629426 0.03911808     *
+ expertise_a.L:trial5 -0.0126604942 0.007222555  -1.7529108 0.07961732     .
+ expertise_a.Q:trial5  0.0121790630 0.005529516   2.2025552 0.02762612     *
+ expertise_a.C:trial5 -0.0008532638 0.003005545  -0.2838966 0.77648965      
+
+==== Position ====
+Formula: Position ~ expertise_a * trial + (1 | exp_a) + (1 | exp_b) 
+Type: glmmTMB | Family: gaussian 
+
+                 term     estimate   std.error   statistic      p.value stars
+          (Intercept)  0.904238859 0.001626137 556.0654743 0.000000e+00   ***
+        expertise_a.L -0.005398600 0.004034229  -1.3381986 1.808317e-01      
+        expertise_a.Q -0.005414661 0.003252795  -1.6646177 9.598904e-02     .
+        expertise_a.C -0.004172337 0.002210401  -1.8875930 5.908062e-02     .
+               trial5  0.008833858 0.001439531   6.1366244 8.429334e-10   ***
+ expertise_a.L:trial5  0.002504397 0.003759921   0.6660772 5.053618e-01      
+ expertise_a.Q:trial5  0.010988897 0.002879214   3.8166315 1.352860e-04   ***
+ expertise_a.C:trial5  0.003634231 0.001568683   2.3167397 2.051791e-02     *
+
+==== Duration ====
+Formula: Duration ~ expertise_a * trial + (1 | exp_a) + (1 | exp_b) 
+Type: glmmTMB | Family: gaussian 
+
+                 term     estimate   std.error   statistic      p.value stars
+          (Intercept)  0.659070934 0.004693086 140.4344556 0.0000000000   ***
+        expertise_a.L -0.021069103 0.011518145  -1.8292096 0.0673682106     .
+        expertise_a.Q -0.007670984 0.009385972  -0.8172818 0.4137674069      
+        expertise_a.C  0.002873561 0.006596618   0.4356113 0.6631188050      
+               trial5 -0.009572421 0.002727434  -3.5096805 0.0004486454   ***
+ expertise_a.L:trial5  0.007279000 0.007130866   1.0207737 0.3073616606      
+ expertise_a.Q:trial5 -0.010964129 0.005455177  -2.0098575 0.0444462739     *
+ expertise_a.C:trial5 -0.002532493 0.002947151  -0.8593020 0.3901739003      
+✅️ Completed processing for experiment: within_group 
