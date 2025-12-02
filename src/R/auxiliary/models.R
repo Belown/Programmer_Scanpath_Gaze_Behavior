@@ -20,8 +20,9 @@ dimensions <- c("Shape", "Length", "Direction", "Position", "Duration")
 #' @param formula_set A list containing fixed and random effect formula strings
 #' @param info Whether to print basic info about loaded data
 #' @param reml Whether to use REML for LMM fitting
+#' @param test Whether to run in test mode (default not used)
 #' @return A list of fitted LMMs for each dimension and other info
-within_trial <- function(folder_path, formula_set, info, reml = TRUE) {
+within_trial <- function(folder_path, formula_set, info, reml = TRUE, test = FALSE) {
   # Construct path to combined CSV
   combined_path <- file.path(folder_path, "combined_data.csv")
   
@@ -47,11 +48,7 @@ within_trial <- function(folder_path, formula_set, info, reml = TRUE) {
   trial_folder <- basename(folder_path)
   comp_type <- basename(dirname(folder_path))
   combined_path <- paste(comp_type, trial_folder, sep = "_")
-  output_path <- file.path(here(), "output", "R", "workflow", "within_trial", combined_path)
-
-  if (!dir.exists(output_path)) {
-    dir.create(output_path, recursive = TRUE)
-  }
+  output_path <- assign_path(file.path(here(), "output", "R", "workflow", "within_trial", combined_path))
 
   # Construct config for output
   config <- list(
@@ -59,11 +56,6 @@ within_trial <- function(folder_path, formula_set, info, reml = TRUE) {
     figures_dir   = file.path(output_path, "figures"),
     output_prefix = "within_trial"
   )
-  
-  # Clear previous log if exists
-  if (file.exists(config$results_log)) {
-    write("", file = config$results_log)
-  }
   
   # Generate LMMs for each dimension and add them to the list
   models_list <- list()
@@ -80,12 +72,17 @@ within_trial <- function(folder_path, formula_set, info, reml = TRUE) {
     models_list[[y]] <- mod
   }
 
-  return (list(
-    data = df,
-    m_list = models_list,
-    config = config,
-    folder_path = folder_path
-  ))
+  # If not in test mode, return full package, otherwise only return models_list
+  if (!test) {
+    return (list(
+      data = df,
+      m_list = models_list,
+      config = config,
+      folder_path = folder_path
+    ))
+  } else {
+    return (models_list)
+  }
 }
 
 #' Generate LMMs for within-group comparisons across trials
@@ -94,8 +91,9 @@ within_trial <- function(folder_path, formula_set, info, reml = TRUE) {
 #' @param formula_set A list containing fixed and random effect formula strings
 #' @param info Whether to print basic info about loaded data
 #' @param reml Whether to use REML for LMM fitting
+#' @param test Whether to run in test mode (default not used)
 #' @return A list of fitted LMMs for each dimension and other info
-within_group <- function(folder_path, formula_set, info, reml = TRUE) {
+within_group <- function(folder_path, formula_set, info, reml = TRUE, test = FALSE) {
   
   fix_effect <- formula_set$fix_effect
   rand_effect <- formula_set$rand_effect
@@ -154,10 +152,7 @@ within_group <- function(folder_path, formula_set, info, reml = TRUE) {
     models_list[[y]] <- mod
   }
 
-  output_path <- file.path(here(), "output", "R", "workflow","within_group")
-  if (!dir.exists(output_path)) {
-    dir.create(output_path, recursive = TRUE)
-  }
+  output_path <- assign_path(file.path(here(), "output", "R", "workflow","within_group"))
 
   # Construct config for output
   config <- list(
@@ -166,17 +161,17 @@ within_group <- function(folder_path, formula_set, info, reml = TRUE) {
     output_prefix = basename(folder_path)
   )
   
-  # Clear previous log if exists
-  if (file.exists(config$results_log)) {
-    write("", file = config$results_log)
+  # If not in test mode, return full package, otherwise only return models_list
+  if (!test) {
+    return (list(
+      data = df,
+      m_list = models_list,
+      config = config,
+      folder_path = folder_path
+    ))
+  } else {
+    return (models_list)
   }
-  
-  return (list(
-    data = df,
-    m_list = models_list,
-    config = config,
-    folder_path = folder_path
-  ))
 }
 
 #' Generate LMMs for between-group comparisons across trials
@@ -186,8 +181,9 @@ within_group <- function(folder_path, formula_set, info, reml = TRUE) {
 #' @param info Whether to print basic info about loaded data
 #' @param case The case for between-group comparison ("mean_diff", "pairtype")
 #' @param reml Whether to use REML for LMM fitting
+#' @param test Whether to run in test mode (default not used)
 #' @return A list of fitted LMMs for each dimension and other info
-between_group <- function(folder_path, formula_set, info, case, reml = TRUE) {
+between_group <- function(folder_path, formula_set, info, case, reml = TRUE, test = FALSE) {
   
   fix_effect <- formula_set$fix_effect
   rand_effect <- formula_set$rand_effect
@@ -268,10 +264,7 @@ between_group <- function(folder_path, formula_set, info, case, reml = TRUE) {
     models_list[[y]] <- mod_md
   }
 
-  output_path <- file.path(here(), "output", "R", "workflow", "between_group", case)
-  if (!dir.exists(output_path)) {
-    dir.create(output_path, recursive = TRUE)
-  }
+  output_path <- assign_path(file.path(here(), "output", "R", "workflow", "between_group", case))
 
   # Construct config for output
   config <- list(
@@ -280,15 +273,26 @@ between_group <- function(folder_path, formula_set, info, case, reml = TRUE) {
     output_prefix = basename(folder_path)
   )
   
-  # Clear previous log if exists
-  if (file.exists(config$results_log)) {
-    write("", file = config$results_log)
+  # If not in test mode, return full package, otherwise only return models_list
+  if (!test) {
+    return (list(
+      data = df,
+      m_list = models_list,
+      config = config,
+      folder_path = folder_path
+    ))
+  } else {
+    return (models_list)
   }
-  
-  return (list(
-    data = df,
-    m_list = models_list,
-    config = config,
-    folder_path = folder_path
-  ))
+}
+
+#' Ensure the specified path exists, creating it if necessary
+#' 
+#' @param path The directory path to check or create
+#' @return The original path
+assign_path <- function(path){
+  if(!dir.exists(path)) {
+    dir.create(path, recursive = TRUE)
+  }
+  return (path)
 }

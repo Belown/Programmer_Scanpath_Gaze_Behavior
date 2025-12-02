@@ -1,0 +1,45 @@
+
+==== Shape ====
+Formula: Shape ~ expertise_mean + expertise_diff + (1 | exp_a) + (1 |      exp_b) 
+Type: glmmTMB | Family: gaussian 
+
+           term      estimate    std.error    statistic   p.value stars
+    (Intercept)  9.923444e-01 5.020541e-04 1976.5687221 0.0000000   ***
+ expertise_mean -2.956786e-04 1.899598e-04   -1.5565323 0.1195816      
+ expertise_diff -2.284167e-05 3.141106e-05   -0.7271857 0.4671122      
+
+==== Direction ====
+Formula: Direction ~ expertise_mean + expertise_diff + (1 | exp_a) + (1 |      exp_b) 
+Type: glmmTMB | Family: gaussian 
+
+           term     estimate   std.error  statistic   p.value stars
+    (Intercept)  0.703796755 0.009422747 74.6912491 0.0000000   ***
+ expertise_mean -0.002004682 0.003558651 -0.5633264 0.5732126      
+ expertise_diff  0.001132849 0.001207366  0.9382809 0.3481001      
+
+==== Length ====
+Formula: Length ~ expertise_mean + expertise_diff + (1 | exp_a) + (1 |      exp_b) 
+Type: glmmTMB | Family: gaussian 
+
+           term      estimate    std.error    statistic   p.value stars
+    (Intercept)  9.893104e-01 8.134536e-04 1216.1854778 0.0000000   ***
+ expertise_mean -2.689971e-04 3.075171e-04   -0.8747385 0.3817162      
+ expertise_diff -6.335965e-05 5.597228e-05   -1.1319826 0.2576417      
+
+==== Position ====
+Formula: Position ~ expertise_mean + expertise_diff + (1 | exp_a) + (1 |      exp_b) 
+Type: glmmTMB | Family: gaussian 
+
+           term      estimate   std.error   statistic   p.value stars
+    (Intercept)  0.9068582327 0.004335572 209.1669212 0.0000000   ***
+ expertise_mean  0.0004220868 0.001623899   0.2599219 0.7949241      
+ expertise_diff -0.0001970761 0.000655456  -0.3006703 0.7636660      
+
+==== Duration ====
+Formula: Duration ~ expertise_mean + expertise_diff + (1 | exp_a) + (1 |      exp_b) 
+Type: glmmTMB | Family: gaussian 
+
+           term      estimate   std.error   statistic   p.value stars
+    (Intercept)  6.781663e-01 0.013360724 50.75820249 0.0000000   ***
+ expertise_mean -6.943191e-03 0.005042277 -1.37699495 0.1685138      
+ expertise_diff -2.542327e-05 0.001182577 -0.02149819 0.9828482      

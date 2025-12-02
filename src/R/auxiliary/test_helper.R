@@ -48,10 +48,7 @@ compare_random_effects <- function(rand_effect_list, print = FALSE) {
 # This function is hard coded for the current experiments
 # Thus it needs to be updated if new experiments are added
 rlt_re <- function(all_model_all_res, print, alpha = 0.05) {
-  output_path <- file.path(here(), "output", "R", "random_effect_analysis", "lrt_result.csv")
-  if(!dir.exists(dirname(output_path))) {
-    dir.create(dirname(output_path), recursive = TRUE)
-  }
+  output_path <- assign_path(file.path(here(), "output", "R", "random_effect_analysis", "lrt_result.csv"))
 
   # Create an empty data frame to store LRT results
   lrt_df <- data.frame(
@@ -164,10 +161,7 @@ rlt_re <- function(all_model_all_res, print, alpha = 0.05) {
 #' @param all_model_all_res A nested list of model packages for all random effects and experiments
 #' @param print Whether to print AIC and BIC values to console
 experiment_aicbic <- function(all_model_all_res, print) {
-  output_path <- file.path(here(), "output", "R", "random_effect_analysis", "aic_bic_result.csv")
-  if(!dir.exists(dirname(output_path))) {
-    dir.create(dirname(output_path), recursive = TRUE)
-  }
+  output_path <- assign_path(file.path(here(), "output", "R", "random_effect_analysis", "aic_bic_result.csv"))
 
   # Create an empty data frame to store results
   aicbic_df <- data.frame(
