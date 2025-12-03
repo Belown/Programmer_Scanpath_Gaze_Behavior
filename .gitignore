@@ -13,5 +13,5 @@ __pycache__/
 thesis.egg-info/
 
 /src/Tools/note.txt
-/src/Dataset/
+/src/Dataset/GoogleNews-vectors-negative300.bin
 .Rproj.user
