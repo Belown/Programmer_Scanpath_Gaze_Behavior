@@ -52,7 +52,24 @@ model_expertise_mean <- between_group(folder_path, formula_mean, info = FALSE, c
 model_expertise_diff <- between_group(folder_path, formula_diff, info = FALSE, case = "both", reml = FALSE, test = TRUE)
 model_expertise_both <- between_group(folder_path, formula_both, info = FALSE, case = "both", reml = FALSE, test = TRUE)
 
-# == Run workflows for all three models ===
-work_flow_with_print(model_expertise_mean, config_mean)
-work_flow_with_print(model_expertise_diff, config_diff)
-work_flow_with_print(model_expertise_both, config_both)
+exps <- list(
+  Expertise_Mean = list(model = model_expertise_mean, config = config_mean),
+  Expertise_Diff = list(model = model_expertise_diff, config = config_diff),
+  Expertise_Both = list(model = model_expertise_both, config = config_both)
+)
+
+for (exp in names(exps)) {
+  curr_exp <- exps[[exp]]
+  sink_dir  <- dirname(curr_exp$config$results_log)
+  assign_path(sink_dir)
+  
+  sink_file <- file.path(sink_dir, "console_output.txt")
+  sink(sink_file, split = TRUE)
+  tryCatch({
+    cat("Processing model for experiment:", exp, "\n")
+    work_flow_with_print(curr_exp$model, curr_exp$config)
+    cat("✅️ Completed processing for experiment:", exp, "\n")
+  }, finally = {
+    sink()  # Ensure sink is closed even if an error occurs
+  })
+}

@@ -1,0 +1,165 @@
+Processing model for experiment: Expertise_Diff 
+============ Workflow stage 1 ============
+No interaction terms in model for Shape .
+No interaction terms in model for Direction .
+No interaction terms in model for Length .
+No interaction terms in model for Position .
+No interaction terms in model for Duration .
+--- Checking model assumptions for Shape ---
+       LINEARITY : ✅ PASSED 
+       NORMALITY : ❌ FAILED 
+       HOMOSCEDASTICITY : ❌ FAILED 
+       INDEPENDENCE : ❌ FAILED 
+       RANDOM_EFFECTS : ❌ FAILED 
+🚨 Major assumption violations for Shape 
+--- Checking model assumptions for Direction ---
+       LINEARITY : ❌ FAILED 
+       NORMALITY : ❌ FAILED 
+       HOMOSCEDASTICITY : ❌ FAILED 
+       INDEPENDENCE : ❌ FAILED 
+       RANDOM_EFFECTS : ❌ FAILED 
+🚨 Major assumption violations for Direction 
+--- Checking model assumptions for Length ---
+       LINEARITY : ✅ PASSED 
+       NORMALITY : ❌ FAILED 
+       HOMOSCEDASTICITY : ❌ FAILED 
+       INDEPENDENCE : ❌ FAILED 
+       RANDOM_EFFECTS : ❌ FAILED 
+🚨 Major assumption violations for Length 
+--- Checking model assumptions for Position ---
+       LINEARITY : ❌ FAILED 
+       NORMALITY : ❌ FAILED 
+       HOMOSCEDASTICITY : ❌ FAILED 
+       INDEPENDENCE : ❌ FAILED 
+       RANDOM_EFFECTS : ❌ FAILED 
+🚨 Major assumption violations for Position 
+--- Checking model assumptions for Duration ---
+       LINEARITY : ❌ FAILED 
+       NORMALITY : ❌ FAILED 
+       HOMOSCEDASTICITY : ❌ FAILED 
+       INDEPENDENCE : ❌ FAILED 
+       RANDOM_EFFECTS : ❌ FAILED 
+🚨 Major assumption violations for Duration 
+============ Workflow stage 2 ============
+No interaction terms in model for Shape .
+No interaction terms in model for Direction .
+No interaction terms in model for Length .
+No interaction terms in model for Position .
+No interaction terms in model for Duration .
+--- Checking model assumptions for Shape ---
+       LINEARITY : ✅ PASSED 
+       NORMALITY : ✅ PASSED 
+       HOMOSCEDASTICITY : ❌ FAILED 
+       INDEPENDENCE : ❌ FAILED 
+       RANDOM_EFFECTS : ✅ PASSED 
+🚨 Major assumption violations for Shape 
+--- Checking model assumptions for Direction ---
+       LINEARITY : ❌ FAILED 
+       NORMALITY : ❌ FAILED 
+       HOMOSCEDASTICITY : ❌ FAILED 
+       INDEPENDENCE : ❌ FAILED 
+       RANDOM_EFFECTS : ❌ FAILED 
+🚨 Major assumption violations for Direction 
+--- Checking model assumptions for Length ---
+       LINEARITY : ✅ PASSED 
+       NORMALITY : ✅ PASSED 
+       HOMOSCEDASTICITY : ❌ FAILED 
+       INDEPENDENCE : ❌ FAILED 
+       RANDOM_EFFECTS : ✅ PASSED 
+🚨 Major assumption violations for Length 
+--- Checking model assumptions for Position ---
+       LINEARITY : ❌ FAILED 
+       NORMALITY : ❌ FAILED 
+       HOMOSCEDASTICITY : ❌ FAILED 
+       INDEPENDENCE : ❌ FAILED 
+       RANDOM_EFFECTS : ❌ FAILED 
+🚨 Major assumption violations for Position 
+--- Checking model assumptions for Duration ---
+       LINEARITY : ❌ FAILED 
+       NORMALITY : ❌ FAILED 
+       HOMOSCEDASTICITY : ❌ FAILED 
+       INDEPENDENCE : ❌ FAILED 
+       RANDOM_EFFECTS : ❌ FAILED 
+🚨 Major assumption violations for Duration 
+============ Workflow stage 3 ============
+No interaction terms in model for Shape .
+No interaction terms in model for Direction .
+No interaction terms in model for Length .
+No interaction terms in model for Position .
+No interaction terms in model for Duration .
+--- Checking GLMM assumptions for Shape ---
+       DISTRIBUTIONAL : ✅ PASSED 
+       LINK_FUNCTION : ✅ PASSED 
+       INDEPENDENCE : ❌ FAILED 
+       RANDOM_EFFECTS : ✅ PASSED 
+       OVERDISPERSION : ✅ PASSED 
+⚠️  Minor GLMM assumption violations
+--- Checking GLMM assumptions for Direction ---
+       DISTRIBUTIONAL : ✅ PASSED 
+       LINK_FUNCTION : ✅ PASSED 
+       INDEPENDENCE : ❌ FAILED 
+       RANDOM_EFFECTS : ✅ PASSED 
+       OVERDISPERSION : ✅ PASSED 
+⚠️  Minor GLMM assumption violations
+--- Checking GLMM assumptions for Length ---
+       DISTRIBUTIONAL : ✅ PASSED 
+       LINK_FUNCTION : ✅ PASSED 
+       INDEPENDENCE : ❌ FAILED 
+       RANDOM_EFFECTS : ✅ PASSED 
+       OVERDISPERSION : ✅ PASSED 
+⚠️  Minor GLMM assumption violations
+--- Checking GLMM assumptions for Position ---
+       DISTRIBUTIONAL : ✅ PASSED 
+       LINK_FUNCTION : ✅ PASSED 
+       INDEPENDENCE : ❌ FAILED 
+       RANDOM_EFFECTS : ✅ PASSED 
+       OVERDISPERSION : ✅ PASSED 
+⚠️  Minor GLMM assumption violations
+--- Checking GLMM assumptions for Duration ---
+       DISTRIBUTIONAL : ✅ PASSED 
+       LINK_FUNCTION : ✅ PASSED 
+       INDEPENDENCE : ❌ FAILED 
+       RANDOM_EFFECTS : ✅ PASSED 
+       OVERDISPERSION : ✅ PASSED 
+⚠️  Minor GLMM assumption violations
+
+==== Shape ====
+Formula: Shape ~ expertise_diff + (1 | exp_a) + (1 | exp_b) 
+Type: glmmTMB | Family: gaussian 
+
+           term      estimate    std.error    statistic   p.value stars
+    (Intercept)  9.915950e-01 1.430889e-04 6929.9206366 0.0000000   ***
+ expertise_diff -2.204516e-05 3.141773e-05   -0.7016789 0.4828794      
+
+==== Direction ====
+Formula: Direction ~ expertise_diff + (1 | exp_a) + (1 | exp_b) 
+Type: glmmTMB | Family: gaussian 
+
+           term    estimate   std.error   statistic   p.value stars
+    (Intercept) 0.698779108 0.003068440 227.7310971 0.0000000   ***
+ expertise_diff 0.001109491 0.001206946   0.9192551 0.3579622      
+
+==== Length ====
+Formula: Length ~ expertise_diff + (1 | exp_a) + (1 | exp_b) 
+Type: glmmTMB | Family: gaussian 
+
+           term      estimate    std.error   statistic   p.value stars
+    (Intercept)  9.886287e-01 2.333019e-04 4237.550621 0.0000000   ***
+ expertise_diff -6.255845e-05 5.597508e-05   -1.117613 0.2637325      
+
+==== Position ====
+Formula: Position ~ expertise_diff + (1 | exp_a) + (1 | exp_b) 
+Type: glmmTMB | Family: gaussian 
+
+           term      estimate    std.error   statistic   p.value stars
+    (Intercept)  0.9079157696 0.0014946002 607.4639625 0.0000000   ***
+ expertise_diff -0.0001940394 0.0006553654  -0.2960782 0.7671704      
+
+==== Duration ====
+Formula: Duration ~ expertise_diff + (1 | exp_a) + (1 | exp_b) 
+Type: glmmTMB | Family: gaussian 
+
+           term      estimate   std.error     statistic   p.value stars
+    (Intercept)  6.605923e-01 0.003967818 166.487548207 0.0000000   ***
+ expertise_diff -1.052559e-05 0.001183022  -0.008897204 0.9929012      
+✅️ Completed processing for experiment: Expertise_Diff 
