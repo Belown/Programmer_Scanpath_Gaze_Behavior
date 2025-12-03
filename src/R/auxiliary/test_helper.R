@@ -9,13 +9,13 @@ source(file.path(here(), "src", "R", "auxiliary", "helper.R"))
 #' @param info Whether to print info messages
 #' @return A named list of model packages for all experiments
 get_all_exps <- function(random_effect, info) {
-  within_trial_within_2 <- get_exp_pack("within_trial", "EMIP_corrected", "within_group", "trial_2", "", random_effect, info, reml = TRUE)
-  within_trial_within_5 <- get_exp_pack("within_trial", "EMIP_corrected", "within_group", "trial_5", "", random_effect, info, reml = TRUE)
-  within_trial_between_2 <- get_exp_pack("within_trial", "EMIP_corrected", "between_group", "trial_2", "", random_effect, info, reml = TRUE)
-  within_trial_between_5 <- get_exp_pack("within_trial", "EMIP_corrected", "between_group", "trial_5", "", random_effect, info, reml = TRUE)
-  within_group <- get_exp_pack("within_group", "EMIP_corrected", "", "", "", random_effect, info, reml = TRUE)
-  between_group_mean_diff <- get_exp_pack("between_group", "EMIP_corrected", "", "", "mean_diff", random_effect, info, reml = TRUE)
-  between_group_pairtype <- get_exp_pack("between_group", "EMIP_corrected", "", "", "pairtype", random_effect, info, reml = TRUE)
+  within_trial_within_2 <- get_exp_pack("EMIP_corrected", "within_trial", "within_group", "trial_2", "", random_effect, info, reml=TRUE, dataset="EMIP_corrected")
+  within_trial_within_5 <- get_exp_pack("EMIP_corrected", "within_trial", "within_group", "trial_5", "", random_effect, info, reml=TRUE, dataset="EMIP_corrected")
+  within_trial_between_2 <- get_exp_pack("EMIP_corrected", "within_trial", "between_group", "trial_2", "", random_effect, info, reml=TRUE, dataset="EMIP_corrected")
+  within_trial_between_5 <- get_exp_pack("EMIP_corrected", "within_trial", "between_group", "trial_5", "", random_effect, info, reml=TRUE, dataset="EMIP_corrected")
+  within_group <- get_exp_pack("EMIP_corrected", "within_group", "", "", "", random_effect, info, reml=TRUE, dataset="EMIP_corrected")
+  between_group_mean_diff <- get_exp_pack("EMIP_corrected", "between_group", "", "", "mean_diff", random_effect, info, reml=TRUE, dataset="EMIP_corrected")
+  between_group_pairtype <- get_exp_pack("EMIP_corrected", "between_group", "", "", "pairtype", random_effect, info, reml=TRUE, dataset="EMIP_corrected")
   
   result_list <- list(
     within_trial_within_2 = within_trial_within_2,
@@ -48,7 +48,8 @@ compare_random_effects <- function(rand_effect_list, print = FALSE) {
 # This function is hard coded for the current experiments
 # Thus it needs to be updated if new experiments are added
 rlt_re <- function(all_model_all_res, print, alpha = 0.05) {
-  output_path <- assign_path(file.path(here(), "output", "R", "random_effect_analysis", "lrt_result.csv"))
+  folder_path <- assign_path(file.path(here(), "output", "R", "random_effect_analysis", "EMIP_corrected"))
+  output_path <- file.path(folder_path, "lrt_result.csv")
 
   # Create an empty data frame to store LRT results
   lrt_df <- data.frame(
@@ -161,7 +162,9 @@ rlt_re <- function(all_model_all_res, print, alpha = 0.05) {
 #' @param all_model_all_res A nested list of model packages for all random effects and experiments
 #' @param print Whether to print AIC and BIC values to console
 experiment_aicbic <- function(all_model_all_res, print) {
-  output_path <- assign_path(file.path(here(), "output", "R", "random_effect_analysis", "aic_bic_result.csv"))
+  folder_path <- assign_path(file.path(here(), "output", "R", "random_effect_analysis", "EMIP_corrected"))
+  output_path <- file.path(folder_path, "aic_bic_result.csv")
+
 
   # Create an empty data frame to store results
   aicbic_df <- data.frame(

@@ -124,7 +124,7 @@ def generate_random_multimatch_parallel(k_samples, best_name, best_params,
     df_mm_results = pd.DataFrame(results)
     
     # Save to CSV file
-    output_csv_path = os.path.join(output_path, "dataset", "rand_mm_dataset.csv")
+    output_csv_path = os.path.join(output_path, "basic_dataset_study", "EMIP", "rand_mm_dataset.csv")
     os.makedirs(os.path.dirname(output_csv_path), exist_ok=True)
     df_mm_results.to_csv(output_csv_path, index=False)
     
@@ -136,7 +136,7 @@ def generate_random_multimatch_parallel(k_samples, best_name, best_params,
 if __name__ == "__main__":
     # Example usage
     paths = setup_paths()
-    output_base_path = os.path.join(paths['output_path'], "dataset")
+    output_base_path = os.path.join(paths['output_path'], "basic_dataset_study", "EMIP")
     os.makedirs(output_base_path, exist_ok=True)
     
     # Load and fit distribution (example)

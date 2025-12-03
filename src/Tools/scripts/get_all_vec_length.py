@@ -59,7 +59,7 @@ if __name__ == "__main__":
     # Store length_list for further analysis in csv
     length_df = pd.DataFrame(length_list_multi, columns=['length'])
     output_path = paths["output_path"]
-    result_path = os.path.join(output_path, "dataset", "length_list.csv")
+    result_path = os.path.join(output_path, "basic_dataset_study", "EMIP", "length_list.csv")
     os.makedirs(os.path.dirname(result_path), exist_ok=True)
 
     length_df.to_csv(result_path, index=False)

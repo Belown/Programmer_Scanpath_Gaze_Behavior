@@ -7,6 +7,8 @@ source(file.path(here(), "src", "R", "auxiliary", "workflow.R"))
 
 dimensions <- c("Shape", "Direction", "Length", "Position", "Duration")
 
+data_set <- "EMIP_corrected"
+
 folder_path = file.path(here(), "output", "processed_dataset", "EMIP_corrected", 
                         "between_group")
 
@@ -25,7 +27,7 @@ formula_both <- list(
 )
 
 # === Define configs for workflow ===
-output_path <- assign_path(file.path(here(), "output", "R", "between_fixed_effect_analysis"))
+output_path <- assign_path(file.path(here(), "output", "R", "between_fixed_effect_analysis", data_set))
 
 assign_path(file.path(output_path, "mean", "figures"))
 assign_path(file.path(output_path, "diff", "figures"))
