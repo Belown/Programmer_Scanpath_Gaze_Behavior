@@ -1,6 +1,6 @@
 import multimatch_gaze as m
 import pandas as pd
-from ...auxiliary import gen_random_fixations, build_vector, parse_corrected_emip_data
+from ...auxiliary import gen_random_fixations, build_vector_emip, parse_corrected_emip_data
 
 def multimatch(
     exp_a: tuple,
@@ -21,14 +21,14 @@ def multimatch(
 
     if data_set == "corrected":
         parsed_data = parse_corrected_emip_data()
-        fix_vec1 = change_name(build_vector(exp_a, parsed_data))
+        fix_vec1 = change_name(build_vector_emip(exp_a, parsed_data))
 
-        fix_vec2 = change_name(build_vector(exp_b, parsed_data))
+        fix_vec2 = change_name(build_vector_emip(exp_b, parsed_data))
 
     elif data_set == "original":
-        fix_vec1 = change_name(build_vector(exp_a, eye_events))
+        fix_vec1 = change_name(build_vector_emip(exp_a, eye_events))
 
-        fix_vec2 = change_name(build_vector(exp_b, eye_events))
+        fix_vec2 = change_name(build_vector_emip(exp_b, eye_events))
     else:
         raise ValueError("data_set must be either 'corrected' or 'original'")
 

@@ -2,7 +2,7 @@ from concurrent.futures import ProcessPoolExecutor, as_completed
 import traceback, gc, os, sys
 import pandas as pd
 from ..path import setup_paths
-from ..auxiliary import parse_single_experiment, build_vector
+from ..auxiliary import parse_single_experiment, build_vector_emip
 
 def process_single_experiment(i: int):
     """
@@ -14,7 +14,7 @@ def process_single_experiment(i: int):
         condition = "2"
 
         eye_event_df, _ = parse_single_experiment(experiment_id)
-        vec = build_vector((experiment_id, condition), eye_event_df)
+        vec = build_vector_emip((experiment_id, condition), eye_event_df)
         vec = vec.rename(columns={'x0': 'start_x', 'y0': 'start_y'})
         length = len(vec)
 

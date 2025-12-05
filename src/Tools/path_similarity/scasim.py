@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
 from math import pi
-from ..auxiliary import build_vector, parse_corrected_emip_data
+from ..auxiliary import build_vector_emip, parse_corrected_emip_data
 
 def scasim(
     exp_a: tuple,
@@ -24,11 +24,11 @@ def scasim(
 
     if data_set == "corrected":
         parsed_data = parse_corrected_emip_data()
-        fix_vec1 = build_vector(exp_a, parsed_data)
-        fix_vec2 = build_vector(exp_b, parsed_data)
+        fix_vec1 = build_vector_emip(exp_a, parsed_data)
+        fix_vec2 = build_vector_emip(exp_b, parsed_data)
     elif data_set == "original":
-        fix_vec1 = build_vector(exp_a, eye_events)
-        fix_vec2 = build_vector(exp_b, eye_events)
+        fix_vec1 = build_vector_emip(exp_a, eye_events)
+        fix_vec2 = build_vector_emip(exp_b, eye_events)
     else:
         raise ValueError("data_set must be either 'corrected' or 'original'")
     

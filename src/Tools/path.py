@@ -20,11 +20,14 @@ def setup_paths():
     # Path to the corrected EMIP dataset
     corrected_dataset = os.path.join(lib_path, "emtk", "datasets", "Corrected EMIP Dataset", "finalset_line_part.csv")
 
+    # Path to the Code Rendering dataset
+    cr_dataset = os.path.join(src_path, "dataset", "code_rendering_dataset")
+
     # Paths for query files and output
     query_path = os.path.join(src_path, "query", "emip_query.json")
     query_output_path = os.path.join(src_path, "query", "output")
 
-    # Output path for images
+    # Output path
     output_path = os.path.join(home_path, "output")
     os.makedirs(output_path, exist_ok=True)
 
@@ -37,5 +40,6 @@ def setup_paths():
         "corrected_dataset": corrected_dataset,
         "query_path": query_path,
         "query_output_path": query_output_path,
-        "output_path": output_path
+        "output_path": output_path,
+        "cr_dataset": cr_dataset
     }

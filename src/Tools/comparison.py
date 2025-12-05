@@ -1,7 +1,7 @@
 import os
 import pandas as pd
 from concurrent.futures import ThreadPoolExecutor
-from .path_similarity import multimatch
+from .path_similarity import multimatch_emip
 from .path import setup_paths
 
 paths = setup_paths()
@@ -39,7 +39,7 @@ def compare_experiment_pair(exp_a, exp_b, trial_id, eye_events, expertise):
     expertise_a, expertise_b = expertise
 
     try:
-        scores = multimatch(
+        scores = multimatch_emip(
             exp_a=(exp_a, trial_id),
             exp_b=(exp_b, trial_id),
             eye_events=eye_events,

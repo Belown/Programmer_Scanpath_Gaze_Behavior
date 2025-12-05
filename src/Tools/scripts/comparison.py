@@ -3,7 +3,7 @@ import pandas as pd
 from concurrent.futures import ProcessPoolExecutor, as_completed
 from multiprocessing import cpu_count
 import argparse
-from ..path_similarity import multimatch
+from ..path_similarity import multimatch_emip
 from ..path import setup_paths
 
 try:
@@ -49,7 +49,7 @@ def compare_experiment_pair(exp_a, exp_b, trial_id, eye_events, expertise):
     expertise_a, expertise_b = expertise
 
     try:
-        scores = multimatch(
+        scores = multimatch_emip(
             exp_a=(exp_a, trial_id),
             exp_b=(exp_b, trial_id),
             eye_events=eye_events,
@@ -328,7 +328,7 @@ if __name__ == "__main__":
         exit(1)
     
     # Run comparisons
-    if args.comparison_type in ['within', 'both']:
+    if args.comparison_type in ['within']:
         print("\n" + "="*60)
         print("Running within-group comparison...")
         print("="*60)
@@ -340,7 +340,7 @@ if __name__ == "__main__":
             max_workers=args.workers
         )
     
-    if args.comparison_type in ['between', 'both']:
+    if args.comparison_type in ['between']:
         print("\n" + "="*60)
         print("Running between-group comparison...")
         print("="*60)

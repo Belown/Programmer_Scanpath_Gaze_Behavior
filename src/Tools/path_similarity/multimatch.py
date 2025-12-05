@@ -1,8 +1,8 @@
 import multimatch_gaze as m
 import pandas as pd
-from ..auxiliary import build_vector, gen_random_fixations
+from ..auxiliary import build_vector_emip, gen_random_fixations
 
-def multimatch(
+def multimatch_emip(
     exp_a: tuple,
     exp_b: tuple,
     eye_events: pd.DataFrame,
@@ -17,8 +17,8 @@ def multimatch(
     :return: path similarity score
     '''
 
-    fix_vec1 = build_vector(exp_a, eye_events).rename(columns={'x0': 'start_x', 'y0': 'start_y'})
-    fix_vec2 = build_vector(exp_b, eye_events).rename(columns={'x0': 'start_x', 'y0': 'start_y'})
+    fix_vec1 = build_vector_emip(exp_a, eye_events).rename(columns={'x0': 'start_x', 'y0': 'start_y'})
+    fix_vec2 = build_vector_emip(exp_b, eye_events).rename(columns={'x0': 'start_x', 'y0': 'start_y'})
 
     if fix_vec1.size == 0 or fix_vec2.size == 0:
         print(f"No matching data for {exp_a} and {exp_b}")
