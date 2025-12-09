@@ -9,22 +9,25 @@ library(here)
 
 # Load auxiliary functions for model building and validation workflow
 source(file.path(here(), "src", "R", "auxiliary", "workflow.R"))
-source(file.path(here(), "src", "R", "auxiliary", "helper.R"))
+source(file.path(here(), "src", "R", "auxiliary", "models_code_rendering.R"))
 
 # --- Experiment Type Configuration ---
+data_set <- "code_rendering"  # Dataset identifier
 exp_type <- "within_group"    # Options: "within_trial", "within_group", "between_group"
-data_set <- "EMIP_corrected"  # Dataset identifier
-comp_type <- "within_group"   # Comparison type: "within_group" or "between_group"
 
-# only used for within_trial experiments
-trial_folder <- "trial_2"  # Specific trial folder to analyze
+exp_name <- "within_expertise_rendering" #Options: "within_expertise", "within_expertise_rendering", "within_rendering"
 
-# only used for between_group experiments
-case <- "mean_diff"  # Analysis case: "mean_diff" or "pairtype"
+base_path <- file.path(here(), "output", "processed_dataset")
+folder_path <- file.path(base_path, data_set, exp_name)
 
-# This includes fitted models, data, and config for the specified experiment type
-# Modify fixed and random effects in get_exp_pack() if needed
-exp_pack <- get_exp_pack(data_set, exp_type, comp_type, trial_folder, case, rand_effect=NULL, info=TRUE, reml=TRUE, data="EMIP_corrected")
+
+formula_set <- list(
+  fix_effect = "expertise_a * expertise_b * render_a * render_b",
+  rand_effect = "(1 | exp_a) + (1 | exp_b)"
+)
+
+exp_pack <- within_group(folder_path, formula_set, info = TRUE, reml = TRUE, test = FALSE, dataset = data_set)
+
 
 # Extract components from model package
 folder_path <- exp_pack$folder_path  # Output folder path
