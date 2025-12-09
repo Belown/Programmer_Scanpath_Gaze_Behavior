@@ -1,7 +1,7 @@
 library(here)
 
 source(file.path(here(), "src", "R", "auxiliary", "workflow.R"))
-source(file.path(here(), "src", "R", "auxiliary", "helper.R"))
+source(file.path(here(), "src", "R", "auxiliary", "emip", "helper.R"))
 
 within_trial_within_2 <- get_exp_pack("EMIP_corrected", "within_trial", "within_group", "trial_2", NULL, NULL, info=FALSE, reml=TRUE, dataset="EMIP_corrected")
 within_trial_within_5 <- get_exp_pack("EMIP_corrected", "within_trial", "within_group", "trial_5", NULL, NULL, info=FALSE, reml=TRUE, dataset="EMIP_corrected")

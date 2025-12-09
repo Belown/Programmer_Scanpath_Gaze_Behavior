@@ -1,24 +1,22 @@
 library(here)
 
 source(file.path(here(), "src", "R", "auxiliary", "workflow.R"))
-source(file.path(here(), "src", "R", "auxiliary", "helper.R"))
+source(file.path(here(), "src", "R", "auxiliary", "code_rendering", "helper_cr.R"))
 
-within_trial_within_2 <- get_exp_pack("EMIP_corrected", "within_trial", "within_group", "trial_2", NULL, NULL, info=FALSE, reml=TRUE, dataset="EMIP_corrected")
-within_trial_within_5 <- get_exp_pack("EMIP_corrected", "within_trial", "within_group", "trial_5", NULL, NULL, info=FALSE, reml=TRUE, dataset="EMIP_corrected")
-within_trial_between_2 <- get_exp_pack("EMIP_corrected", "within_trial", "between_group", "trial_2", NULL, NULL, info=FALSE, reml=TRUE, dataset="EMIP_corrected")
-within_trial_between_5 <- get_exp_pack("EMIP_corrected", "within_trial", "between_group", "trial_5", NULL, NULL, info=FALSE, reml=TRUE, dataset="EMIP_corrected")
-within_group <- get_exp_pack("EMIP_corrected", "within_group", NULL, NULL, NULL, NULL, info=FALSE, reml=TRUE, dataset="EMIP_corrected")
-between_group_mean_diff <- get_exp_pack("EMIP_corrected", "between_group", NULL, NULL, "mean_diff", NULL, info=FALSE, reml=TRUE, dataset="EMIP_corrected")
-between_group_pairtype <- get_exp_pack("EMIP_corrected", "between_group", NULL, NULL, "pairtype", NULL, info=FALSE, reml=TRUE, dataset="EMIP_corrected")
+fix_expertise <- get_exp_pack("code_rendering", "fix_expertise", NULL, NULL, info=TRUE, reml=TRUE)
+
+fix_both <- get_exp_pack("code_rendering", "fix_expertise_rendering", NULL, NULL, info=TRUE, reml=TRUE)
+
+fix_rendering_pairtype <- get_exp_pack("code_rendering", "fix_rendering", "pairtype", NULL, info=TRUE, reml=TRUE)
+
+fix_rendering_mean_diff <- get_exp_pack("code_rendering", "fix_rendering", "mean_diff", NULL, info=TRUE, reml=TRUE)
+
 
 exps_list <- list(
-  within_trial_within_2 = within_trial_within_2,
-  within_trial_within_5 = within_trial_within_5,
-  within_trial_between_2 = within_trial_between_2,
-  within_trial_between_5 = within_trial_between_5,
-  within_group = within_group,
-  between_group_mean_diff = between_group_mean_diff,
-  between_group_pairtype = between_group_pairtype
+  fix_expertise = fix_expertise,
+  fix_both = fix_both,
+  fix_rendering_pairtype = fix_rendering_pairtype,
+  fix_rendering_mean_diff = fix_rendering_mean_diff
 )
 
 for (exp in names(exps_list)) {

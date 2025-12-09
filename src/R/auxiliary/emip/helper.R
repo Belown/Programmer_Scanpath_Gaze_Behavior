@@ -2,7 +2,7 @@
 # Helper function module
 # =========================================================
 
-source(file.path(here(), "src", "R", "auxiliary", "models.R"))
+source(file.path(here(), "src", "R", "auxiliary", "emip", "models.R"))
 
 base_path <- file.path(here(), "output", "processed_dataset")
 

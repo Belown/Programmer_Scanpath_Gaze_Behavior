@@ -9,7 +9,7 @@ library(here)
 
 # Load auxiliary functions for model building and validation workflow
 source(file.path(here(), "src", "R", "auxiliary", "workflow.R"))
-source(file.path(here(), "src", "R", "auxiliary", "helper.R"))
+source(file.path(here(), "src", "R", "auxiliary", "emip", "helper.R"))
 
 # --- Experiment Type Configuration ---
 data_set <- "EMIP_corrected"  # Dataset identifier

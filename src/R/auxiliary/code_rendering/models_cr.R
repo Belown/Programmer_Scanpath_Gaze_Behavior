@@ -2,7 +2,7 @@
 dimensions <- c("Shape", "Length", "Direction", "Position", "Duration")
 
 
-within_group <- function(folder_path, formula_set, info, reml = TRUE, test = FALSE, dataset) {
+get_model_pack <- function(folder_path, formula_set, info, reml = TRUE, test = FALSE, dataset) {
   
   fix_effect <- formula_set$fix_effect
   rand_effect <- formula_set$rand_effect
@@ -10,6 +10,8 @@ within_group <- function(folder_path, formula_set, info, reml = TRUE, test = FAL
   # Construct paths
   filename <- "combined_data.csv"
   file <- file.path(folder_path, filename)
+
+  exp_name <- basename(folder_path)
   
   if (!file.exists(file)) stop("File not found: ", file)
   
@@ -29,6 +31,26 @@ within_group <- function(folder_path, formula_set, info, reml = TRUE, test = FAL
       render_b = factor(render_b)
     )
   
+  df$expertise_a_num <- as.integer(df$expertise_a)
+  df$expertise_b_num <- as.integer(df$expertise_b)
+
+  # Expertise Mean
+  df$expertise_mean <- (df$expertise_a_num + df$expertise_b_num) / 2
+  # Expertise Difference
+  df$expertise_diff <- abs(df$expertise_a_num - df$expertise_b_num)
+
+
+  # Construct PairType
+  df$PairType <- case_when(
+    df$expertise_a == "Beginner" & df$expertise_b == "Beginner" ~ "BB",
+    df$expertise_a == "Beginner" & df$expertise_b == "Intermediate" ~ "BI",
+    df$expertise_a == "Intermediate" & df$expertise_b == "Beginner" ~ "BI",
+    df$expertise_a == "Intermediate" & df$expertise_b == "Intermediate" ~ "II",
+  )
+  
+  # Convert PairType to factor for modeling
+  df$PairType <- factor(df$PairType, levels = c("BB", "BI", "II"))
+
   # Provide basic info about loaded data
   if (info) {
     cat("Rows loaded:", nrow(df), "\n")
@@ -51,7 +73,7 @@ within_group <- function(folder_path, formula_set, info, reml = TRUE, test = FAL
     models_list[[y]] <- mod
   }
   
-  output_path <- assign_path(file.path(here(), "output", "R", "workflow",dataset, "within_group"))
+  output_path <- assign_path(file.path(here(), "output", "R", "workflow",dataset, exp_name))
   
   # Construct config for output
   config <- list(

@@ -1,0 +1,100 @@
+Processing model for experiment: fix_both 
+============ Workflow stage 1 ============
+  Testing all 2 -way interactions for Shape ...
+❌️ Interaction expertise_a:render_a for Shape is NOT significant (p = 0.876 ). Dropping it.
+  Testing all 2 -way interactions for Length ...
+❌️ Interaction expertise_a:render_a for Length is NOT significant (p = 0.861 ). Dropping it.
+  Testing all 2 -way interactions for Direction ...
+✅️ Interaction expertise_a:render_a for Direction is significant (p = 0.0292 ). Keeping it.
+  Testing all 2 -way interactions for Position ...
+❌️ Interaction expertise_a:render_a for Position is NOT significant (p = 0.838 ). Dropping it.
+  Testing all 2 -way interactions for Duration ...
+❌️ Interaction expertise_a:render_a for Duration is NOT significant (p = 0.399 ). Dropping it.
+--- Checking model assumptions for Shape ---
+       LINEARITY : ✅ PASSED 
+       NORMALITY : ✅ PASSED 
+       HOMOSCEDASTICITY : ✅ PASSED 
+       INDEPENDENCE : ✅ PASSED 
+       RANDOM_EFFECTS : ✅ PASSED 
+🎉 All assumptions satisfied for Shape 
+--- Checking model assumptions for Length ---
+       LINEARITY : ✅ PASSED 
+       NORMALITY : ✅ PASSED 
+       HOMOSCEDASTICITY : ✅ PASSED 
+       INDEPENDENCE : ✅ PASSED 
+       RANDOM_EFFECTS : ✅ PASSED 
+🎉 All assumptions satisfied for Length 
+--- Checking model assumptions for Direction ---
+       LINEARITY : ✅ PASSED 
+       NORMALITY : ✅ PASSED 
+       HOMOSCEDASTICITY : ❌ FAILED 
+       INDEPENDENCE : ✅ PASSED 
+       RANDOM_EFFECTS : ✅ PASSED 
+⚠️  Minor assumption violations for Direction 
+--- Checking model assumptions for Position ---
+       LINEARITY : ✅ PASSED 
+       NORMALITY : ✅ PASSED 
+       HOMOSCEDASTICITY : ✅ PASSED 
+       INDEPENDENCE : ❌ FAILED 
+       RANDOM_EFFECTS : ✅ PASSED 
+⚠️  Minor assumption violations for Position 
+--- Checking model assumptions for Duration ---
+       LINEARITY : ❌ FAILED 
+       NORMALITY : ✅ PASSED 
+       HOMOSCEDASTICITY : ✅ PASSED 
+       INDEPENDENCE : ✅ PASSED 
+       RANDOM_EFFECTS : ✅ PASSED 
+⚠️  Minor assumption violations for Duration 
+
+==== Shape ====
+Formula: Shape ~ expertise_a + render_a + (1 | exp_a) + (1 | exp_b) 
+Type: lmer
+
+          term      estimate    std.error   statistic        df      p.value stars
+   (Intercept)  0.9861578231 0.0006332023 1557.413406 11.081134 6.053229e-31   ***
+ expertise_a.L -0.0003794887 0.0006964680   -0.544876  4.433914 6.120989e-01      
+    render_ar2  0.0033610178 0.0006893723    4.875476 28.685175 3.679599e-05   ***
+    render_ar3  0.0028196734 0.0006893723    4.090204 28.685175 3.180834e-04   ***
+
+==== Length ====
+Formula: Length ~ expertise_a + render_a + (1 | exp_a) + (1 | exp_b) 
+Type: lmer
+
+          term      estimate    std.error   statistic        df      p.value stars
+   (Intercept)  0.9842035364 0.0007077671 1390.575385 10.483686 6.004001e-29   ***
+ expertise_a.L -0.0008222423 0.0007874180   -1.044226  4.329375 3.511417e-01      
+    render_ar2  0.0033604686 0.0007568106    4.440303 28.574087 1.230645e-04   ***
+    render_ar3  0.0032163130 0.0007568106    4.249825 28.574087 2.072343e-04   ***
+
+==== Direction ====
+Formula: Direction ~ expertise_a * render_a + (1 | exp_a) + (1 | exp_b) 
+Type: lmer
+
+                     term    estimate   std.error statistic        df      p.value stars
+              (Intercept)  0.84993426 0.009840175 86.373898  9.427232 5.483260e-15   ***
+            expertise_a.L  0.02617082 0.013916109  1.880614  9.427232 9.122831e-02     .
+               render_ar2  0.06846496 0.009509939  7.199306 23.251451 2.336918e-07   ***
+               render_ar3  0.03620276 0.009509939  3.806834 23.251451 8.944612e-04   ***
+ expertise_a.L:render_ar2 -0.03567044 0.013449085 -2.652258 23.251451 1.416137e-02     *
+ expertise_a.L:render_ar3 -0.01597557 0.013449085 -1.187856 23.251451 2.468831e-01      
+
+==== Position ====
+Formula: Position ~ expertise_a + render_a + (1 | exp_a) + (1 | exp_b) 
+Type: lmer
+
+          term     estimate   std.error  statistic        df      p.value stars
+   (Intercept)  0.900217162 0.010261681 87.7260879 16.355114 2.666730e-23   ***
+ expertise_a.L -0.007975128 0.009541453 -0.8358400  3.861404 4.518411e-01      
+    render_ar2  0.021112032 0.013392062  1.5764586 28.811215 1.258384e-01      
+    render_ar3 -0.002144146 0.013392062 -0.1601057 28.811215 8.739150e-01      
+
+==== Duration ====
+Formula: Duration ~ expertise_a + render_a + (1 | exp_a) + (1 | exp_b) 
+Type: lmer
+
+          term     estimate   std.error  statistic        df      p.value stars
+   (Intercept)  0.732322430 0.013333274 54.9244275  6.572653 5.325449e-10   ***
+ expertise_a.L  0.006027286 0.017432137  0.3457571  4.813198 7.441222e-01      
+    render_ar2 -0.012134285 0.008803946 -1.3782780 25.052796 1.803031e-01      
+    render_ar3 -0.030494883 0.008803946 -3.4637744 25.052796 1.929113e-03    **
+✅️ Completed processing for experiment: fix_both 

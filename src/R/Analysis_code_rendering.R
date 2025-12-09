@@ -9,24 +9,22 @@ library(here)
 
 # Load auxiliary functions for model building and validation workflow
 source(file.path(here(), "src", "R", "auxiliary", "workflow.R"))
-source(file.path(here(), "src", "R", "auxiliary", "models_code_rendering.R"))
+source(file.path(here(), "src", "R", "auxiliary", "code_rendering", "models_cr.R"))
 
 # --- Experiment Type Configuration ---
 data_set <- "code_rendering"  # Dataset identifier
-exp_type <- "within_group"    # Options: "within_trial", "within_group", "between_group"
 
-exp_name <- "within_expertise_rendering" #Options: "within_expertise", "within_expertise_rendering", "within_rendering"
+exp_type <- "fix_expertise_rendering" #Options: "fix_expertise", "fix_expertise_rendering", "fix_rendering"
 
 base_path <- file.path(here(), "output", "processed_dataset")
-folder_path <- file.path(base_path, data_set, exp_name)
-
+folder_path <- file.path(base_path, data_set, exp_type)
 
 formula_set <- list(
-  fix_effect = "expertise_a * expertise_b * render_a * render_b",
+  fix_effect = "expertise_a * render_a",
   rand_effect = "(1 | exp_a) + (1 | exp_b)"
 )
 
-exp_pack <- within_group(folder_path, formula_set, info = TRUE, reml = TRUE, test = FALSE, dataset = data_set)
+exp_pack <- get_model_pack(folder_path, formula_set, info = TRUE, reml = TRUE, test = FALSE, dataset = data_set)
 
 
 # Extract components from model package
