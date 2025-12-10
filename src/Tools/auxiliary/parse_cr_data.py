@@ -9,7 +9,7 @@ def parse_cr_data(info = False):
 
     :param: info: If True, print information about the dataset
 
-    :return: Parsed pandas DataFrame organized by expertise and render type in matrix form
+    :return: Nested dictionary dict[expertise][render] that contain a tuple (expertise, render, id, DataFrame). The DataFrame contains the data vectors for each code rendering sample.
     """
     paths = setup_paths()
     corrected_cr_path = paths['cr_dataset']
@@ -18,7 +18,7 @@ def parse_cr_data(info = False):
     files = os.listdir(corrected_cr_path)
 
     # Build a matrix to store data vectors
-    data_frames = {}
+    result = {}
 
     for file in files:
         if file.endswith('.csv'):
@@ -28,9 +28,9 @@ def parse_cr_data(info = False):
             if info:
                 print(f"Processing file: {file_path}")
             expertise, render, id, df = build_vector_cr(file_path)
-            if expertise not in data_frames:
-                data_frames[expertise] = {}
-            if render not in data_frames[expertise]:
-                data_frames[expertise][render] = []
-            data_frames[expertise][render].append((expertise, render, id, df))
-    return data_frames
+            if expertise not in result:
+                result[expertise] = {}
+            if render not in result[expertise]:
+                result[expertise][render] = []
+            result[expertise][render].append((expertise, render, id, df))
+    return result
