@@ -2,7 +2,7 @@
 dimensions <- c("Shape", "Length", "Direction", "Position", "Duration")
 
 
-get_model_pack <- function(folder_path, formula_set, info, reml = TRUE, test = FALSE, dataset) {
+get_model_pack <- function(folder_path, formula_set, info, reml = TRUE, test = FALSE, dataset, case = NULL) {
   
   fix_effect <- formula_set$fix_effect
   rand_effect <- formula_set$rand_effect
@@ -45,7 +45,7 @@ get_model_pack <- function(folder_path, formula_set, info, reml = TRUE, test = F
     df$expertise_a == "Beginner" & df$expertise_b == "Beginner" ~ "BB",
     df$expertise_a == "Beginner" & df$expertise_b == "Intermediate" ~ "BI",
     df$expertise_a == "Intermediate" & df$expertise_b == "Beginner" ~ "BI",
-    df$expertise_a == "Intermediate" & df$expertise_b == "Intermediate" ~ "II",
+    df$expertise_a == "Intermediate" & df$expertise_b == "Intermediate" ~ "II"
   )
   
   # Convert PairType to factor for modeling
@@ -73,7 +73,11 @@ get_model_pack <- function(folder_path, formula_set, info, reml = TRUE, test = F
     models_list[[y]] <- mod
   }
   
-  output_path <- assign_path(file.path(here(), "output", "R", "workflow",dataset, exp_name))
+  if (!is.null(case)) {
+    output_path <- assign_path(file.path(here(), "output", "R", "workflow",dataset, exp_name, case))
+  } else {
+    output_path <- assign_path(file.path(here(), "output", "R", "workflow",dataset, exp_name))
+  }
   
   # Construct config for output
   config <- list(

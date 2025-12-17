@@ -11,7 +11,6 @@ fix_rendering_pairtype <- get_exp_pack("code_rendering", "fix_rendering", "pairt
 
 fix_rendering_mean_diff <- get_exp_pack("code_rendering", "fix_rendering", "mean_diff", NULL, info=TRUE, reml=TRUE)
 
-
 exps_list <- list(
   fix_expertise = fix_expertise,
   fix_both = fix_both,

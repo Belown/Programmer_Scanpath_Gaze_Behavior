@@ -264,7 +264,7 @@ check_assumptions_all_dimensions <- function(m_list, config) {
   }
   
   # Majority rule: more than half of dimensions must pass
-  majority_threshold <- ceiling(length(names(m_list)) / 2)
+  majority_threshold <- 5
   overall_pass <- pass_count >= majority_threshold
   
   return(list(

@@ -6,64 +6,27 @@ MODEL ASSUMPTION CHECKS
 ============================================================
 
 1. LINEARITY CHECK:
-Correlation between residuals and fitted values: 0.1709
-Correlation test p-value: 0.0619
+Correlation between residuals and fitted values: 0.2058
+Correlation test p-value: 0.0603
 
 2. NORMALITY CHECK:
-Shapiro-Wilk test p-value: 0.2483
-Skewness: -0.1201
-Kurtosis: 2.4565
+Shapiro-Wilk test p-value: 0.4939
+Skewness: -0.1299
+Kurtosis: 2.4525
 
 3. HOMOSCEDASTICITY CHECK:
-Breusch-Pagan test p-value: 0.0393
-Variance ratio (high/low groups): 1.9702
+Breusch-Pagan test p-value: 0.061
+Variance ratio (high/low groups): 1.8582
 
 4. INDEPENDENCE CHECK:
-Durbin-Watson statistic: 1.1715
+Durbin-Watson statistic: 1.1149
 Durbin-Watson p-value: 0
-Runs test p-value: 0
+Runs test p-value: 0.0043
 
 5. RANDOM EFFECTS NORMALITY CHECK:
-Shapiro-Wilk test p-value: 0.4345
+Shapiro-Wilk test p-value: 0.3163
 Random effects mean: 0
-Random effects skewness: -0.8234
-============================================================
-OVERALL ASSUMPTION SUMMARY
-============================================================
-Assumptions passed: 2 out of 5
-- LINEARITY : ❌ FAILED
-- NORMALITY : ✅ PASSED
-- HOMOSCEDASTICITY : ❌ FAILED
-- INDEPENDENCE : ❌ FAILED
-- RANDOM_EFFECTS : ✅ PASSED
-
- 🚨 MAJOR VIOLATIONS - Consider transformations or alternative models
-============================================================
-MODEL ASSUMPTION CHECKS
-============================================================
-
-1. LINEARITY CHECK:
-Correlation between residuals and fitted values: 0.1596
-Correlation test p-value: 0.0817
-
-2. NORMALITY CHECK:
-Shapiro-Wilk test p-value: 0.3804
-Skewness: -0.2188
-Kurtosis: 2.7221
-
-3. HOMOSCEDASTICITY CHECK:
-Breusch-Pagan test p-value: 0.612
-Variance ratio (high/low groups): 1.2215
-
-4. INDEPENDENCE CHECK:
-Durbin-Watson statistic: 1.1924
-Durbin-Watson p-value: 0
-Runs test p-value: 1e-04
-
-5. RANDOM EFFECTS NORMALITY CHECK:
-Shapiro-Wilk test p-value: 0.473
-Random effects mean: 0
-Random effects skewness: -0.7212
+Random effects skewness: -0.9978
 ============================================================
 OVERALL ASSUMPTION SUMMARY
 ============================================================
@@ -80,27 +43,64 @@ MODEL ASSUMPTION CHECKS
 ============================================================
 
 1. LINEARITY CHECK:
-Correlation between residuals and fitted values: 0.1665
-Correlation test p-value: 0.0691
+Correlation between residuals and fitted values: 0.1909
+Correlation test p-value: 0.082
 
 2. NORMALITY CHECK:
-Shapiro-Wilk test p-value: 0.0344
-Skewness: -0.4484
-Kurtosis: 2.9352
+Shapiro-Wilk test p-value: 0.4967
+Skewness: -0.159
+Kurtosis: 2.5241
 
 3. HOMOSCEDASTICITY CHECK:
-Breusch-Pagan test p-value: 1e-04
-Variance ratio (high/low groups): 2.6428
+Breusch-Pagan test p-value: 0.5679
+Variance ratio (high/low groups): 1.1477
 
 4. INDEPENDENCE CHECK:
-Durbin-Watson statistic: 0.8429
+Durbin-Watson statistic: 1.1473
 Durbin-Watson p-value: 0
-Runs test p-value: 1e-04
+Runs test p-value: 0
 
 5. RANDOM EFFECTS NORMALITY CHECK:
-Shapiro-Wilk test p-value: 0.2215
+Shapiro-Wilk test p-value: 0.1663
 Random effects mean: 0
-Random effects skewness: -0.1824
+Random effects skewness: -1.1151
+============================================================
+OVERALL ASSUMPTION SUMMARY
+============================================================
+Assumptions passed: 3 out of 5
+- LINEARITY : ❌ FAILED
+- NORMALITY : ✅ PASSED
+- HOMOSCEDASTICITY : ✅ PASSED
+- INDEPENDENCE : ❌ FAILED
+- RANDOM_EFFECTS : ✅ PASSED
+
+ 🚨 MAJOR VIOLATIONS - Consider transformations or alternative models
+============================================================
+MODEL ASSUMPTION CHECKS
+============================================================
+
+1. LINEARITY CHECK:
+Correlation between residuals and fitted values: 0.1152
+Correlation test p-value: 0.2965
+
+2. NORMALITY CHECK:
+Shapiro-Wilk test p-value: 0.0368
+Skewness: -0.3995
+Kurtosis: 2.5382
+
+3. HOMOSCEDASTICITY CHECK:
+Breusch-Pagan test p-value: 0.0031
+Variance ratio (high/low groups): 2.1793
+
+4. INDEPENDENCE CHECK:
+Durbin-Watson statistic: 0.8089
+Durbin-Watson p-value: 0
+Runs test p-value: 0.001
+
+5. RANDOM EFFECTS NORMALITY CHECK:
+Shapiro-Wilk test p-value: 0.5999
+Random effects mean: 0
+Random effects skewness: -0.0958
 ============================================================
 OVERALL ASSUMPTION SUMMARY
 ============================================================
@@ -117,33 +117,31 @@ MODEL ASSUMPTION CHECKS
 ============================================================
 
 1. LINEARITY CHECK:
-Correlation between residuals and fitted values: 0.1546
-Correlation test p-value: 0.0919
+Correlation between residuals and fitted values: 0.1266
+Correlation test p-value: 0.2513
 
 2. NORMALITY CHECK:
-Shapiro-Wilk test p-value: 0.0209
-Skewness: -0.189
-Kurtosis: 2.7119
+Shapiro-Wilk test p-value: 0.1205
+Skewness: -0.2314
+Kurtosis: 2.6772
 
 3. HOMOSCEDASTICITY CHECK:
-Breusch-Pagan test p-value: 0.405
-Variance ratio (high/low groups): 1.7528
+Breusch-Pagan test p-value: 0.803
+Variance ratio (high/low groups): 1.0215
 
 4. INDEPENDENCE CHECK:
-Durbin-Watson statistic: 2.3515
-Durbin-Watson p-value: 0.04
-Runs test p-value: 0.2713
+Durbin-Watson statistic: 2.6223
+Durbin-Watson p-value: 0
+Runs test p-value: 0.0084
 
 5. RANDOM EFFECTS NORMALITY CHECK:
-Shapiro-Wilk test p-value: 0.1357
-Random effects mean: 0
-Random effects skewness: -0.7627
+❌ Could not extract random effects
 ============================================================
 OVERALL ASSUMPTION SUMMARY
 ============================================================
-Assumptions passed: 2 out of 5
+Assumptions passed: 3 out of 5
 - LINEARITY : ❌ FAILED
-- NORMALITY : ❌ FAILED
+- NORMALITY : ✅ PASSED
 - HOMOSCEDASTICITY : ✅ PASSED
 - INDEPENDENCE : ❌ FAILED
 - RANDOM_EFFECTS : ✅ PASSED
@@ -154,27 +152,27 @@ MODEL ASSUMPTION CHECKS
 ============================================================
 
 1. LINEARITY CHECK:
-Correlation between residuals and fitted values: 0.1375
-Correlation test p-value: 0.1343
+Correlation between residuals and fitted values: 0.1578
+Correlation test p-value: 0.1517
 
 2. NORMALITY CHECK:
-Shapiro-Wilk test p-value: 0.5563
-Skewness: -0.237
-Kurtosis: 2.9058
+Shapiro-Wilk test p-value: 0.6206
+Skewness: -0.1871
+Kurtosis: 3.0168
 
 3. HOMOSCEDASTICITY CHECK:
-Breusch-Pagan test p-value: 0.4527
-Variance ratio (high/low groups): 1.3768
+Breusch-Pagan test p-value: 0.5387
+Variance ratio (high/low groups): 1.5807
 
 4. INDEPENDENCE CHECK:
-Durbin-Watson statistic: 1.5278
-Durbin-Watson p-value: 0.006
-Runs test p-value: 0.8545
+Durbin-Watson statistic: 1.3568
+Durbin-Watson p-value: 0
+Runs test p-value: 0.0482
 
 5. RANDOM EFFECTS NORMALITY CHECK:
-Shapiro-Wilk test p-value: 0.1361
+Shapiro-Wilk test p-value: 0.3623
 Random effects mean: 0
-Random effects skewness: -1.2424
+Random effects skewness: -0.9681
 ============================================================
 OVERALL ASSUMPTION SUMMARY
 ============================================================
@@ -193,27 +191,27 @@ MODEL ASSUMPTION CHECKS
 ============================================================
 
 1. LINEARITY CHECK:
-Correlation between residuals and fitted values: 0.1726
-Correlation test p-value: 0.0595
+Correlation between residuals and fitted values: 0.2058
+Correlation test p-value: 0.0603
 
 2. NORMALITY CHECK:
-Shapiro-Wilk test p-value: 0.2047
-Skewness: 0.23
-Kurtosis: 2.5406
+Shapiro-Wilk test p-value: 0.514
+Skewness: 0.2146
+Kurtosis: 2.533
 
 3. HOMOSCEDASTICITY CHECK:
-Breusch-Pagan test p-value: 1e-04
-Variance ratio (high/low groups): 3.4134
+Breusch-Pagan test p-value: 7e-04
+Variance ratio (high/low groups): 2.5746
 
 4. INDEPENDENCE CHECK:
-Durbin-Watson statistic: 1.218
+Durbin-Watson statistic: 1.1455
 Durbin-Watson p-value: 0
-Runs test p-value: 0
+Runs test p-value: 0.001
 
 5. RANDOM EFFECTS NORMALITY CHECK:
-Shapiro-Wilk test p-value: 0.5258
+Shapiro-Wilk test p-value: 0.4005
 Random effects mean: 0
-Random effects skewness: -0.7452
+Random effects skewness: -0.9101
 ============================================================
 OVERALL ASSUMPTION SUMMARY
 ============================================================
@@ -230,27 +228,27 @@ MODEL ASSUMPTION CHECKS
 ============================================================
 
 1. LINEARITY CHECK:
-Correlation between residuals and fitted values: 0.1658
-Correlation test p-value: 0.0704
+Correlation between residuals and fitted values: 0.1974
+Correlation test p-value: 0.072
 
 2. NORMALITY CHECK:
-Shapiro-Wilk test p-value: 0.3518
-Skewness: 0.1122
-Kurtosis: 2.5201
+Shapiro-Wilk test p-value: 0.4191
+Skewness: 0.1791
+Kurtosis: 2.4427
 
 3. HOMOSCEDASTICITY CHECK:
-Breusch-Pagan test p-value: 0.0833
-Variance ratio (high/low groups): 1.6446
+Breusch-Pagan test p-value: 0.1806
+Variance ratio (high/low groups): 1.931
 
 4. INDEPENDENCE CHECK:
-Durbin-Watson statistic: 1.2206
+Durbin-Watson statistic: 1.1813
 Durbin-Watson p-value: 0
-Runs test p-value: 0.0018
+Runs test p-value: 2e-04
 
 5. RANDOM EFFECTS NORMALITY CHECK:
-Shapiro-Wilk test p-value: 0.7819
+Shapiro-Wilk test p-value: 0.1422
 Random effects mean: 0
-Random effects skewness: -0.5841
+Random effects skewness: -1.0624
 ============================================================
 OVERALL ASSUMPTION SUMMARY
 ============================================================
@@ -267,27 +265,25 @@ MODEL ASSUMPTION CHECKS
 ============================================================
 
 1. LINEARITY CHECK:
-Correlation between residuals and fitted values: 0.1847
-Correlation test p-value: 0.0435
+Correlation between residuals and fitted values: 0.1165
+Correlation test p-value: 0.2912
 
 2. NORMALITY CHECK:
-Shapiro-Wilk test p-value: 0.2711
-Skewness: 0.1496
-Kurtosis: 2.4459
+Shapiro-Wilk test p-value: 0.0668
+Skewness: 0.1095
+Kurtosis: 2.0603
 
 3. HOMOSCEDASTICITY CHECK:
-Breusch-Pagan test p-value: 0.2364
-Variance ratio (high/low groups): 1.2949
+Breusch-Pagan test p-value: 0.8883
+Variance ratio (high/low groups): 1.2313
 
 4. INDEPENDENCE CHECK:
-Durbin-Watson statistic: 0.8279
+Durbin-Watson statistic: 0.7379
 Durbin-Watson p-value: 0
-Runs test p-value: 1e-04
+Runs test p-value: 2e-04
 
 5. RANDOM EFFECTS NORMALITY CHECK:
-Shapiro-Wilk test p-value: 0.278
-Random effects mean: 0
-Random effects skewness: -0.1642
+❌ Could not extract random effects
 ============================================================
 OVERALL ASSUMPTION SUMMARY
 ============================================================
@@ -304,35 +300,33 @@ MODEL ASSUMPTION CHECKS
 ============================================================
 
 1. LINEARITY CHECK:
-Correlation between residuals and fitted values: 0.1938
-Correlation test p-value: 0.0339
+Correlation between residuals and fitted values: 0.1327
+Correlation test p-value: 0.229
 
 2. NORMALITY CHECK:
-Shapiro-Wilk test p-value: 6e-04
-Skewness: 0.458
-Kurtosis: 2.4224
+Shapiro-Wilk test p-value: 0.0199
+Skewness: 0.4101
+Kurtosis: 2.4108
 
 3. HOMOSCEDASTICITY CHECK:
-Breusch-Pagan test p-value: 0.0308
-Variance ratio (high/low groups): 2.2476
+Breusch-Pagan test p-value: 0.0221
+Variance ratio (high/low groups): 2.4867
 
 4. INDEPENDENCE CHECK:
-Durbin-Watson statistic: 2.3521
-Durbin-Watson p-value: 0.062
-Runs test p-value: 0.2713
+Durbin-Watson statistic: 2.5776
+Durbin-Watson p-value: 0.01
+Runs test p-value: 0.0084
 
 5. RANDOM EFFECTS NORMALITY CHECK:
-Shapiro-Wilk test p-value: 0.0715
-Random effects mean: 0
-Random effects skewness: -0.7615
+❌ Could not extract random effects
 ============================================================
 OVERALL ASSUMPTION SUMMARY
 ============================================================
-Assumptions passed: 2 out of 5
+Assumptions passed: 1 out of 5
 - LINEARITY : ❌ FAILED
 - NORMALITY : ❌ FAILED
 - HOMOSCEDASTICITY : ❌ FAILED
-- INDEPENDENCE : ✅ PASSED
+- INDEPENDENCE : ❌ FAILED
 - RANDOM_EFFECTS : ✅ PASSED
 
  🚨 MAJOR VIOLATIONS - Consider transformations or alternative models
@@ -341,27 +335,27 @@ MODEL ASSUMPTION CHECKS
 ============================================================
 
 1. LINEARITY CHECK:
-Correlation between residuals and fitted values: 0.138
-Correlation test p-value: 0.133
+Correlation between residuals and fitted values: 0.1582
+Correlation test p-value: 0.1505
 
 2. NORMALITY CHECK:
-Shapiro-Wilk test p-value: 0.9252
-Skewness: -0.0533
-Kurtosis: 2.8047
+Shapiro-Wilk test p-value: 0.735
+Skewness: 0.0211
+Kurtosis: 2.926
 
 3. HOMOSCEDASTICITY CHECK:
-Breusch-Pagan test p-value: 0.9867
-Variance ratio (high/low groups): 1.032
+Breusch-Pagan test p-value: 0.9623
+Variance ratio (high/low groups): 1.0671
 
 4. INDEPENDENCE CHECK:
-Durbin-Watson statistic: 1.517
-Durbin-Watson p-value: 0.01
-Runs test p-value: 0.8545
+Durbin-Watson statistic: 1.3602
+Durbin-Watson p-value: 0.002
+Runs test p-value: 0.1243
 
 5. RANDOM EFFECTS NORMALITY CHECK:
-Shapiro-Wilk test p-value: 0.1127
+Shapiro-Wilk test p-value: 0.3072
 Random effects mean: 0
-Random effects skewness: -1.2724
+Random effects skewness: -1.0073
 ============================================================
 OVERALL ASSUMPTION SUMMARY
 ============================================================
@@ -387,7 +381,7 @@ Family used: gaussian
 2. LINK FUNCTION CHECK:
 
 3. INDEPENDENCE CHECK:
-Durbin-Watson statistic: 1.1962
+Durbin-Watson statistic: 1.1515
 Durbin-Watson p-value: 0
 
 4. RANDOM EFFECTS NORMALITY:
@@ -420,7 +414,7 @@ Family used: gaussian
 2. LINK FUNCTION CHECK:
 
 3. INDEPENDENCE CHECK:
-Durbin-Watson statistic: 1.2137
+Durbin-Watson statistic: 1.1762
 Durbin-Watson p-value: 0
 
 4. RANDOM EFFECTS NORMALITY:
@@ -453,7 +447,7 @@ Family used: gaussian
 2. LINK FUNCTION CHECK:
 
 3. INDEPENDENCE CHECK:
-Durbin-Watson statistic: 0.8885
+Durbin-Watson statistic: 0.8412
 Durbin-Watson p-value: 0
 
 4. RANDOM EFFECTS NORMALITY:
@@ -486,8 +480,8 @@ Family used: gaussian
 2. LINK FUNCTION CHECK:
 
 3. INDEPENDENCE CHECK:
-Durbin-Watson statistic: 2.3389
-Durbin-Watson p-value: 0.07
+Durbin-Watson statistic: 2.6314
+Durbin-Watson p-value: 0
 
 4. RANDOM EFFECTS NORMALITY:
 ❌ Could not extract random effects - assuming passed
@@ -499,14 +493,14 @@ Overdispersion check not applicable for gaussian family
  OVERALL GLMM ASSUMPTION SUMMARY
 ============================================================
 Family: gaussian
-Assumptions passed: 5 out of 5
+Assumptions passed: 4 out of 5
 - DISTRIBUTIONAL : ✅ PASSED
 - LINK_FUNCTION : ✅ PASSED
-- INDEPENDENCE : ✅ PASSED
+- INDEPENDENCE : ❌ FAILED
 - RANDOM_EFFECTS : ✅ PASSED
 - OVERDISPERSION : ✅ PASSED
 
- 🎉 ALL GLMM ASSUMPTIONS SATISFIED - Proceed with confidence!
+ ⚠️  MINOR VIOLATIONS - GLMM results likely robust, interpret with caution
 ============================================================
 GLMM ASSUMPTION CHECKS
 ============================================================
@@ -519,8 +513,8 @@ Family used: gaussian
 2. LINK FUNCTION CHECK:
 
 3. INDEPENDENCE CHECK:
-Durbin-Watson statistic: 1.5361
-Durbin-Watson p-value: 0.006
+Durbin-Watson statistic: 1.3488
+Durbin-Watson p-value: 0.002
 
 4. RANDOM EFFECTS NORMALITY:
 ❌ Could not extract random effects - assuming passed

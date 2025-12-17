@@ -25,7 +25,7 @@ get_exp_pack <- function(dataset, exp_type, case, rand_effect = NULL, info = TRU
         fix_effect = "render_a * render_b",
         rand_effect = if (!is.null(rand_effect)) rand_effect else default_rand_effect)
       folder_path <- file.path(base_path, dataset, exp_type)
-      get_model_pack(folder_path, formula_set, info, reml, test = FALSE, dataset)
+      get_model_pack(folder_path, formula_set, info, reml, test = FALSE, dataset, case = NULL)
     },
     "fix_expertise_rendering" = {
       default_rand_effect <- "(1 | exp_a) + (1 | exp_b)"
@@ -34,7 +34,7 @@ get_exp_pack <- function(dataset, exp_type, case, rand_effect = NULL, info = TRU
         fix_effect = "expertise_a * render_a",
         rand_effect = if (!is.null(rand_effect)) rand_effect else default_rand_effect)
       folder_path <- file.path(base_path, dataset, exp_type)
-      get_model_pack(folder_path, formula_set, info, reml, test = FALSE, dataset)
+      get_model_pack(folder_path, formula_set, info, reml, test = FALSE, dataset, case = NULL)
     },
     "fix_rendering" = {
       default_rand_effect <- "(1 | exp_a) + (1 | exp_b)"
@@ -51,7 +51,7 @@ get_exp_pack <- function(dataset, exp_type, case, rand_effect = NULL, info = TRU
         )
       )
       folder_path <- file.path(base_path, dataset, exp_type)
-      get_model_pack(folder_path, formula_set, info, reml, test = FALSE, dataset)
+      get_model_pack(folder_path, formula_set, info, reml, test = FALSE, dataset, case)
     }
   )
   return (model_pack)

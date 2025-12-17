@@ -1,0 +1,45 @@
+
+==== Shape ====
+Formula: Shape ~ PairType + (1 | exp_a) + (1 | exp_b) 
+Type: glmmTMB | Family: gaussian 
+
+        term      estimate    std.error    statistic   p.value stars
+ (Intercept)  0.9884808456 0.0007658797 1290.6476317 0.0000000   ***
+  PairTypeBI -0.0003536835 0.0008689176   -0.4070392 0.6839792      
+  PairTypeII -0.0009671575 0.0010976819   -0.8810909 0.3782686      
+
+==== Length ====
+Formula: Length ~ PairType + (1 | exp_a) + (1 | exp_b) 
+Type: glmmTMB | Family: gaussian 
+
+        term     estimate    std.error   statistic   p.value stars
+ (Intercept)  0.986980196 0.0007494943 1316.861573 0.0000000   ***
+  PairTypeBI -0.001130827 0.0008431391   -1.341211 0.1798520      
+  PairTypeII -0.001498348 0.0011180198   -1.340180 0.1801867      
+
+==== Direction ====
+Formula: Direction ~ PairType + (1 | exp_a) + (1 | exp_b) 
+Type: glmmTMB | Family: gaussian 
+
+        term   estimate  std.error  statistic   p.value stars
+ (Intercept) 0.87714466 0.01016628 86.2797898 0.0000000   ***
+  PairTypeBI 0.00292631 0.01026095  0.2851889 0.7754994      
+  PairTypeII 0.01378125 0.01456123  0.9464345 0.3439270      
+
+==== Position ====
+Formula: Position ~ PairType + (1 | exp_a) + (1 | exp_b) 
+Type: glmmTMB | Family: gaussian 
+
+        term      estimate   std.error    statistic   p.value stars
+ (Intercept)  0.9112210686 0.008845714 103.01272322 0.0000000   ***
+  PairTypeBI -0.0006303853 0.009404786  -0.06702814 0.9465593      
+  PairTypeII -0.0106760895 0.012659762  -0.84330887 0.3990557      
+
+==== Duration ====
+Formula: Duration ~ PairType + (1 | exp_a) + (1 | exp_b) 
+Type: glmmTMB | Family: gaussian 
+
+        term    estimate  std.error  statistic   p.value stars
+ (Intercept)  0.71591693 0.01448761 49.4157996 0.0000000   ***
+  PairTypeBI -0.00545905 0.01344269 -0.4060979 0.6846706      
+  PairTypeII -0.00271884 0.02096351 -0.1296939 0.8968086      
