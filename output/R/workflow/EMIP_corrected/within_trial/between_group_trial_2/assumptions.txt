@@ -20,7 +20,7 @@ Variance ratio (high/low groups): 3.1487
 
 4. INDEPENDENCE CHECK:
 Durbin-Watson statistic: 2.0161
-Durbin-Watson p-value: 0.484
+Durbin-Watson p-value: 0.49
 Runs test p-value: 0.7802
 
 5. RANDOM EFFECTS NORMALITY CHECK:
@@ -57,7 +57,7 @@ Variance ratio (high/low groups): 3.322
 
 4. INDEPENDENCE CHECK:
 Durbin-Watson statistic: 2.0207
-Durbin-Watson p-value: 0.38
+Durbin-Watson p-value: 0.412
 Runs test p-value: 0.5523
 
 5. RANDOM EFFECTS NORMALITY CHECK:
@@ -94,7 +94,7 @@ Variance ratio (high/low groups): 2.0488
 
 4. INDEPENDENCE CHECK:
 Durbin-Watson statistic: 2.0346
-Durbin-Watson p-value: 0.164
+Durbin-Watson p-value: 0.18
 Runs test p-value: 0.2205
 
 5. RANDOM EFFECTS NORMALITY CHECK:
@@ -131,7 +131,7 @@ Variance ratio (high/low groups): 1.9789
 
 4. INDEPENDENCE CHECK:
 Durbin-Watson statistic: 2.0188
-Durbin-Watson p-value: 0.48
+Durbin-Watson p-value: 0.408
 Runs test p-value: 0.0635
 
 5. RANDOM EFFECTS NORMALITY CHECK:
@@ -168,7 +168,7 @@ Variance ratio (high/low groups): 2.1731
 
 4. INDEPENDENCE CHECK:
 Durbin-Watson statistic: 2.0027
-Durbin-Watson p-value: 0.904
+Durbin-Watson p-value: 0.874
 Runs test p-value: 0.9323
 
 5. RANDOM EFFECTS NORMALITY CHECK:
@@ -207,7 +207,7 @@ Variance ratio (high/low groups): 1.2906
 
 4. INDEPENDENCE CHECK:
 Durbin-Watson statistic: 2.0285
-Durbin-Watson p-value: 0.24
+Durbin-Watson p-value: 0.212
 Runs test p-value: 0.9323
 
 5. RANDOM EFFECTS NORMALITY CHECK:
@@ -244,7 +244,7 @@ Variance ratio (high/low groups): 1.2545
 
 4. INDEPENDENCE CHECK:
 Durbin-Watson statistic: 2.0554
-Durbin-Watson p-value: 0.012
+Durbin-Watson p-value: 0.024
 Runs test p-value: 0.9131
 
 5. RANDOM EFFECTS NORMALITY CHECK:
@@ -281,7 +281,7 @@ Variance ratio (high/low groups): 1.3908
 
 4. INDEPENDENCE CHECK:
 Durbin-Watson statistic: 2.0149
-Durbin-Watson p-value: 0.586
+Durbin-Watson p-value: 0.5
 Runs test p-value: 0.4593
 
 5. RANDOM EFFECTS NORMALITY CHECK:
@@ -318,7 +318,7 @@ Variance ratio (high/low groups): 1.0533
 
 4. INDEPENDENCE CHECK:
 Durbin-Watson statistic: 2.0463
-Durbin-Watson p-value: 0.054
+Durbin-Watson p-value: 0.068
 Runs test p-value: 0.0786
 
 5. RANDOM EFFECTS NORMALITY CHECK:
@@ -355,7 +355,7 @@ Variance ratio (high/low groups): 1.286
 
 4. INDEPENDENCE CHECK:
 Durbin-Watson statistic: 1.9963
-Durbin-Watson p-value: 0.91
+Durbin-Watson p-value: 0.85
 Runs test p-value: 0.9903
 
 5. RANDOM EFFECTS NORMALITY CHECK:
@@ -388,7 +388,7 @@ Family used: gaussian
 
 3. INDEPENDENCE CHECK:
 Durbin-Watson statistic: 2.0161
-Durbin-Watson p-value: 0.482
+Durbin-Watson p-value: 0.5
 
 4. RANDOM EFFECTS NORMALITY:
 ❌ Could not extract random effects - assuming passed
@@ -421,7 +421,7 @@ Family used: gaussian
 
 3. INDEPENDENCE CHECK:
 Durbin-Watson statistic: 2.0206
-Durbin-Watson p-value: 0.426
+Durbin-Watson p-value: 0.398
 
 4. RANDOM EFFECTS NORMALITY:
 ❌ Could not extract random effects - assuming passed
@@ -454,7 +454,7 @@ Family used: gaussian
 
 3. INDEPENDENCE CHECK:
 Durbin-Watson statistic: 2.0344
-Durbin-Watson p-value: 0.112
+Durbin-Watson p-value: 0.176
 
 4. RANDOM EFFECTS NORMALITY:
 ❌ Could not extract random effects - assuming passed
@@ -487,7 +487,7 @@ Family used: gaussian
 
 3. INDEPENDENCE CHECK:
 Durbin-Watson statistic: 2.0186
-Durbin-Watson p-value: 0.432
+Durbin-Watson p-value: 0.428
 
 4. RANDOM EFFECTS NORMALITY:
 ❌ Could not extract random effects - assuming passed
@@ -520,7 +520,7 @@ Family used: gaussian
 
 3. INDEPENDENCE CHECK:
 Durbin-Watson statistic: 2.0026
-Durbin-Watson p-value: 0.876
+Durbin-Watson p-value: 0.844
 
 4. RANDOM EFFECTS NORMALITY:
 ❌ Could not extract random effects - assuming passed

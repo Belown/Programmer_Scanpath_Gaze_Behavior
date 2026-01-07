@@ -26,7 +26,7 @@ get_exp_pack <- function(data_set, exp_type, comp_type, trial_folder, case, rand
         fix_effect = "expertise_a",
         rand_effect = if (!is.null(rand_effect)) rand_effect else default_rand_effect)
       folder_path <- file.path(base_path, data_set, comp_type,trial_folder)
-      within_trial(folder_path, formula_set, info, reml, dataset)
+      within_trial(folder_path, formula_set, info, reml, dataset=dataset)
     },
     "within_group" = {
       default_rand_effect <- "(1 | exp_a) + (1 | exp_b)"
@@ -35,7 +35,7 @@ get_exp_pack <- function(data_set, exp_type, comp_type, trial_folder, case, rand
         fix_effect = "expertise_a * trial",
         rand_effect = if (!is.null(rand_effect)) rand_effect else default_rand_effect)
       folder_path <- file.path(base_path, data_set, "within_group")
-      within_group(folder_path, formula_set, info, reml, dataset)
+      within_group(folder_path, formula_set, info, reml, dataset=dataset)
     },
     "between_group" = {
       default_rand_effect <- "(1 | exp_a) + (1 | exp_b)"
@@ -52,7 +52,7 @@ get_exp_pack <- function(data_set, exp_type, comp_type, trial_folder, case, rand
         )
       )
       folder_path <- file.path(base_path, data_set, "between_group")
-      between_group(folder_path, formula_set, info, case, reml, dataset)
+      between_group(folder_path, formula_set, info, case, reml, dataset=dataset)
     }
   )
   return (model_pack)

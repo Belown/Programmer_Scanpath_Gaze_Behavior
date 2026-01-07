@@ -31,6 +31,9 @@ exp_pack <- get_model_pack(folder_path, formula_set, info = TRUE, reml = TRUE, t
 folder_path <- exp_pack$folder_path  # Output folder path
 dataframe <- exp_pack$data           # Processed dataset
 
+temp <- exp_pack$m_list$Shape
+print(summary(temp))
+
 # Run workflow to validate model assumptions and obtain final models
 # Output is saved to: output/workflow/[experiment_path]/model_summary.txt
 final_result <- work_flow_with_print(exp_pack$m_list, exp_pack$config)

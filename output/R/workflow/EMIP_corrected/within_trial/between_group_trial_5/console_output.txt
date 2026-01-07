@@ -57,7 +57,7 @@ No interaction terms in model for Duration .
        LINEARITY : ✅ PASSED 
        NORMALITY : ❌ FAILED 
        HOMOSCEDASTICITY : ❌ FAILED 
-       INDEPENDENCE : ✅ PASSED 
+       INDEPENDENCE : ❌ FAILED 
        RANDOM_EFFECTS : ✅ PASSED 
 🚨 Major assumption violations for Length 
 --- Checking model assumptions for Direction ---

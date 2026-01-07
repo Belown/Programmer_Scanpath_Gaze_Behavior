@@ -133,10 +133,10 @@ Processing model for experiment: within_group
 --- Checking GLMM assumptions for Duration ---
        DISTRIBUTIONAL : ✅ PASSED 
        LINK_FUNCTION : ✅ PASSED 
-       INDEPENDENCE : ❌ FAILED 
+       INDEPENDENCE : ✅ PASSED 
        RANDOM_EFFECTS : ✅ PASSED 
        OVERDISPERSION : ✅ PASSED 
-⚠️  Minor GLMM assumption violations
+🎉 All GLMM assumptions satisfied
 
 ==== Shape ====
 Formula: Shape ~ expertise_a * trial + (1 | exp_a) + (1 | exp_b) 
