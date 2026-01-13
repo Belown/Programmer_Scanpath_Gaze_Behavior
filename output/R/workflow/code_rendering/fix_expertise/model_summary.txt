@@ -3,53 +3,53 @@
 Formula: Shape ~ render_a + render_b + (1 | exp_a) + (1 | exp_b) 
 Type: glmmTMB | Family: gaussian 
 
-        term    estimate    std.error   statistic      p.value stars
- (Intercept) 0.985826211 0.0005734619 1719.078943 0.000000e+00   ***
-  render_ar2 0.002083676 0.0002995440    6.956161 3.496707e-12   ***
-  render_ar3 0.001589165 0.0005108402    3.110885 1.865276e-03    **
-  render_br2 0.001477796 0.0004981802    2.966388 3.013202e-03    **
-  render_br3 0.001230483 0.0005108402    2.408743 1.600759e-02     *
+        term     estimate    std.error   statistic      p.value stars
+ (Intercept) 0.9864180314 0.0012479134 790.4538944 0.0000000000   ***
+  render_ar2 0.0022494635 0.0006036526   3.7264206 0.0001942182   ***
+  render_ar3 0.0012237957 0.0010583413   1.1563337 0.2475446839      
+  render_br2 0.0012928207 0.0012877599   1.0039299 0.3154124134      
+  render_br3 0.0004273218 0.0012853891   0.3324455 0.7395528786      
 
 ==== Length ====
 Formula: Length ~ render_a + render_b + (1 | exp_a) + (1 | exp_b) 
 Type: glmmTMB | Family: gaussian 
 
         term    estimate    std.error   statistic      p.value stars
- (Intercept) 0.983752325 0.0007404764 1328.539737 0.000000e+00   ***
-  render_ar2 0.002172422 0.0003666010    5.925847 3.106918e-09   ***
-  render_ar3 0.001838147 0.0006259348    2.936643 3.317855e-03    **
-  render_br2 0.001355064 0.0006099512    2.221595 2.631072e-02     *
-  render_br3 0.001378167 0.0006259348    2.201774 2.768129e-02     *
+ (Intercept) 0.983636839 0.0014605770 673.4577183 0.000000e+00   ***
+  render_ar2 0.002883643 0.0006946319   4.1513252 3.305557e-05   ***
+  render_ar3 0.002154334 0.0012182507   1.7683833 7.699684e-02     .
+  render_br2 0.001557066 0.0014810444   1.0513299 2.931071e-01      
+  render_br3 0.001160252 0.0014780576   0.7849846 4.324626e-01      
 
 ==== Direction ====
 Formula: Direction ~ render_a + render_b + (1 | exp_a) + (1 | exp_b) 
 Type: glmmTMB | Family: gaussian 
 
-        term   estimate   std.error statistic      p.value stars
- (Intercept) 0.84596514 0.009462880 89.398273 0.000000e+00   ***
-  render_ar2 0.03778775 0.005203652  7.261775 3.820429e-13   ***
-  render_ar3 0.02160219 0.008853368  2.439997 1.468740e-02     *
-  render_br2 0.03047737 0.008647349  3.524476 4.243215e-04   ***
-  render_br3 0.01460058 0.008853368  1.649155 9.911585e-02     .
+        term     estimate   std.error statistic      p.value stars
+ (Intercept)  0.859686290 0.018975776 45.304409 0.000000e+00   ***
+  render_ar2  0.041957332 0.008685928  4.830495 1.361942e-06   ***
+  render_ar3  0.029632830 0.015257613  1.942167 5.211691e-02     .
+  render_br2  0.021464085 0.018487671  1.160995 2.456441e-01      
+  render_br3 -0.009245198 0.018413024 -0.502101 6.155965e-01      
 
 ==== Position ====
 Formula: Position ~ render_a + render_b + (1 | exp_a) + (1 | exp_b) 
 Type: glmmTMB | Family: gaussian 
 
-        term     estimate   std.error  statistic      p.value stars
- (Intercept)  0.899406573 0.009458519 95.0895780 0.000000e+00   ***
-  render_ar2  0.026768533 0.006159183  4.3461172 1.385685e-05   ***
-  render_ar3  0.007427930 0.010241597  0.7252707 4.682860e-01      
-  render_br2 -0.014943662 0.010156437 -1.4713488 1.411968e-01      
-  render_br3 -0.009572074 0.010241597 -0.9346271 3.499805e-01      
+        term    estimate  std.error statistic      p.value stars
+ (Intercept)  0.91921576 0.02079787 44.197595 0.000000e+00   ***
+  render_ar2  0.06039506 0.01047658  5.764771 8.176888e-09   ***
+  render_ar3  0.05523979 0.01832881  3.013824 2.579775e-03    **
+  render_br2 -0.03847987 0.02244668 -1.714279 8.647748e-02     .
+  render_br3 -0.03006647 0.02178566 -1.380104 1.675548e-01      
 
 ==== Duration ====
 Formula: Duration ~ render_a + render_b + (1 | exp_a) + (1 | exp_b) 
 Type: glmmTMB | Family: gaussian 
 
-        term     estimate   std.error  statistic     p.value stars
- (Intercept)  0.724280591 0.009343851 77.5141391 0.000000000   ***
-  render_ar2  0.001887790 0.005028195  0.3754409 0.707332574      
-  render_ar3 -0.002242251 0.008598416 -0.2607749 0.794266127      
-  render_br2 -0.009756788 0.008370366 -1.1656347 0.243762181      
-  render_br3 -0.028252632 0.008598416 -3.2857951 0.001016949    **
+        term     estimate   std.error  statistic   p.value stars
+ (Intercept)  0.718416664 0.018580537 38.6650113 0.0000000   ***
+  render_ar2 -0.011185890 0.008387595 -1.3336230 0.1823274      
+  render_ar3  0.004555652 0.015245704  0.2988155 0.7650808      
+  render_br2  0.006149459 0.018546238  0.3315745 0.7402106      
+  render_br3 -0.014903149 0.017902282 -0.8324720 0.4051426      

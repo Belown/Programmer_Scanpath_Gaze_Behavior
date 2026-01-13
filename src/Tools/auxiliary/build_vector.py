@@ -36,10 +36,11 @@ def build_vector_cr(path):
     expertise = data['expertise'].iloc[0]
     render = data['render'].iloc[0]
     id = data['session_id'].iloc[0]
+    code = data['code'].iloc[0]
 
     df = data[['location_x', 'location_y', 'duration']].copy()
     df = df.rename(columns={'location_x': 'start_x', 'location_y': 'start_y'})
     df = df.astype({'start_x': 'float64', 'start_y': 'float64', 'duration': 'float64'})
     df['duration'] = df['duration'] / 1000.0
     result = df.reset_index(drop=True)
-    return expertise, render, id, result
+    return expertise, render, id, result, code

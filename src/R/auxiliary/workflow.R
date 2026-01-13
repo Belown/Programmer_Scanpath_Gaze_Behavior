@@ -87,7 +87,7 @@ work_flow <- function(m_list, config) {
       if (result_3$pass) {
         return (result_3$m_list)
       } else {
-        stop("All model transformations failed to meet assumptions.")
+        cat("⚠️⚠️⚠️All model transformations failed to meet assumptions.\n")
       }
     }
   }

@@ -17,6 +17,9 @@ data_set <- "code_rendering"  # Dataset identifier
 exp_type <- "fix_rendering" #Options: "fix_expertise", "fix_expertise_rendering", "fix_rendering"
 
 base_path <- file.path(here(), "output", "processed_dataset")
+
+case <- "pairtype"
+
 folder_path <- file.path(base_path, data_set, exp_type)
 
 formula_set <- list(
@@ -24,7 +27,7 @@ formula_set <- list(
   rand_effect = "(1 | exp_a) + (1 | exp_b)"
 )
 
-exp_pack <- get_model_pack(folder_path, formula_set, info = TRUE, reml = TRUE, test = FALSE, dataset = data_set)
+exp_pack <- get_model_pack(folder_path, formula_set, info = TRUE, reml = TRUE, test = FALSE, dataset = data_set, case=case)
 
 
 # Extract components from model package

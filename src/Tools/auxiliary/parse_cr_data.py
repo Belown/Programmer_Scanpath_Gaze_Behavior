@@ -27,10 +27,10 @@ def parse_cr_data(info = False):
             file_path = os.path.join(corrected_cr_path, file)
             if info:
                 print(f"Processing file: {file_path}")
-            expertise, render, id, df = build_vector_cr(file_path)
+            expertise, render, id, df, code = build_vector_cr(file_path)
             if expertise not in result:
                 result[expertise] = {}
             if render not in result[expertise]:
                 result[expertise][render] = []
-            result[expertise][render].append((expertise, render, id, df))
+            result[expertise][render].append((expertise, render, id, df, code))
     return result
