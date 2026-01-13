@@ -35,7 +35,8 @@ within_trial <- function(folder_path, formula_set, info, reml = TRUE, test = FAL
     mutate(
       expertise_a = factor(expertise_a,
                            levels = c("none", "low", "medium", "high"),
-                           ordered = TRUE),
+                           # ordered = TRUE),
+                          ),
       across(c(exp_a, exp_b), as.factor)
     )
   
@@ -120,7 +121,8 @@ within_group <- function(folder_path, formula_set, info, reml = TRUE, test = FAL
         # Use the expertise column from your combined file
         expertise_a = factor(expertise_a,
                              levels = c("none", "low", "medium", "high"),
-                             ordered = TRUE),
+                             # ordered = TRUE),
+                            ),
         # trial as factor "2"/"5" from folder name
         trial = factor(trial_num, levels = c("2","5")),
         exp_a = factor(exp_a),
@@ -208,10 +210,12 @@ between_group <- function(folder_path, formula_set, info, case, reml = TRUE, tes
       mutate(
         expertise_a = factor(expertise_a,
                              levels = c("none", "low", "medium", "high"),
-                             ordered = TRUE),
+                             # ordered = TRUE),
+                            ),
         expertise_b = factor(expertise_b,
                              levels = c("none", "low", "medium", "high"),
-                             ordered = TRUE),
+                             # ordered = TRUE),
+                            ),
         trial = factor(trial_num, levels = c("2","5")),
         exp_a = factor(exp_a),
         exp_b = factor(exp_b)

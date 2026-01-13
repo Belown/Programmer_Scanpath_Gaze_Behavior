@@ -1,0 +1,65 @@
+
+==== Shape ====
+Formula: logit01(Shape) ~ expertise_a + rendering_pair + (1 | exp_a) +      (1 | exp_b) 
+Type: lmer
+
+                    term    estimate  std.error statistic         df      p.value stars
+             (Intercept)  4.96412304 0.06355087 78.112587  22.095433 1.734745e-28   ***
+ expertise_aIntermediate -0.04236244 0.07174238 -0.590480   9.326335 5.688994e-01      
+     rendering_pairr1_r2  0.12667402 0.04642276  2.728705 116.865177 7.340940e-03    **
+     rendering_pairr1_r3  0.09122675 0.04642276  1.965130 116.865177 5.177185e-02     .
+     rendering_pairr2_r2  0.29029997 0.05406601  5.369362 112.677702 4.290448e-07   ***
+     rendering_pairr2_r3  0.28975403 0.04642276  6.241637 116.865177 7.192093e-09   ***
+     rendering_pairr3_r3  0.23697429 0.05406601  4.383055 112.677702 2.639652e-05   ***
+
+==== Length ====
+Formula: logit01(Length) ~ expertise_a + rendering_pair + (1 | exp_a) +      (1 | exp_b) 
+Type: lmer
+
+                    term    estimate  std.error statistic         df      p.value stars
+             (Intercept)  4.86946390 0.06425506 75.783352  21.425325 1.592656e-27   ***
+ expertise_aIntermediate -0.12075693 0.07329887 -1.647460   9.383737 1.324855e-01      
+     rendering_pairr1_r2  0.10102612 0.04604890  2.193888 116.550262 3.022777e-02     *
+     rendering_pairr1_r3  0.09045038 0.04604890  1.964224 116.550262 5.188450e-02     .
+     rendering_pairr2_r2  0.24964991 0.05360123  4.657541 112.505859 8.827033e-06   ***
+     rendering_pairr2_r3  0.26664275 0.04604890  5.790426 116.550262 6.056589e-08   ***
+     rendering_pairr3_r3  0.23198062 0.05360123  4.327897 112.505859 3.277612e-05   ***
+
+==== Direction ====
+Formula: logit01(Direction) ~ expertise_a + rendering_pair + (1 | exp_a) +      (1 | exp_b) 
+Type: lmer
+
+                    term   estimate  std.error statistic         df      p.value stars
+             (Intercept) 2.46230501 0.10333701 23.827911  19.887130 4.280127e-16   ***
+ expertise_aIntermediate 0.09423762 0.11385590  0.827692   7.636107 4.329482e-01      
+     rendering_pairr1_r2 0.24448683 0.07868719  3.107073 118.211674 2.366532e-03    **
+     rendering_pairr1_r3 0.10885020 0.07868719  1.383328 118.211674 1.691712e-01      
+     rendering_pairr2_r2 0.62907962 0.09199285  6.838353 113.131781 4.299709e-10   ***
+     rendering_pairr2_r3 0.44530443 0.07868719  5.659173 118.211674 1.080994e-07   ***
+     rendering_pairr3_r3 0.28372970 0.09199285  3.084258 113.131781 2.564773e-03    **
+
+==== Position ====
+Formula: logit01(Position) ~ expertise_a + rendering_pair + (1 | exp_a) +      (1 | exp_b) 
+Type: lmer
+
+                    term    estimate  std.error  statistic         df      p.value stars
+             (Intercept)  3.04504023 0.10488276 29.0327995  72.322384 1.346802e-41   ***
+ expertise_aIntermediate -0.15265498 0.06109654 -2.4985862   4.941416 5.515898e-02     .
+     rendering_pairr1_r2 -0.16654599 0.11751940 -1.4171787 124.673113 1.589249e-01      
+     rendering_pairr1_r3 -0.05227557 0.11751940 -0.4448250 124.673113 6.572175e-01      
+     rendering_pairr2_r2  0.30867396 0.14167775  2.1787045 118.679064 3.133015e-02     *
+     rendering_pairr2_r3  0.18105170 0.11751940  1.5406112 124.673113 1.259458e-01      
+     rendering_pairr3_r3  0.04003642 0.14167775  0.2825879 118.679064 7.779850e-01      
+
+==== Duration ====
+Formula: logit01(Duration) ~ expertise_a + rendering_pair + (1 | exp_a) +      (1 | exp_b) 
+Type: lmer
+
+                    term    estimate  std.error  statistic         df      p.value stars
+             (Intercept)  1.82267597 0.04745026 38.4123507  22.894844 2.711014e-22   ***
+ expertise_aIntermediate  0.02747606 0.05297570  0.5186541   9.309671 6.161042e-01      
+     rendering_pairr1_r2 -0.03137538 0.03533333 -0.8879827 117.381268 3.763660e-01      
+     rendering_pairr1_r3 -0.11962960 0.03533333 -3.3857440 117.381268 9.661396e-04   ***
+     rendering_pairr2_r2 -0.04783935 0.04118125 -1.1616779 113.073111 2.478126e-01      
+     rendering_pairr2_r3 -0.10038554 0.03533333 -2.8411007 117.381268 5.302050e-03    **
+     rendering_pairr3_r3 -0.12067242 0.04118125 -2.9302756 113.073111 4.098117e-03    **

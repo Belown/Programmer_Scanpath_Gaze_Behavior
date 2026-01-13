@@ -127,49 +127,49 @@ No interaction terms in model for Duration .
 Formula: Shape ~ expertise_a + (1 | exp_a) + (1 | exp_b) 
 Type: glmmTMB | Family: gaussian 
 
-          term      estimate    std.error    statistic   p.value stars
-   (Intercept)  0.9915815981 0.0002124539 4667.2791019 0.0000000   ***
- expertise_a.L -0.0005167359 0.0005217470   -0.9903956 0.3219808      
- expertise_a.Q -0.0003903767 0.0004249076   -0.9187332 0.3582352      
- expertise_a.C  0.0003890126 0.0002980906    1.3050147 0.1918878      
+              term      estimate    std.error    statistic   p.value stars
+       (Intercept)  0.9916460257 0.0004396965 2255.2964836 0.0000000   ***
+    expertise_alow  0.0005072621 0.0005202956    0.9749498 0.3295852      
+ expertise_amedium -0.0002457600 0.0004978269   -0.4936656 0.6215424      
+   expertise_ahigh -0.0005192347 0.0007683001   -0.6758227 0.4991532      
 
 ==== Length ====
 Formula: Length ~ expertise_a + (1 | exp_a) + (1 | exp_b) 
 Type: glmmTMB | Family: gaussian 
 
-          term      estimate    std.error    statistic   p.value stars
-   (Intercept)  0.9884358746 0.0003469987 2848.5291417 0.0000000   ***
- expertise_a.L -0.0003157294 0.0008533049   -0.3700077 0.7113768      
- expertise_a.Q -0.0008742613 0.0006940187   -1.2597085 0.2077745      
- expertise_a.C  0.0007166708 0.0004846546    1.4787250 0.1392138      
+              term      estimate    std.error    statistic   p.value stars
+       (Intercept)  0.9880502574 0.0007168578 1378.3072234 0.0000000   ***
+    expertise_alow  0.0013740988 0.0008470167    1.6222806 0.1047433      
+ expertise_amedium  0.0002714054 0.0008104486    0.3348829 0.7377134      
+   expertise_ahigh -0.0001030746 0.0012568068   -0.0820131 0.9346363      
 
 ==== Direction ====
 Formula: Direction ~ expertise_a + (1 | exp_a) + (1 | exp_b) 
 Type: glmmTMB | Family: gaussian 
 
-          term     estimate   std.error   statistic    p.value stars
-   (Intercept)  0.705465206 0.004343586 162.4153847 0.00000000   ***
- expertise_a.L -0.006137535 0.010785787  -0.5690391 0.56932960      
- expertise_a.Q  0.016035168 0.008684191   1.8464781 0.06482282     .
- expertise_a.C -0.001664856 0.005885740  -0.2828626 0.77728218      
+              term     estimate   std.error  statistic    p.value stars
+       (Intercept)  0.717973392 0.008857779 81.0556926 0.00000000   ***
+    expertise_alow -0.020270017 0.010363395 -1.9559244 0.05047406     .
+ expertise_amedium -0.020781329 0.009913653 -2.0962332 0.03606151     *
+   expertise_ahigh -0.008979009 0.015910389 -0.5643488 0.57251676      
 
 ==== Position ====
 Formula: Position ~ expertise_a + (1 | exp_a) + (1 | exp_b) 
 Type: glmmTMB | Family: gaussian 
 
-          term      estimate   std.error   statistic   p.value stars
-   (Intercept)  0.9128670032 0.002152234 424.1485321 0.0000000   ***
- expertise_a.L -0.0022726493 0.005356579  -0.4242725 0.6713671      
- expertise_a.Q  0.0057837927 0.004305193   1.3434457 0.1791277      
- expertise_a.C -0.0005296837 0.002898335  -0.1827545 0.8549907      
+              term     estimate   std.error   statistic   p.value stars
+       (Intercept)  0.917401665 0.004375059 209.6889595 0.0000000   ***
+    expertise_alow -0.007273635 0.005109220  -1.4236293 0.1545538      
+ expertise_amedium -0.007579582 0.004888273  -1.5505646 0.1210061      
+   expertise_ahigh -0.003285871 0.007903943  -0.4157256 0.6776108      
 
 ==== Duration ====
 Formula: Duration ~ expertise_a + (1 | exp_a) + (1 | exp_b) 
 Type: glmmTMB | Family: gaussian 
 
-          term     estimate   std.error   statistic   p.value stars
-   (Intercept)  0.651247070 0.005948792 109.4755163 0.0000000   ***
- expertise_a.L -0.018600917 0.014717866  -1.2638325 0.2062902      
- expertise_a.Q -0.018241337 0.011901800  -1.5326537 0.1253612      
- expertise_a.C  0.004802706 0.008154304   0.5889781 0.5558760      
+              term      estimate  std.error   statistic   p.value stars
+       (Intercept)  0.6535289040 0.01218968 53.61329443 0.0000000   ***
+    expertise_alow  0.0142179676 0.01431875  0.99296127 0.3207288      
+ expertise_amedium -0.0005414979 0.01369962 -0.03952648 0.9684706      
+   expertise_ahigh -0.0228061954 0.02169596 -1.05117262 0.2931793      
 ✅️ Completed processing for experiment: within_trial_within_5 

@@ -131,7 +131,7 @@ Variance ratio (high/low groups): 1.8521
 
 4. INDEPENDENCE CHECK:
 Durbin-Watson statistic: 1.9786
-Durbin-Watson p-value: 0.422
+Durbin-Watson p-value: 0.386
 Runs test p-value: 0.3332
 
 5. RANDOM EFFECTS NORMALITY CHECK:
@@ -168,7 +168,7 @@ Variance ratio (high/low groups): 2.2157
 
 4. INDEPENDENCE CHECK:
 Durbin-Watson statistic: 1.9458
-Durbin-Watson p-value: 0.036
+Durbin-Watson p-value: 0.02
 Runs test p-value: 0.0941
 
 5. RANDOM EFFECTS NORMALITY CHECK:
@@ -281,7 +281,7 @@ Variance ratio (high/low groups): 1.2831
 
 4. INDEPENDENCE CHECK:
 Durbin-Watson statistic: 1.9108
-Durbin-Watson p-value: 0.006
+Durbin-Watson p-value: 0.002
 Runs test p-value: 0.0031
 
 5. RANDOM EFFECTS NORMALITY CHECK:
@@ -318,7 +318,7 @@ Variance ratio (high/low groups): 1.0039
 
 4. INDEPENDENCE CHECK:
 Durbin-Watson statistic: 2.0001
-Durbin-Watson p-value: 0.996
+Durbin-Watson p-value: 0.992
 Runs test p-value: 0.4175
 
 5. RANDOM EFFECTS NORMALITY CHECK:
@@ -355,7 +355,7 @@ Variance ratio (high/low groups): 1.3655
 
 4. INDEPENDENCE CHECK:
 Durbin-Watson statistic: 1.9543
-Durbin-Watson p-value: 0.072
+Durbin-Watson p-value: 0.078
 Runs test p-value: 0.0597
 
 5. RANDOM EFFECTS NORMALITY CHECK:
@@ -487,7 +487,7 @@ Family used: gaussian
 
 3. INDEPENDENCE CHECK:
 Durbin-Watson statistic: 1.9784
-Durbin-Watson p-value: 0.446
+Durbin-Watson p-value: 0.37
 
 4. RANDOM EFFECTS NORMALITY:
 ❌ Could not extract random effects - assuming passed
@@ -520,7 +520,7 @@ Family used: gaussian
 
 3. INDEPENDENCE CHECK:
 Durbin-Watson statistic: 1.9457
-Durbin-Watson p-value: 0.052
+Durbin-Watson p-value: 0.044
 
 4. RANDOM EFFECTS NORMALITY:
 ❌ Could not extract random effects - assuming passed
@@ -532,11 +532,11 @@ Overdispersion check not applicable for gaussian family
  OVERALL GLMM ASSUMPTION SUMMARY
 ============================================================
 Family: gaussian
-Assumptions passed: 5 out of 5
+Assumptions passed: 4 out of 5
 - DISTRIBUTIONAL : ✅ PASSED
 - LINK_FUNCTION : ✅ PASSED
-- INDEPENDENCE : ✅ PASSED
+- INDEPENDENCE : ❌ FAILED
 - RANDOM_EFFECTS : ✅ PASSED
 - OVERDISPERSION : ✅ PASSED
 
- 🎉 ALL GLMM ASSUMPTIONS SATISFIED - Proceed with confidence!
+ ⚠️  MINOR VIOLATIONS - GLMM results likely robust, interpret with caution

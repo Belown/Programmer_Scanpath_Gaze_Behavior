@@ -1,0 +1,145 @@
+
+==== Shape ====
+Formula: logit01(Shape) ~ expertise_a + rendering_pair + (1 | exp_a) +      (1 | exp_b) 
+Type: lmer
+
+                    term    estimate  std.error statistic         df      p.value stars
+             (Intercept)  4.96412304 0.06355087 78.112587  22.095433 1.734745e-28   ***
+ expertise_aIntermediate -0.04236244 0.07174238 -0.590480   9.326335 5.688994e-01      
+     rendering_pairr1_r2  0.12667402 0.04642276  2.728705 116.865177 7.340940e-03    **
+     rendering_pairr1_r3  0.09122675 0.04642276  1.965130 116.865177 5.177185e-02     .
+     rendering_pairr2_r2  0.29029997 0.05406601  5.369362 112.677702 4.290448e-07   ***
+     rendering_pairr2_r3  0.28975403 0.04642276  6.241637 116.865177 7.192093e-09   ***
+     rendering_pairr3_r3  0.23697429 0.05406601  4.383055 112.677702 2.639652e-05   ***
+
+Beginner:
+  r1_r1: logit=4.964, sim=0.9931, diff from intercept=0.0000, %change of remaining=0.00%
+  r1_r2: logit=5.091, sim=0.9939, diff from intercept=0.0008, %change of remaining=11.83%
+  r1_r3: logit=5.055, sim=0.9937, diff from intercept=0.0006, %change of remaining=8.66%
+  r2_r2: logit=5.254, sim=0.9948, diff from intercept=0.0017, %change of remaining=25.07%
+  r2_r3: logit=5.254, sim=0.9948, diff from intercept=0.0017, %change of remaining=25.02%
+  r3_r3: logit=5.201, sim=0.9945, diff from intercept=0.0015, %change of remaining=20.98%
+
+Intermediate:
+  r1_r1: logit=4.922, sim=0.9928, diff from intercept=0.0000, %change of remaining=0.00%
+  r1_r2: logit=5.048, sim=0.9936, diff from intercept=0.0009, %change of remaining=11.82%
+  r1_r3: logit=5.013, sim=0.9934, diff from intercept=0.0006, %change of remaining=8.66%
+  r2_r2: logit=5.212, sim=0.9946, diff from intercept=0.0018, %change of remaining=25.06%
+  r2_r3: logit=5.212, sim=0.9946, diff from intercept=0.0018, %change of remaining=25.02%
+  r3_r3: logit=5.159, sim=0.9943, diff from intercept=0.0015, %change of remaining=20.98%
+
+==== Length ====
+Formula: logit01(Length) ~ expertise_a + rendering_pair + (1 | exp_a) +      (1 | exp_b) 
+Type: lmer
+
+                    term    estimate  std.error statistic         df      p.value stars
+             (Intercept)  4.86946390 0.06425506 75.783352  21.425325 1.592656e-27   ***
+ expertise_aIntermediate -0.12075693 0.07329887 -1.647460   9.383737 1.324855e-01      
+     rendering_pairr1_r2  0.10102612 0.04604890  2.193888 116.550262 3.022777e-02     *
+     rendering_pairr1_r3  0.09045038 0.04604890  1.964224 116.550262 5.188450e-02     .
+     rendering_pairr2_r2  0.24964991 0.05360123  4.657541 112.505859 8.827033e-06   ***
+     rendering_pairr2_r3  0.26664275 0.04604890  5.790426 116.550262 6.056589e-08   ***
+     rendering_pairr3_r3  0.23198062 0.05360123  4.327897 112.505859 3.277612e-05   ***
+
+Beginner:
+  r1_r1: logit=4.869, sim=0.9924, diff from intercept=0.0000, %change of remaining=0.00%
+  r1_r2: logit=4.970, sim=0.9931, diff from intercept=0.0007, %change of remaining=9.54%
+  r1_r3: logit=4.960, sim=0.9930, diff from intercept=0.0007, %change of remaining=8.59%
+  r2_r2: logit=5.119, sim=0.9941, diff from intercept=0.0017, %change of remaining=21.96%
+  r2_r3: logit=5.136, sim=0.9942, diff from intercept=0.0018, %change of remaining=23.27%
+  r3_r3: logit=5.101, sim=0.9939, diff from intercept=0.0016, %change of remaining=20.58%
+
+Intermediate:
+  r1_r1: logit=4.749, sim=0.9914, diff from intercept=0.0000, %change of remaining=0.00%
+  r1_r2: logit=4.850, sim=0.9922, diff from intercept=0.0008, %change of remaining=9.53%
+  r1_r3: logit=4.839, sim=0.9921, diff from intercept=0.0007, %change of remaining=8.58%
+  r2_r2: logit=4.998, sim=0.9933, diff from intercept=0.0019, %change of remaining=21.94%
+  r2_r3: logit=5.015, sim=0.9934, diff from intercept=0.0020, %change of remaining=23.25%
+  r3_r3: logit=4.981, sim=0.9932, diff from intercept=0.0018, %change of remaining=20.56%
+
+==== Direction ====
+Formula: logit01(Direction) ~ expertise_a + rendering_pair + (1 | exp_a) +      (1 | exp_b) 
+Type: lmer
+
+                    term   estimate  std.error statistic         df      p.value stars
+             (Intercept) 2.46230501 0.10333701 23.827911  19.887130 4.280127e-16   ***
+ expertise_aIntermediate 0.09423762 0.11385590  0.827692   7.636107 4.329482e-01      
+     rendering_pairr1_r2 0.24448683 0.07868719  3.107073 118.211674 2.366532e-03    **
+     rendering_pairr1_r3 0.10885020 0.07868719  1.383328 118.211674 1.691712e-01      
+     rendering_pairr2_r2 0.62907962 0.09199285  6.838353 113.131781 4.299709e-10   ***
+     rendering_pairr2_r3 0.44530443 0.07868719  5.659173 118.211674 1.080994e-07   ***
+     rendering_pairr3_r3 0.28372970 0.09199285  3.084258 113.131781 2.564773e-03    **
+
+Beginner:
+  r1_r1: logit=2.462, sim=0.9215, diff from intercept=0.0000, %change of remaining=0.00%
+  r1_r2: logit=2.707, sim=0.9374, diff from intercept=0.0160, %change of remaining=20.33%
+  r1_r3: logit=2.571, sim=0.9290, diff from intercept=0.0075, %change of remaining=9.58%
+  r2_r2: logit=3.091, sim=0.9565, diff from intercept=0.0351, %change of remaining=44.66%
+  r2_r3: logit=2.908, sim=0.9482, diff from intercept=0.0268, %change of remaining=34.08%
+  r3_r3: logit=2.746, sim=0.9397, diff from intercept=0.0182, %change of remaining=23.21%
+
+Intermediate:
+  r1_r1: logit=2.557, sim=0.9280, diff from intercept=0.0000, %change of remaining=0.00%
+  r1_r2: logit=2.801, sim=0.9427, diff from intercept=0.0147, %change of remaining=20.45%
+  r1_r3: logit=2.665, sim=0.9350, diff from intercept=0.0069, %change of remaining=9.64%
+  r2_r2: logit=3.186, sim=0.9603, diff from intercept=0.0323, %change of remaining=44.84%
+  r2_r3: logit=3.002, sim=0.9527, diff from intercept=0.0246, %change of remaining=34.24%
+  r3_r3: logit=2.840, sim=0.9448, diff from intercept=0.0168, %change of remaining=23.34%
+
+==== Position ====
+Formula: logit01(Position) ~ expertise_a + rendering_pair + (1 | exp_a) +      (1 | exp_b) 
+Type: lmer
+
+                    term    estimate  std.error  statistic         df      p.value stars
+             (Intercept)  3.04504023 0.10488276 29.0327995  72.322384 1.346802e-41   ***
+ expertise_aIntermediate -0.15265498 0.06109654 -2.4985862   4.941416 5.515898e-02     .
+     rendering_pairr1_r2 -0.16654599 0.11751940 -1.4171787 124.673113 1.589249e-01      
+     rendering_pairr1_r3 -0.05227557 0.11751940 -0.4448250 124.673113 6.572175e-01      
+     rendering_pairr2_r2  0.30867396 0.14167775  2.1787045 118.679064 3.133015e-02     *
+     rendering_pairr2_r3  0.18105170 0.11751940  1.5406112 124.673113 1.259458e-01      
+     rendering_pairr3_r3  0.04003642 0.14167775  0.2825879 118.679064 7.779850e-01     
+
+Beginner:
+  r1_r1: logit=3.045, sim=0.9546, diff from intercept=0.0000, %change of remaining=0.00%
+  r1_r2: logit=2.878, sim=0.9468, diff from intercept=-0.0078, %change of remaining=-17.16%
+  r1_r3: logit=2.993, sim=0.9522, diff from intercept=-0.0023, %change of remaining=-5.11%
+  r2_r2: logit=3.354, sim=0.9662, diff from intercept=0.0117, %change of remaining=25.66%
+  r2_r3: logit=3.226, sim=0.9618, diff from intercept=0.0072, %change of remaining=15.93%
+  r3_r3: logit=3.085, sim=0.9563, diff from intercept=0.0017, %change of remaining=3.75%
+
+Intermediate:
+  r1_r1: logit=2.892, sim=0.9475, diff from intercept=0.0000, %change of remaining=0.00%
+  r1_r2: logit=2.726, sim=0.9385, diff from intercept=-0.0089, %change of remaining=-17.01%
+  r1_r3: logit=2.840, sim=0.9448, diff from intercept=-0.0027, %change of remaining=-5.07%
+  r2_r2: logit=3.201, sim=0.9609, diff from intercept=0.0134, %change of remaining=25.52%
+  r2_r3: logit=3.073, sim=0.9558, diff from intercept=0.0083, %change of remaining=15.83%
+  r3_r3: logit=2.932, sim=0.9494, diff from intercept=0.0020, %change of remaining=3.73%
+
+==== Duration ====
+Formula: logit01(Duration) ~ expertise_a + rendering_pair + (1 | exp_a) +      (1 | exp_b) 
+Type: lmer
+
+                    term    estimate  std.error  statistic         df      p.value stars
+             (Intercept)  1.82267597 0.04745026 38.4123507  22.894844 2.711014e-22   ***
+ expertise_aIntermediate  0.02747606 0.05297570  0.5186541   9.309671 6.161042e-01      
+     rendering_pairr1_r2 -0.03137538 0.03533333 -0.8879827 117.381268 3.763660e-01      
+     rendering_pairr1_r3 -0.11962960 0.03533333 -3.3857440 117.381268 9.661396e-04   ***
+     rendering_pairr2_r2 -0.04783935 0.04118125 -1.1616779 113.073111 2.478126e-01      
+     rendering_pairr2_r3 -0.10038554 0.03533333 -2.8411007 117.381268 5.302050e-03    **
+     rendering_pairr3_r3 -0.12067242 0.04118125 -2.9302756 113.073111 4.098117e-03    **
+
+Beginner:
+  r1_r1: logit=1.823, sim=0.8609, diff from intercept=0.0000, %change of remaining=0.00%
+  r1_r2: logit=1.791, sim=0.8571, diff from intercept=-0.0038, %change of remaining=-2.73%
+  r1_r3: logit=1.703, sim=0.8459, diff from intercept=-0.0150, %change of remaining=-10.75%
+  r2_r2: logit=1.775, sim=0.8551, diff from intercept=-0.0058, %change of remaining=-4.19%
+  r2_r3: logit=1.722, sim=0.8484, diff from intercept=-0.0125, %change of remaining=-8.96%
+  r3_r3: logit=1.702, sim=0.8458, diff from intercept=-0.0151, %change of remaining=-10.85%
+
+Intermediate:
+  r1_r1: logit=1.850, sim=0.8641, diff from intercept=0.0000, %change of remaining=0.00%
+  r1_r2: logit=1.819, sim=0.8604, diff from intercept=-0.0037, %change of remaining=-2.74%
+  r1_r3: logit=1.731, sim=0.8495, diff from intercept=-0.0147, %change of remaining=-10.80%
+  r2_r2: logit=1.802, sim=0.8584, diff from intercept=-0.0057, %change of remaining=-4.21%
+  r2_r3: logit=1.750, sim=0.8519, diff from intercept=-0.0122, %change of remaining=-9.00%
+  r3_r3: logit=1.729, sim=0.8493, diff from intercept=-0.0148, %change of remaining=-10.89%

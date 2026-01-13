@@ -14,7 +14,7 @@ source(file.path(here(), "src", "R", "auxiliary", "code_rendering", "models_cr.R
 # --- Experiment Type Configuration ---
 data_set <- "code_rendering"  # Dataset identifier
 
-exp_type <- "fix_expertise_rendering" #Options: "fix_expertise", "fix_expertise_rendering", "fix_rendering"
+exp_type <- "fix_rendering" #Options: "fix_expertise", "fix_expertise_rendering", "fix_rendering"
 
 base_path <- file.path(here(), "output", "processed_dataset")
 folder_path <- file.path(base_path, data_set, exp_type)

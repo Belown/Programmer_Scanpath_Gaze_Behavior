@@ -73,7 +73,7 @@ get_model_pack <- function(folder_path, formula_set, info, reml = TRUE, test = F
     models_list[[y]] <- mod
   }
   
-  if (!is.null(case)) {
+  if (!is.null(case) && exp_name=="fix_rendering") {
     output_path <- assign_path(file.path(here(), "output", "R", "workflow",dataset, exp_name, case))
   } else {
     output_path <- assign_path(file.path(here(), "output", "R", "workflow",dataset, exp_name))
