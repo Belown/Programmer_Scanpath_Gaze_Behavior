@@ -1,0 +1,56 @@
+
+==== Shape ====
+Formula: Shape ~ expertise_a * render_a + (1 | exp_a) + (1 | exp_b) 
+Type: glmmTMB | Family: gaussian 
+
+                     term     estimate    std.error   statistic      p.value stars
+              (Intercept)  0.984756698 0.0003024959 3255.437680 0.000000e+00   ***
+            expertise_a.L -0.002128200 0.0004280459   -4.971896 6.630128e-07   ***
+               render_ar2  0.003453426 0.0002745804   12.577104 2.821852e-36   ***
+               render_ar3  0.003441278 0.0002787899   12.343622 5.272930e-35   ***
+ expertise_a.L:render_ar2  0.003464853 0.0003885110    8.918288 4.735530e-19   ***
+ expertise_a.L:render_ar3  0.002578242 0.0003937965    6.547142 5.864861e-11   ***
+
+==== Length ====
+Formula: Length ~ expertise_a * render_a + (1 | exp_a) + (1 | exp_b) 
+Type: glmmTMB | Family: gaussian 
+
+                     term     estimate    std.error   statistic      p.value stars
+              (Intercept)  0.981947335 0.0004088118 2401.954771 0.000000e+00   ***
+            expertise_a.L -0.002200359 0.0005780413   -3.806578 1.409030e-04   ***
+               render_ar2  0.004621128 0.0003602920   12.826062 1.171699e-37   ***
+               render_ar3  0.004091452 0.0003659286   11.181014 5.050956e-29   ***
+ expertise_a.L:render_ar2  0.003138245 0.0005100164    6.153224 7.592367e-10   ***
+ expertise_a.L:render_ar3  0.002608519 0.0005164845    5.050527 4.405935e-07   ***
+
+==== Direction ====
+Formula: Direction ~ expertise_a * render_a + (1 | exp_a) + (1 | exp_b) 
+Type: glmmTMB | Family: gaussian 
+
+                     term    estimate   std.error  statistic      p.value stars
+              (Intercept)  0.81727333 0.005866155 139.320103 0.000000e+00   ***
+            expertise_a.L -0.00978663 0.008284717  -1.181287 2.374886e-01      
+               render_ar2  0.08212440 0.005049480  16.263932 1.779435e-59   ***
+               render_ar3  0.06716118 0.005141192  13.063348 5.333000e-39   ***
+ expertise_a.L:render_ar2  0.02589934 0.007135190   3.629804 2.836363e-04   ***
+ expertise_a.L:render_ar3  0.02144856 0.007242656   2.961422 3.062225e-03    **
+
+==== Position ====
+Formula: Position ~ expertise_a + render_a + (1 | exp_a) + (1 | exp_b) 
+Type: glmmTMB | Family: gaussian 
+
+          term    estimate   std.error  statistic      p.value stars
+   (Intercept) 0.908374444 0.003487979 260.430002 0.000000e+00   ***
+ expertise_a.L 0.005535483 0.003908442   1.416289 1.566909e-01      
+    render_ar2 0.026190933 0.003699109   7.080336 1.438052e-12   ***
+    render_ar3 0.026552659 0.003760301   7.061312 1.649375e-12   ***
+
+==== Duration ====
+Formula: Duration ~ expertise_a + render_a + (1 | exp_a) + (1 | exp_b) 
+Type: glmmTMB | Family: gaussian 
+
+          term     estimate   std.error   statistic      p.value stars
+   (Intercept)  0.713279924 0.004325818 164.8890253 0.000000e+00   ***
+ expertise_a.L -0.003915344 0.005266249  -0.7434787 4.571919e-01      
+    render_ar2  0.001823250 0.003830572   0.4759733 6.340934e-01      
+    render_ar3 -0.019925247 0.003885033  -5.1287202 2.917186e-07   ***

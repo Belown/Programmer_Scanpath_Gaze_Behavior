@@ -70,26 +70,58 @@ check_all_glmm_assumptions <- function(glmm_model, family_used, config, y) {
 #' @return List with distributional test results
 check_glmm_distribution <- function(glmm_model, family_used, config) {
   
-  # Basic checks for distributional assumption
-  converged <- glmm_model$fit$convergence == 0
-  aic_reasonable <- !is.na(AIC(glmm_model)) && is.finite(AIC(glmm_model))
-  
-  # Check model fit quality
-  model_fitted <- !is.null(glmm_model$fit) && !is.null(fitted(glmm_model))
-  
-  distributional_passed <- converged && aic_reasonable && model_fitted
-  
-  # Log results
-  write(paste("Model convergence:", ifelse(converged, "✓", "✗")), config$results_log, append = TRUE)
-  write(paste("AIC calculable:", ifelse(aic_reasonable, "✓", "✗")), config$results_log, append = TRUE)
-  write(paste("Family used:", family_used), config$results_log, append = TRUE)
-  
-  return(list(
-    passed = distributional_passed,
-    family = family_used,
-    converged = converged,
-    aic_reasonable = aic_reasonable
-  ))
+  tryCatch({
+    # Check if model is glmmTMB or lm
+    if (inherits(glmm_model, "glmmTMB")) {
+      # Basic checks for distributional assumption
+      converged <- glmm_model$fit$convergence == 0
+      aic_reasonable <- !is.na(AIC(glmm_model)) && is.finite(AIC(glmm_model))
+      
+      # Check model fit quality
+      model_fitted <- !is.null(glmm_model$fit) && !is.null(fitted(glmm_model))
+      
+      distributional_passed <- converged && aic_reasonable && model_fitted
+      
+      # Log results
+      write(paste("Model convergence:", ifelse(converged, "✓", "✗")), config$results_log, append = TRUE)
+      write(paste("AIC calculable:", ifelse(aic_reasonable, "✓", "✗")), config$results_log, append = TRUE)
+      write(paste("Family used:", family_used), config$results_log, append = TRUE)
+      
+      return(list(
+        passed = distributional_passed,
+        family = family_used,
+        converged = converged,
+        aic_reasonable = aic_reasonable
+      ))
+    } else {
+      # For lm models (no random effects)
+      aic_reasonable <- !is.na(AIC(glmm_model)) && is.finite(AIC(glmm_model))
+      model_fitted <- !is.null(fitted(glmm_model))
+      
+      distributional_passed <- aic_reasonable && model_fitted
+      
+      # Log results
+      write("Model type: lm (no random effects)", config$results_log, append = TRUE)
+      write(paste("AIC calculable:", ifelse(aic_reasonable, "✓", "✗")), config$results_log, append = TRUE)
+      write(paste("Family used:", family_used), config$results_log, append = TRUE)
+      
+      return(list(
+        passed = distributional_passed,
+        family = family_used,
+        converged = TRUE,
+        aic_reasonable = aic_reasonable
+      ))
+    }
+  }, error = function(e) {
+    write(paste("❌ Error checking distribution:", conditionMessage(e)), config$results_log, append = TRUE)
+    return(list(
+      passed = FALSE,
+      family = family_used,
+      converged = FALSE,
+      aic_reasonable = FALSE,
+      error = conditionMessage(e)
+    ))
+  })
 }
 
 #' Check GLMM Link Function Appropriateness

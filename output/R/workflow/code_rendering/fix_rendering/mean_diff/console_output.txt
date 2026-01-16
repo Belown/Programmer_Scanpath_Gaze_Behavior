@@ -12,25 +12,25 @@ Processing model for experiment: fix_rendering_mean_diff
 ❌️ Interaction expertise_mean:expertise_diff for Duration is NOT significant (p = NA ). Dropping it.
 --- Checking model assumptions for Shape ---
        LINEARITY : ❌ FAILED 
-       NORMALITY : ✅ PASSED 
-       HOMOSCEDASTICITY : ✅ PASSED 
+       NORMALITY : ❌ FAILED 
+       HOMOSCEDASTICITY : ❌ FAILED 
        INDEPENDENCE : ❌ FAILED 
        RANDOM_EFFECTS : ✅ PASSED 
 🚨 Major assumption violations for Shape 
 --- Checking model assumptions for Length ---
        LINEARITY : ❌ FAILED 
-       NORMALITY : ✅ PASSED 
-       HOMOSCEDASTICITY : ✅ PASSED 
-       INDEPENDENCE : ✅ PASSED 
-       RANDOM_EFFECTS : ✅ PASSED 
-⚠️  Minor assumption violations for Length 
---- Checking model assumptions for Direction ---
-       LINEARITY : ✅ PASSED 
-       NORMALITY : ✅ PASSED 
-       HOMOSCEDASTICITY : ✅ PASSED 
+       NORMALITY : ❌ FAILED 
+       HOMOSCEDASTICITY : ❌ FAILED 
        INDEPENDENCE : ❌ FAILED 
-       RANDOM_EFFECTS : ✅ PASSED 
-⚠️  Minor assumption violations for Direction 
+       RANDOM_EFFECTS : ❌ FAILED 
+🚨 Major assumption violations for Length 
+--- Checking model assumptions for Direction ---
+       LINEARITY : ❌ FAILED 
+       NORMALITY : ❌ FAILED 
+       HOMOSCEDASTICITY : ❌ FAILED 
+       INDEPENDENCE : ❌ FAILED 
+       RANDOM_EFFECTS : ❌ FAILED 
+🚨 Major assumption violations for Direction 
 --- Checking model assumptions for Position ---
        LINEARITY : ❌ FAILED 
        NORMALITY : ❌ FAILED 
@@ -40,11 +40,11 @@ Processing model for experiment: fix_rendering_mean_diff
 🚨 Major assumption violations for Position 
 --- Checking model assumptions for Duration ---
        LINEARITY : ❌ FAILED 
-       NORMALITY : ✅ PASSED 
-       HOMOSCEDASTICITY : ✅ PASSED 
-       INDEPENDENCE : ✅ PASSED 
-       RANDOM_EFFECTS : ✅ PASSED 
-⚠️  Minor assumption violations for Duration 
+       NORMALITY : ❌ FAILED 
+       HOMOSCEDASTICITY : ❌ FAILED 
+       INDEPENDENCE : ❌ FAILED 
+       RANDOM_EFFECTS : ❌ FAILED 
+🚨 Major assumption violations for Duration 
 ============ Workflow stage 2 ============
   Testing all 2 -way interactions for Shape ...
 ❌️ Interaction expertise_mean:expertise_diff for Shape is NOT significant (p = NA ). Dropping it.
@@ -58,25 +58,25 @@ Processing model for experiment: fix_rendering_mean_diff
 ❌️ Interaction expertise_mean:expertise_diff for Duration is NOT significant (p = NA ). Dropping it.
 --- Checking model assumptions for Shape ---
        LINEARITY : ❌ FAILED 
-       NORMALITY : ✅ PASSED 
-       HOMOSCEDASTICITY : ✅ PASSED 
+       NORMALITY : ❌ FAILED 
+       HOMOSCEDASTICITY : ❌ FAILED 
        INDEPENDENCE : ❌ FAILED 
        RANDOM_EFFECTS : ✅ PASSED 
 🚨 Major assumption violations for Shape 
 --- Checking model assumptions for Length ---
        LINEARITY : ❌ FAILED 
-       NORMALITY : ✅ PASSED 
-       HOMOSCEDASTICITY : ❌ FAILED 
-       INDEPENDENCE : ✅ PASSED 
-       RANDOM_EFFECTS : ✅ PASSED 
-🚨 Major assumption violations for Length 
---- Checking model assumptions for Direction ---
-       LINEARITY : ✅ PASSED 
-       NORMALITY : ✅ PASSED 
+       NORMALITY : ❌ FAILED 
        HOMOSCEDASTICITY : ✅ PASSED 
        INDEPENDENCE : ❌ FAILED 
-       RANDOM_EFFECTS : ✅ PASSED 
-⚠️  Minor assumption violations for Direction 
+       RANDOM_EFFECTS : ❌ FAILED 
+🚨 Major assumption violations for Length 
+--- Checking model assumptions for Direction ---
+       LINEARITY : ❌ FAILED 
+       NORMALITY : ❌ FAILED 
+       HOMOSCEDASTICITY : ✅ PASSED 
+       INDEPENDENCE : ❌ FAILED 
+       RANDOM_EFFECTS : ❌ FAILED 
+🚨 Major assumption violations for Direction 
 --- Checking model assumptions for Position ---
        LINEARITY : ❌ FAILED 
        NORMALITY : ❌ FAILED 
@@ -87,8 +87,8 @@ Processing model for experiment: fix_rendering_mean_diff
 --- Checking model assumptions for Duration ---
        LINEARITY : ❌ FAILED 
        NORMALITY : ✅ PASSED 
-       HOMOSCEDASTICITY : ✅ PASSED 
-       INDEPENDENCE : ✅ PASSED 
+       HOMOSCEDASTICITY : ❌ FAILED 
+       INDEPENDENCE : ❌ FAILED 
        RANDOM_EFFECTS : ❌ FAILED 
 🚨 Major assumption violations for Duration 
 ============ Workflow stage 3 ============
@@ -105,17 +105,17 @@ Processing model for experiment: fix_rendering_mean_diff
 --- Checking GLMM assumptions for Shape ---
        DISTRIBUTIONAL : ✅ PASSED 
        LINK_FUNCTION : ✅ PASSED 
-       INDEPENDENCE : ✅ PASSED 
+       INDEPENDENCE : ❌ FAILED 
        RANDOM_EFFECTS : ✅ PASSED 
        OVERDISPERSION : ✅ PASSED 
-🎉 All GLMM assumptions satisfied
+⚠️  Minor GLMM assumption violations
 --- Checking GLMM assumptions for Length ---
        DISTRIBUTIONAL : ✅ PASSED 
        LINK_FUNCTION : ✅ PASSED 
-       INDEPENDENCE : ✅ PASSED 
+       INDEPENDENCE : ❌ FAILED 
        RANDOM_EFFECTS : ✅ PASSED 
        OVERDISPERSION : ✅ PASSED 
-🎉 All GLMM assumptions satisfied
+⚠️  Minor GLMM assumption violations
 --- Checking GLMM assumptions for Direction ---
        DISTRIBUTIONAL : ✅ PASSED 
        LINK_FUNCTION : ✅ PASSED 
@@ -133,53 +133,53 @@ Processing model for experiment: fix_rendering_mean_diff
 --- Checking GLMM assumptions for Duration ---
        DISTRIBUTIONAL : ✅ PASSED 
        LINK_FUNCTION : ✅ PASSED 
-       INDEPENDENCE : ✅ PASSED 
+       INDEPENDENCE : ❌ FAILED 
        RANDOM_EFFECTS : ✅ PASSED 
        OVERDISPERSION : ✅ PASSED 
-🎉 All GLMM assumptions satisfied
+⚠️  Minor GLMM assumption violations
 
 ==== Shape ====
 Formula: Shape ~ expertise_mean + expertise_diff + (1 | exp_a) + (1 |      exp_b) 
 Type: glmmTMB | Family: gaussian 
 
-           term     estimate   std.error   statistic   p.value stars
-    (Intercept)  0.991810941 0.002690586 368.6226244 0.0000000   ***
- expertise_mean -0.001946719 0.001837435  -1.0594764 0.2893829      
- expertise_diff -0.000295146 0.001023026  -0.2885029 0.7729618      
+           term      estimate    std.error    statistic   p.value stars
+    (Intercept)  9.872093e-01 0.0008592522 1148.9167274 0.0000000   ***
+ expertise_mean -1.518572e-04 0.0005449138   -0.2786811 0.7804896      
+ expertise_diff  8.174056e-05 0.0003055110    0.2675536 0.7890430      
 
 ==== Length ====
 Formula: Length ~ expertise_mean + expertise_diff + (1 | exp_a) + (1 |      exp_b) 
 Type: glmmTMB | Family: gaussian 
 
-           term      estimate   std.error  statistic   p.value stars
-    (Intercept)  0.9906834942 0.002986669 331.701788 0.0000000   ***
- expertise_mean -0.0022691665 0.002041164  -1.111702 0.2662662      
- expertise_diff -0.0008178487 0.001144112  -0.714833 0.4747123      
+           term      estimate    std.error   statistic   p.value stars
+    (Intercept)  9.850657e-01 0.0011308670 871.0712192 0.0000000   ***
+ expertise_mean -2.432588e-04 0.0007173567  -0.3391044 0.7345311      
+ expertise_diff  7.050794e-05 0.0004014389   0.1756381 0.8605783      
 
 ==== Direction ====
 Formula: Direction ~ expertise_mean + expertise_diff + (1 | exp_a) + (1 |      exp_b) 
 Type: glmmTMB | Family: gaussian 
 
-           term     estimate  std.error  statistic       p.value stars
-    (Intercept)  0.911634939 0.03206422 28.4315355 8.244266e-178   ***
- expertise_mean -0.006542746 0.02267283 -0.2885721  7.729088e-01      
- expertise_diff -0.016006897 0.01351390 -1.1844764  2.362245e-01      
+           term     estimate   std.error  statistic   p.value stars
+    (Intercept)  0.853723408 0.016998231 50.2242502 0.0000000   ***
+ expertise_mean  0.009775795 0.010770900  0.9076118 0.3640834      
+ expertise_diff -0.002884682 0.006037625 -0.4777843 0.6328038      
 
 ==== Position ====
 Formula: Position ~ expertise_mean + expertise_diff + (1 | exp_a) + (1 |      exp_b) 
 Type: glmmTMB | Family: gaussian 
 
-           term     estimate std.error statistic p.value stars
-    (Intercept)  0.959332328       NaN       NaN     NaN      
- expertise_mean -0.012133255       NaN       NaN     NaN      
- expertise_diff -0.008997783       NaN       NaN     NaN      
+           term      estimate   std.error    statistic   p.value stars
+    (Intercept)  0.9162287118 0.007364505 124.41144151 0.0000000   ***
+ expertise_mean  0.0068364452 0.004685040   1.45920756 0.1445080      
+ expertise_diff -0.0002749527 0.002797142  -0.09829775 0.9216959      
 
 ==== Duration ====
 Formula: Duration ~ expertise_mean + expertise_diff + (1 | exp_a) + (1 |      exp_b) 
 Type: glmmTMB | Family: gaussian 
 
-           term     estimate  std.error  statistic      p.value stars
-    (Intercept)  0.656710448 0.03619533 18.1435118 1.444960e-73   ***
- expertise_mean  0.045045580 0.02522148  1.7860008 7.409913e-02     .
- expertise_diff -0.009920063 0.01453038 -0.6827119 4.947889e-01      
+           term      estimate   std.error   statistic   p.value stars
+    (Intercept)  7.188518e-01 0.012177025 59.03345005 0.0000000   ***
+ expertise_mean -8.044455e-03 0.007700896 -1.04461275 0.2962020      
+ expertise_diff  5.736881e-05 0.004170898  0.01375455 0.9890258      
 ✅️ Completed processing for experiment: fix_rendering_mean_diff 

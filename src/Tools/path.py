@@ -29,7 +29,9 @@ def setup_paths():
 
     # Output path
     output_path = os.path.join(home_path, "output")
+    processed_dataset = os.path.join(output_path, "processed_dataset")
     os.makedirs(output_path, exist_ok=True)
+    os.makedirs(processed_dataset, exist_ok=True)
 
     return {
         "tools_path": tools_path,
@@ -41,5 +43,6 @@ def setup_paths():
         "query_path": query_path,
         "query_output_path": query_output_path,
         "output_path": output_path,
-        "cr_dataset": cr_dataset
+        "cr_dataset": cr_dataset,
+        "processed_dataset": processed_dataset
     }

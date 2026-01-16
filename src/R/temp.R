@@ -1,25 +1,45 @@
+# =========================================================
+# Analysis Script for Mixed Effects Models
+# =========================================================
+# This script performs statistical analysis using linear mixed effects models
+# (LMM) and generalized linear mixed effects models (GLMM) for experimental data.
+# =========================================================
+
 library(here)
-# source(file.path(here(), "src", "R", "auxiliary", "helper.R"))
-source(file.path(here(), "src", "R", "auxiliary", "models.R"))
+library(emmeans)
+library(performance)
+library(partR2)
+
+# Load auxiliary functions for model building and validation workflow
 source(file.path(here(), "src", "R", "auxiliary", "workflow.R"))
+source(file.path(here(), "src", "R", "auxiliary", "code_rendering", "models_cr.R"))
+source(file.path(here(), "src", "R", "auxiliary", "model_analysis.R"))
+
+dimensions <- c("Shape", "Length", "Direction", "Position", "Duration")
+
+# --- Experiment Type Configuration ---
+data_set <- "code_rendering"  # Dataset identifier
+
+exp_type <- "fix_rendering" #Options: "fix_expertise", "fix_expertise_rendering", "fix_rendering"
 
 base_path <- file.path(here(), "output", "processed_dataset")
-folder_path <- file.path(base_path, "EMIP_corrected", "between_group")
+
+case <- "mean_diff"
+
+folder_path <- file.path(base_path, data_set, exp_type)
 
 formula_set <- list(
   fix_effect = "expertise_mean * expertise_diff",
-  rand_effect = "(1 | exp_a) + (1 | exp_b)"
+  rand_effect = "(1 | dyad)"
 )
 
-model_pack <- between_group(folder_path, formula_set, info = TRUE, "mean_diff", reml = TRUE)
+exp_pack <- get_model_pack(folder_path=folder_path, formula_set=formula_set, info = TRUE, reml = TRUE, test = FALSE, dataset = data_set, case=case)
 
-m_list <- model_pack$m_list
+for (dim in dimensions) {
+  cat(sprintf("Checking if %s dimension is singular\n", dim))
+  print(isSingular(exp_pack$m_list[[dim]]))
+}
 
-check_interaction(m_list)
 
-# for (dim in names(m_list)) {
-#   cat("Model for dimension:", dim, "\n")
-#   model <- m_list[[dim]]
-#   print(check_interaction(model))
-#   cat("============================\n")
-# }
+temp <- exp_pack$m_list$Position
+mf <- model_analysis(temp)

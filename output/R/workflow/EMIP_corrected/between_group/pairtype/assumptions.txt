@@ -318,7 +318,7 @@ Variance ratio (high/low groups): 1.0392
 
 4. INDEPENDENCE CHECK:
 Durbin-Watson statistic: 1.9298
-Durbin-Watson p-value: 0
+Durbin-Watson p-value: 0.002
 Runs test p-value: 0.0016
 
 5. RANDOM EFFECTS NORMALITY CHECK:

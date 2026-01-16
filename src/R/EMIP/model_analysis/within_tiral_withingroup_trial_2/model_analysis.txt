@@ -1,0 +1,225 @@
+
+========================================
+Model Analysis
+========================================
+
+========= Shape =========
+
+Random-effects (VarCorr):
+Conditional model:
+ Groups   Name        Std.Dev.  
+ exp_a    (Intercept) 0.00109024
+ exp_b    (Intercept) 0.00112366
+ Residual             0.00075377
+
+--- Fixed-effect terms (as in formula) ---
+[1] "expertise_a"
+
+Has interaction terms: FALSE 
+Main terms: expertise_a 
+
+--- Nakagawa R² ---
+Marginal R² (fixed effects):     0.0062 
+Conditional R² (fixed+random):   0.813 
+
+--- Diagnostics (DHARMa simulated residuals) ---
+Sotred to : D:/Storage/ETH/Thesis/Code/src/R/EMIP/model_analysis/within_tiral_withingroup_trial_2 
+
+--- Post-hoc inference (emmeans for categorical predictors) ---
+
+EMMs for expertise_a:
+ expertise_a  emmean       SE  df asymp.LCL asymp.UCL
+ none        0.99151 0.000344 Inf   0.99084   0.99218
+ low         0.99177 0.000246 Inf   0.99129   0.99226
+ medium      0.99146 0.000197 Inf   0.99107   0.99185
+ high        0.99150 0.000520 Inf   0.99048   0.99252
+
+Confidence level used: 0.95 
+
+Pairwise comparisons for expertise_a (tukey adjustment):
+ contrast       estimate       SE  df z.ratio p.value
+ none - low    -2.62e-04 0.000423 Inf  -0.619  0.9260
+ none - medium  5.09e-05 0.000397 Inf   0.128  0.9992
+ none - high    9.56e-06 0.000623 Inf   0.015  1.0000
+ low - medium   3.13e-04 0.000316 Inf   0.992  0.7539
+ low - high     2.72e-04 0.000575 Inf   0.472  0.9652
+ medium - high -4.13e-05 0.000556 Inf  -0.074  0.9999
+
+P value adjustment: tukey method for comparing a family of 4 estimates 
+
+========= Length =========
+
+Random-effects (VarCorr):
+Conditional model:
+ Groups   Name        Std.Dev. 
+ exp_a    (Intercept) 0.0017571
+ exp_b    (Intercept) 0.0018514
+ Residual             0.0014042
+
+--- Fixed-effect terms (as in formula) ---
+[1] "expertise_a"
+
+Has interaction terms: FALSE 
+Main terms: expertise_a 
+
+--- Nakagawa R² ---
+Marginal R² (fixed effects):     0.0124 
+Conditional R² (fixed+random):   0.7705 
+
+--- Diagnostics (DHARMa simulated residuals) ---
+Sotred to : D:/Storage/ETH/Thesis/Code/src/R/EMIP/model_analysis/within_tiral_withingroup_trial_2 
+
+--- Post-hoc inference (emmeans for categorical predictors) ---
+
+EMMs for expertise_a:
+ expertise_a emmean       SE  df asymp.LCL asymp.UCL
+ none        0.9880 0.000565 Inf    0.9869    0.9892
+ low         0.9890 0.000404 Inf    0.9882    0.9898
+ medium      0.9883 0.000322 Inf    0.9876    0.9889
+ high        0.9886 0.000857 Inf    0.9869    0.9903
+
+Confidence level used: 0.95 
+
+Pairwise comparisons for expertise_a (tukey adjustment):
+ contrast       estimate       SE  df z.ratio p.value
+ none - low    -0.000927 0.000695 Inf  -1.333  0.5415
+ none - medium -0.000224 0.000651 Inf  -0.345  0.9859
+ none - high   -0.000557 0.001030 Inf  -0.543  0.9486
+ low - medium   0.000702 0.000517 Inf   1.359  0.5253
+ low - high     0.000369 0.000948 Inf   0.390  0.9799
+ medium - high -0.000333 0.000916 Inf  -0.363  0.9836
+
+P value adjustment: tukey method for comparing a family of 4 estimates 
+
+========= Direction =========
+
+Random-effects (VarCorr):
+Conditional model:
+ Groups   Name        Std.Dev.
+ exp_a    (Intercept) 0.020357
+ exp_b    (Intercept) 0.023170
+ Residual             0.038184
+
+--- Fixed-effect terms (as in formula) ---
+[1] "expertise_a"
+
+Has interaction terms: FALSE 
+Main terms: expertise_a 
+
+--- Nakagawa R² ---
+Marginal R² (fixed effects):     0.0015 
+Conditional R² (fixed+random):   0.3957 
+
+--- Diagnostics (DHARMa simulated residuals) ---
+Sotred to : D:/Storage/ETH/Thesis/Code/src/R/EMIP/model_analysis/within_tiral_withingroup_trial_2 
+
+--- Post-hoc inference (emmeans for categorical predictors) ---
+
+EMMs for expertise_a:
+ expertise_a emmean      SE  df asymp.LCL asymp.UCL
+ none         0.702 0.00744 Inf     0.688     0.717
+ low          0.702 0.00519 Inf     0.692     0.712
+ medium       0.698 0.00408 Inf     0.690     0.706
+ high         0.706 0.01170 Inf     0.683     0.729
+
+Confidence level used: 0.95 
+
+Pairwise comparisons for expertise_a (tukey adjustment):
+ contrast       estimate      SE  df z.ratio p.value
+ none - low     0.000537 0.00907 Inf   0.059  0.9999
+ none - medium  0.004016 0.00849 Inf   0.473  0.9650
+ none - high   -0.003317 0.01390 Inf  -0.239  0.9952
+ low - medium   0.003479 0.00660 Inf   0.527  0.9526
+ low - high    -0.003854 0.01280 Inf  -0.300  0.9906
+ medium - high -0.007333 0.01240 Inf  -0.590  0.9352
+
+P value adjustment: tukey method for comparing a family of 4 estimates 
+
+========= Position =========
+
+Random-effects (VarCorr):
+Conditional model:
+ Groups   Name        Std.Dev. 
+ exp_a    (Intercept) 0.0092069
+ exp_b    (Intercept) 0.0098534
+ Residual             0.0199572
+
+--- Fixed-effect terms (as in formula) ---
+[1] "expertise_a"
+
+Has interaction terms: FALSE 
+Main terms: expertise_a 
+
+--- Nakagawa R² ---
+Marginal R² (fixed effects):     0.0095 
+Conditional R² (fixed+random):   0.32 
+
+--- Diagnostics (DHARMa simulated residuals) ---
+Sotred to : D:/Storage/ETH/Thesis/Code/src/R/EMIP/model_analysis/within_tiral_withingroup_trial_2 
+
+--- Post-hoc inference (emmeans for categorical predictors) ---
+
+EMMs for expertise_a:
+ expertise_a emmean      SE  df asymp.LCL asymp.UCL
+ none        0.9058 0.00336 Inf    0.8992    0.9123
+ low         0.9054 0.00232 Inf    0.9008    0.9099
+ medium      0.9095 0.00182 Inf    0.9060    0.9131
+ high        0.8973 0.00538 Inf    0.8867    0.9078
+
+Confidence level used: 0.95 
+
+Pairwise comparisons for expertise_a (tukey adjustment):
+ contrast       estimate      SE  df z.ratio p.value
+ none - low     0.000371 0.00408 Inf   0.091  0.9997
+ none - medium -0.003764 0.00382 Inf  -0.986  0.7576
+ none - high    0.008500 0.00634 Inf   1.340  0.5375
+ low - medium  -0.004135 0.00295 Inf  -1.404  0.4969
+ low - high     0.008130 0.00586 Inf   1.388  0.5071
+ medium - high  0.012264 0.00568 Inf   2.160  0.1347
+
+P value adjustment: tukey method for comparing a family of 4 estimates 
+
+========= Duration =========
+
+Random-effects (VarCorr):
+Conditional model:
+ Groups   Name        Std.Dev.
+ exp_a    (Intercept) 0.030945
+ exp_b    (Intercept) 0.028054
+ Residual             0.034039
+
+--- Fixed-effect terms (as in formula) ---
+[1] "expertise_a"
+
+Has interaction terms: FALSE 
+Main terms: expertise_a 
+
+--- Nakagawa R² ---
+Marginal R² (fixed effects):     0.0163 
+Conditional R² (fixed+random):   0.6074 
+
+--- Diagnostics (DHARMa simulated residuals) ---
+Sotred to : D:/Storage/ETH/Thesis/Code/src/R/EMIP/model_analysis/within_tiral_withingroup_trial_2 
+
+--- Post-hoc inference (emmeans for categorical predictors) ---
+
+EMMs for expertise_a:
+ expertise_a emmean      SE  df asymp.LCL asymp.UCL
+ none         0.670 0.00955 Inf     0.651     0.689
+ low          0.667 0.00676 Inf     0.654     0.681
+ medium       0.654 0.00536 Inf     0.643     0.664
+ high         0.643 0.01470 Inf     0.615     0.672
+
+Confidence level used: 0.95 
+
+Pairwise comparisons for expertise_a (tukey adjustment):
+ contrast      estimate      SE  df z.ratio p.value
+ none - low     0.00239 0.01170 Inf   0.204  0.9970
+ none - medium  0.01587 0.01100 Inf   1.448  0.4691
+ none - high    0.02651 0.01750 Inf   1.511  0.4305
+ low - medium   0.01348 0.00863 Inf   1.563  0.4000
+ low - high     0.02412 0.01620 Inf   1.490  0.4433
+ medium - high  0.01064 0.01570 Inf   0.679  0.9049
+
+P value adjustment: tukey method for comparing a family of 4 estimates 
+✅️ Completed! 

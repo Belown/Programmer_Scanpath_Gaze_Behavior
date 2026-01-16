@@ -39,6 +39,13 @@ get_model_pack <- function(folder_path, formula_set, info, reml = TRUE, test = F
   # Expertise Difference
   df$expertise_diff <- abs(df$expertise_a_num - df$expertise_b_num)
 
+  df$dyad <- factor(paste0(
+    pmin(as.numeric(as.character(df$exp_a)), 
+         as.numeric(as.character(df$exp_b))), 
+    "_", 
+    pmax(as.numeric(as.character(df$exp_a)), 
+         as.numeric(as.character(df$exp_b)))
+  ))
 
   # Construct PairType
   df$PairType <- case_when(
