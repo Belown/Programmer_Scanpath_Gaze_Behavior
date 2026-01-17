@@ -21,7 +21,7 @@ curr_folder <- dirname(rstudioapi::getActiveDocumentContext()$path)
 data_set <- "EMIP_corrected"
 exp_type <- "within_trial"
 within_trial_type <- "within_group"
-trial_folder <- "trial_2"
+trial_folder <- "trial_5"
 
 # Experiment pack includes fitted models, data, and config
 exp_pack <- get_exp_pack(data_set = data_set,

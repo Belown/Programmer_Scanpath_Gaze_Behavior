@@ -11,6 +11,10 @@ Conditional model:
  exp_a    (Intercept) 0.00109024
  exp_b    (Intercept) 0.00112366
  Residual             0.00075377
+# Intraclass Correlation Coefficient
+
+    Adjusted ICC: 0.812
+  Unadjusted ICC: 0.807
 
 --- Fixed-effect terms (as in formula) ---
 [1] "expertise_a"
@@ -21,9 +25,6 @@ Main terms: expertise_a
 --- Nakagawa R² ---
 Marginal R² (fixed effects):     0.0062 
 Conditional R² (fixed+random):   0.813 
-
---- Diagnostics (DHARMa simulated residuals) ---
-Sotred to : D:/Storage/ETH/Thesis/Code/src/R/EMIP/model_analysis/within_tiral_withingroup_trial_2 
 
 --- Post-hoc inference (emmeans for categorical predictors) ---
 
@@ -55,6 +56,10 @@ Conditional model:
  exp_a    (Intercept) 0.0017571
  exp_b    (Intercept) 0.0018514
  Residual             0.0014042
+# Intraclass Correlation Coefficient
+
+    Adjusted ICC: 0.768
+  Unadjusted ICC: 0.758
 
 --- Fixed-effect terms (as in formula) ---
 [1] "expertise_a"
@@ -65,9 +70,6 @@ Main terms: expertise_a
 --- Nakagawa R² ---
 Marginal R² (fixed effects):     0.0124 
 Conditional R² (fixed+random):   0.7705 
-
---- Diagnostics (DHARMa simulated residuals) ---
-Sotred to : D:/Storage/ETH/Thesis/Code/src/R/EMIP/model_analysis/within_tiral_withingroup_trial_2 
 
 --- Post-hoc inference (emmeans for categorical predictors) ---
 
@@ -99,6 +101,10 @@ Conditional model:
  exp_a    (Intercept) 0.020357
  exp_b    (Intercept) 0.023170
  Residual             0.038184
+# Intraclass Correlation Coefficient
+
+    Adjusted ICC: 0.395
+  Unadjusted ICC: 0.394
 
 --- Fixed-effect terms (as in formula) ---
 [1] "expertise_a"
@@ -109,9 +115,6 @@ Main terms: expertise_a
 --- Nakagawa R² ---
 Marginal R² (fixed effects):     0.0015 
 Conditional R² (fixed+random):   0.3957 
-
---- Diagnostics (DHARMa simulated residuals) ---
-Sotred to : D:/Storage/ETH/Thesis/Code/src/R/EMIP/model_analysis/within_tiral_withingroup_trial_2 
 
 --- Post-hoc inference (emmeans for categorical predictors) ---
 
@@ -143,6 +146,10 @@ Conditional model:
  exp_a    (Intercept) 0.0092069
  exp_b    (Intercept) 0.0098534
  Residual             0.0199572
+# Intraclass Correlation Coefficient
+
+    Adjusted ICC: 0.313
+  Unadjusted ICC: 0.310
 
 --- Fixed-effect terms (as in formula) ---
 [1] "expertise_a"
@@ -153,9 +160,6 @@ Main terms: expertise_a
 --- Nakagawa R² ---
 Marginal R² (fixed effects):     0.0095 
 Conditional R² (fixed+random):   0.32 
-
---- Diagnostics (DHARMa simulated residuals) ---
-Sotred to : D:/Storage/ETH/Thesis/Code/src/R/EMIP/model_analysis/within_tiral_withingroup_trial_2 
 
 --- Post-hoc inference (emmeans for categorical predictors) ---
 
@@ -187,6 +191,10 @@ Conditional model:
  exp_a    (Intercept) 0.030945
  exp_b    (Intercept) 0.028054
  Residual             0.034039
+# Intraclass Correlation Coefficient
+
+    Adjusted ICC: 0.601
+  Unadjusted ICC: 0.591
 
 --- Fixed-effect terms (as in formula) ---
 [1] "expertise_a"
@@ -197,9 +205,6 @@ Main terms: expertise_a
 --- Nakagawa R² ---
 Marginal R² (fixed effects):     0.0163 
 Conditional R² (fixed+random):   0.6074 
-
---- Diagnostics (DHARMa simulated residuals) ---
-Sotred to : D:/Storage/ETH/Thesis/Code/src/R/EMIP/model_analysis/within_tiral_withingroup_trial_2 
 
 --- Post-hoc inference (emmeans for categorical predictors) ---
 

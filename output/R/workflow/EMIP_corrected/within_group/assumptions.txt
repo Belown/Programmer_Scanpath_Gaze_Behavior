@@ -131,7 +131,7 @@ Variance ratio (high/low groups): 1.8521
 
 4. INDEPENDENCE CHECK:
 Durbin-Watson statistic: 1.9786
-Durbin-Watson p-value: 0.398
+Durbin-Watson p-value: 0.414
 Runs test p-value: 0.3332
 
 5. RANDOM EFFECTS NORMALITY CHECK:
@@ -168,7 +168,7 @@ Variance ratio (high/low groups): 2.2157
 
 4. INDEPENDENCE CHECK:
 Durbin-Watson statistic: 1.9458
-Durbin-Watson p-value: 0.03
+Durbin-Watson p-value: 0.06
 Runs test p-value: 0.0941
 
 5. RANDOM EFFECTS NORMALITY CHECK:
@@ -178,11 +178,11 @@ Random effects skewness: -1.3239
 ============================================================
 OVERALL ASSUMPTION SUMMARY
 ============================================================
-Assumptions passed: 0 out of 5
+Assumptions passed: 1 out of 5
 - LINEARITY : ❌ FAILED
 - NORMALITY : ❌ FAILED
 - HOMOSCEDASTICITY : ❌ FAILED
-- INDEPENDENCE : ❌ FAILED
+- INDEPENDENCE : ✅ PASSED
 - RANDOM_EFFECTS : ❌ FAILED
 
  🚨 MAJOR VIOLATIONS - Consider transformations or alternative models
@@ -318,7 +318,7 @@ Variance ratio (high/low groups): 1.0039
 
 4. INDEPENDENCE CHECK:
 Durbin-Watson statistic: 2.0001
-Durbin-Watson p-value: 0.966
+Durbin-Watson p-value: 1
 Runs test p-value: 0.4175
 
 5. RANDOM EFFECTS NORMALITY CHECK:
@@ -355,7 +355,7 @@ Variance ratio (high/low groups): 1.3655
 
 4. INDEPENDENCE CHECK:
 Durbin-Watson statistic: 1.9543
-Durbin-Watson p-value: 0.072
+Durbin-Watson p-value: 0.08
 Runs test p-value: 0.0597
 
 5. RANDOM EFFECTS NORMALITY CHECK:
@@ -487,7 +487,7 @@ Family used: gaussian
 
 3. INDEPENDENCE CHECK:
 Durbin-Watson statistic: 1.9784
-Durbin-Watson p-value: 0.438
+Durbin-Watson p-value: 0.368
 
 4. RANDOM EFFECTS NORMALITY:
 ❌ Could not extract random effects - assuming passed
@@ -520,7 +520,7 @@ Family used: gaussian
 
 3. INDEPENDENCE CHECK:
 Durbin-Watson statistic: 1.9457
-Durbin-Watson p-value: 0.038
+Durbin-Watson p-value: 0.05
 
 4. RANDOM EFFECTS NORMALITY:
 ❌ Could not extract random effects - assuming passed
@@ -532,11 +532,11 @@ Overdispersion check not applicable for gaussian family
  OVERALL GLMM ASSUMPTION SUMMARY
 ============================================================
 Family: gaussian
-Assumptions passed: 4 out of 5
+Assumptions passed: 5 out of 5
 - DISTRIBUTIONAL : ✅ PASSED
 - LINK_FUNCTION : ✅ PASSED
-- INDEPENDENCE : ❌ FAILED
+- INDEPENDENCE : ✅ PASSED
 - RANDOM_EFFECTS : ✅ PASSED
 - OVERDISPERSION : ✅ PASSED
 
- ⚠️  MINOR VIOLATIONS - GLMM results likely robust, interpret with caution
+ 🎉 ALL GLMM ASSUMPTIONS SATISFIED - Proceed with confidence!

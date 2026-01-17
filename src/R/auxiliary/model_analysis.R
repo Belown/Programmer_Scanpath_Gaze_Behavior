@@ -14,9 +14,12 @@ model_analysis <- function(model, dimension, path, adjust = "tukey") {
     lme4::VarCorr(model)
   }
   
-  
   cat("\nRandom-effects (VarCorr):")
   print(vc)
+  
+  library(performance)
+  icc_val <- performance::icc(model, tolerance = 1e-10)
+  print(icc_val)
   
   fixed_terms <- attr(stats::terms(model), "term.labels")
   cat("\n--- Fixed-effect terms (as in formula) ---\n")
@@ -45,31 +48,7 @@ model_analysis <- function(model, dimension, path, adjust = "tukey") {
     cat("Conditional R² (fixed+random):  ", round(r2_cond, 4), "\n")
   }
   
-  # 2) Diagnostics (DHARMa for glmmTMB)
-  
-  output <- paste0(path, "/Diagnostics_", dimension, ".png")
-  
-  cat("\n--- Diagnostics (DHARMa simulated residuals) ---\n")
-  cat("Sotred to :", path, "\n")
-  if (inherits(model, "glmmTMB")) {
-    diag <- tryCatch({
-      sim_res <- DHARMa::simulateResiduals(model, n = 500)
-      
-      png(output, width = 1200, height = 1200, res = 150)
-      plot(sim_res)
-      
-      dev.off()
-      DHARMa::testResiduals(sim_res)
-    }, error = function(e) e)
-  } else {
-    diag <- tryCatch(performance::check_model(model), error = function(e) e)
-  }
-  if (inherits(diag, "error")) {
-    cat("Diagnostics failed:\n  ", conditionMessage(diag), "\n")
-  }
-  
-  
-  # 3) Post-hoc for factors
+  # 2) Post-hoc for factors
   cat("\n--- Post-hoc inference (emmeans for categorical predictors) ---\n")
   mf <- stats::model.frame(model)
   
