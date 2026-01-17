@@ -37,35 +37,39 @@ exp_pack <- get_model_pack(folder_path, formula_set, info = TRUE, reml = TRUE, t
 folder_path <- exp_pack$folder_path  # Output folder path
 dataframe <- exp_pack$data           # Processed dataset
 
-# 拟合交互模型
-model_interaction <- glmmTMB(
-  Direction ~ render_a * render_b + (1 | exp_a) + (1 | exp_b),
-  data = dataframe,
-  family = gaussian()
-)
+# Run workflow to validate model assumptions and obtain final models
+# Output is saved to: output/workflow/[experiment_path]/model_summary.txt
+final_result <- work_flow_with_print(exp_pack$m_list, exp_pack$config)
 
-# 拟合加法模型
-model_additive <- glmmTMB(
-  Direction ~ render_a + render_b + (1 | exp_a) + (1 | exp_b),
-  data = dataframe,
-  family = gaussian()
-)
+# Extract final model for Direction
+for(dim in dimensions){
+  cat("\n======", dim, "======\n")
+  model <- final_result[[dim]]
+  print(summary(model))
+  
+  sing <- if (inherits(model, "glmmTMB")) {
+    # glmmTMB 没有直接的 isSingular 函数
+    # 检查随机效应方差是否接近0
+    vc <- glmmTMB::VarCorr(model)
+    any(sapply(vc$cond, function(x) any(diag(x) < 1e-4)))
+  } else {
+    lme4::isSingular(model)
+  }
+  print(sing)
+  
+  # summary(rePCA(model))
+  
+  check_collinearity(model)
+}
 
-# 似然比检验
-lrt_result <- anova(model_additive, model_interaction)
-print(lrt_result)
+# 检查各组合的样本量
+table(dataframe$render_a, dataframe$render_b)
 
-# 提取AIC/BIC
-AIC(model_interaction, model_additive)
-BIC(model_interaction, model_additive)
-
-# 检查秩亏缺
-summary(model_interaction)  # 查看NA参数
-
-# 最终模型诊断
-library(DHARMa)
-sim_res <- simulateResiduals(model_additive, n = 1000)
-plot(sim_res)
-
-# 最终模型结果
-summary(model_additive)
+# 检查Direction在不同组合下的分布
+# dataframe %>% 
+#   group_by(render_a, render_b) %>%
+#   summarise(
+#     n = n(),
+#     mean_direction = mean(Direction, na.rm = TRUE),
+#     sd_direction = sd(Direction, na.rm = TRUE)
+#   )
