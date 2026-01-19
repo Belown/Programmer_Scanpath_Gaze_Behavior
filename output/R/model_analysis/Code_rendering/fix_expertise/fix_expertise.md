@@ -1,34 +1,65 @@
-
 # Dimensions
 
 ## Shape
 
-  1. **Random Effects**: Participant-level variation is larger than residual variation (ICC ≈ 0.70) → similarity is primarily driven by stable individual differences rather than pair-specific or momentary factors.
-  2. **Nakagawa R²**: Random effects account for ~70% of the variance (substantial proportion), while fixed effects explain only a very small proportion (~0.8%).
-  3. **Post-hoc inference**: No significant expertise effect. Neither average expertise (expertise_mean, p = 0.12) nor expertise difference (expertise_diff, p = 0.47) significantly predicts shape similarity.
+1. **Random Effects**: Random intercept SDs for exp_a and exp_b are both 0.00103; residual SD = 0.00244.
+   Adjusted ICC = 0.263, meaning that ~26% of the total variance in Shape similarity is attributable to stable between-participant differences (substential individual differences).
+2. **Nakagawa R²**: Marginal R² = 0.166; Conditional R² = 0.385. Rendering explains ~17% of variance; participant-level random effects account for an additional ~22%.
+3. **Post-hoc inference**:
+   - r1 < r2 (Δ ≈ −0.00193, p < .0001)
+   - r1 < r3 (Δ ≈ −0.00182, p < .0001)
+   - r2 ≈ r3 (ns)
+    Effects are symmetric for render_a and render_b.
+    Conclusion: r1 yields significantly lower shape similarity than r2 and r3.
 
 ## Length
 
-  1. **Random Effects**: Participant-level variation is comparable to, and slightly larger than, residual variation (ICC ≈ 0.66) → similarity shows strong individual consistency.
-  2. **Nakagawa R²**: Random effects explain ~66% of the variance, whereas fixed effects explain a minimal proportion (~0.2%).
-  3. **Post-hoc inference**: No significant expertise effect. Both expertise_mean (p = 0.38) and expertise_diff (p = 0.26) show negligible and non-significant effects.
+1. **Random Effects**: Random intercept SDs for exp_a and exp_b are both 0.00145; residual SD = 0.00316. Adjusted ICC = 0.296, indicating that ~30% of variance reflects stable between-participant differences.
+2. **Nakagawa R²**: Marginal R² = 0.156; Conditional R² = 0.406. Rendering explains ~16% of variance; participant-level effects contribute an additional ~25%.
+3. **Post-hoc inference**:
+   - r1 < r2 (Δ ≈ −0.00255, p < .0001)
+   - r1 < r3 (Δ ≈ −0.00221, p < .0001)
+   - r2 ≈ r3 (marginal, p = .059)
+    Symmetric for render_a and render_b.
+    Conclusion: Length similarity is significantly lower for r1 than for r2 and r3.
 
 ## Direction
-  
-  1. **Random Effects**: Residual variation dominates participant-level variation (ICC ≈ 0.32) → similarity is largely pair-specific or context-dependent rather than strongly individual-specific.
-  2. **Nakagawa R²**: Total explained variance is modest (~32%), with fixed effects contributing very little (<0.1%).
-  3. **Post-hoc inference**: No significant expertise effect. Neither expertise_mean (p = 0.57) nor expertise_diff (p = 0.35) is associated with direction similarity.
+
+1. **Random Effects**: Random intercept SDs for exp_a and exp_b are both 0.02356; residual SD = 0.04447. Adjusted ICC = 0.360, meaning ~36% of variance is attributable to stable participant-level effects.
+2. **Nakagawa R²**: Marginal R² = 0.196; Conditional R² = 0.485. Rendering explains ~20% of variance; participant-level random effects add ~29%.
+3. **Post-hoc inference**:
+   - r1 < r2 (Δ ≈ −0.0449, p < .0001)
+   - r1 < r3 (Δ ≈ −0.0349, p < .0001)
+   - r2 > r3 (Δ ≈ 0.00998, p < .0001)
+    Symmetric for render_a and render_b.
+    Conclusion: All three rendering methods differ significantly for Direction similarity, with r2 highest and r1 lowest.
 
 ## Position
-  
-  1. **Random Effects**: Residual variation is substantially larger than participant-level variation (ICC ≈ 0.23) → similarity is weakly structured by individuals and mostly driven by contextual or pair-specific factors.
-  2. **Nakagawa R²**: Random effects account for ~23% of the variance, while fixed effects explain a negligible proportion (~0.04%).
-  3. **Post-hoc inference**: No significant expertise effect. Both expertise_mean (p = 0.80) and expertise_diff (p = 0.76) show no association with position similarity.
+
+1. **Random Effects**: Random intercept SDs for exp_a and exp_b are both 0.00905; residual SD = 0.03223. Adjusted ICC = 0.136, indicating modest but non-negligible participant-level variance.
+2. **Nakagawa R²**: Marginal R² = 0.148; Conditional R² = 0.264. Rendering explains ~15% of variance; participant-level effects add ~12%.
+3. **Post-hoc inference**:
+   - r1 < r2 (Δ ≈ −0.01828, p < .0001)
+   - r1 < r3 (Δ ≈ −0.01809, p < .0001)
+   - r2 ≈ r3 (ns)
+    Symmetric for render_a and render_b.
+    Conclusion: Position similarity is substantially lower for r1 than for r2 and r3.
 
 ## Duration
-  
-  1. **Random Effects**: Participant-level and residual variation are of comparable magnitude (ICC ≈ 0.52) → similarity reflects both stable individual differences and pair-specific variability.
-  2. **Nakagawa R²**: Random effects explain ~53% of the variance, with fixed effects contributing a small proportion (~0.5%).
-  3. **Post-hoc inference**: No significant expertise effect. Neither expertise_mean (p = 0.17) nor expertise_diff (p = 0.98) significantly predicts duration similarity.
 
-Across all five MultiMatch dimensions, scanpath similarity is primarily driven by stable individual differences rather than by programmers’ expertise level or expertise mismatch. Both the average expertise of a pair and the expertise difference within a pair show negligible effect sizes with narrow uncertainty bounds, indicating that expertise does not systematically shape pairwise scanpath similarity under these metrics. This suggests that visual strategies captured by MultiMatch reflect idiosyncratic and context-dependent behavior rather than expertise-based convergence.
+1. **Random Effects**: Random intercept SDs for exp_a and exp_b are both ≈ 0.01412; residual SD = 0.03339. Adjusted ICC = 0.263, meaning ~26% of variance is attributable to stable participant-specific effects.
+2. **Nakagawa R²**: Marginal R² = 0.038; Conditional R² = 0.291. Rendering explains very little variance; participant-level random effects dominate.
+3. **Post-hoc inference**:
+   - r1 ≈ r2 (ns)
+   - r1 > r3 (Δ ≈ 0.00943, p < .0001)
+   - r2 > r3 (Δ ≈ 0.01156, p < .0001)
+    Symmetric for render_a and render_b.
+    Conclusion: Duration similarity is significantly lower for r3 than for r1 and r2.
+
+## Summary (Corrected Interpretation)
+
+- Participant identity is a major driver of scanpath similarity. With ICCs between 0.136 and 0.360, roughly 14–36% of variance across MultiMatch dimensions is explained by stable, participant-specific gaze behavior.
+- Rendering method has robust effects on Shape, Length, Direction, and Position similarity, with r1 consistently producing the lowest similarity and r2/r3 the highest.
+- Directpion is the most sensitive dimension to rendering differences: all three methods differ significantly.
+- Duration is weakly exlained by rendering (Marginal R² ≈ 0.04); similarity here is dominated by participant-specific and residual variability.
+- The (1 | exp_a) + (1 | exp_b) structure is methodologically appropriate for scanpath-pair data: it correctly accounts for the non-independence introduced by reusing the same participant in multiple scanpath comparisons.

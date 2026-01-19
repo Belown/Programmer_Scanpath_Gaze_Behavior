@@ -65,18 +65,18 @@ get_model_pack <- function(folder_path, formula_set, info, reml = TRUE, test = F
     print(table(df$expertise_b))
   }
   
-  df_symmetric <- df %>%
-    rename(render_a = render_b, render_b = render_a,
-           exp_a = exp_b, exp_b = exp_a,
-           expertise_a = expertise_b, expertise_b = expertise_a,
-           expertise_a_num = expertise_b_num, expertise_b_num = expertise_a_num)
-  
-  df <- rbind(df, df_symmetric) %>% 
-    distinct()
-  
-  if (info) {
-    cat("Rows after symmetry expansion:", nrow(df), "\n")
-  }
+  # df_symmetric <- df %>%
+  #   rename(render_a = render_b, render_b = render_a,
+  #          exp_a = exp_b, exp_b = exp_a,
+  #          expertise_a = expertise_b, expertise_b = expertise_a,
+  #          expertise_a_num = expertise_b_num, expertise_b_num = expertise_a_num)
+  # 
+  # df <- rbind(df, df_symmetric) %>% 
+  #   distinct()
+  # 
+  # if (info) {
+  #   cat("Rows after symmetry expansion:", nrow(df), "\n")
+  # }
   
   # Generate LMMs for each dimension and add them to the list
   models_list <- list()

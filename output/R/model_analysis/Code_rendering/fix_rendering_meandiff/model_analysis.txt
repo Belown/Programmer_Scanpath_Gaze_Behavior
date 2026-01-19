@@ -7,14 +7,14 @@ Model Analysis
 
 Random-effects (VarCorr):
 Conditional model:
- Groups   Name        Std.Dev.  
- exp_a    (Intercept) 0.00095751
- exp_b    (Intercept) 0.00102311
- Residual             0.00296032
+ Groups   Name        Std.Dev. 
+ exp_a    (Intercept) 0.0010229
+ exp_b    (Intercept) 0.0010229
+ Residual             0.0029429
 # Intraclass Correlation Coefficient
 
-    Adjusted ICC: 0.183
-  Unadjusted ICC: 0.183
+    Adjusted ICC: 0.195
+  Unadjusted ICC: 0.195
 
 --- Fixed-effect terms (as in formula) ---
 [1] "expertise_mean" "expertise_diff"
@@ -23,8 +23,8 @@ Has interaction terms: FALSE
 Main terms: expertise_mean, expertise_diff 
 
 --- Nakagawa R² ---
-Marginal R² (fixed effects):     4e-04 
-Conditional R² (fixed+random):   0.1834 
+Marginal R² (fixed effects):     1e-04 
+Conditional R² (fixed+random):   0.1947 
 
 --- Post-hoc inference (emmeans for categorical predictors) ---
 No categorical fixed effects found (all are numeric).
@@ -35,24 +35,24 @@ Formula:          Shape ~ expertise_mean + expertise_diff + (1 | exp_a) + (1 |  
 Data: dat
 
       AIC       BIC    logLik -2*log(L)  df.resid 
-  -7873.3   -7844.5    3942.7   -7885.3       900 
+ -15812.5  -15779.5    7912.2  -15824.5      1806 
 
 Random effects:
 
 Conditional model:
- Groups   Name        Variance  Std.Dev. 
- exp_a    (Intercept) 9.168e-07 0.0009575
- exp_b    (Intercept) 1.047e-06 0.0010231
- Residual             8.763e-06 0.0029603
-Number of obs: 906, groups:  exp_a, 42; exp_b, 42
+ Groups   Name        Variance  Std.Dev.
+ exp_a    (Intercept) 1.046e-06 0.001023
+ exp_b    (Intercept) 1.046e-06 0.001023
+ Residual             8.661e-06 0.002943
+Number of obs: 1812, groups:  exp_a, 44; exp_b, 44
 
-Dispersion estimate for gaussian family (sigma^2): 8.76e-06 
+Dispersion estimate for gaussian family (sigma^2): 8.66e-06 
 
 Conditional model:
                  Estimate Std. Error z value Pr(>|z|)    
-(Intercept)     9.872e-01  8.592e-04  1148.9   <2e-16 ***
-expertise_mean -1.519e-04  5.449e-04    -0.3    0.780    
-expertise_diff  8.174e-05  3.055e-04     0.3    0.789    
+(Intercept)     9.871e-01  7.591e-04  1300.4   <2e-16 ***
+expertise_mean -6.355e-05  4.802e-04    -0.1    0.895    
+expertise_diff  3.122e-05  1.405e-04     0.2    0.824    
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
@@ -61,13 +61,13 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 Random-effects (VarCorr):
 Conditional model:
  Groups   Name        Std.Dev. 
- exp_a    (Intercept) 0.0012498
- exp_b    (Intercept) 0.0013733
- Residual             0.0038458
+ exp_a    (Intercept) 0.0013799
+ exp_b    (Intercept) 0.0013799
+ Residual             0.0038249
 # Intraclass Correlation Coefficient
 
-    Adjusted ICC: 0.189
-  Unadjusted ICC: 0.189
+    Adjusted ICC: 0.207
+  Unadjusted ICC: 0.206
 
 --- Fixed-effect terms (as in formula) ---
 [1] "expertise_mean" "expertise_diff"
@@ -76,8 +76,8 @@ Has interaction terms: FALSE
 Main terms: expertise_mean, expertise_diff 
 
 --- Nakagawa R² ---
-Marginal R² (fixed effects):     5e-04 
-Conditional R² (fixed+random):   0.1894 
+Marginal R² (fixed effects):     2e-04 
+Conditional R² (fixed+random):   0.2067 
 
 --- Post-hoc inference (emmeans for categorical predictors) ---
 No categorical fixed effects found (all are numeric).
@@ -88,24 +88,24 @@ Formula:          Length ~ expertise_mean + expertise_diff + (1 | exp_a) + (1 | 
 Data: dat
 
       AIC       BIC    logLik -2*log(L)  df.resid 
-  -7397.1   -7368.3    3704.6   -7409.1       900 
+ -14857.1  -14824.1    7434.5  -14869.1      1806 
 
 Random effects:
 
 Conditional model:
  Groups   Name        Variance  Std.Dev.
- exp_a    (Intercept) 1.562e-06 0.001250
- exp_b    (Intercept) 1.886e-06 0.001373
- Residual             1.479e-05 0.003846
-Number of obs: 906, groups:  exp_a, 42; exp_b, 42
+ exp_a    (Intercept) 1.904e-06 0.001380
+ exp_b    (Intercept) 1.904e-06 0.001380
+ Residual             1.463e-05 0.003825
+Number of obs: 1812, groups:  exp_a, 44; exp_b, 44
 
-Dispersion estimate for gaussian family (sigma^2): 1.48e-05 
+Dispersion estimate for gaussian family (sigma^2): 1.46e-05 
 
 Conditional model:
                  Estimate Std. Error z value Pr(>|z|)    
-(Intercept)     9.851e-01  1.131e-03   871.1   <2e-16 ***
-expertise_mean -2.433e-04  7.174e-04    -0.3    0.735    
-expertise_diff  7.051e-05  4.014e-04     0.2    0.861    
+(Intercept)     9.850e-01  1.018e-03   968.0   <2e-16 ***
+expertise_mean -1.788e-04  6.437e-04    -0.3    0.781    
+expertise_diff  2.344e-06  1.827e-04     0.0    0.990    
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
@@ -114,13 +114,13 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 Random-effects (VarCorr):
 Conditional model:
  Groups   Name        Std.Dev.
- exp_a    (Intercept) 0.019873
- exp_b    (Intercept) 0.019502
- Residual             0.057867
+ exp_a    (Intercept) 0.021387
+ exp_b    (Intercept) 0.021387
+ Residual             0.057321
 # Intraclass Correlation Coefficient
 
-    Adjusted ICC: 0.188
-  Unadjusted ICC: 0.187
+    Adjusted ICC: 0.218
+  Unadjusted ICC: 0.217
 
 --- Fixed-effect terms (as in formula) ---
 [1] "expertise_mean" "expertise_diff"
@@ -129,8 +129,8 @@ Has interaction terms: FALSE
 Main terms: expertise_mean, expertise_diff 
 
 --- Nakagawa R² ---
-Marginal R² (fixed effects):     0.0033 
-Conditional R² (fixed+random):   0.1906 
+Marginal R² (fixed effects):     0.0027 
+Conditional R² (fixed+random):   0.2199 
 
 --- Post-hoc inference (emmeans for categorical predictors) ---
 No categorical fixed effects found (all are numeric).
@@ -141,24 +141,24 @@ Formula:          Direction ~ expertise_mean + expertise_diff + (1 | exp_a) + (1
 Data: dat
 
       AIC       BIC    logLik -2*log(L)  df.resid 
-  -2484.7   -2455.8    1248.3   -2496.7       900 
+  -5041.5   -5008.5    2526.7   -5053.5      1806 
 
 Random effects:
 
 Conditional model:
  Groups   Name        Variance  Std.Dev.
- exp_a    (Intercept) 0.0003949 0.01987 
- exp_b    (Intercept) 0.0003803 0.01950 
- Residual             0.0033486 0.05787 
-Number of obs: 906, groups:  exp_a, 42; exp_b, 42
+ exp_a    (Intercept) 0.0004574 0.02139 
+ exp_b    (Intercept) 0.0004574 0.02139 
+ Residual             0.0032857 0.05732 
+Number of obs: 1812, groups:  exp_a, 44; exp_b, 44
 
-Dispersion estimate for gaussian family (sigma^2): 0.00335 
+Dispersion estimate for gaussian family (sigma^2): 0.00329 
 
 Conditional model:
                 Estimate Std. Error z value Pr(>|z|)    
-(Intercept)     0.853723   0.016998   50.22   <2e-16 ***
-expertise_mean  0.009776   0.010771    0.91    0.364    
-expertise_diff -0.002885   0.006038   -0.48    0.633    
+(Intercept)     0.854724   0.015688   54.48   <2e-16 ***
+expertise_mean  0.008967   0.009923    0.90    0.366    
+expertise_diff -0.002662   0.002739   -0.97    0.331    
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
@@ -167,13 +167,13 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 Random-effects (VarCorr):
 Conditional model:
  Groups   Name        Std.Dev. 
- exp_a    (Intercept) 0.0054180
- exp_b    (Intercept) 0.0085564
- Residual             0.0328809
+ exp_a    (Intercept) 0.0072061
+ exp_b    (Intercept) 0.0072061
+ Residual             0.0329524
 # Intraclass Correlation Coefficient
 
     Adjusted ICC: 0.087
-  Unadjusted ICC: 0.086
+  Unadjusted ICC: 0.087
 
 --- Fixed-effect terms (as in formula) ---
 [1] "expertise_mean" "expertise_diff"
@@ -182,8 +182,8 @@ Has interaction terms: FALSE
 Main terms: expertise_mean, expertise_diff 
 
 --- Nakagawa R² ---
-Marginal R² (fixed effects):     0.0047 
-Conditional R² (fixed+random):   0.091 
+Marginal R² (fixed effects):     0.0067 
+Conditional R² (fixed+random):   0.0934 
 
 --- Post-hoc inference (emmeans for categorical predictors) ---
 No categorical fixed effects found (all are numeric).
@@ -194,24 +194,24 @@ Formula:          Position ~ expertise_mean + expertise_diff + (1 | exp_a) + (1 
 Data: dat
 
       AIC       BIC    logLik -2*log(L)  df.resid 
-  -3551.6   -3522.8    1781.8   -3563.6       900 
+  -7118.7   -7085.7    3565.3   -7130.7      1806 
 
 Random effects:
 
 Conditional model:
  Groups   Name        Variance  Std.Dev.
- exp_a    (Intercept) 2.935e-05 0.005418
- exp_b    (Intercept) 7.321e-05 0.008556
- Residual             1.081e-03 0.032881
-Number of obs: 906, groups:  exp_a, 42; exp_b, 42
+ exp_a    (Intercept) 5.193e-05 0.007206
+ exp_b    (Intercept) 5.193e-05 0.007206
+ Residual             1.086e-03 0.032952
+Number of obs: 1812, groups:  exp_a, 44; exp_b, 44
 
-Dispersion estimate for gaussian family (sigma^2): 0.00108 
+Dispersion estimate for gaussian family (sigma^2): 0.00109 
 
 Conditional model:
                 Estimate Std. Error z value Pr(>|z|)    
-(Intercept)     0.916229   0.007365  124.41   <2e-16 ***
-expertise_mean  0.006836   0.004685    1.46    0.145    
-expertise_diff -0.000275   0.002797   -0.10    0.922    
+(Intercept)    0.9136579  0.0060156  151.88   <2e-16 ***
+expertise_mean 0.0081576  0.0038061    2.14   0.0321 *  
+expertise_diff 0.0003782  0.0015681    0.24   0.8094    
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
@@ -220,13 +220,13 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 Random-effects (VarCorr):
 Conditional model:
  Groups   Name        Std.Dev.
- exp_a    (Intercept) 0.015868
- exp_b    (Intercept) 0.014311
- Residual             0.034214
+ exp_a    (Intercept) 0.015762
+ exp_b    (Intercept) 0.015762
+ Residual             0.033761
 # Intraclass Correlation Coefficient
 
-    Adjusted ICC: 0.281
-  Unadjusted ICC: 0.279
+    Adjusted ICC: 0.304
+  Unadjusted ICC: 0.303
 
 --- Fixed-effect terms (as in formula) ---
 [1] "expertise_mean" "expertise_diff"
@@ -235,8 +235,8 @@ Has interaction terms: FALSE
 Main terms: expertise_mean, expertise_diff 
 
 --- Nakagawa R² ---
-Marginal R² (fixed effects):     0.0048 
-Conditional R² (fixed+random):   0.284 
+Marginal R² (fixed effects):     0.002 
+Conditional R² (fixed+random):   0.305 
 
 --- Post-hoc inference (emmeans for categorical predictors) ---
 No categorical fixed effects found (all are numeric).
@@ -247,24 +247,24 @@ Formula:          Duration ~ expertise_mean + expertise_diff + (1 | exp_a) + (1 
 Data: dat
 
       AIC       BIC    logLik -2*log(L)  df.resid 
-  -3407.1   -3378.3    1709.6   -3419.1       900 
+  -6925.8   -6892.8    3468.9   -6937.8      1806 
 
 Random effects:
 
 Conditional model:
  Groups   Name        Variance  Std.Dev.
- exp_a    (Intercept) 0.0002518 0.01587 
- exp_b    (Intercept) 0.0002048 0.01431 
- Residual             0.0011706 0.03421 
-Number of obs: 906, groups:  exp_a, 42; exp_b, 42
+ exp_a    (Intercept) 0.0002484 0.01576 
+ exp_b    (Intercept) 0.0002485 0.01576 
+ Residual             0.0011398 0.03376 
+Number of obs: 1812, groups:  exp_a, 44; exp_b, 44
 
-Dispersion estimate for gaussian family (sigma^2): 0.00117 
+Dispersion estimate for gaussian family (sigma^2): 0.00114 
 
 Conditional model:
                  Estimate Std. Error z value Pr(>|z|)    
-(Intercept)     7.189e-01  1.218e-02   59.03   <2e-16 ***
-expertise_mean -8.044e-03  7.701e-03   -1.04    0.296    
-expertise_diff  5.737e-05  4.171e-03    0.01    0.989    
+(Intercept)     0.7153785  0.0112333   63.68   <2e-16 ***
+expertise_mean -0.0050073  0.0071052   -0.70    0.481    
+expertise_diff -0.0009661  0.0016146   -0.60    0.550    
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 ✅️ Completed! 

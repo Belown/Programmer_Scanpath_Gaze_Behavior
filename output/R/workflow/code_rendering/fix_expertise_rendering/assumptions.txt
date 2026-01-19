@@ -131,7 +131,7 @@ Variance ratio (high/low groups): 3.719
 
 4. INDEPENDENCE CHECK:
 Durbin-Watson statistic: 1.8943
-Durbin-Watson p-value: 0.118
+Durbin-Watson p-value: 0.146
 Runs test p-value: 0.0491
 
 5. RANDOM EFFECTS NORMALITY CHECK:
@@ -168,7 +168,7 @@ Variance ratio (high/low groups): 2.4733
 
 4. INDEPENDENCE CHECK:
 Durbin-Watson statistic: 2.1353
-Durbin-Watson p-value: 0.026
+Durbin-Watson p-value: 0.036
 Runs test p-value: 0.1187
 
 5. RANDOM EFFECTS NORMALITY CHECK:
@@ -318,7 +318,7 @@ Variance ratio (high/low groups): 1.5461
 
 4. INDEPENDENCE CHECK:
 Durbin-Watson statistic: 1.8693
-Durbin-Watson p-value: 0.052
+Durbin-Watson p-value: 0.044
 Runs test p-value: 0.0491
 
 5. RANDOM EFFECTS NORMALITY CHECK:
@@ -355,7 +355,7 @@ Variance ratio (high/low groups): 1.8142
 
 4. INDEPENDENCE CHECK:
 Durbin-Watson statistic: 2.1427
-Durbin-Watson p-value: 0.044
+Durbin-Watson p-value: 0.036
 Runs test p-value: 0.1542
 
 5. RANDOM EFFECTS NORMALITY CHECK:
@@ -487,7 +487,7 @@ Family used: gaussian
 
 3. INDEPENDENCE CHECK:
 Durbin-Watson statistic: 1.8932
-Durbin-Watson p-value: 0.112
+Durbin-Watson p-value: 0.136
 
 4. RANDOM EFFECTS NORMALITY:
 ❌ Could not extract random effects - assuming passed
@@ -520,7 +520,7 @@ Family used: gaussian
 
 3. INDEPENDENCE CHECK:
 Durbin-Watson statistic: 2.1348
-Durbin-Watson p-value: 0.068
+Durbin-Watson p-value: 0.042
 
 4. RANDOM EFFECTS NORMALITY:
 ❌ Could not extract random effects - assuming passed
@@ -532,11 +532,11 @@ Overdispersion check not applicable for gaussian family
  OVERALL GLMM ASSUMPTION SUMMARY
 ============================================================
 Family: gaussian
-Assumptions passed: 5 out of 5
+Assumptions passed: 4 out of 5
 - DISTRIBUTIONAL : ✅ PASSED
 - LINK_FUNCTION : ✅ PASSED
-- INDEPENDENCE : ✅ PASSED
+- INDEPENDENCE : ❌ FAILED
 - RANDOM_EFFECTS : ✅ PASSED
 - OVERDISPERSION : ✅ PASSED
 
- 🎉 ALL GLMM ASSUMPTIONS SATISFIED - Proceed with confidence!
+ ⚠️  MINOR VIOLATIONS - GLMM results likely robust, interpret with caution

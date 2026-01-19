@@ -520,7 +520,7 @@ Family used: gaussian
 
 3. INDEPENDENCE CHECK:
 Durbin-Watson statistic: 1.8086
-Durbin-Watson p-value: 0.002
+Durbin-Watson p-value: 0
 
 4. RANDOM EFFECTS NORMALITY:
 ❌ Could not extract random effects - assuming passed
