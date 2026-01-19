@@ -5,10 +5,7 @@
 Across all MultiMatch dimensions (Shape, Length, Direction, Position, Duration):
 
 * **Rendering method produces robust, consistent effects** , especially for:
-* **Shape**
-* **Length**
-* **Direction**
-* **Position**
+  * Shape, Length, Direction, Position`
 * Rendering explains a  **substantial share of variance** :
   * Marginal R² ≈ **0.13–0.35** for Shape, Length, Direction, Position
   * Direction is the **most sensitive** dimension to rendering differences
@@ -17,9 +14,7 @@ Across all MultiMatch dimensions (Shape, Length, Direction, Position, Duration):
   * **r2 and r3 yield the highest similarity**
   * r2 ≈ r3 in most dimensions (except Direction)
 
-**Conclusion:**
-
-Visual layout and code rendering structure how programmers scan code far more than who they are.
+**Conclusion**: Visual layout and code rendering structure how programmers scan code far more than who they are.
 
 ## 2: Participant identity (individual gaze style) explains a large share of variance
 
@@ -29,13 +24,9 @@ Across all model specifications:
 * This means **9–36% of variance** in similarity is explained by stable participant-specific effects
 * Conditional R² jumps dramatically relative to marginal R²
 
-**Interpretation:**
+Interpretation: Some programmers consistently produce more stereotyped or idiosyncratic scanpaths, regardless of rendering or expertise.
 
-Some programmers consistently produce more stereotyped or idiosyncratic scanpaths, regardless of rendering or expertise.
-
-**Conclusion:**
-
-There are strong, stable **individual differences in gaze behavior** that dominate residual structure.
+**Conclusion**:  There are strong, stable **individual differences in gaze behavior** that dominate residual structure.
 
 ## 3: Expertise has little to no effect on scanpath similarity
 
@@ -43,23 +34,12 @@ This holds across all three expertise operationalizations:
 
 ### (a) Categorical expertise (Beginner vs Intermediate)
 
-* No effect for:
-
-  * Shape
-  * Length
-  * Direction
-  * Duration
-* A **small effect for Position only**
-
-  (Intermediates slightly more similar than beginners)
+* No effect for: Shape, Length, Direction, Duration
+* A **small effect for Position only** (Intermediates slightly more similar than beginners) from fix_expertise_rendering
 
 ### (b) Numeric expertise (expertise_mean, expertise_diff)
 
-* No effect for:
-  * Shape
-  * Length
-  * Direction
-  * Duration
+* No effect for: Shape, Length, Direction, Duration
 * A **small positive effect of expertise_mean on Position**
 * **No effect of expertise_diff** on any dimension
 
@@ -68,17 +48,9 @@ This holds across all three expertise operationalizations:
 * **No significant differences** for any dimension
 * Marginal R² ≈ 0 across all dimensions
 
-**Conclusion:**
+**Conclusion**: Whether expertise is treated as **categorical**, **continuous**, or **pairwise composition** it  **does not meaningfully structure scanpath similarity** .
 
-Whether expertise is treated as:
-
-* categorical,
-* continuous, or
-* pairwise composition,
-
-it  **does not meaningfully structure scanpath similarity** .
-
-## 4 Rendering × Expertise interactions add little explanatory value
+## 4: Rendering × Expertise interactions add little explanatory value
 
 When including both rendering and expertise:
 
@@ -86,9 +58,7 @@ When including both rendering and expertise:
 * Expertise effects remain **weak or null**
 * Interactions contribute **no meaningful additional variance**
 
-**Conclusion:**
-
-Rendering drives similarity patterns **independently** of programmer expertise.
+**Conclusion**: Rendering drives similarity patterns **independently** of programmer expertise.
 
 ## Final Integrated Conclusion
 
