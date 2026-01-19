@@ -15,7 +15,7 @@ base_path <- file.path(here(), "output", "processed_dataset")
 #' @param formula_set A list containing fixed and random effect formula strings
 #' @param info Whether to print info messages
 #' @return A model package, which contain data frame, models, config, and folder_path
-get_exp_pack <- function(dataset, exp_type, case, rand_effect = NULL, info = TRUE, reml) {
+get_exp_pack <- function(data_set, exp_type, case, rand_effect = NULL, info = TRUE, reml) {
   model_pack <- switch(
     exp_type,
     "fix_expertise" = {
@@ -24,8 +24,8 @@ get_exp_pack <- function(dataset, exp_type, case, rand_effect = NULL, info = TRU
       formula_set <- list(
         fix_effect = "render_a * render_b",
         rand_effect = if (!is.null(rand_effect)) rand_effect else default_rand_effect)
-      folder_path <- file.path(base_path, dataset, exp_type)
-      get_model_pack(folder_path, formula_set, info, reml, test = FALSE, dataset=dataset, case = NULL)
+      folder_path <- file.path(base_path, data_set, exp_type)
+      get_model_pack(folder_path, formula_set, info, reml, test = FALSE, data_set=data_set, case = NULL)
     },
     "fix_expertise_rendering" = {
       default_rand_effect <- "(1 | exp_a) + (1 | exp_b)"
@@ -33,8 +33,8 @@ get_exp_pack <- function(dataset, exp_type, case, rand_effect = NULL, info = TRU
       formula_set <- list(
         fix_effect = "expertise_a * render_a",
         rand_effect = if (!is.null(rand_effect)) rand_effect else default_rand_effect)
-      folder_path <- file.path(base_path, dataset, exp_type)
-      get_model_pack(folder_path, formula_set, info, reml, test = FALSE, dataset=dataset, case = NULL)
+      folder_path <- file.path(base_path, data_set, exp_type)
+      get_model_pack(folder_path, formula_set, info, reml, test = FALSE, data_set=data_set, case = NULL)
     },
     "fix_rendering" = {
       default_rand_effect <- "(1 | exp_a) + (1 | exp_b)"
@@ -50,8 +50,8 @@ get_exp_pack <- function(dataset, exp_type, case, rand_effect = NULL, info = TRU
           rand_effect = if (!is.null(rand_effect)) rand_effect else default_rand_effect
         )
       )
-      folder_path <- file.path(base_path, dataset, exp_type)
-      get_model_pack(folder_path, formula_set, info, reml, test = FALSE, dataset=dataset, case)
+      folder_path <- file.path(base_path, data_set, exp_type)
+      get_model_pack(folder_path, formula_set, info, reml, test = FALSE, data_set=data_set, case)
     }
   )
   return (model_pack)

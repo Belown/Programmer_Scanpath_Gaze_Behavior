@@ -30,7 +30,7 @@ formula_set <- list(
   rand_effect = "(1 | exp_a) + (1 | exp_b)"
 )
 
-exp_pack <- get_model_pack(folder_path, formula_set, info = TRUE, reml = TRUE, test = FALSE, dataset = data_set, case=case)
+exp_pack <- get_model_pack(folder_path, formula_set, info = TRUE, reml = TRUE, test = FALSE, data_set = data_set, case=case)
 
 
 # Extract components from model package

@@ -3,13 +3,13 @@ library(here)
 source(file.path(here(), "src", "R", "auxiliary", "workflow.R"))
 source(file.path(here(), "src", "R", "auxiliary", "code_rendering", "helper_cr.R"))
 
-fix_expertise <- get_exp_pack(dataset="code_rendering", exp_type="fix_expertise", case=NULL, rand_effect=NULL, info=TRUE, reml=TRUE)
+fix_expertise <- get_exp_pack(data_set="code_rendering", exp_type="fix_expertise", case=NULL, rand_effect=NULL, info=TRUE, reml=TRUE)
 
-fix_both <- get_exp_pack(dataset="code_rendering", exp_type="fix_expertise_rendering", case=NULL, rand_effect=NULL, info=TRUE, reml=TRUE)
+fix_both <- get_exp_pack(data_set="code_rendering", exp_type="fix_expertise_rendering", case=NULL, rand_effect=NULL, info=TRUE, reml=TRUE)
 
-fix_rendering_pairtype <- get_exp_pack(dataset="code_rendering", exp_type="fix_rendering", case="pairtype", rand_effect=NULL, info=TRUE, reml=TRUE)
+fix_rendering_pairtype <- get_exp_pack(data_set="code_rendering", exp_type="fix_rendering", case="pairtype", rand_effect=NULL, info=TRUE, reml=TRUE)
 
-fix_rendering_mean_diff <- get_exp_pack(dataset="code_rendering", exp_type="fix_rendering", case="mean_diff", rand_effect=NULL, info=TRUE, reml=TRUE)
+fix_rendering_mean_diff <- get_exp_pack(data_set="code_rendering", exp_type="fix_rendering", case="mean_diff", rand_effect=NULL, info=TRUE, reml=TRUE)
 
 exps_list <- list(
   fix_expertise = fix_expertise,

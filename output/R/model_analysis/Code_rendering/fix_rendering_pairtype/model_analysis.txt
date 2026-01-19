@@ -1,0 +1,210 @@
+
+========================================
+Model Analysis
+========================================
+
+========= Shape =========
+
+Random-effects (VarCorr):
+Conditional model:
+ Groups   Name        Std.Dev.  
+ exp_a    (Intercept) 0.00095751
+ exp_b    (Intercept) 0.00102311
+ Residual             0.00296032
+# Intraclass Correlation Coefficient
+
+    Adjusted ICC: 0.183
+  Unadjusted ICC: 0.183
+
+--- Fixed-effect terms (as in formula) ---
+[1] "PairType"
+
+Has interaction terms: FALSE 
+Main terms: PairType 
+
+--- Nakagawa R² ---
+Marginal R² (fixed effects):     4e-04 
+Conditional R² (fixed+random):   0.1834 
+
+--- Post-hoc inference (emmeans for categorical predictors) ---
+
+EMMs for PairType:
+ PairType emmean       SE  df asymp.LCL asymp.UCL
+ BB       0.9871 0.000383 Inf    0.9863    0.9878
+ BI       0.9871 0.000329 Inf    0.9864    0.9877
+ II       0.9869 0.000387 Inf    0.9861    0.9877
+
+Confidence level used: 0.95 
+
+Pairwise comparisons for PairType (tukey adjustment):
+ contrast  estimate       SE  df z.ratio p.value
+ BB - BI  -5.80e-06 0.000401 Inf  -0.014  0.9999
+ BB - II   1.52e-04 0.000545 Inf   0.279  0.9581
+ BI - II   1.58e-04 0.000418 Inf   0.377  0.9245
+
+P value adjustment: tukey method for comparing a family of 3 estimates 
+
+========= Length =========
+
+Random-effects (VarCorr):
+Conditional model:
+ Groups   Name        Std.Dev. 
+ exp_a    (Intercept) 0.0012498
+ exp_b    (Intercept) 0.0013733
+ Residual             0.0038458
+# Intraclass Correlation Coefficient
+
+    Adjusted ICC: 0.189
+  Unadjusted ICC: 0.189
+
+--- Fixed-effect terms (as in formula) ---
+[1] "PairType"
+
+Has interaction terms: FALSE 
+Main terms: PairType 
+
+--- Nakagawa R² ---
+Marginal R² (fixed effects):     5e-04 
+Conditional R² (fixed+random):   0.1894 
+
+--- Post-hoc inference (emmeans for categorical predictors) ---
+
+EMMs for PairType:
+ PairType emmean       SE  df asymp.LCL asymp.UCL
+ BB       0.9848 0.000505 Inf    0.9838    0.9858
+ BI       0.9848 0.000435 Inf    0.9839    0.9856
+ II       0.9846 0.000509 Inf    0.9836    0.9856
+
+Confidence level used: 0.95 
+
+Pairwise comparisons for PairType (tukey adjustment):
+ contrast estimate       SE  df z.ratio p.value
+ BB - BI  5.11e-05 0.000523 Inf   0.098  0.9947
+ BB - II  2.43e-04 0.000717 Inf   0.339  0.9386
+ BI - II  1.92e-04 0.000554 Inf   0.347  0.9358
+
+P value adjustment: tukey method for comparing a family of 3 estimates 
+
+========= Direction =========
+
+Random-effects (VarCorr):
+Conditional model:
+ Groups   Name        Std.Dev.
+ exp_a    (Intercept) 0.019873
+ exp_b    (Intercept) 0.019501
+ Residual             0.057867
+# Intraclass Correlation Coefficient
+
+    Adjusted ICC: 0.188
+  Unadjusted ICC: 0.187
+
+--- Fixed-effect terms (as in formula) ---
+[1] "PairType"
+
+Has interaction terms: FALSE 
+Main terms: PairType 
+
+--- Nakagawa R² ---
+Marginal R² (fixed effects):     0.0033 
+Conditional R² (fixed+random):   0.1906 
+
+--- Post-hoc inference (emmeans for categorical predictors) ---
+
+EMMs for PairType:
+ PairType emmean      SE  df asymp.LCL asymp.UCL
+ BB        0.863 0.00759 Inf     0.849     0.878
+ BI        0.866 0.00652 Inf     0.853     0.878
+ II        0.873 0.00764 Inf     0.858     0.888
+
+Confidence level used: 0.95 
+
+Pairwise comparisons for PairType (tukey adjustment):
+ contrast estimate      SE  df z.ratio p.value
+ BB - BI  -0.00200 0.00811 Inf  -0.247  0.9670
+ BB - II  -0.00978 0.01080 Inf  -0.908  0.6355
+ BI - II  -0.00777 0.00807 Inf  -0.964  0.5999
+
+P value adjustment: tukey method for comparing a family of 3 estimates 
+
+========= Position =========
+
+Random-effects (VarCorr):
+Conditional model:
+ Groups   Name        Std.Dev. 
+ exp_a    (Intercept) 0.0054180
+ exp_b    (Intercept) 0.0085564
+ Residual             0.0328809
+# Intraclass Correlation Coefficient
+
+    Adjusted ICC: 0.087
+  Unadjusted ICC: 0.086
+
+--- Fixed-effect terms (as in formula) ---
+[1] "PairType"
+
+Has interaction terms: FALSE 
+Main terms: PairType 
+
+--- Nakagawa R² ---
+Marginal R² (fixed effects):     0.0047 
+Conditional R² (fixed+random):   0.091 
+
+--- Post-hoc inference (emmeans for categorical predictors) ---
+
+EMMs for PairType:
+ PairType emmean      SE  df asymp.LCL asymp.UCL
+ BB        0.923 0.00328 Inf     0.917     0.929
+ BI        0.926 0.00265 Inf     0.921     0.931
+ II        0.930 0.00334 Inf     0.923     0.936
+
+Confidence level used: 0.95 
+
+Pairwise comparisons for PairType (tukey adjustment):
+ contrast estimate      SE  df z.ratio p.value
+ BB - BI  -0.00314 0.00334 Inf  -0.941  0.6142
+ BB - II  -0.00684 0.00469 Inf  -1.459  0.3107
+ BI - II  -0.00369 0.00393 Inf  -0.939  0.6155
+
+P value adjustment: tukey method for comparing a family of 3 estimates 
+
+========= Duration =========
+
+Random-effects (VarCorr):
+Conditional model:
+ Groups   Name        Std.Dev.
+ exp_a    (Intercept) 0.015868
+ exp_b    (Intercept) 0.014311
+ Residual             0.034214
+# Intraclass Correlation Coefficient
+
+    Adjusted ICC: 0.281
+  Unadjusted ICC: 0.279
+
+--- Fixed-effect terms (as in formula) ---
+[1] "PairType"
+
+Has interaction terms: FALSE 
+Main terms: PairType 
+
+--- Nakagawa R² ---
+Marginal R² (fixed effects):     0.0048 
+Conditional R² (fixed+random):   0.284 
+
+--- Post-hoc inference (emmeans for categorical predictors) ---
+
+EMMs for PairType:
+ PairType emmean      SE  df asymp.LCL asymp.UCL
+ BB        0.711 0.00544 Inf     0.700     0.721
+ BI        0.707 0.00483 Inf     0.697     0.716
+ II        0.703 0.00544 Inf     0.692     0.713
+
+Confidence level used: 0.95 
+
+Pairwise comparisons for PairType (tukey adjustment):
+ contrast estimate      SE  df z.ratio p.value
+ BB - BI   0.00397 0.00587 Inf   0.676  0.7776
+ BB - II   0.00804 0.00770 Inf   1.045  0.5486
+ BI - II   0.00408 0.00548 Inf   0.745  0.7369
+
+P value adjustment: tukey method for comparing a family of 3 estimates 
+✅️ Completed! 

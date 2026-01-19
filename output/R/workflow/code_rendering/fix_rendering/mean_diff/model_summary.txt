@@ -4,42 +4,42 @@ Formula: Shape ~ expertise_mean + expertise_diff + (1 | exp_a) + (1 |      exp_b
 Type: glmmTMB | Family: gaussian 
 
            term      estimate    std.error    statistic   p.value stars
-    (Intercept)  9.872093e-01 0.0008592522 1148.9167274 0.0000000   ***
- expertise_mean -1.518572e-04 0.0005449138   -0.2786811 0.7804896      
- expertise_diff  8.174056e-05 0.0003055110    0.2675536 0.7890430      
+    (Intercept)  9.871220e-01 0.0007591137 1300.3611780 0.0000000   ***
+ expertise_mean -6.354976e-05 0.0004801816   -0.1323453 0.8947112      
+ expertise_diff  3.121640e-05 0.0001405028    0.2221764 0.8241766      
 
 ==== Length ====
 Formula: Length ~ expertise_mean + expertise_diff + (1 | exp_a) + (1 |      exp_b) 
 Type: glmmTMB | Family: gaussian 
 
-           term      estimate    std.error   statistic   p.value stars
-    (Intercept)  9.850657e-01 0.0011308670 871.0712192 0.0000000   ***
- expertise_mean -2.432588e-04 0.0007173567  -0.3391044 0.7345311      
- expertise_diff  7.050794e-05 0.0004014389   0.1756381 0.8605783      
+           term      estimate    std.error    statistic   p.value stars
+    (Intercept)  9.850202e-01 0.0010175845 967.99838312 0.0000000   ***
+ expertise_mean -1.788354e-04 0.0006436712  -0.27783658 0.7811378      
+ expertise_diff  2.344337e-06 0.0001826526   0.01283495 0.9897595      
 
 ==== Direction ====
 Formula: Direction ~ expertise_mean + expertise_diff + (1 | exp_a) + (1 |      exp_b) 
 Type: glmmTMB | Family: gaussian 
 
            term     estimate   std.error  statistic   p.value stars
-    (Intercept)  0.853723408 0.016998231 50.2242502 0.0000000   ***
- expertise_mean  0.009775795 0.010770900  0.9076118 0.3640834      
- expertise_diff -0.002884682 0.006037625 -0.4777843 0.6328038      
+    (Intercept)  0.854723876 0.015687744 54.4835438 0.0000000   ***
+ expertise_mean  0.008967093 0.009923040  0.9036640 0.3661736      
+ expertise_diff -0.002661882 0.002739267 -0.9717494 0.3311752      
 
 ==== Position ====
 Formula: Position ~ expertise_mean + expertise_diff + (1 | exp_a) + (1 |      exp_b) 
 Type: glmmTMB | Family: gaussian 
 
-           term      estimate   std.error    statistic   p.value stars
-    (Intercept)  0.9162287118 0.007364505 124.41144151 0.0000000   ***
- expertise_mean  0.0068364452 0.004685040   1.45920756 0.1445080      
- expertise_diff -0.0002749527 0.002797142  -0.09829775 0.9216959      
+           term    estimate   std.error   statistic    p.value stars
+    (Intercept) 0.913657890 0.006015585 151.8818007 0.00000000   ***
+ expertise_mean 0.008157594 0.003806104   2.1432921 0.03208965     *
+ expertise_diff 0.000378180 0.001568140   0.2411647 0.80942748      
 
 ==== Duration ====
 Formula: Duration ~ expertise_mean + expertise_diff + (1 | exp_a) + (1 |      exp_b) 
 Type: glmmTMB | Family: gaussian 
 
-           term      estimate   std.error   statistic   p.value stars
-    (Intercept)  7.188518e-01 0.012177025 59.03345005 0.0000000   ***
- expertise_mean -8.044455e-03 0.007700896 -1.04461275 0.2962020      
- expertise_diff  5.736881e-05 0.004170898  0.01375455 0.9890258      
+           term      estimate   std.error  statistic   p.value stars
+    (Intercept)  0.7153784965 0.011233268 63.6839165 0.0000000   ***
+ expertise_mean -0.0050073368 0.007105152 -0.7047473 0.4809675      
+ expertise_diff -0.0009661218 0.001614596 -0.5983675 0.5495947      

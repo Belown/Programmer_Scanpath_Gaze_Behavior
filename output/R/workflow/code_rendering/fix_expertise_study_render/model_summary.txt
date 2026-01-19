@@ -1,65 +1,85 @@
 
 ==== Shape ====
-Formula: logit01(Shape) ~ expertise_a + rendering_pair + (1 | exp_a) +      (1 | exp_b) 
-Type: lmer
+Formula: Shape ~ expertise_a * rendering_pair + (1 | exp_a) + (1 | exp_b) 
+Type: glmmTMB | Family: gaussian 
 
-                    term    estimate  std.error statistic         df      p.value stars
-             (Intercept)  4.96412304 0.06355087 78.112587  22.095433 1.734745e-28   ***
- expertise_aIntermediate -0.04236244 0.07174238 -0.590480   9.326335 5.688994e-01      
-     rendering_pairr1_r2  0.12667402 0.04642276  2.728705 116.865177 7.340940e-03    **
-     rendering_pairr1_r3  0.09122675 0.04642276  1.965130 116.865177 5.177185e-02     .
-     rendering_pairr2_r2  0.29029997 0.05406601  5.369362 112.677702 4.290448e-07   ***
-     rendering_pairr2_r3  0.28975403 0.04642276  6.241637 116.865177 7.192093e-09   ***
-     rendering_pairr3_r3  0.23697429 0.05406601  4.383055 112.677702 2.639652e-05   ***
+                                        term      estimate    std.error   statistic      p.value stars
+                                 (Intercept)  0.9862312184 0.0004723067 2088.116306 0.000000e+00   ***
+                     expertise_aIntermediate -0.0030760164 0.0006691915   -4.596616 4.294083e-06   ***
+                         rendering_pairr1_r2  0.0006058011 0.0003028712    2.000194 4.547931e-02     *
+                         rendering_pairr1_r3  0.0003343060 0.0002975877    1.123386 2.612734e-01      
+                         rendering_pairr2_r2  0.0010666039 0.0003368013    3.166864 1.540926e-03    **
+                         rendering_pairr2_r3  0.0016298916 0.0002961289    5.503993 3.712838e-08   ***
+                         rendering_pairr3_r3  0.0016177415 0.0003410686    4.743156 2.104143e-06   ***
+ expertise_aIntermediate:rendering_pairr1_r2  0.0017505256 0.0004279614    4.090382 4.306626e-05   ***
+ expertise_aIntermediate:rendering_pairr1_r3  0.0018791264 0.0004219900    4.453011 8.467429e-06   ***
+ expertise_aIntermediate:rendering_pairr2_r2  0.0047185474 0.0004774031    9.883779 4.895106e-23   ***
+ expertise_aIntermediate:rendering_pairr2_r3  0.0039798724 0.0004211847    9.449234 3.413192e-21   ***
+ expertise_aIntermediate:rendering_pairr3_r3  0.0037507631 0.0004841744    7.746720 9.429668e-15   ***
 
 ==== Length ====
-Formula: logit01(Length) ~ expertise_a + rendering_pair + (1 | exp_a) +      (1 | exp_b) 
-Type: lmer
+Formula: Length ~ expertise_a * rendering_pair + (1 | exp_a) + (1 | exp_b) 
+Type: glmmTMB | Family: gaussian 
 
-                    term    estimate  std.error statistic         df      p.value stars
-             (Intercept)  4.86946390 0.06425506 75.783352  21.425325 1.592656e-27   ***
- expertise_aIntermediate -0.12075693 0.07329887 -1.647460   9.383737 1.324855e-01      
-     rendering_pairr1_r2  0.10102612 0.04604890  2.193888 116.550262 3.022777e-02     *
-     rendering_pairr1_r3  0.09045038 0.04604890  1.964224 116.550262 5.188450e-02     .
-     rendering_pairr2_r2  0.24964991 0.05360123  4.657541 112.505859 8.827033e-06   ***
-     rendering_pairr2_r3  0.26664275 0.04604890  5.790426 116.550262 6.056589e-08   ***
-     rendering_pairr3_r3  0.23198062 0.05360123  4.327897 112.505859 3.277612e-05   ***
+                                        term      estimate    std.error   statistic      p.value stars
+                                 (Intercept)  0.9833029251 0.0006263282 1569.948304 0.000000e+00   ***
+                     expertise_aIntermediate -0.0030222589 0.0008874918   -3.405394 6.606873e-04   ***
+                         rendering_pairr1_r2  0.0011480640 0.0004110817    2.792788 5.225597e-03    **
+                         rendering_pairr1_r3  0.0008943307 0.0004038708    2.214398 2.680142e-02     *
+                         rendering_pairr2_r2  0.0024178873 0.0004573616    5.286599 1.246115e-07   ***
+                         rendering_pairr2_r3  0.0023045912 0.0004020288    5.732403 9.901782e-09   ***
+                         rendering_pairr3_r3  0.0023679928 0.0004631585    5.112706 3.175769e-07   ***
+ expertise_aIntermediate:rendering_pairr1_r2  0.0012994535 0.0005808871    2.237015 2.528534e-02     *
+ expertise_aIntermediate:rendering_pairr1_r3  0.0010395951 0.0005727447    1.815111 6.950685e-02     .
+ expertise_aIntermediate:rendering_pairr2_r2  0.0042744541 0.0006482807    6.593523 4.295097e-11   ***
+ expertise_aIntermediate:rendering_pairr2_r3  0.0042030943 0.0005717465    7.351324 1.962524e-13   ***
+ expertise_aIntermediate:rendering_pairr3_r3  0.0037181305 0.0006574835    5.655093 1.557619e-08   ***
 
 ==== Direction ====
-Formula: logit01(Direction) ~ expertise_a + rendering_pair + (1 | exp_a) +      (1 | exp_b) 
-Type: lmer
+Formula: Direction ~ expertise_a * rendering_pair + (1 | exp_a) + (1 |      exp_b) 
+Type: glmmTMB | Family: gaussian 
 
-                    term   estimate  std.error statistic         df      p.value stars
-             (Intercept) 2.46230501 0.10333701 23.827911  19.887130 4.280127e-16   ***
- expertise_aIntermediate 0.09423762 0.11385590  0.827692   7.636107 4.329482e-01      
-     rendering_pairr1_r2 0.24448683 0.07868719  3.107073 118.211674 2.366532e-03    **
-     rendering_pairr1_r3 0.10885020 0.07868719  1.383328 118.211674 1.691712e-01      
-     rendering_pairr2_r2 0.62907962 0.09199285  6.838353 113.131781 4.299709e-10   ***
-     rendering_pairr2_r3 0.44530443 0.07868719  5.659173 118.211674 1.080994e-07   ***
-     rendering_pairr3_r3 0.28372970 0.09199285  3.084258 113.131781 2.564773e-03    **
+                                        term     estimate   std.error  statistic      p.value stars
+                                 (Intercept)  0.821838755 0.009341015 87.9817420 0.000000e+00   ***
+                     expertise_aIntermediate -0.009767358 0.013236033 -0.7379370 4.605528e-01      
+                         rendering_pairr1_r2  0.037705939 0.006145550  6.1354868 8.489881e-10   ***
+                         rendering_pairr1_r3  0.021780048 0.006036843  3.6078538 3.087403e-04   ***
+                         rendering_pairr2_r2  0.060855970 0.006837502  8.9003225 5.568464e-19   ***
+                         rendering_pairr2_r3  0.065275679 0.006009784 10.8615678 1.757064e-27   ***
+                         rendering_pairr3_r3  0.054859028 0.006925098  7.9217694 2.341542e-15   ***
+ expertise_aIntermediate:rendering_pairr1_r2  0.005618190 0.008683162  0.6470213 5.176182e-01      
+ expertise_aIntermediate:rendering_pairr1_r3  0.006940890 0.008561605  0.8106996 4.175382e-01      
+ expertise_aIntermediate:rendering_pairr2_r2  0.040162991 0.009692015  4.1439259 3.414101e-05   ***
+ expertise_aIntermediate:rendering_pairr2_r3  0.026491491 0.008546326  3.0997521 1.936827e-03    **
+ expertise_aIntermediate:rendering_pairr3_r3  0.030190820 0.009830424  3.0711617 2.132277e-03    **
 
 ==== Position ====
-Formula: logit01(Position) ~ expertise_a + rendering_pair + (1 | exp_a) +      (1 | exp_b) 
-Type: lmer
+Formula: Position ~ expertise_a * rendering_pair + (1 | exp_a) + (1 |      exp_b) 
+Type: glmmTMB | Family: gaussian 
 
-                    term    estimate  std.error  statistic         df      p.value stars
-             (Intercept)  3.04504023 0.10488276 29.0327995  72.322384 1.346802e-41   ***
- expertise_aIntermediate -0.15265498 0.06109654 -2.4985862   4.941416 5.515898e-02     .
-     rendering_pairr1_r2 -0.16654599 0.11751940 -1.4171787 124.673113 1.589249e-01      
-     rendering_pairr1_r3 -0.05227557 0.11751940 -0.4448250 124.673113 6.572175e-01      
-     rendering_pairr2_r2  0.30867396 0.14167775  2.1787045 118.679064 3.133015e-02     *
-     rendering_pairr2_r3  0.18105170 0.11751940  1.5406112 124.673113 1.259458e-01      
-     rendering_pairr3_r3  0.04003642 0.14167775  0.2825879 118.679064 7.779850e-01      
+                                        term      estimate   std.error    statistic      p.value stars
+                                 (Intercept)  0.9053845965 0.005062403 178.84481100 0.000000e+00   ***
+                     expertise_aIntermediate  0.0005985485 0.007184404   0.08331219 9.336033e-01      
+                         rendering_pairr1_r2  0.0068004260 0.004502970   1.51020890 1.309901e-01      
+                         rendering_pairr1_r3 -0.0019588176 0.004429860  -0.44218501 6.583553e-01      
+                         rendering_pairr2_r2  0.0222985140 0.005038620   4.42551965 9.621040e-06   ***
+                         rendering_pairr2_r3  0.0228616234 0.004408289   5.18605319 2.147975e-07   ***
+                         rendering_pairr3_r3  0.0217041842 0.005103304   4.25296732 2.109564e-05   ***
+ expertise_aIntermediate:rendering_pairr1_r2 -0.0158665494 0.006364328  -2.49304388 1.266532e-02     *
+ expertise_aIntermediate:rendering_pairr1_r3 -0.0018670614 0.006281326  -0.29724000 7.662833e-01      
+ expertise_aIntermediate:rendering_pairr2_r2  0.0089010601 0.007143092   1.24610753 2.127249e-01      
+ expertise_aIntermediate:rendering_pairr2_r3  0.0072049494 0.006269986   1.14911725 2.505076e-01      
+ expertise_aIntermediate:rendering_pairr3_r3  0.0111301699 0.007243980   1.53647156 1.244228e-01      
 
 ==== Duration ====
-Formula: logit01(Duration) ~ expertise_a + rendering_pair + (1 | exp_a) +      (1 | exp_b) 
-Type: lmer
+Formula: Duration ~ expertise_a + rendering_pair + (1 | exp_a) + (1 |      exp_b) 
+Type: glmmTMB | Family: gaussian 
 
-                    term    estimate  std.error  statistic         df      p.value stars
-             (Intercept)  1.82267597 0.04745026 38.4123507  22.894844 2.711014e-22   ***
- expertise_aIntermediate  0.02747606 0.05297570  0.5186541   9.309671 6.161042e-01      
-     rendering_pairr1_r2 -0.03137538 0.03533333 -0.8879827 117.381268 3.763660e-01      
-     rendering_pairr1_r3 -0.11962960 0.03533333 -3.3857440 117.381268 9.661396e-04   ***
-     rendering_pairr2_r2 -0.04783935 0.04118125 -1.1616779 113.073111 2.478126e-01      
-     rendering_pairr2_r3 -0.10038554 0.03533333 -2.8411007 117.381268 5.302050e-03    **
-     rendering_pairr3_r3 -0.12067242 0.04118125 -2.9302756 113.073111 4.098117e-03    **
+                    term     estimate   std.error   statistic      p.value stars
+             (Intercept)  0.718276876 0.005400471 133.0026271 0.000000e+00   ***
+ expertise_aIntermediate -0.008691450 0.006640867  -1.3087824 1.906081e-01      
+     rendering_pairr1_r2 -0.005100996 0.003410208  -1.4958020 1.347053e-01      
+     rendering_pairr1_r3 -0.018863494 0.003362681  -5.6096598 2.027248e-08   ***
+     rendering_pairr2_r2  0.002506845 0.003813795   0.6573097 5.109818e-01      
+     rendering_pairr2_r3 -0.014189537 0.003357764  -4.2258885 2.379998e-05   ***
+     rendering_pairr3_r3 -0.018208074 0.003868175  -4.7071482 2.512063e-06   ***

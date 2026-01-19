@@ -1,0 +1,270 @@
+
+========================================
+Model Analysis
+========================================
+
+========= Shape =========
+
+Random-effects (VarCorr):
+Conditional model:
+ Groups   Name        Std.Dev.  
+ exp_a    (Intercept) 0.00095751
+ exp_b    (Intercept) 0.00102311
+ Residual             0.00296032
+# Intraclass Correlation Coefficient
+
+    Adjusted ICC: 0.183
+  Unadjusted ICC: 0.183
+
+--- Fixed-effect terms (as in formula) ---
+[1] "expertise_mean" "expertise_diff"
+
+Has interaction terms: FALSE 
+Main terms: expertise_mean, expertise_diff 
+
+--- Nakagawa R² ---
+Marginal R² (fixed effects):     4e-04 
+Conditional R² (fixed+random):   0.1834 
+
+--- Post-hoc inference (emmeans for categorical predictors) ---
+No categorical fixed effects found (all are numeric).
+Using summary(model) for slope estimates.
+
+ Family: gaussian  ( identity )
+Formula:          Shape ~ expertise_mean + expertise_diff + (1 | exp_a) + (1 |      exp_b)
+Data: dat
+
+      AIC       BIC    logLik -2*log(L)  df.resid 
+  -7873.3   -7844.5    3942.7   -7885.3       900 
+
+Random effects:
+
+Conditional model:
+ Groups   Name        Variance  Std.Dev. 
+ exp_a    (Intercept) 9.168e-07 0.0009575
+ exp_b    (Intercept) 1.047e-06 0.0010231
+ Residual             8.763e-06 0.0029603
+Number of obs: 906, groups:  exp_a, 42; exp_b, 42
+
+Dispersion estimate for gaussian family (sigma^2): 8.76e-06 
+
+Conditional model:
+                 Estimate Std. Error z value Pr(>|z|)    
+(Intercept)     9.872e-01  8.592e-04  1148.9   <2e-16 ***
+expertise_mean -1.519e-04  5.449e-04    -0.3    0.780    
+expertise_diff  8.174e-05  3.055e-04     0.3    0.789    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+========= Length =========
+
+Random-effects (VarCorr):
+Conditional model:
+ Groups   Name        Std.Dev. 
+ exp_a    (Intercept) 0.0012498
+ exp_b    (Intercept) 0.0013733
+ Residual             0.0038458
+# Intraclass Correlation Coefficient
+
+    Adjusted ICC: 0.189
+  Unadjusted ICC: 0.189
+
+--- Fixed-effect terms (as in formula) ---
+[1] "expertise_mean" "expertise_diff"
+
+Has interaction terms: FALSE 
+Main terms: expertise_mean, expertise_diff 
+
+--- Nakagawa R² ---
+Marginal R² (fixed effects):     5e-04 
+Conditional R² (fixed+random):   0.1894 
+
+--- Post-hoc inference (emmeans for categorical predictors) ---
+No categorical fixed effects found (all are numeric).
+Using summary(model) for slope estimates.
+
+ Family: gaussian  ( identity )
+Formula:          Length ~ expertise_mean + expertise_diff + (1 | exp_a) + (1 |      exp_b)
+Data: dat
+
+      AIC       BIC    logLik -2*log(L)  df.resid 
+  -7397.1   -7368.3    3704.6   -7409.1       900 
+
+Random effects:
+
+Conditional model:
+ Groups   Name        Variance  Std.Dev.
+ exp_a    (Intercept) 1.562e-06 0.001250
+ exp_b    (Intercept) 1.886e-06 0.001373
+ Residual             1.479e-05 0.003846
+Number of obs: 906, groups:  exp_a, 42; exp_b, 42
+
+Dispersion estimate for gaussian family (sigma^2): 1.48e-05 
+
+Conditional model:
+                 Estimate Std. Error z value Pr(>|z|)    
+(Intercept)     9.851e-01  1.131e-03   871.1   <2e-16 ***
+expertise_mean -2.433e-04  7.174e-04    -0.3    0.735    
+expertise_diff  7.051e-05  4.014e-04     0.2    0.861    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+========= Direction =========
+
+Random-effects (VarCorr):
+Conditional model:
+ Groups   Name        Std.Dev.
+ exp_a    (Intercept) 0.019873
+ exp_b    (Intercept) 0.019502
+ Residual             0.057867
+# Intraclass Correlation Coefficient
+
+    Adjusted ICC: 0.188
+  Unadjusted ICC: 0.187
+
+--- Fixed-effect terms (as in formula) ---
+[1] "expertise_mean" "expertise_diff"
+
+Has interaction terms: FALSE 
+Main terms: expertise_mean, expertise_diff 
+
+--- Nakagawa R² ---
+Marginal R² (fixed effects):     0.0033 
+Conditional R² (fixed+random):   0.1906 
+
+--- Post-hoc inference (emmeans for categorical predictors) ---
+No categorical fixed effects found (all are numeric).
+Using summary(model) for slope estimates.
+
+ Family: gaussian  ( identity )
+Formula:          Direction ~ expertise_mean + expertise_diff + (1 | exp_a) + (1 |      exp_b)
+Data: dat
+
+      AIC       BIC    logLik -2*log(L)  df.resid 
+  -2484.7   -2455.8    1248.3   -2496.7       900 
+
+Random effects:
+
+Conditional model:
+ Groups   Name        Variance  Std.Dev.
+ exp_a    (Intercept) 0.0003949 0.01987 
+ exp_b    (Intercept) 0.0003803 0.01950 
+ Residual             0.0033486 0.05787 
+Number of obs: 906, groups:  exp_a, 42; exp_b, 42
+
+Dispersion estimate for gaussian family (sigma^2): 0.00335 
+
+Conditional model:
+                Estimate Std. Error z value Pr(>|z|)    
+(Intercept)     0.853723   0.016998   50.22   <2e-16 ***
+expertise_mean  0.009776   0.010771    0.91    0.364    
+expertise_diff -0.002885   0.006038   -0.48    0.633    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+========= Position =========
+
+Random-effects (VarCorr):
+Conditional model:
+ Groups   Name        Std.Dev. 
+ exp_a    (Intercept) 0.0054180
+ exp_b    (Intercept) 0.0085564
+ Residual             0.0328809
+# Intraclass Correlation Coefficient
+
+    Adjusted ICC: 0.087
+  Unadjusted ICC: 0.086
+
+--- Fixed-effect terms (as in formula) ---
+[1] "expertise_mean" "expertise_diff"
+
+Has interaction terms: FALSE 
+Main terms: expertise_mean, expertise_diff 
+
+--- Nakagawa R² ---
+Marginal R² (fixed effects):     0.0047 
+Conditional R² (fixed+random):   0.091 
+
+--- Post-hoc inference (emmeans for categorical predictors) ---
+No categorical fixed effects found (all are numeric).
+Using summary(model) for slope estimates.
+
+ Family: gaussian  ( identity )
+Formula:          Position ~ expertise_mean + expertise_diff + (1 | exp_a) + (1 |      exp_b)
+Data: dat
+
+      AIC       BIC    logLik -2*log(L)  df.resid 
+  -3551.6   -3522.8    1781.8   -3563.6       900 
+
+Random effects:
+
+Conditional model:
+ Groups   Name        Variance  Std.Dev.
+ exp_a    (Intercept) 2.935e-05 0.005418
+ exp_b    (Intercept) 7.321e-05 0.008556
+ Residual             1.081e-03 0.032881
+Number of obs: 906, groups:  exp_a, 42; exp_b, 42
+
+Dispersion estimate for gaussian family (sigma^2): 0.00108 
+
+Conditional model:
+                Estimate Std. Error z value Pr(>|z|)    
+(Intercept)     0.916229   0.007365  124.41   <2e-16 ***
+expertise_mean  0.006836   0.004685    1.46    0.145    
+expertise_diff -0.000275   0.002797   -0.10    0.922    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+========= Duration =========
+
+Random-effects (VarCorr):
+Conditional model:
+ Groups   Name        Std.Dev.
+ exp_a    (Intercept) 0.015868
+ exp_b    (Intercept) 0.014311
+ Residual             0.034214
+# Intraclass Correlation Coefficient
+
+    Adjusted ICC: 0.281
+  Unadjusted ICC: 0.279
+
+--- Fixed-effect terms (as in formula) ---
+[1] "expertise_mean" "expertise_diff"
+
+Has interaction terms: FALSE 
+Main terms: expertise_mean, expertise_diff 
+
+--- Nakagawa R² ---
+Marginal R² (fixed effects):     0.0048 
+Conditional R² (fixed+random):   0.284 
+
+--- Post-hoc inference (emmeans for categorical predictors) ---
+No categorical fixed effects found (all are numeric).
+Using summary(model) for slope estimates.
+
+ Family: gaussian  ( identity )
+Formula:          Duration ~ expertise_mean + expertise_diff + (1 | exp_a) + (1 |      exp_b)
+Data: dat
+
+      AIC       BIC    logLik -2*log(L)  df.resid 
+  -3407.1   -3378.3    1709.6   -3419.1       900 
+
+Random effects:
+
+Conditional model:
+ Groups   Name        Variance  Std.Dev.
+ exp_a    (Intercept) 0.0002518 0.01587 
+ exp_b    (Intercept) 0.0002048 0.01431 
+ Residual             0.0011706 0.03421 
+Number of obs: 906, groups:  exp_a, 42; exp_b, 42
+
+Dispersion estimate for gaussian family (sigma^2): 0.00117 
+
+Conditional model:
+                 Estimate Std. Error z value Pr(>|z|)    
+(Intercept)     7.189e-01  1.218e-02   59.03   <2e-16 ***
+expertise_mean -8.044e-03  7.701e-03   -1.04    0.296    
+expertise_diff  5.737e-05  4.171e-03    0.01    0.989    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+✅️ Completed! 

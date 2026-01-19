@@ -1,0 +1,54 @@
+# =========================================================
+# Analysis Script for Mixed Effects Models
+# =========================================================
+# This script performs statistical analysis using linear mixed effects models
+# (LMM) and generalized linear mixed effects models (GLMM) for experimental data.
+# =========================================================
+
+library(here)
+
+# Load auxiliary functions for model building and validation workflow
+source(file.path(here(), "src", "R", "auxiliary", "workflow.R"))
+source(file.path(here(), "src", "R", "auxiliary", "code_rendering", "helper_cr.R"))
+source(file.path(here(), "src", "R", "auxiliary", "model_analysis.R"))
+
+# Set up constant
+dimensions <- c("Shape", "Length", "Direction", "Position", "Duration")
+
+output_path <- file.path(getwd(), "output", "R", "model_analysis", "Code_rendering", "fix_expertise_rendering")
+
+if (!dir.exists(output_path)) {
+  dir.create(output_path, recursive = TRUE)
+}
+
+# --- Experiment Type Configuration ---
+data_set <- "code_rendering"
+exp_type <- "fix_expertise_rendering"
+
+# Experiment pack includes fitted models, data, and config
+exp_pack <- get_exp_pack(data_set = data_set,
+                         exp_type = exp_type,
+                         case = NULL,
+                         rand_effect = NULL,
+                         info = TRUE,
+                         reml = TRUE)
+
+# Run workflow to validate model assumptions and obtain final models
+final_result <- work_flow_with_print(exp_pack$m_list, exp_pack$config)
+
+sink_file <- file.path(output_path, "model_analysis.txt")
+sink(sink_file, split = TRUE)
+tryCatch({
+  cat("\n========================================\n")
+  cat("Model Analysis\n")
+  cat("========================================\n")
+  for (dim in dimensions) {
+    
+    cat("\n=========", dim, "=========\n")
+    model <- final_result[[dim]]
+    model_analysis(model = model, dimension = dim, path = output_path)
+  }
+  cat("✅️ Completed! \n")
+}, finally = {
+  sink()  # Ensure sink is closed even if an error occurs
+})

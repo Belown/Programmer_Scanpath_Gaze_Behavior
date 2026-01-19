@@ -15,7 +15,11 @@ source(file.path(here(), "src", "R", "auxiliary", "model_analysis.R"))
 # Set up constant
 dimensions <- c("Shape", "Length", "Direction", "Position", "Duration")
 
-curr_folder <- dirname(rstudioapi::getActiveDocumentContext()$path)
+output_path <- file.path(getwd(), "output", "R", "model_analysis", "EMIP", "within_group")
+
+if (!dir.exists(output_path)) {
+  dir.create(output_path, recursive = TRUE)
+}
 
 # --- Experiment Type Configuration ---
 data_set <- "EMIP_corrected"
@@ -35,9 +39,7 @@ exp_pack <- get_exp_pack(data_set = data_set,
 # Run workflow to validate model assumptions and obtain final models
 final_result <- work_flow_with_print(exp_pack$m_list, exp_pack$config)
 
-print(curr_folder)
-
-sink_file <- file.path(curr_folder, "model_analysis.txt")
+sink_file <- file.path(output_path, "model_analysis.txt")
 sink(sink_file, split = TRUE)
 tryCatch({
   cat("\n========================================\n")
@@ -47,7 +49,7 @@ tryCatch({
     
     cat("\n=========", dim, "=========\n")
     model <- final_result[[dim]]
-    model_analysis(model = model, dimension = dim, path = curr_folder)
+    model_analysis(model = model, dimension = dim, path = output_path)
   }
   cat("✅️ Completed! \n")
 }, finally = {

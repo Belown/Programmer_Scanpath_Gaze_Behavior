@@ -4,14 +4,14 @@ library(here)
 source(file.path(here(), "src", "R", "auxiliary", "workflow.R"))
 
 # --- Experiment Type Configuration ---
-dataset <- "code_rendering"  # Dataset identifier
+data_set <- "code_rendering"  # Dataset identifier
 
 exp_type <- "fix_expertise"
 
 case <- NULL
 
 base_path <- file.path(here(), "output", "processed_dataset")
-folder_path <- file.path(base_path, dataset, exp_type)
+folder_path <- file.path(base_path, data_set, exp_type)
 
 formula_set <- list(
   fix_effect = "expertise_a * rendering_pair",
@@ -76,7 +76,7 @@ for (y in dimensions) {
 }
 
 
-output_path <- assign_path(file.path(here(), "output", "R", "workflow",dataset, "fix_expertise_study_render"))
+output_path <- assign_path(file.path(here(), "output", "R", "workflow", data_set, "fix_expertise_study_render"))
 
 
 # Construct config for output

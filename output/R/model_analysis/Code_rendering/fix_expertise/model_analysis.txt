@@ -1,0 +1,311 @@
+
+========================================
+Model Analysis
+========================================
+
+========= Shape =========
+
+Random-effects (VarCorr):
+Conditional model:
+ Groups   Name        Std.Dev. 
+ exp_a    (Intercept) 0.0014816
+ exp_b    (Intercept) 0.0011770
+ Residual             0.0021610
+# Intraclass Correlation Coefficient
+
+    Adjusted ICC: 0.434
+  Unadjusted ICC: 0.363
+
+--- Fixed-effect terms (as in formula) ---
+[1] "render_a" "render_b"
+
+Has interaction terms: FALSE 
+Main terms: render_a, render_b 
+
+--- Nakagawa R² ---
+Marginal R² (fixed effects):     0.1634 
+Conditional R² (fixed+random):   0.5264 
+
+--- Post-hoc inference (emmeans for categorical predictors) ---
+
+EMMs for render_a:
+ render_a emmean       SE  df asymp.LCL asymp.UCL
+ r1       0.9856 0.000298 Inf    0.9850    0.9862
+ r2       0.9878 0.000313 Inf    0.9872    0.9884
+ r3       0.9878 0.000362 Inf    0.9871    0.9885
+
+Results are averaged over the levels of: render_b 
+Confidence level used: 0.95 
+
+Pairwise comparisons for render_a (tukey adjustment):
+ contrast  estimate       SE  df z.ratio p.value
+ r1 - r2  -2.20e-03 0.000137 Inf -16.101 <0.0001
+ r1 - r3  -2.16e-03 0.000223 Inf  -9.715 <0.0001
+ r2 - r3   3.81e-05 0.000218 Inf   0.175  0.9833
+
+Results are averaged over the levels of: render_b 
+P value adjustment: tukey method for comparing a family of 3 estimates 
+
+EMMs for render_b:
+ render_b emmean       SE  df asymp.LCL asymp.UCL
+ r1       0.9862 0.000361 Inf    0.9855    0.9869
+ r2       0.9876 0.000314 Inf    0.9869    0.9882
+ r3       0.9875 0.000298 Inf    0.9869    0.9881
+
+Results are averaged over the levels of: render_a 
+Confidence level used: 0.95 
+
+Pairwise comparisons for render_b (tukey adjustment):
+ contrast  estimate       SE  df z.ratio p.value
+ r1 - r2  -1.37e-03 0.000217 Inf  -6.288 <0.0001
+ r1 - r3  -1.30e-03 0.000221 Inf  -5.912 <0.0001
+ r2 - r3   6.22e-05 0.000137 Inf   0.454  0.8925
+
+Results are averaged over the levels of: render_a 
+P value adjustment: tukey method for comparing a family of 3 estimates 
+
+========= Length =========
+
+Random-effects (VarCorr):
+Conditional model:
+ Groups   Name        Std.Dev. 
+ exp_a    (Intercept) 0.0020426
+ exp_b    (Intercept) 0.0014329
+ Residual             0.0028793
+# Intraclass Correlation Coefficient
+
+    Adjusted ICC: 0.429
+  Unadjusted ICC: 0.364
+
+--- Fixed-effect terms (as in formula) ---
+[1] "render_a" "render_b"
+
+Has interaction terms: FALSE 
+Main terms: render_a, render_b 
+
+--- Nakagawa R² ---
+Marginal R² (fixed effects):     0.1524 
+Conditional R² (fixed+random):   0.5159 
+
+--- Post-hoc inference (emmeans for categorical predictors) ---
+
+EMMs for render_a:
+ render_a emmean       SE  df asymp.LCL asymp.UCL
+ r1       0.9829 0.000393 Inf    0.9821    0.9836
+ r2       0.9858 0.000414 Inf    0.9850    0.9866
+ r3       0.9857 0.000479 Inf    0.9847    0.9866
+
+Results are averaged over the levels of: render_b 
+Confidence level used: 0.95 
+
+Pairwise comparisons for render_a (tukey adjustment):
+ contrast  estimate       SE  df z.ratio p.value
+ r1 - r2  -0.002912 0.000182 Inf -15.984 <0.0001
+ r1 - r3  -0.002788 0.000297 Inf  -9.395 <0.0001
+ r2 - r3   0.000125 0.000290 Inf   0.429  0.9035
+
+Results are averaged over the levels of: render_b 
+P value adjustment: tukey method for comparing a family of 3 estimates 
+
+EMMs for render_b:
+ render_b emmean       SE  df asymp.LCL asymp.UCL
+ r1       0.9837 0.000477 Inf    0.9828    0.9847
+ r2       0.9854 0.000415 Inf    0.9846    0.9863
+ r3       0.9851 0.000393 Inf    0.9844    0.9859
+
+Results are averaged over the levels of: render_a 
+Confidence level used: 0.95 
+
+Pairwise comparisons for render_b (tukey adjustment):
+ contrast  estimate       SE  df z.ratio p.value
+ r1 - r2  -0.001721 0.000289 Inf  -5.947 <0.0001
+ r1 - r3  -0.001417 0.000294 Inf  -4.825 <0.0001
+ r2 - r3   0.000304 0.000182 Inf   1.666  0.2184
+
+Results are averaged over the levels of: render_a 
+P value adjustment: tukey method for comparing a family of 3 estimates 
+
+========= Direction =========
+
+Random-effects (VarCorr):
+Conditional model:
+ Groups   Name        Std.Dev.
+ exp_a    (Intercept) 0.030745
+ exp_b    (Intercept) 0.020225
+ Residual             0.041803
+# Intraclass Correlation Coefficient
+
+    Adjusted ICC: 0.437
+  Unadjusted ICC: 0.351
+
+--- Fixed-effect terms (as in formula) ---
+[1] "render_a"          "render_b"          "render_a:render_b"
+
+Has interaction terms: TRUE 
+Main terms: render_a, render_b 
+Interaction terms: render_a:render_b 
+
+--- Nakagawa R² ---
+Marginal R² (fixed effects):     0.1962 
+Conditional R² (fixed+random):   0.5471 
+
+--- Post-hoc inference (emmeans for categorical predictors) ---
+
+EMMs for render_a:
+ render_a emmean      SE  df asymp.LCL asymp.UCL
+ r1        0.839 0.00579 Inf     0.828      0.85
+ r2       nonEst      NA  NA        NA        NA
+ r3       nonEst      NA  NA        NA        NA
+
+Results are averaged over the levels of: render_b 
+Confidence level used: 0.95 
+
+Pairwise comparisons for render_a (tukey adjustment):
+ contrast estimate SE df z.ratio p.value
+ r1 - r2    nonEst NA NA      NA      NA
+ r1 - r3    nonEst NA NA      NA      NA
+ r2 - r3    nonEst NA NA      NA      NA
+
+Results are averaged over the levels of: render_b 
+P value adjustment: tukey method for comparing a family of 2 estimates 
+
+EMMs for render_b:
+ render_b emmean      SE  df asymp.LCL asymp.UCL
+ r1       nonEst      NA  NA        NA        NA
+ r2       nonEst      NA  NA        NA        NA
+ r3        0.875 0.00579 Inf     0.863     0.886
+
+Results are averaged over the levels of: render_a 
+Confidence level used: 0.95 
+
+Pairwise comparisons for render_b (tukey adjustment):
+ contrast estimate SE df z.ratio p.value
+ r1 - r2    nonEst NA NA      NA      NA
+ r1 - r3    nonEst NA NA      NA      NA
+ r2 - r3    nonEst NA NA      NA      NA
+
+Results are averaged over the levels of: render_a 
+P value adjustment: tukey method for comparing a family of 2 estimates 
+
+========= Position =========
+
+Random-effects (VarCorr):
+Conditional model:
+ Groups   Name        Std.Dev. 
+ exp_a    (Intercept) 0.0133110
+ exp_b    (Intercept) 0.0092894
+ Residual             0.0307883
+# Intraclass Correlation Coefficient
+
+    Adjusted ICC: 0.217
+  Unadjusted ICC: 0.187
+
+--- Fixed-effect terms (as in formula) ---
+[1] "render_a" "render_b"
+
+Has interaction terms: FALSE 
+Main terms: render_a, render_b 
+
+--- Nakagawa R² ---
+Marginal R² (fixed effects):     0.1415 
+Conditional R² (fixed+random):   0.3282 
+
+--- Post-hoc inference (emmeans for categorical predictors) ---
+
+EMMs for render_a:
+ render_a emmean      SE  df asymp.LCL asymp.UCL
+ r1        0.904 0.00273 Inf     0.899     0.910
+ r2        0.933 0.00306 Inf     0.927     0.939
+ r3        0.934 0.00398 Inf     0.927     0.942
+
+Results are averaged over the levels of: render_b 
+Confidence level used: 0.95 
+
+Pairwise comparisons for render_a (tukey adjustment):
+ contrast estimate      SE  df z.ratio p.value
+ r1 - r2  -0.02885 0.00194 Inf -14.855 <0.0001
+ r1 - r3  -0.02998 0.00315 Inf  -9.509 <0.0001
+ r2 - r3  -0.00112 0.00309 Inf  -0.363  0.9298
+
+Results are averaged over the levels of: render_b 
+P value adjustment: tukey method for comparing a family of 3 estimates 
+
+EMMs for render_b:
+ render_b emmean      SE  df asymp.LCL asymp.UCL
+ r1        0.925 0.00396 Inf     0.918     0.933
+ r2        0.924 0.00307 Inf     0.918     0.930
+ r3        0.923 0.00273 Inf     0.917     0.928
+
+Results are averaged over the levels of: render_a 
+Confidence level used: 0.95 
+
+Pairwise comparisons for render_b (tukey adjustment):
+ contrast estimate      SE  df z.ratio p.value
+ r1 - r2   0.00164 0.00308 Inf   0.531  0.8562
+ r1 - r3   0.00279 0.00312 Inf   0.894  0.6441
+ r2 - r3   0.00115 0.00194 Inf   0.594  0.8235
+
+Results are averaged over the levels of: render_a 
+P value adjustment: tukey method for comparing a family of 3 estimates 
+
+========= Duration =========
+
+Random-effects (VarCorr):
+Conditional model:
+ Groups   Name        Std.Dev.
+ exp_a    (Intercept) 0.017185
+ exp_b    (Intercept) 0.012888
+ Residual             0.032483
+# Intraclass Correlation Coefficient
+
+    Adjusted ICC: 0.304
+  Unadjusted ICC: 0.292
+
+--- Fixed-effect terms (as in formula) ---
+[1] "render_a" "render_b"
+
+Has interaction terms: FALSE 
+Main terms: render_a, render_b 
+
+--- Nakagawa R² ---
+Marginal R² (fixed effects):     0.0387 
+Conditional R² (fixed+random):   0.3312 
+
+--- Post-hoc inference (emmeans for categorical predictors) ---
+
+EMMs for render_a:
+ render_a emmean      SE  df asymp.LCL asymp.UCL
+ r1        0.706 0.00348 Inf     0.699     0.713
+ r2        0.712 0.00378 Inf     0.704     0.719
+ r3        0.707 0.00464 Inf     0.698     0.716
+
+Results are averaged over the levels of: render_b 
+Confidence level used: 0.95 
+
+Pairwise comparisons for render_a (tukey adjustment):
+ contrast estimate      SE  df z.ratio p.value
+ r1 - r2  -0.00576 0.00205 Inf  -2.806  0.0139
+ r1 - r3  -0.00110 0.00334 Inf  -0.330  0.9418
+ r2 - r3   0.00466 0.00327 Inf   1.423  0.3288
+
+Results are averaged over the levels of: render_b 
+P value adjustment: tukey method for comparing a family of 3 estimates 
+
+EMMs for render_b:
+ render_b emmean      SE  df asymp.LCL asymp.UCL
+ r1        0.716 0.00462 Inf     0.707     0.725
+ r2        0.712 0.00379 Inf     0.704     0.719
+ r3        0.697 0.00348 Inf     0.690     0.704
+
+Results are averaged over the levels of: render_a 
+Confidence level used: 0.95 
+
+Pairwise comparisons for render_b (tukey adjustment):
+ contrast estimate      SE  df z.ratio p.value
+ r1 - r2   0.00442 0.00326 Inf   1.355  0.3646
+ r1 - r3   0.01930 0.00331 Inf   5.838 <0.0001
+ r2 - r3   0.01488 0.00205 Inf   7.244 <0.0001
+
+Results are averaged over the levels of: render_a 
+P value adjustment: tukey method for comparing a family of 3 estimates 
+✅️ Completed! 
