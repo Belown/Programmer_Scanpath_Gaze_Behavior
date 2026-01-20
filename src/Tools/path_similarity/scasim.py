@@ -33,10 +33,10 @@ def scasim(
         raise ValueError("data_set must be either 'corrected' or 'original'")
     
 
-    original_score = scasim_helper(fix_vec1, fix_vec2, normalize)
+    score = scasim_helper(fix_vec1, fix_vec2, normalize)
 
     return {
-        "original_score": original_score,
+        "score": score,
     }
 
     

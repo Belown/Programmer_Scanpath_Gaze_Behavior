@@ -1,24 +1,28 @@
 import os
+import sys
 import pandas as pd
 from concurrent.futures import ProcessPoolExecutor, as_completed
 from multiprocessing import cpu_count
 import argparse
-from ..path_similarity import multimatch_emip
+from ..path_similarity import multimatch_emip, nld, scasim
 from ..path import setup_paths
 
 try:
-    from tqdm import tqdm
+    from tqdm.auto import tqdm
     HAS_TQDM = True
 except ImportError:
     HAS_TQDM = False
     print("tqdm not intalled.")
 
 paths = setup_paths()
-output_base_dir = os.path.join(paths["output_path"], "processed_dataset")
-os.makedirs(output_base_dir, exist_ok=True)
 
+_global_eye_events = None
+def _init_eye_events(eye_events):
+    global _global_eye_events
+    _global_eye_events = eye_events
 
-def compare_experiment_pair(exp_a, exp_b, trial_id, eye_events, expertise):
+def compare_experiment_pair(exp_a, exp_b, trial_id, expertise, algo):
+    eye_events = _global_eye_events
     """
     Compare a pair of experiments using multimatch.
 
@@ -49,11 +53,26 @@ def compare_experiment_pair(exp_a, exp_b, trial_id, eye_events, expertise):
     expertise_a, expertise_b = expertise
 
     try:
-        scores = multimatch_emip(
-            exp_a=(exp_a, trial_id),
-            exp_b=(exp_b, trial_id),
-            eye_events=eye_events,
-        )
+        if algo == "NLD":
+            scores = nld(
+                exp_a=(exp_a, trial_id),
+                exp_b=(exp_b, trial_id),
+                eye_events=eye_events,
+                data_set="corrected"
+            )
+        elif algo == "ScaSim":
+            scores = scasim(
+                exp_a=(exp_a, trial_id),
+                exp_b=(exp_b, trial_id),
+                eye_events=eye_events,
+                data_set="corrected"
+            )
+        else:  # Default to MultiMatch
+            scores = multimatch_emip(
+                exp_a=(exp_a, trial_id),
+                exp_b=(exp_b, trial_id),
+                eye_events=eye_events,
+            )
         row = {
             "exp_a": exp_a,
             "exp_b": exp_b,
@@ -61,7 +80,7 @@ def compare_experiment_pair(exp_a, exp_b, trial_id, eye_events, expertise):
             "expertise_a": expertise_a,
             "expertise_b": expertise_b,
         }
-        # Add scores directly (Shape, Direction, Length, Position, Duration)
+        # Add scores directly
         row.update(scores)
         return row
     except Exception as e:
@@ -69,7 +88,7 @@ def compare_experiment_pair(exp_a, exp_b, trial_id, eye_events, expertise):
         return None
 
 
-def within_group_comparison(query_output_path, eye_events, trial_id, dataset, max_workers=None):
+def within_group_comparison(query_output_path, eye_events, trial_id, dataset, algo, max_workers=None):
     """
     Perform within-group comparison using multimatch for each group in the specified directory.
 
@@ -77,6 +96,7 @@ def within_group_comparison(query_output_path, eye_events, trial_id, dataset, ma
     :param: eye_events: DataFrame containing eye event data.
     :param: trial_id: The trial ID to use for the comparison.
     :param: dataset: Specify which data set we have used.
+    :param: algo: Algorithm to use (e.g., NLD, ScaSim, MultiMatch).
     :param: max_workers: Number of parallel workers (default: CPU count).
 
     :return: Dictionary containing comparison results for each group.
@@ -108,22 +128,26 @@ def within_group_comparison(query_output_path, eye_events, trial_id, dataset, ma
         comparison_tasks = []
         for i, exp_a in enumerate(group_ids):
             for j, exp_b in enumerate(group_ids):
-                if i != j:  # Avoid self-comparison
+                if i < j:  # Avoid self-comparison
                     # Get expertise for both experiments
                     expertise_a = group_data[group_data["experiment_id"] == exp_a]["expertise_experiment_language"].iloc[0]
                     expertise_b = group_data[group_data["experiment_id"] == exp_b]["expertise_experiment_language"].iloc[0]
                     expertise = (expertise_a, expertise_b)
-                    comparison_tasks.append((exp_a, exp_b, trial_id, eye_events, expertise))
+                    comparison_tasks.append((exp_a, exp_b, trial_id, expertise, algo))
 
         # Perform pairwise comparison within the group using ProcessPoolExecutor
         group_results = []
         total_tasks = len(comparison_tasks)
         print(f"  Total comparisons to perform: {total_tasks}")
         
-        with ProcessPoolExecutor(max_workers=max_workers) as executor:
+        with ProcessPoolExecutor(
+            max_workers=max_workers,
+            initializer=_init_eye_events,
+            initargs=(eye_events,)
+        ) as executor:
             # Submit all tasks
             future_to_task = {
-                executor.submit(compare_experiment_pair, *task): task 
+                executor.submit(compare_experiment_pair, *task): task
                 for task in comparison_tasks
             }
             
@@ -159,7 +183,7 @@ def within_group_comparison(query_output_path, eye_events, trial_id, dataset, ma
     return results
 
 
-def between_group_comparison(query_output_path, eye_events, trial_id, dataset, max_workers=None):
+def between_group_comparison(query_output_path, eye_events, trial_id, dataset, algo, max_workers=None):
     """
     Perform between-group comparison using multimatch for experiments in different groups.
 
@@ -167,6 +191,7 @@ def between_group_comparison(query_output_path, eye_events, trial_id, dataset, m
     :param: eye_events: DataFrame containing eye event data.
     :param: trial_id: The trial ID to use for the comparison.
     :param: dataset: Specify which data set we have used.
+    :param: algo: Algorithm to use (e.g., NLD, ScaSim, MultiMatch).
     :param: max_workers: Number of parallel workers (default: CPU count).
     
     :return: Dictionary containing comparison results for each group pair.
@@ -209,17 +234,23 @@ def between_group_comparison(query_output_path, eye_events, trial_id, dataset, m
                         expertise_a = group_data_a[group_data_a["experiment_id"] == exp_a]["expertise_experiment_language"].iloc[0]
                         expertise_b = group_data_b[group_data_b["experiment_id"] == exp_b]["expertise_experiment_language"].iloc[0]
                         expertise = (expertise_a, expertise_b)
-                        comparison_tasks.append((exp_a, exp_b, trial_id, eye_events, expertise))
+                        comparison_tasks.append((exp_a, exp_b, trial_id, expertise, algo))
 
             # Perform pairwise comparison between the groups using ProcessPoolExecutor
             group_results = []
             total_tasks = len(comparison_tasks)
             print(f"  Total comparisons to perform: {total_tasks}")
             
-            with ProcessPoolExecutor(max_workers=max_workers) as executor:
+            with ProcessPoolExecutor(
+                max_workers=max_workers,
+                initializer=_init_eye_events,
+                initargs=(eye_events,)
+            ) as executor:
                 # Submit all tasks
+                # NOTE: `comparison_tasks` already stores the full argument tuple
+                # (exp_a, exp_b, trial_id, expertise, algo). We must unpack it here.
                 future_to_task = {
-                    executor.submit(compare_experiment_pair, *task): task 
+                    executor.submit(compare_experiment_pair, *task): task
                     for task in comparison_tasks
                 }
                 
@@ -281,11 +312,11 @@ if __name__ == "__main__":
         description='Run parallel multimatch comparison',
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
-示例用法:
-  # 运行 within-group 比较
+Usage examples:
+  # Run within-group comparison
   python -m Code.src.tools.comparison --dataset EMIP_corrected --trial_id 2 --comparison_type within --workers 8
   
-  # 运行所有比较
+  # Run all comparison
   python -m Code.src.tools.comparison --dataset EMIP_corrected --trial_id 2 --comparison_type both
         """
     )
@@ -297,13 +328,20 @@ if __name__ == "__main__":
     parser.add_argument('--comparison_type', choices=['within', 'between', 'both'], 
                        default='both', 
                        help='comparison type: within (within-group), between (between-group), or both (Default: both)')
+    parser.add_argument('--algo', type=str, default=None, 
+                       help='Algorithm to use (e.g., NLD, ScaSim, MultiMatch)')
     parser.add_argument('--workers', type=int, default=None, 
                        help=f'Concurrent workers number (Default:{cpu_count()})')
     
     args = parser.parse_args()
+
+    algo = args.algo if args.algo else "MultiMatch"
+
+    output_base_dir = os.path.join(paths["output_path"], "processed_dataset", algo)
+    os.makedirs(output_base_dir, exist_ok=True)
     
     print("="*60)
-    print("Parallel Multimatch Comparison Script")
+    print("Parallel Comparison Script")
     print("="*60)
     print(f"Dataset: {args.dataset}")
     print(f"Trial ID: {args.trial_id}")
@@ -337,6 +375,7 @@ if __name__ == "__main__":
             eye_events, 
             args.trial_id, 
             args.dataset,
+            algo=algo,
             max_workers=args.workers
         )
     
@@ -349,6 +388,7 @@ if __name__ == "__main__":
             eye_events, 
             args.trial_id, 
             args.dataset,
+            algo=algo,
             max_workers=args.workers
         )
     
