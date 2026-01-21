@@ -1,0 +1,10 @@
+
+==== score ====
+Formula: score ~ expertise_a + (1 | exp_a) + (1 | exp_b) 
+Type: glmmTMB | Family: gaussian 
+
+              term   estimate   std.error  statistic    p.value stars
+       (Intercept) 0.89914879 0.005216275 172.373719 0.00000000   ***
+    expertise_alow 0.01479370 0.006317227   2.341803 0.01919082     *
+ expertise_amedium 0.01489628 0.005908736   2.521061 0.01170016     *
+   expertise_ahigh 0.02030956 0.010011472   2.028628 0.04249616     *

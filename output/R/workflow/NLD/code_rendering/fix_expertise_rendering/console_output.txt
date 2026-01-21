@@ -1,0 +1,48 @@
+Processing model for experiment: fix_both 
+============ Workflow stage 1 ============
+  Testing all 2 -way interactions for score ...
+✅️ Interaction expertise_a:render_a for score is significant (p = 2.35e-06 ). Keeping it.
+--- Checking model assumptions for score ---
+
+1: Yes
+2: No
+
+       LINEARITY : ❌ FAILED 
+       NORMALITY : ✅ PASSED 
+       HOMOSCEDASTICITY : ✅ PASSED 
+       INDEPENDENCE : ❌ FAILED 
+       RANDOM_EFFECTS : ✅ PASSED 
+🚨 Major assumption violations for score 
+============ Workflow stage 2 ============
+  Testing all 2 -way interactions for score ...
+✅️ Interaction expertise_a:render_a for score is significant (p = 5.34e-05 ). Keeping it.
+--- Checking model assumptions for score ---
+       LINEARITY : ❌ FAILED 
+       NORMALITY : ❌ FAILED 
+       HOMOSCEDASTICITY : ❌ FAILED 
+       INDEPENDENCE : ❌ FAILED 
+       RANDOM_EFFECTS : ✅ PASSED 
+🚨 Major assumption violations for score 
+============ Workflow stage 3 ============
+  Testing all 2 -way interactions for score ...
+✅️ Interaction expertise_a:render_a for score is significant (p = 2.35e-06 ). Keeping it.
+--- Checking GLMM assumptions for score ---
+       DISTRIBUTIONAL : ✅ PASSED 
+       LINK_FUNCTION : ✅ PASSED 
+       INDEPENDENCE : ❌ FAILED 
+       RANDOM_EFFECTS : ✅ PASSED 
+       OVERDISPERSION : ✅ PASSED 
+⚠️  Minor GLMM assumption violations
+
+==== score ====
+Formula: score ~ expertise_a * render_a + (1 | exp_a) + (1 | exp_b) 
+Type: glmmTMB | Family: gaussian 
+
+                     term    estimate   std.error  statistic      p.value stars
+              (Intercept)  0.76606697 0.007910592  96.840664 0.000000e+00   ***
+            expertise_a.L  0.01152655 0.011179755   1.031020 3.025315e-01      
+               render_ar2 -0.11421977 0.008016748 -14.247644 4.636634e-46   ***
+               render_ar3 -0.10298794 0.008045425 -12.800808 1.622537e-37   ***
+ expertise_a.L:render_ar2 -0.02808731 0.011325547  -2.479996 1.313840e-02     *
+ expertise_a.L:render_ar3 -0.05903969 0.011398974  -5.179387 2.226167e-07   ***
+✅️ Completed processing for experiment: fix_both 

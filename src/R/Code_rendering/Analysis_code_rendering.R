@@ -19,9 +19,13 @@ data_set <- "code_rendering"  # Dataset identifier
 
 exp_type <- "fix_expertise" #Options: "fix_expertise", "fix_expertise_rendering", "fix_rendering"
 
-base_path <- file.path(here(), "output", "processed_dataset")
+# Specify algorithm we used (MultiMatch, ScaSim, NLD)
+algo <- "MultiMatch"
+
+base_path <- file.path(here(), "output", "processed_dataset", algo)
 
 case <- "pairtype"
+
 
 folder_path <- file.path(base_path, data_set, exp_type)
 
@@ -30,7 +34,14 @@ formula_set <- list(
   rand_effect = "(1 | exp_a) + (1 | exp_b)"
 )
 
-exp_pack <- get_model_pack(folder_path, formula_set, info = TRUE, reml = TRUE, test = FALSE, data_set = data_set, case=case)
+exp_pack <- get_model_pack(folder_path = folder_path,
+                           formula_set = formula_set,
+                           info = TRUE,
+                           reml = TRUE,
+                           test = FALSE,
+                           data_set = data_set,
+                           case = case,
+                           algo = algo)
 
 
 # Extract components from model package

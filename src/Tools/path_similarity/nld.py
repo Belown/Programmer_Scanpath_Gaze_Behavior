@@ -34,11 +34,11 @@ def nld(
     else:
         raise ValueError("data_set must be either 'corrected' or 'original'")
 
-    original_distance, original_nld = nld_helper(fix_vec1, fix_vec2)
+    distance, nld = nld_helper(fix_vec1, fix_vec2)
 
     return {
-        "original_distance": original_distance,
-        "original_nld": original_nld,
+        "distance": distance,
+        "score": nld,
     }
 
 def nld_helper(

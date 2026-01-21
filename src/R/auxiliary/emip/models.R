@@ -22,7 +22,14 @@ dimensions <- c("Shape", "Length", "Direction", "Position", "Duration")
 #' @param reml Whether to use REML for LMM fitting
 #' @param test Whether to run in test mode (default not used)
 #' @return A list of fitted LMMs for each dimension and other info
-within_trial <- function(folder_path, formula_set, info, reml = TRUE, test = FALSE, dataset) {
+within_trial <- function(folder_path, formula_set, info, reml = TRUE, test = FALSE, algo) {
+  
+  if (algo == "MultiMatch") {
+    dimensions <- c("Shape", "Length", "Direction", "Position", "Duration")
+  } else {
+    dimensions <- c("score")
+  }
+  
   # Construct path to combined CSV
   combined_path <- file.path(folder_path, "combined_data.csv")
   
@@ -49,7 +56,7 @@ within_trial <- function(folder_path, formula_set, info, reml = TRUE, test = FAL
   trial_folder <- basename(folder_path)
   comp_type <- basename(dirname(folder_path))
   combined_path <- paste(comp_type, trial_folder, sep = "_")
-  output_path <- assign_path(file.path(here(), "output", "R", "workflow", dataset, "within_trial", combined_path))
+  output_path <- assign_path(file.path(here(), "output", "R", "workflow", algo, "EMIP_corrected", "within_trial", combined_path))
 
   # Construct config for output
   config <- list(
@@ -94,7 +101,13 @@ within_trial <- function(folder_path, formula_set, info, reml = TRUE, test = FAL
 #' @param reml Whether to use REML for LMM fitting
 #' @param test Whether to run in test mode (default not used)
 #' @return A list of fitted LMMs for each dimension and other info
-within_group <- function(folder_path, formula_set, info, reml = TRUE, test = FALSE, dataset) {
+within_group <- function(folder_path, formula_set, info, reml = TRUE, test = FALSE, algo) {
+  
+  if (algo == "MultiMatch") {
+    dimensions <- c("Shape", "Length", "Direction", "Position", "Duration")
+  } else {
+    dimensions <- c("score")
+  }
   
   fix_effect <- formula_set$fix_effect
   rand_effect <- formula_set$rand_effect
@@ -154,7 +167,7 @@ within_group <- function(folder_path, formula_set, info, reml = TRUE, test = FAL
     models_list[[y]] <- mod
   }
 
-  output_path <- assign_path(file.path(here(), "output", "R", "workflow",dataset, "within_group"))
+  output_path <- assign_path(file.path(here(), "output", "R", "workflow", algo, "EMIP_corrected", "within_group"))
 
   # Construct config for output
   config <- list(
@@ -185,7 +198,13 @@ within_group <- function(folder_path, formula_set, info, reml = TRUE, test = FAL
 #' @param reml Whether to use REML for LMM fitting
 #' @param test Whether to run in test mode (default not used)
 #' @return A list of fitted LMMs for each dimension and other info
-between_group <- function(folder_path, formula_set, info, case, reml = TRUE, test = FALSE, dataset) {
+between_group <- function(folder_path, formula_set, info, case, reml = TRUE, test = FALSE, algo) {
+  
+  if (algo == "MultiMatch") {
+    dimensions <- c("Shape", "Length", "Direction", "Position", "Duration")
+  } else {
+    dimensions <- c("score")
+  }
   
   fix_effect <- formula_set$fix_effect
   rand_effect <- formula_set$rand_effect
@@ -268,7 +287,7 @@ between_group <- function(folder_path, formula_set, info, case, reml = TRUE, tes
     models_list[[y]] <- mod_md
   }
 
-  output_path <- assign_path(file.path(here(), "output", "R", "workflow", dataset, "between_group", case))
+  output_path <- assign_path(file.path(here(), "output", "R", "workflow", algo, "EMIP_corrected", "between_group", case))
 
   # Construct config for output
   config <- list(

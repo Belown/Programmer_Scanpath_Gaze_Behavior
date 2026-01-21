@@ -1,0 +1,12 @@
+
+==== score ====
+Formula: score ~ expertise_a * render_a + (1 | exp_a) + (1 | exp_b) 
+Type: glmmTMB | Family: gaussian 
+
+                     term      estimate   std.error     statistic      p.value stars
+              (Intercept)  7.774051e-01 0.005836403 133.199348705 0.000000e+00   ***
+            expertise_a.L -6.435451e-05 0.008257051  -0.007793885 9.937814e-01      
+               render_ar2 -6.574013e-02 0.004335870 -15.161925872 6.318895e-52   ***
+               render_ar3 -6.876926e-02 0.004396571 -15.641569047 3.792666e-55   ***
+ expertise_a.L:render_ar2 -1.986515e-02 0.006132318  -3.239419375 1.197733e-03    **
+ expertise_a.L:render_ar3 -2.983157e-02 0.006222775  -4.793932961 1.635429e-06   ***

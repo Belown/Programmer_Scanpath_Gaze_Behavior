@@ -1,0 +1,45 @@
+Processing model for experiment: between_group_mean_diff 
+============ Workflow stage 1 ============
+  Testing all 2 -way interactions for score ...
+❌️ Interaction expertise_mean:expertise_diff for score is NOT significant (p = 0.738 ). Dropping it.
+--- Checking model assumptions for score ---
+
+1: Yes
+2: No
+
+       LINEARITY : ❌ FAILED 
+       NORMALITY : ❌ FAILED 
+       HOMOSCEDASTICITY : ❌ FAILED 
+       INDEPENDENCE : ❌ FAILED 
+       RANDOM_EFFECTS : ✅ PASSED 
+🚨 Major assumption violations for score 
+============ Workflow stage 2 ============
+  Testing all 2 -way interactions for score ...
+❌️ Interaction expertise_mean:expertise_diff for score is NOT significant (p = 0.475 ). Dropping it.
+--- Checking model assumptions for score ---
+       LINEARITY : ❌ FAILED 
+       NORMALITY : ❌ FAILED 
+       HOMOSCEDASTICITY : ❌ FAILED 
+       INDEPENDENCE : ❌ FAILED 
+       RANDOM_EFFECTS : ❌ FAILED 
+🚨 Major assumption violations for score 
+============ Workflow stage 3 ============
+  Testing all 2 -way interactions for score ...
+❌️ Interaction expertise_mean:expertise_diff for score is NOT significant (p = 0.738 ). Dropping it.
+--- Checking GLMM assumptions for score ---
+       DISTRIBUTIONAL : ✅ PASSED 
+       LINK_FUNCTION : ✅ PASSED 
+       INDEPENDENCE : ❌ FAILED 
+       RANDOM_EFFECTS : ✅ PASSED 
+       OVERDISPERSION : ✅ PASSED 
+⚠️  Minor GLMM assumption violations
+
+==== score ====
+Formula: score ~ expertise_mean + expertise_diff + (1 | exp_a) + (1 |      exp_b) 
+Type: glmmTMB | Family: gaussian 
+
+           term     estimate   std.error   statistic   p.value stars
+    (Intercept) 0.9039817347 0.006228874 145.1276406 0.0000000   ***
+ expertise_mean 0.0036139709 0.002277011   1.5871556 0.1124774      
+ expertise_diff 0.0008508881 0.001164209   0.7308723 0.4648571      
+✅️ Completed processing for experiment: between_group_mean_diff 

@@ -1,0 +1,9 @@
+
+==== score ====
+Formula: score ~ PairType + (1 | exp_a) + (1 | exp_b) 
+Type: glmmTMB | Family: gaussian 
+
+        term     estimate   std.error  statistic    p.value stars
+ (Intercept)  0.702781527 0.009981602 70.4076915 0.00000000   ***
+  PairTypeBI -0.008448791 0.009911892 -0.8523893 0.39399807      
+  PairTypeII -0.023387026 0.013850495 -1.6885337 0.09130883     .

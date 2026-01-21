@@ -1,0 +1,47 @@
+Processing model for experiment: fix_expertise 
+============ Workflow stage 1 ============
+  Testing all 2 -way interactions for score ...
+❌️ Interaction render_a:render_b for score is NOT significant (p = 0.824 ). Dropping it.
+--- Checking model assumptions for score ---
+
+1: Yes
+2: No
+
+       LINEARITY : ✅ PASSED 
+       NORMALITY : ✅ PASSED 
+       HOMOSCEDASTICITY : ❌ FAILED 
+       INDEPENDENCE : ❌ FAILED 
+       RANDOM_EFFECTS : ❌ FAILED 
+🚨 Major assumption violations for score 
+============ Workflow stage 2 ============
+  Testing all 2 -way interactions for score ...
+❌️ Interaction render_a:render_b for score is NOT significant (p = 0.561 ). Dropping it.
+--- Checking model assumptions for score ---
+       LINEARITY : ✅ PASSED 
+       NORMALITY : ❌ FAILED 
+       HOMOSCEDASTICITY : ❌ FAILED 
+       INDEPENDENCE : ❌ FAILED 
+       RANDOM_EFFECTS : ❌ FAILED 
+🚨 Major assumption violations for score 
+============ Workflow stage 3 ============
+  Testing all 2 -way interactions for score ...
+❌️ Interaction render_a:render_b for score is NOT significant (p = 0.824 ). Dropping it.
+--- Checking GLMM assumptions for score ---
+       DISTRIBUTIONAL : ✅ PASSED 
+       LINK_FUNCTION : ✅ PASSED 
+       INDEPENDENCE : ❌ FAILED 
+       RANDOM_EFFECTS : ✅ PASSED 
+       OVERDISPERSION : ✅ PASSED 
+⚠️  Minor GLMM assumption violations
+
+==== score ====
+Formula: score ~ render_a + render_b + (1 | exp_a) + (1 | exp_b) 
+Type: glmmTMB | Family: gaussian 
+
+        term     estimate   std.error   statistic       p.value stars
+ (Intercept)  0.776987318 0.005197460 149.4936563  0.000000e+00   ***
+  render_ar2 -0.062805162 0.002194513 -28.6191805 3.878639e-180   ***
+  render_ar3 -0.072556658 0.003573356 -20.3049056  1.163676e-91   ***
+  render_br2 -0.003620128 0.003485264  -1.0386957  2.989463e-01      
+  render_br3  0.002420252 0.003537807   0.6841108  4.939052e-01      
+✅️ Completed processing for experiment: fix_expertise 

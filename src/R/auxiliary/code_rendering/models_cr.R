@@ -1,8 +1,11 @@
-# Set up constant variables
-dimensions <- c("Shape", "Length", "Direction", "Position", "Duration")
 
-
-get_model_pack <- function(folder_path, formula_set, info, reml = TRUE, test = FALSE, data_set, case = NULL) {
+get_model_pack <- function(folder_path, formula_set, info, reml = TRUE, test = FALSE, data_set, case = NULL, algo) {
+  
+  if (algo == "MultiMatch") {
+    dimensions <- c("Shape", "Length", "Direction", "Position", "Duration")
+  } else {
+    dimensions <- c("score")
+  }
   
   fix_effect <- formula_set$fix_effect
   rand_effect <- formula_set$rand_effect
@@ -65,19 +68,6 @@ get_model_pack <- function(folder_path, formula_set, info, reml = TRUE, test = F
     print(table(df$expertise_b))
   }
   
-  # df_symmetric <- df %>%
-  #   rename(render_a = render_b, render_b = render_a,
-  #          exp_a = exp_b, exp_b = exp_a,
-  #          expertise_a = expertise_b, expertise_b = expertise_a,
-  #          expertise_a_num = expertise_b_num, expertise_b_num = expertise_a_num)
-  # 
-  # df <- rbind(df, df_symmetric) %>% 
-  #   distinct()
-  # 
-  # if (info) {
-  #   cat("Rows after symmetry expansion:", nrow(df), "\n")
-  # }
-  
   # Generate LMMs for each dimension and add them to the list
   models_list <- list()
   
@@ -94,9 +84,9 @@ get_model_pack <- function(folder_path, formula_set, info, reml = TRUE, test = F
   }
   
   if (!is.null(case) && exp_name=="fix_rendering") {
-    output_path <- assign_path(file.path(here(), "output", "R", "workflow",data_set, exp_name, case))
+    output_path <- assign_path(file.path(here(), "output", "R", "workflow", algo, data_set, exp_name, case))
   } else {
-    output_path <- assign_path(file.path(here(), "output", "R", "workflow",data_set, exp_name))
+    output_path <- assign_path(file.path(here(), "output", "R", "workflow", algo, data_set, exp_name))
   }
   
   # Construct config for output

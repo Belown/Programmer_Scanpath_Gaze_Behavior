@@ -65,7 +65,8 @@ def compare_experiment_pair(exp_a, exp_b, trial_id, expertise, algo):
                 exp_a=(exp_a, trial_id),
                 exp_b=(exp_b, trial_id),
                 eye_events=eye_events,
-                data_set="corrected"
+                data_set="corrected",
+                normalize="duration"
             )
         else:  # Default to MultiMatch
             scores = multimatch_emip(

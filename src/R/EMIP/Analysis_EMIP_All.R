@@ -3,13 +3,56 @@ library(here)
 source(file.path(here(), "src", "R", "auxiliary", "workflow.R"))
 source(file.path(here(), "src", "R", "auxiliary", "emip", "helper.R"))
 
-within_trial_within_2 <- get_exp_pack("EMIP_corrected", "within_trial", "within_group", "trial_2", NULL, NULL, info=FALSE, reml=TRUE, dataset="EMIP_corrected")
-within_trial_within_5 <- get_exp_pack("EMIP_corrected", "within_trial", "within_group", "trial_5", NULL, NULL, info=FALSE, reml=TRUE, dataset="EMIP_corrected")
-# within_trial_between_2 <- get_exp_pack("EMIP_corrected", "within_trial", "between_group", "trial_2", NULL, NULL, info=FALSE, reml=TRUE, dataset="EMIP_corrected")
-# within_trial_between_5 <- get_exp_pack("EMIP_corrected", "within_trial", "between_group", "trial_5", NULL, NULL, info=FALSE, reml=TRUE, dataset="EMIP_corrected")
-within_group <- get_exp_pack("EMIP_corrected", "within_group", NULL, NULL, NULL, NULL, info=FALSE, reml=TRUE, dataset="EMIP_corrected")
-between_group_mean_diff <- get_exp_pack("EMIP_corrected", "between_group", NULL, NULL, "mean_diff", NULL, info=FALSE, reml=TRUE, dataset="EMIP_corrected")
-between_group_pairtype <- get_exp_pack("EMIP_corrected", "between_group", NULL, NULL, "pairtype", NULL, info=FALSE, reml=TRUE, dataset="EMIP_corrected")
+# Specify algorithm we used (MultiMatch, ScaSim, NLD)
+algo <- "ScaSim"
+
+within_trial_within_2 <- get_exp_pack(data_set = "EMIP_corrected",
+                                      exp_type = "within_trial",
+                                      comp_type = "within_group",
+                                      trial_folder = "trial_2",
+                                      case = NULL,
+                                      rand_effect = NULL,
+                                      info = FALSE,
+                                      reml = TRUE,
+                                      algo = algo)
+within_trial_within_5 <- get_exp_pack(data_set = "EMIP_corrected",
+                                      exp_type = "within_trial",
+                                      comp_type = "within_group",
+                                      trial_folder = "trial_5",
+                                      case = NULL,
+                                      rand_effect = NULL,
+                                      info = FALSE,
+                                      reml = TRUE,
+                                      algo = algo)
+# within_trial_between_2 <- get_exp_pack("EMIP_corrected", "within_trial", "between_group", "trial_2", NULL, NULL, info=FALSE, reml=TRUE, algo = algo)
+# within_trial_between_5 <- get_exp_pack("EMIP_corrected", "within_trial", "between_group", "trial_5", NULL, NULL, info=FALSE, reml=TRUE, algo = algo)
+within_group <- get_exp_pack(data_set = "EMIP_corrected",
+                             exp_type = "within_group",
+                             comp_type = NULL,
+                             trial_folder = NULL,
+                             case = NULL,
+                             rand_effect = NULL,
+                             info = FALSE,
+                             reml = TRUE,
+                             algo = algo)
+between_group_mean_diff <- get_exp_pack(data_set = "EMIP_corrected",
+                                        exp_type = "between_group",
+                                        comp_type = NULL,
+                                        trial_folder = NULL,
+                                        case = "mean_diff",
+                                        rand_effect = NULL,
+                                        info = FALSE,
+                                        reml = TRUE,
+                                        algo = algo)
+between_group_pairtype <- get_exp_pack(data_set = "EMIP_corrected",
+                                       exp_type = "between_group",
+                                       comp_type = NULL,
+                                       trial_folder = NULL,
+                                       case = "pairtype",
+                                       rand_effect = NULL,
+                                       info = FALSE,
+                                       reml = TRUE,
+                                       algo = algo)
 
 exps_list <- list(
   within_trial_within_2 = within_trial_within_2,

@@ -1,0 +1,113 @@
+
+======================================== Workflow Stage 1 ========================================
+============================================================
+MODEL ASSUMPTION CHECKS
+============================================================
+
+1. LINEARITY CHECK:
+Correlation between residuals and fitted values: 0.1096
+Correlation test p-value: 0.0307
+
+2. NORMALITY CHECK:
+Shapiro-Wilk test p-value: 0.8238
+Skewness: -0.0712
+Kurtosis: 2.9292
+
+3. HOMOSCEDASTICITY CHECK:
+Breusch-Pagan test p-value: 0.0641
+Variance ratio (high/low groups): 1.2971
+
+4. INDEPENDENCE CHECK:
+Durbin-Watson statistic: 1.7938
+Durbin-Watson p-value: 0.03
+Runs test p-value: 0.0756
+
+5. RANDOM EFFECTS NORMALITY CHECK:
+Shapiro-Wilk test p-value: 0.2283
+Random effects mean: 0
+Random effects skewness: 0.5181
+============================================================
+OVERALL ASSUMPTION SUMMARY
+============================================================
+Assumptions passed: 3 out of 5
+- LINEARITY : ❌ FAILED
+- NORMALITY : ✅ PASSED
+- HOMOSCEDASTICITY : ✅ PASSED
+- INDEPENDENCE : ❌ FAILED
+- RANDOM_EFFECTS : ✅ PASSED
+
+ 🚨 MAJOR VIOLATIONS - Consider transformations or alternative models
+
+======================================== Workflow Stage 2 ========================================
+============================================================
+MODEL ASSUMPTION CHECKS
+============================================================
+
+1. LINEARITY CHECK:
+Correlation between residuals and fitted values: 0.1072
+Correlation test p-value: 0.0346
+
+2. NORMALITY CHECK:
+Shapiro-Wilk test p-value: 0.0024
+Skewness: 0.417
+Kurtosis: 3.3201
+
+3. HOMOSCEDASTICITY CHECK:
+Breusch-Pagan test p-value: 0.0023
+Variance ratio (high/low groups): 1.6137
+
+4. INDEPENDENCE CHECK:
+Durbin-Watson statistic: 1.7135
+Durbin-Watson p-value: 0.004
+Runs test p-value: 0.5766
+
+5. RANDOM EFFECTS NORMALITY CHECK:
+Shapiro-Wilk test p-value: 0.0809
+Random effects mean: 0
+Random effects skewness: 0.6704
+============================================================
+OVERALL ASSUMPTION SUMMARY
+============================================================
+Assumptions passed: 1 out of 5
+- LINEARITY : ❌ FAILED
+- NORMALITY : ❌ FAILED
+- HOMOSCEDASTICITY : ❌ FAILED
+- INDEPENDENCE : ❌ FAILED
+- RANDOM_EFFECTS : ✅ PASSED
+
+ 🚨 MAJOR VIOLATIONS - Consider transformations or alternative models
+
+======================================== Workflow Stage 3 ========================================
+============================================================
+GLMM ASSUMPTION CHECKS
+============================================================
+
+1. DISTRIBUTIONAL ASSUMPTION:
+Model convergence: ✓
+AIC calculable: ✓
+Family used: gaussian
+
+2. LINK FUNCTION CHECK:
+
+3. INDEPENDENCE CHECK:
+Durbin-Watson statistic: 1.789
+Durbin-Watson p-value: 0.03
+
+4. RANDOM EFFECTS NORMALITY:
+❌ Could not extract random effects - assuming passed
+
+5. OVERDISPERSION CHECK:
+Overdispersion check not applicable for gaussian family
+✅ OVERDISPERSION: N/A (not applicable for gaussian family)
+============================================================
+ OVERALL GLMM ASSUMPTION SUMMARY
+============================================================
+Family: gaussian
+Assumptions passed: 4 out of 5
+- DISTRIBUTIONAL : ✅ PASSED
+- LINK_FUNCTION : ✅ PASSED
+- INDEPENDENCE : ❌ FAILED
+- RANDOM_EFFECTS : ✅ PASSED
+- OVERDISPERSION : ✅ PASSED
+
+ ⚠️  MINOR VIOLATIONS - GLMM results likely robust, interpret with caution

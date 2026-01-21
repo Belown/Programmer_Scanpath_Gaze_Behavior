@@ -4,8 +4,6 @@
 
 source(file.path(here(), "src", "R", "auxiliary", "code_rendering", "models_cr.R"))
 
-base_path <- file.path(here(), "output", "processed_dataset")
-
 #' Get the model package based on experiment type and data set
 #' 
 #' @param data_set The name of the data set
@@ -15,7 +13,8 @@ base_path <- file.path(here(), "output", "processed_dataset")
 #' @param formula_set A list containing fixed and random effect formula strings
 #' @param info Whether to print info messages
 #' @return A model package, which contain data frame, models, config, and folder_path
-get_exp_pack <- function(data_set, exp_type, case, rand_effect = NULL, info = TRUE, reml) {
+get_exp_pack <- function(data_set, exp_type, case, rand_effect = NULL, info = TRUE, reml, algo) {
+  base_path <- file.path(here(), "output", "processed_dataset", algo)
   model_pack <- switch(
     exp_type,
     "fix_expertise" = {
@@ -25,7 +24,7 @@ get_exp_pack <- function(data_set, exp_type, case, rand_effect = NULL, info = TR
         fix_effect = "render_a * render_b",
         rand_effect = if (!is.null(rand_effect)) rand_effect else default_rand_effect)
       folder_path <- file.path(base_path, data_set, exp_type)
-      get_model_pack(folder_path, formula_set, info, reml, test = FALSE, data_set=data_set, case = NULL)
+      get_model_pack(folder_path, formula_set, info, reml, test = FALSE, data_set=data_set, case = NULL, algo = algo)
     },
     "fix_expertise_rendering" = {
       default_rand_effect <- "(1 | exp_a) + (1 | exp_b)"
@@ -34,7 +33,7 @@ get_exp_pack <- function(data_set, exp_type, case, rand_effect = NULL, info = TR
         fix_effect = "expertise_a * render_a",
         rand_effect = if (!is.null(rand_effect)) rand_effect else default_rand_effect)
       folder_path <- file.path(base_path, data_set, exp_type)
-      get_model_pack(folder_path, formula_set, info, reml, test = FALSE, data_set=data_set, case = NULL)
+      get_model_pack(folder_path, formula_set, info, reml, test = FALSE, data_set=data_set, case = NULL, algo = algo)
     },
     "fix_rendering" = {
       default_rand_effect <- "(1 | exp_a) + (1 | exp_b)"
@@ -51,7 +50,7 @@ get_exp_pack <- function(data_set, exp_type, case, rand_effect = NULL, info = TR
         )
       )
       folder_path <- file.path(base_path, data_set, exp_type)
-      get_model_pack(folder_path, formula_set, info, reml, test = FALSE, data_set=data_set, case)
+      get_model_pack(folder_path, formula_set, info, reml, test = FALSE, data_set=data_set, case, algo = algo)
     }
   )
   return (model_pack)

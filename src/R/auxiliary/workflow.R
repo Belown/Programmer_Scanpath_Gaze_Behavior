@@ -236,6 +236,7 @@ check_interaction <- function(m_list, alpha = 0.05) {
 check_assumptions_all_dimensions <- function(m_list, config) {
   results <- list()
   pass_count <- 0
+  total_dimensions <- length(names(m_list))
   
   for (dim in names(m_list)) {
     model <- m_list[[dim]]
@@ -263,14 +264,12 @@ check_assumptions_all_dimensions <- function(m_list, config) {
     }
   }
   
-  # Majority rule: more than half of dimensions must pass
-  majority_threshold <- 5
-  overall_pass <- pass_count >= majority_threshold
+  overall_pass <- pass_count >= total_dimensions
   
   return(list(
     overall_pass = overall_pass,
     pass_count = pass_count,
-    total_dimensions = length(names(m_list)),
+    total_dimensions = total_dimensions,
     detailed_results = results
   ))
 }

@@ -22,9 +22,20 @@ trial_folder <- "trial_2"  # Specific trial folder to analyze
 # only used for between_group experiments
 case <- "mean_diff"  # Analysis case: "mean_diff" or "pairtype"
 
+# Specify algorithm we used (MultiMatch, ScaSim, NLD)
+algo <- "ScaSim"
+
 # This includes fitted models, data, and config for the specified experiment type
 # Modify fixed and random effects in get_exp_pack() if needed
-exp_pack <- get_exp_pack(data_set=data_set, exp_type=exp_type, comp_type=within_trial_type, trial_folder=trial_folder, case=case, rand_effect=NULL, info=TRUE, reml=TRUE, dataset="EMIP_corrected")
+exp_pack <- get_exp_pack(data_set = data_set,
+                         exp_type = exp_type,
+                         comp_type = within_trial_type,
+                         trial_folder = trial_folder,
+                         case = case,
+                         rand_effect = NULL,
+                         info = TRUE,
+                         reml = TRUE,
+                         algo = algo)
 
 # Extract components from model package
 folder_path <- exp_pack$folder_path  # Output folder path

@@ -12,10 +12,15 @@ source(file.path(here(), "src", "R", "auxiliary", "workflow.R"))
 source(file.path(here(), "src", "R", "auxiliary", "emip", "helper.R"))
 source(file.path(here(), "src", "R", "auxiliary", "model_analysis.R"))
 
-# Set up constant
-dimensions <- c("Shape", "Length", "Direction", "Position", "Duration")
+algo <- "MultiMatch"
 
-output_path <- file.path(getwd(), "output", "R", "model_analysis", "EMIP", "between_group_meandiff")
+if (algo == "MultiMatch") {
+  dimensions <- c("Shape", "Length", "Direction", "Position", "Duration")
+} else {
+  dimensions <- c("score")
+}
+
+output_path <- file.path(getwd(), "output", "R", "model_analysis", algo, "EMIP", "between_group_meandiff")
 
 if (!dir.exists(output_path)) {
   dir.create(output_path, recursive = TRUE)
@@ -35,7 +40,7 @@ exp_pack <- get_exp_pack(data_set = data_set,
                          rand_effect = NULL,
                          info = TRUE,
                          reml = TRUE,
-                         dataset = "EMIP_corrected")
+                         algo = algo)
 
 # Run workflow to validate model assumptions and obtain final models
 final_result <- work_flow_with_print(exp_pack$m_list, exp_pack$config)
