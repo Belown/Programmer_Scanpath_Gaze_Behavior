@@ -4,7 +4,7 @@ source(file.path(here(), "src", "R", "auxiliary", "workflow.R"))
 source(file.path(here(), "src", "R", "auxiliary", "code_rendering", "helper_cr.R"))
 
 # Specify algorithm we used (MultiMatch, ScaSim, NLD)
-algo <- "ScaSim"
+algo <- "MultiMatch"
 
 fix_expertise <- get_exp_pack(data_set = "code_rendering",
                               exp_type = "fix_expertise",

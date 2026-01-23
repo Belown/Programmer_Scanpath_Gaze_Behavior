@@ -11,10 +11,6 @@ Processing model for experiment: fix_expertise
   Testing all 2 -way interactions for Duration ...
 ❌️ Interaction render_a:render_b for Duration is NOT significant (p = 0.494 ). Dropping it.
 --- Checking model assumptions for Shape ---
-
-1: Yes
-2: No
-
        LINEARITY : ❌ FAILED 
        NORMALITY : ❌ FAILED 
        HOMOSCEDASTICITY : ❌ FAILED 
@@ -137,10 +133,10 @@ Processing model for experiment: fix_expertise
 --- Checking GLMM assumptions for Duration ---
        DISTRIBUTIONAL : ✅ PASSED 
        LINK_FUNCTION : ✅ PASSED 
-       INDEPENDENCE : ✅ PASSED 
+       INDEPENDENCE : ❌ FAILED 
        RANDOM_EFFECTS : ✅ PASSED 
        OVERDISPERSION : ✅ PASSED 
-🎉 All GLMM assumptions satisfied
+⚠️  Minor GLMM assumption violations
 
 ==== Shape ====
 Formula: Shape ~ render_a + render_b + (1 | exp_a) + (1 | exp_b) 

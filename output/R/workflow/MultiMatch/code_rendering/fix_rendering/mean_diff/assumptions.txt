@@ -1,4 +1,5 @@
 
+
 ======================================== Workflow Stage 1 ========================================
 ============================================================
 MODEL ASSUMPTION CHECKS
@@ -167,7 +168,7 @@ Variance ratio (high/low groups): 1.6197
 
 4. INDEPENDENCE CHECK:
 Durbin-Watson statistic: 1.8119
-Durbin-Watson p-value: 0.004
+Durbin-Watson p-value: 0.008
 Runs test p-value: 0.1627
 
 5. RANDOM EFFECTS NORMALITY CHECK:
@@ -354,7 +355,7 @@ Variance ratio (high/low groups): 1.1977
 
 4. INDEPENDENCE CHECK:
 Durbin-Watson statistic: 1.8175
-Durbin-Watson p-value: 0.014
+Durbin-Watson p-value: 0.004
 Runs test p-value: 0.0965
 
 5. RANDOM EFFECTS NORMALITY CHECK:
@@ -519,7 +520,7 @@ Family used: gaussian
 
 3. INDEPENDENCE CHECK:
 Durbin-Watson statistic: 1.8116
-Durbin-Watson p-value: 0.002
+Durbin-Watson p-value: 0
 
 4. RANDOM EFFECTS NORMALITY:
 ❌ Could not extract random effects - assuming passed

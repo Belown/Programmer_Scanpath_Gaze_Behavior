@@ -1,4 +1,5 @@
 
+
 ======================================== Workflow Stage 1 ========================================
 ============================================================
 MODEL ASSUMPTION CHECKS
@@ -19,7 +20,7 @@ Variance ratio (high/low groups): 2.0968
 
 4. INDEPENDENCE CHECK:
 Durbin-Watson statistic: 1.9402
-Durbin-Watson p-value: 0.002
+Durbin-Watson p-value: 0
 Runs test p-value: 0.2017
 
 5. RANDOM EFFECTS NORMALITY CHECK:

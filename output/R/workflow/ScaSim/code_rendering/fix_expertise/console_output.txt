@@ -3,10 +3,6 @@ Processing model for experiment: fix_expertise
   Testing all 2 -way interactions for score ...
 ❌️ Interaction render_a:render_b for score is NOT significant (p = 0.824 ). Dropping it.
 --- Checking model assumptions for score ---
-
-1: Yes
-2: No
-
        LINEARITY : ✅ PASSED 
        NORMALITY : ✅ PASSED 
        HOMOSCEDASTICITY : ❌ FAILED 

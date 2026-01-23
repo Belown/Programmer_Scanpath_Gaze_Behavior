@@ -26,10 +26,12 @@ get_model_pack <- function(folder_path, formula_set, info, reml = TRUE, test = F
       exp_b = factor(exp_b),
       expertise_a = factor(expertise_a,
                            levels = c("Beginner", "Intermediate"),
-                           ordered = TRUE),
+                           # ordered = TRUE),
+                          ),
       expertise_b = factor(expertise_b,
                            levels = c("Beginner", "Intermediate"),
-                           ordered = TRUE),
+                           # ordered = TRUE),
+                          ),
       render_a = factor(render_a),
       render_b = factor(render_b)
     )

@@ -3,10 +3,6 @@ Processing model for experiment: fix_rendering_mean_diff
   Testing all 2 -way interactions for score ...
 ❌️ Interaction expertise_mean:expertise_diff for score is NOT significant (p = NA ). Dropping it.
 --- Checking model assumptions for score ---
-
-1: Yes
-2: No
-
        LINEARITY : ❌ FAILED 
        NORMALITY : ❌ FAILED 
        HOMOSCEDASTICITY : ❌ FAILED 

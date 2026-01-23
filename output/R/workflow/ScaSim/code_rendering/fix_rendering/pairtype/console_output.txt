@@ -2,10 +2,6 @@ Processing model for experiment: fix_rendering_pairtype
 ============ Workflow stage 1 ============
 No interaction terms in model for score .
 --- Checking model assumptions for score ---
-
-1: Yes
-2: No
-
        LINEARITY : ❌ FAILED 
        NORMALITY : ❌ FAILED 
        HOMOSCEDASTICITY : ❌ FAILED 

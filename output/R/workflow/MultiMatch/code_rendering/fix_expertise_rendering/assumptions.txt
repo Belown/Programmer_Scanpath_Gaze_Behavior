@@ -1,4 +1,5 @@
 
+
 ======================================== Workflow Stage 1 ========================================
 ============================================================
 MODEL ASSUMPTION CHECKS
@@ -93,7 +94,7 @@ Variance ratio (high/low groups): 3.8002
 
 4. INDEPENDENCE CHECK:
 Durbin-Watson statistic: 1.7731
-Durbin-Watson p-value: 0.008
+Durbin-Watson p-value: 0.032
 Runs test p-value: 0.0612
 
 5. RANDOM EFFECTS NORMALITY CHECK:
@@ -130,7 +131,7 @@ Variance ratio (high/low groups): 4.581
 
 4. INDEPENDENCE CHECK:
 Durbin-Watson statistic: 1.8753
-Durbin-Watson p-value: 0.202
+Durbin-Watson p-value: 0.192
 Runs test p-value: 0.2696
 
 5. RANDOM EFFECTS NORMALITY CHECK:
@@ -167,7 +168,7 @@ Variance ratio (high/low groups): 2.323
 
 4. INDEPENDENCE CHECK:
 Durbin-Watson statistic: 2.1449
-Durbin-Watson p-value: 0.122
+Durbin-Watson p-value: 0.136
 Runs test p-value: 0.2301
 
 5. RANDOM EFFECTS NORMALITY CHECK:
@@ -317,7 +318,7 @@ Variance ratio (high/low groups): 1.3523
 
 4. INDEPENDENCE CHECK:
 Durbin-Watson statistic: 1.8721
-Durbin-Watson p-value: 0.168
+Durbin-Watson p-value: 0.2
 Runs test p-value: 0.2696
 
 5. RANDOM EFFECTS NORMALITY CHECK:
@@ -354,7 +355,7 @@ Variance ratio (high/low groups): 1.662
 
 4. INDEPENDENCE CHECK:
 Durbin-Watson statistic: 2.1589
-Durbin-Watson p-value: 0.082
+Durbin-Watson p-value: 0.128
 Runs test p-value: 0.2301
 
 5. RANDOM EFFECTS NORMALITY CHECK:
@@ -453,7 +454,7 @@ Family used: gaussian
 
 3. INDEPENDENCE CHECK:
 Durbin-Watson statistic: 1.7736
-Durbin-Watson p-value: 0.022
+Durbin-Watson p-value: 0.016
 
 4. RANDOM EFFECTS NORMALITY:
 ❌ Could not extract random effects - assuming passed
@@ -486,7 +487,7 @@ Family used: gaussian
 
 3. INDEPENDENCE CHECK:
 Durbin-Watson statistic: 1.871
-Durbin-Watson p-value: 0.182
+Durbin-Watson p-value: 0.19
 
 4. RANDOM EFFECTS NORMALITY:
 ❌ Could not extract random effects - assuming passed
@@ -519,7 +520,7 @@ Family used: gaussian
 
 3. INDEPENDENCE CHECK:
 Durbin-Watson statistic: 2.1423
-Durbin-Watson p-value: 0.132
+Durbin-Watson p-value: 0.114
 
 4. RANDOM EFFECTS NORMALITY:
 ❌ Could not extract random effects - assuming passed

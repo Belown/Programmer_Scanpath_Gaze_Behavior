@@ -1,0 +1,61 @@
+
+========================================
+Model Analysis
+========================================
+
+========= score =========
+
+Random-effects (VarCorr):
+Conditional model:
+ Groups   Name        Std.Dev.
+ exp_a    (Intercept) 0.016942
+ exp_b    (Intercept) 0.019836
+ Residual             0.037408
+# Intraclass Correlation Coefficient
+
+    Adjusted ICC: 0.327
+  Unadjusted ICC: 0.327
+
+--- Fixed-effect terms (as in formula) ---
+[1] "PairType"
+
+Has interaction terms: FALSE 
+Main terms: PairType 
+
+--- Nakagawa R² ---
+Marginal R² (fixed effects):     0.0016 
+Conditional R² (fixed+random):   0.3283 
+
+--- Post-hoc inference (emmeans for categorical predictors) ---
+
+EMMs for PairType:
+ PairType emmean      SE  df asymp.LCL asymp.UCL
+ LN        0.835 0.00490 Inf     0.825     0.844
+ LM        0.838 0.00344 Inf     0.832     0.845
+ MN        0.840 0.00467 Inf     0.831     0.849
+ HN        0.840 0.00667 Inf     0.827     0.853
+ HL        0.837 0.00583 Inf     0.825     0.848
+ HM        0.841 0.00554 Inf     0.830     0.851
+
+Confidence level used: 0.95 
+
+Pairwise comparisons for PairType (tukey adjustment):
+ contrast  estimate      SE  df z.ratio p.value
+ LN - LM  -0.003549 0.00488 Inf  -0.727  0.9786
+ LN - MN  -0.005459 0.00339 Inf  -1.611  0.5915
+ LN - HN  -0.004698 0.00585 Inf  -0.803  0.9671
+ LN - HL  -0.001847 0.00761 Inf  -0.243  0.9999
+ LN - HM  -0.005697 0.00739 Inf  -0.771  0.9724
+ LM - MN  -0.001910 0.00580 Inf  -0.329  0.9995
+ LM - HN  -0.001149 0.00751 Inf  -0.153  1.0000
+ LM - HL   0.001702 0.00677 Inf   0.252  0.9999
+ LM - HM  -0.002148 0.00560 Inf  -0.383  0.9989
+ MN - HN   0.000761 0.00566 Inf   0.134  1.0000
+ MN - HL   0.003612 0.00747 Inf   0.484  0.9967
+ MN - HM  -0.000238 0.00724 Inf  -0.033  1.0000
+ HN - HL   0.002852 0.00553 Inf   0.516  0.9956
+ HN - HM  -0.000999 0.00522 Inf  -0.191  1.0000
+ HL - HM  -0.003851 0.00409 Inf  -0.942  0.9355
+
+P value adjustment: tukey method for comparing a family of 6 estimates 
+✅️ Completed! 

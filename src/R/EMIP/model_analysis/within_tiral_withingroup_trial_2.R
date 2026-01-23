@@ -12,7 +12,7 @@ source(file.path(here(), "src", "R", "auxiliary", "workflow.R"))
 source(file.path(here(), "src", "R", "auxiliary", "emip", "helper.R"))
 source(file.path(here(), "src", "R", "auxiliary", "model_analysis.R"))
 
-algo <- "MultiMatch"
+algo <- "ScaSim"
 
 if (algo == "MultiMatch") {
   dimensions <- c("Shape", "Length", "Direction", "Position", "Duration")

@@ -6,10 +6,6 @@ No interaction terms in model for Direction .
 No interaction terms in model for Position .
 No interaction terms in model for Duration .
 --- Checking model assumptions for Shape ---
-
-1: Yes
-2: No
-
        LINEARITY : ❌ FAILED 
        NORMALITY : ❌ FAILED 
        HOMOSCEDASTICITY : ❌ FAILED 

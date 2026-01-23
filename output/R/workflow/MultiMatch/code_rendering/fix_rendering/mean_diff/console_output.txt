@@ -11,10 +11,6 @@ Processing model for experiment: fix_rendering_mean_diff
   Testing all 2 -way interactions for Duration ...
 ❌️ Interaction expertise_mean:expertise_diff for Duration is NOT significant (p = NA ). Dropping it.
 --- Checking model assumptions for Shape ---
-
-1: Yes
-2: No
-
        LINEARITY : ❌ FAILED 
        NORMALITY : ❌ FAILED 
        HOMOSCEDASTICITY : ❌ FAILED 

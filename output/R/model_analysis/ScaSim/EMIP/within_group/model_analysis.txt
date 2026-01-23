@@ -1,0 +1,67 @@
+
+========================================
+Model Analysis
+========================================
+
+========= score =========
+
+Random-effects (VarCorr):
+Conditional model:
+ Groups   Name        Std.Dev.
+ exp_a    (Intercept) 0.018469
+ exp_b    (Intercept) 0.020782
+ Residual             0.036235
+# Intraclass Correlation Coefficient
+
+    Adjusted ICC: 0.371
+  Unadjusted ICC: 0.366
+
+--- Fixed-effect terms (as in formula) ---
+[1] "expertise_a"       "trial"             "expertise_a:trial"
+
+Has interaction terms: TRUE 
+Main terms: expertise_a, trial 
+Interaction terms: expertise_a:trial 
+
+--- Nakagawa R² ---
+Marginal R² (fixed effects):     0.0113 
+Conditional R² (fixed+random):   0.3777 
+
+--- Post-hoc inference (emmeans for categorical predictors) ---
+
+EMMs for expertise_a:
+ expertise_a emmean      SE  df asymp.LCL asymp.UCL
+ none         0.830 0.00663 Inf     0.817     0.843
+ low          0.834 0.00435 Inf     0.826     0.843
+ medium       0.842 0.00351 Inf     0.835     0.849
+ high         0.837 0.00992 Inf     0.818     0.857
+
+Results are averaged over the levels of: trial 
+Confidence level used: 0.95 
+
+Pairwise comparisons for expertise_a (tukey adjustment):
+ contrast      estimate      SE  df z.ratio p.value
+ none - low    -0.00429 0.00794 Inf  -0.541  0.9490
+ none - medium -0.01219 0.00750 Inf  -1.626  0.3641
+ none - high   -0.00741 0.01190 Inf  -0.621  0.9254
+ low - medium  -0.00790 0.00560 Inf  -1.412  0.4916
+ low - high    -0.00312 0.01080 Inf  -0.288  0.9917
+ medium - high  0.00479 0.01050 Inf   0.455  0.9687
+
+Results are averaged over the levels of: trial 
+P value adjustment: tukey method for comparing a family of 4 estimates 
+
+EMMs for trial:
+ trial emmean      SE  df asymp.LCL asymp.UCL
+ 2      0.842 0.00341 Inf     0.835     0.848
+ 5      0.830 0.00365 Inf     0.823     0.837
+
+Results are averaged over the levels of: expertise_a 
+Confidence level used: 0.95 
+
+Pairwise comparisons for trial (tukey adjustment):
+ contrast        estimate      SE  df z.ratio p.value
+ trial2 - trial5   0.0116 0.00254 Inf   4.545 <0.0001
+
+Results are averaged over the levels of: expertise_a 
+✅️ Completed! 

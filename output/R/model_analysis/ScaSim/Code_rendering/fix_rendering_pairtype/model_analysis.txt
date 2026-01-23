@@ -1,0 +1,46 @@
+
+========================================
+Model Analysis
+========================================
+
+========= score =========
+
+Random-effects (VarCorr):
+Conditional model:
+ Groups   Name        Std.Dev.
+ exp_a    (Intercept) 0.015208
+ exp_b    (Intercept) 0.019890
+ Residual             0.049087
+# Intraclass Correlation Coefficient
+
+    Adjusted ICC: 0.206
+  Unadjusted ICC: 0.202
+
+--- Fixed-effect terms (as in formula) ---
+[1] "PairType"
+
+Has interaction terms: FALSE 
+Main terms: PairType 
+
+--- Nakagawa R² ---
+Marginal R² (fixed effects):     0.0239 
+Conditional R² (fixed+random):   0.2255 
+
+--- Post-hoc inference (emmeans for categorical predictors) ---
+
+EMMs for PairType:
+ PairType emmean      SE  df asymp.LCL asymp.UCL
+ BB        0.745 0.00665 Inf     0.732     0.758
+ BI        0.734 0.00581 Inf     0.722     0.745
+ II        0.720 0.00678 Inf     0.707     0.733
+
+Confidence level used: 0.95 
+
+Pairwise comparisons for PairType (tukey adjustment):
+ contrast estimate      SE  df z.ratio p.value
+ BB - BI    0.0115 0.00649 Inf   1.767  0.1806
+ BB - II    0.0249 0.00951 Inf   2.615  0.0242
+ BI - II    0.0134 0.00767 Inf   1.746  0.1882
+
+P value adjustment: tukey method for comparing a family of 3 estimates 
+✅️ Completed! 
