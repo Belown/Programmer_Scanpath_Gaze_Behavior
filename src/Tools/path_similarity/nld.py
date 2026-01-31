@@ -11,8 +11,8 @@ def nld(
     '''
     Compute Normalized Levenshtein Distance (NLD) between two scanpaths based on AOI sequence
 
-    :param: exp_a: Tuple of (experiment_id, trial_id) for first scanpath
-    :param: exp_b: Tuple of (experiment_id, trial_id) for second scanpath
+    :param: exp_a: Tuple of (experiment_id, stimulus) for first scanpath
+    :param: exp_b: Tuple of (experiment_id, stimulus) for second scanpath
     :param: eye_events: Parsed data frame for eye event (Can be either corrected EMIP or original EMIP)
     :param: data_set: Specify which data that is used: "corrected" or "original"
 
@@ -95,7 +95,7 @@ def build_vector_nld(exp, eye_events):
     """
     Build a vector for NLD computation from eye event data.
 
-    :param: exp: Tuple of (experiment_id, trial_id) for the experiment.
+    :param: exp: Tuple of (experiment_id, stimulus) for the experiment.
     :param: eye_events: DataFrame containing eye event data.
 
     :return: DataFrame with fixation data and AOI information.
@@ -111,10 +111,10 @@ def build_vector_nld(exp, eye_events):
         # unexpected type
         temp_df = pd.DataFrame(temp)
 
-    exp_id, trial_id = exp
+    exp_id, stimulus_list = exp
     filtered_events = temp_df.loc[
         (temp_df['experiment_id'] == exp_id) & 
-        (temp_df['trial_id'] == trial_id),
+        (temp_df['stimulus'].isin(stimulus_list)),
     ]
 
     df = filtered_events[['timestamp', 'duration', 'x0', 'y0', 'aoi_name', 'aoi_x', 'aoi_y']]
@@ -124,7 +124,7 @@ def get_fixation_aoi(exp, eye_events):
     """
     Get fixation data with AOI information for a given experiment.
 
-    :param: exp: Tuple of (experiment_id, trial_id) for the experiment.
+    :param: exp: Tuple of (experiment_id, stimulus) for the experiment.
     :param: eye_events: DataFrame containing eye event data.
 
     :return: DataFrame with fixation data and AOI information.
@@ -139,10 +139,10 @@ def get_trial_data(eye_events, exp):
     Retrieve trial data for a specific experiment from eye events.
 
     :param: eye_events: DataFrame containing eye event data.
-    :param: exp: Tuple of (experiment_id, trial_id) for the experiment.
+    :param: exp: Tuple of (experiment_id, stimulus) for the experiment.
 
     :return: DataFrame with trial data.
     """
-    exp_id, trial_id = exp
+    exp_id, stimulus_list = exp
     return eye_events.loc[(eye_events['experiment_id'] == exp_id) & 
-                            (eye_events['trial_id'] == trial_id)]
+                            (eye_events['stimulus'].isin(stimulus_list))]

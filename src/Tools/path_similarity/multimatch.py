@@ -10,8 +10,8 @@ def multimatch_emip(
     '''
     Compute scanpath similarity by using the library multimatch_gaze
     
-    :param: exp_a: Tuple of (experiment_id, trial_id) for first scanpath
-    :param: exp_b: Tuple of (experiment_id, trial_id) for second scanpath
+    :param: exp_a: Tuple of (experiment_id, stimulus) for first scanpath
+    :param: exp_b: Tuple of (experiment_id, stimulus) for second scanpath
     :param: eye_events: Parsed data frame for eye event, can be either corrected EMIP or original EMIP
 
     :return: path similarity score

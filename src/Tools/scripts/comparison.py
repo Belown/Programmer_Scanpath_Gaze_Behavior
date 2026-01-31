@@ -21,14 +21,14 @@ def _init_eye_events(eye_events):
     global _global_eye_events
     _global_eye_events = eye_events
 
-def compare_experiment_pair(exp_a, exp_b, trial_id, expertise, algo):
+def compare_experiment_pair(exp_a, exp_b, stimulus, expertise, algo):
     eye_events = _global_eye_events
     """
     Compare a pair of experiments using multimatch.
 
     :param: exp_a: Experiment ID for the first experiment.
     :param: exp_b: Experiment ID for the second experiment.
-    :param: trial_id: Trial ID for both experiments.
+    :param: stimulus: Stimulus for both experiments.
     :param: eye_events: DataFrame containing eye event data.
     :param: expertise: Tuple containing expertise levels for both experiments.
 
@@ -37,17 +37,21 @@ def compare_experiment_pair(exp_a, exp_b, trial_id, expertise, algo):
     # Ensure exp_a and exp_b are strings
     exp_a = str(exp_a)
     exp_b = str(exp_b)
-    trial_id = str(trial_id)
 
-    # Check if trial_id is valid for exp_a and exp_b
-    valid_trial_a = not eye_events[
-        (eye_events["experiment_id"] == exp_a) & (eye_events["trial_id"] == trial_id)
+    if stimulus == "rectangle":
+        stimulus_list = ["rectangle_java.jpg", "rectangle_java2.jpg"]
+    else:
+        stimulus_list = ["vehicle_java.jpg", "vehicle_java2.jpg"]
+
+    # Check if stimulus is valid for exp_a and exp_b
+    valid_stimulus_a = not eye_events[
+        (eye_events["experiment_id"] == exp_a) & (eye_events["stimulus"].isin(stimulus_list))
     ].empty
-    valid_trial_b = not eye_events[
-        (eye_events["experiment_id"] == exp_b) & (eye_events["trial_id"] == trial_id)
+    valid_stimulus_b = not eye_events[
+        (eye_events["experiment_id"] == exp_b) & (eye_events["stimulus"].isin(stimulus_list))
     ].empty
 
-    if not valid_trial_a or not valid_trial_b:
+    if not valid_stimulus_a or not valid_stimulus_b:
         return None
     
     expertise_a, expertise_b = expertise
@@ -55,29 +59,30 @@ def compare_experiment_pair(exp_a, exp_b, trial_id, expertise, algo):
     try:
         if algo == "NLD":
             scores = nld(
-                exp_a=(exp_a, trial_id),
-                exp_b=(exp_b, trial_id),
+                exp_a=(exp_a, stimulus_list),
+                exp_b=(exp_b, stimulus_list),
                 eye_events=eye_events,
                 data_set="corrected"
             )
         elif algo == "ScaSim":
             scores = scasim(
-                exp_a=(exp_a, trial_id),
-                exp_b=(exp_b, trial_id),
+                exp_a=(exp_a, stimulus_list),
+                exp_b=(exp_b, stimulus_list),
                 eye_events=eye_events,
                 data_set="corrected",
                 normalize="duration"
             )
         else:  # Default to MultiMatch
             scores = multimatch_emip(
-                exp_a=(exp_a, trial_id),
-                exp_b=(exp_b, trial_id),
+                exp_a=(exp_a, stimulus_list),
+                exp_b=(exp_b, stimulus_list),
                 eye_events=eye_events,
             )
+
         row = {
             "exp_a": exp_a,
             "exp_b": exp_b,
-            "trial_id": trial_id,
+            "stimulus": stimulus,
             "expertise_a": expertise_a,
             "expertise_b": expertise_b,
         }
@@ -89,13 +94,13 @@ def compare_experiment_pair(exp_a, exp_b, trial_id, expertise, algo):
         return None
 
 
-def within_group_comparison(query_output_path, eye_events, trial_id, dataset, algo, max_workers=None):
+def within_group_comparison(query_output_path, eye_events, stimulus, dataset, algo, max_workers=None):
     """
     Perform within-group comparison using multimatch for each group in the specified directory.
 
     :param: query_output_path: Path to the directory containing group_ids.
     :param: eye_events: DataFrame containing eye event data.
-    :param: trial_id: The trial ID to use for the comparison.
+    :param: stimulus: The stimulus to use for the comparison.
     :param: dataset: Specify which data set we have used.
     :param: algo: Algorithm to use (e.g., NLD, ScaSim, MultiMatch).
     :param: max_workers: Number of parallel workers (default: CPU count).
@@ -123,7 +128,7 @@ def within_group_comparison(query_output_path, eye_events, trial_id, dataset, al
         group_data = pd.read_csv(group_path)
         group_ids = group_data["experiment_id"].tolist()
 
-        print(f"Processing group: {group_file} with {len(group_ids)} IDs with trial_id {trial_id}")
+        print(f"Processing group: {group_file} with {len(group_ids)} IDs with stimulus {stimulus}")
 
         # Prepare all comparison tasks
         comparison_tasks = []
@@ -134,7 +139,7 @@ def within_group_comparison(query_output_path, eye_events, trial_id, dataset, al
                     expertise_a = group_data[group_data["experiment_id"] == exp_a]["expertise_experiment_language"].iloc[0]
                     expertise_b = group_data[group_data["experiment_id"] == exp_b]["expertise_experiment_language"].iloc[0]
                     expertise = (expertise_a, expertise_b)
-                    comparison_tasks.append((exp_a, exp_b, trial_id, expertise, algo))
+                    comparison_tasks.append((exp_a, exp_b, stimulus, expertise, algo))
 
         # Perform pairwise comparison within the group using ProcessPoolExecutor
         group_results = []
@@ -176,21 +181,21 @@ def within_group_comparison(query_output_path, eye_events, trial_id, dataset, al
         df_results_filtered = filter_duplicates(df_results)
 
         # Save the results for the current group to a local file
-        os.makedirs(os.path.join(comparation_output_dir, "within_group", f"trial_{str(trial_id)}"), exist_ok=True)
-        output_file = os.path.join(comparation_output_dir, "within_group", f"trial_{str(trial_id)}", f"{group_file.replace('.csv', f'_results.csv')}")
+        os.makedirs(os.path.join(comparation_output_dir, "within_group", f"{str(stimulus)}"), exist_ok=True)
+        output_file = os.path.join(comparation_output_dir, "within_group", f"{str(stimulus)}", f"{group_file.replace('.csv', f'_results.csv')}")
         df_results_filtered.to_csv(output_file, index=False)
         print(f"Results for group {group_file} saved to {output_file}\n")
 
     return results
 
 
-def between_group_comparison(query_output_path, eye_events, trial_id, dataset, algo, max_workers=None):
+def between_group_comparison(query_output_path, eye_events, stimulus, dataset, algo, max_workers=None):
     """
     Perform between-group comparison using multimatch for experiments in different groups.
 
     :param: query_output_path: Path to the directory containing group_ids.
     :param: eye_events: DataFrame containing eye event data.
-    :param: trial_id: The trial ID to use for the comparison.
+    :param: stimulus: The stimulus to use for the comparison.
     :param: dataset: Specify which data set we have used.
     :param: algo: Algorithm to use (e.g., NLD, ScaSim, MultiMatch).
     :param: max_workers: Number of parallel workers (default: CPU count).
@@ -224,7 +229,7 @@ def between_group_comparison(query_output_path, eye_events, trial_id, dataset, a
             group_ids_a = group_data_a["experiment_id"].tolist()
             group_ids_b = group_data_b["experiment_id"].tolist()
 
-            print(f"Processing groups: {group_file_a} vs {group_file_b} with trial_id {trial_id}")
+            print(f"Processing groups: {group_file_a} vs {group_file_b} with stimulus {stimulus}")
 
             # Prepare all comparison tasks
             comparison_tasks = []
@@ -235,7 +240,7 @@ def between_group_comparison(query_output_path, eye_events, trial_id, dataset, a
                         expertise_a = group_data_a[group_data_a["experiment_id"] == exp_a]["expertise_experiment_language"].iloc[0]
                         expertise_b = group_data_b[group_data_b["experiment_id"] == exp_b]["expertise_experiment_language"].iloc[0]
                         expertise = (expertise_a, expertise_b)
-                        comparison_tasks.append((exp_a, exp_b, trial_id, expertise, algo))
+                        comparison_tasks.append((exp_a, exp_b, stimulus, expertise, algo))
 
             # Perform pairwise comparison between the groups using ProcessPoolExecutor
             group_results = []
@@ -248,8 +253,6 @@ def between_group_comparison(query_output_path, eye_events, trial_id, dataset, a
                 initargs=(eye_events,)
             ) as executor:
                 # Submit all tasks
-                # NOTE: `comparison_tasks` already stores the full argument tuple
-                # (exp_a, exp_b, trial_id, expertise, algo). We must unpack it here.
                 future_to_task = {
                     executor.submit(compare_experiment_pair, *task): task
                     for task in comparison_tasks
@@ -280,8 +283,8 @@ def between_group_comparison(query_output_path, eye_events, trial_id, dataset, a
             df_results_filtered = filter_duplicates(df_results)
 
             # Save the results for the current group pair to a local file
-            os.makedirs(os.path.join(comparation_output_dir, "between_group", f"trial_{str(trial_id)}"), exist_ok=True)
-            output_file = os.path.join(comparation_output_dir, "between_group", f"trial_{str(trial_id)}", f"{group_file_a.replace('.csv', '')}_{group_file_b.replace('.csv', '')}_results.csv")
+            os.makedirs(os.path.join(comparation_output_dir, "between_group", f"{str(stimulus)}"), exist_ok=True)
+            output_file = os.path.join(comparation_output_dir, "between_group", f"{str(stimulus)}", f"{group_file_a.replace('.csv', '')}_{group_file_b.replace('.csv', '')}_results.csv")
             df_results_filtered.to_csv(output_file, index=False)
             print(f"Results for group pair {group_file_a} vs {group_file_b} saved to {output_file}")
 
@@ -312,23 +315,21 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(
         description='Run parallel multimatch comparison',
         formatter_class=argparse.RawDescriptionHelpFormatter,
-        epilog="""
-Usage examples:
-  # Run within-group comparison
-  python -m Code.src.tools.comparison --dataset EMIP_corrected --trial_id 2 --comparison_type within --workers 8
-  
-  # Run all comparison
-  python -m Code.src.tools.comparison --dataset EMIP_corrected --trial_id 2 --comparison_type both
-        """
+        epilog=
+            """
+            Usage examples:
+            # Run within-group comparison
+            python -m Code.src.tools.comparison --dataset EMIP_corrected --stimulus 2 --comparison_type within --workers 8
+            """
     )
     
     parser.add_argument('--dataset', required=True, 
                        help='dataset name (e.g., EMIP)')
-    parser.add_argument('--trial_id', type=int, required=True, 
-                       help='trial ID')
-    parser.add_argument('--comparison_type', choices=['within', 'between', 'both'], 
-                       default='both', 
-                       help='comparison type: within (within-group), between (between-group), or both (Default: both)')
+    parser.add_argument('--stimulus', type=str, required=True, 
+                       help='stimulus')
+    parser.add_argument('--comparison_type', choices=['within', 'between'], 
+                       default='within', 
+                       help='comparison type: within (within-group) or between (between-group)')
     parser.add_argument('--algo', type=str, default=None, 
                        help='Algorithm to use (e.g., NLD, ScaSim, MultiMatch)')
     parser.add_argument('--workers', type=int, default=None, 
@@ -345,7 +346,8 @@ Usage examples:
     print("Parallel Comparison Script")
     print("="*60)
     print(f"Dataset: {args.dataset}")
-    print(f"Trial ID: {args.trial_id}")
+    print(f"Stimulus: {args.stimulus}")
+    print(f"Algorithm: {args.algo}")
     print(f"Comparison Type: {args.comparison_type}")
     print(f"Concurrent Workers: {args.workers or cpu_count()}")
     print("="*60)
@@ -374,7 +376,7 @@ Usage examples:
         within_group_comparison(
             query_output_path, 
             eye_events, 
-            args.trial_id, 
+            args.stimulus, 
             args.dataset,
             algo=algo,
             max_workers=args.workers
@@ -387,7 +389,7 @@ Usage examples:
         between_group_comparison(
             query_output_path, 
             eye_events, 
-            args.trial_id, 
+            args.stimulus, 
             args.dataset,
             algo=algo,
             max_workers=args.workers
@@ -395,4 +397,4 @@ Usage examples:
     
     print("\n" + "="*60)
     print("All comparisons completed!")
-    print("="*60)
+    print("="*60 + "\n")

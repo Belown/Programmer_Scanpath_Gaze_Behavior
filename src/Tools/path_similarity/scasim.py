@@ -13,8 +13,8 @@ def scasim(
     '''
     Compute similarity based on the method from https://github.com/DiLi-Lab/ScanDL-2.0/blob/main/scandl_fixdur/fix_dur_module/scasim.py
 
-    :param: exp_a: Tuple of (experiment_id, trial_id) for first scanpath
-    :param: exp_b: Tuple of (experiment_id, trial_id) for second scanpath
+    :param: exp_a: Tuple of (experiment_id, stimulus) for first scanpath
+    :param: exp_b: Tuple of (experiment_id, stimulus) for second scanpath
     :param: eye_events: Parsed data frame for eye event
     :param: normalize: If we normalize the result at the end. Three option: 'durations', 'fixations' or 'None'
     :param: data_set: Specify which data that is used: "corrected" or "original"
@@ -23,9 +23,10 @@ def scasim(
     '''
 
     if data_set == "corrected":
-        parsed_data = parse_corrected_emip_data()
-        fix_vec1 = build_vector_emip(exp_a, parsed_data)
-        fix_vec2 = build_vector_emip(exp_b, parsed_data)
+        # In the these we only used corrected data
+        # parsed_data = parse_corrected_emip_data()
+        fix_vec1 = build_vector_emip(exp_a, eye_events)
+        fix_vec2 = build_vector_emip(exp_b, eye_events)
     elif data_set == "original":
         fix_vec1 = build_vector_emip(exp_a, eye_events)
         fix_vec2 = build_vector_emip(exp_b, eye_events)

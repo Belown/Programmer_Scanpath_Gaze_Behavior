@@ -2,18 +2,18 @@ import pandas as pd
 
 def build_vector_emip(exp, eye_events):
     '''
-    Build a fixation vector for the given experiment and trial from eye events DataFrame for EMIP dataset.
+    Build a fixation vector for the given experiment and stimulus from eye events DataFrame for EMIP dataset.
 
-    :param: exp: Tuple of (experiment_id, trial_id)
+    :param: exp: Tuple of (experiment_id, stimulus)
     :param: eye_events: DataFrame containing eye event data
 
     :return: DataFrame with columns ['x0', 'y0', 'duration'] for fixations
     '''
-    # Filter eye events for the specified experiment and trial
-    exp_id, trial_id = exp
+    # Filter eye events for the specified experiment and stimulus
+    exp_id, stimulus_list = exp
     filtered_events = eye_events.loc[
         (eye_events['experiment_id'] == exp_id) &
-        (eye_events['trial_id'] == trial_id) &
+        (eye_events['stimulus'].isin(stimulus_list)) &
         (eye_events['eye_event_type'] == 'fixation')
     ]
 
