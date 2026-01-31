@@ -6,32 +6,32 @@ source(file.path(here(), "src", "R", "auxiliary", "emip", "models.R"))
 
 #' Get the model package based on experiment type and data set
 #' 
-#' @param exp_type The type of experiment ("within_trial", "within_group", "between_group")
+#' @param exp_type The type of experiment ("within_stimulus", "within_group", "between_group")
 #' @param data_set The name of the data set
 #' @param comp_type The comparison type ("between_group" or "within_group")
-#' @param trial_folder The trial folder name ("trial_2", "trial_5")
+#' @param stimulus_folder The stimulus folder name ("rectangle", "vehicle")
 #' @param case The case for between-group comparison ("mean_diff", "pairtype")
 #' @param formula_set A list containing fixed and random effect formula strings
 #' @param info Whether to print info messages
 #' @return A model package, which contain data frame, models, config, and folder_path
-get_exp_pack <- function(data_set, exp_type, comp_type, trial_folder, case, rand_effect = NULL, info = TRUE, reml, algo) {
+get_exp_pack <- function(data_set, exp_type, comp_type, stimulus_folder, case, rand_effect = NULL, info = TRUE, reml, algo) {
   base_path <- file.path(here(), "output", "processed_dataset", algo)
   model_pack <- switch(
     exp_type,
-    "within_trial" = {
+    "within_stimulus" = {
       default_rand_effect <- "(1 | exp_a) + (1 | exp_b)"
         # If rand_effect exists, use it, otherwise, use default
       formula_set <- list(
         fix_effect = "expertise_a",
         rand_effect = if (!is.null(rand_effect)) rand_effect else default_rand_effect)
-      folder_path <- file.path(base_path, data_set, comp_type,trial_folder)
-      within_trial(folder_path, formula_set, info, reml, algo = algo)
+      folder_path <- file.path(base_path, data_set, comp_type, stimulus_folder)
+      within_stimulus(folder_path, formula_set, info, reml, algo = algo)
     },
     "within_group" = {
       default_rand_effect <- "(1 | exp_a) + (1 | exp_b)"
       # If rand_effect exists, use it, otherwise, use default
       formula_set <- list(
-        fix_effect = "expertise_a * trial",
+        fix_effect = "expertise_a * stimulus",
         rand_effect = if (!is.null(rand_effect)) rand_effect else default_rand_effect)
       folder_path <- file.path(base_path, data_set, "within_group")
       within_group(folder_path, formula_set, info, reml, algo = algo)

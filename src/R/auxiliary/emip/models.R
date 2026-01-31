@@ -2,7 +2,7 @@
 # LMM generation module
 # =========================================================
 # This module contain functions to generate linear mixed models (LMMs)
-# for within-trial, within-group, and between-group comparisons.
+# for within-stimulus, within-group, and between-group comparisons.
 # =========================================================
 
 library(tidyverse)
@@ -14,7 +14,7 @@ library(here)
 # Set up constant variables
 dimensions <- c("Shape", "Length", "Direction", "Position", "Duration")
 
-#' Generate LMMs for within-trial comparisons
+#' Generate LMMs for within-stimulus comparisons
 #' 
 #' @param folder_path The folder path containing the combined CSV
 #' @param formula_set A list containing fixed and random effect formula strings
@@ -22,7 +22,7 @@ dimensions <- c("Shape", "Length", "Direction", "Position", "Duration")
 #' @param reml Whether to use REML for LMM fitting
 #' @param test Whether to run in test mode (default not used)
 #' @return A list of fitted LMMs for each dimension and other info
-within_trial <- function(folder_path, formula_set, info, reml = TRUE, test = FALSE, algo) {
+within_stimulus <- function(folder_path, formula_set, info, reml = TRUE, test = FALSE, algo) {
   
   if (algo == "MultiMatch") {
     dimensions <- c("Shape", "Length", "Direction", "Position", "Duration")
@@ -37,7 +37,7 @@ within_trial <- function(folder_path, formula_set, info, reml = TRUE, test = FAL
   rand_effect <- formula_set$rand_effect
   
   # Read and preprocess data
-  # Since for within_trial, all data share the same expertise
+  # Since for within_stimulus, all data share the same expertise
   df <- read_csv(combined_path, show_col_types = FALSE) %>%
     mutate(
       expertise_a = factor(expertise_a,
@@ -53,16 +53,16 @@ within_trial <- function(folder_path, formula_set, info, reml = TRUE, test = FAL
     print(table(df$expertise_a))
   }
 
-  trial_folder <- basename(folder_path)
+  stimulus_folder <- basename(folder_path)
   comp_type <- basename(dirname(folder_path))
-  combined_path <- paste(comp_type, trial_folder, sep = "_")
-  output_path <- assign_path(file.path(here(), "output", "R", "workflow", algo, "EMIP_corrected", "within_trial", combined_path))
+  combined_path <- paste(comp_type, stimulus_folder, sep = "_")
+  output_path <- assign_path(file.path(here(), "output", "R", "workflow", algo, "EMIP_corrected", "within_stimulus", combined_path))
 
   # Construct config for output
   config <- list(
     results_log   = file.path(output_path, "assumptions.txt"),
     figures_dir   = file.path(output_path, "figures"),
-    output_prefix = "within_trial"
+    output_prefix = "within_stimulus"
   )
   
   # Generate LMMs for each dimension and add them to the list
@@ -93,9 +93,9 @@ within_trial <- function(folder_path, formula_set, info, reml = TRUE, test = FAL
   }
 }
 
-#' Generate LMMs for within-group comparisons across trials
+#' Generate LMMs for within-group comparisons across stimulus
 #' 
-#' @param folder_path The base folder path containing trial subfolders
+#' @param folder_path The base folder path containing stimulus subfolders
 #' @param formula_set A list containing fixed and random effect formula strings
 #' @param info Whether to print basic info about loaded data
 #' @param reml Whether to use REML for LMM fitting
@@ -113,22 +113,18 @@ within_group <- function(folder_path, formula_set, info, reml = TRUE, test = FAL
   rand_effect <- formula_set$rand_effect
   
   # Construct paths
-  trial_2_path <- file.path(folder_path, "trial_2")
-  trial_5_path <- file.path(folder_path, "trial_5")
+  rectangle_path <- file.path(folder_path, "rectangle")
+  vehicle_path <- file.path(folder_path, "vehicle")
   combined_filename <- "combined_data.csv"
-  trials <- c(trial_2_path, trial_5_path)
+  stimuli <- c(rectangle_path, vehicle_path)
   
-  # Helper function to load one trial's combined CSV and tag trial
-  load_trial <- function(trial_folder, file_name) {
-    path <- file.path(trial_folder, file_name)
+  # Helper function to load one stimulus's combined CSV and tag stimulus
+  load_stimulus <- function(stimulus_folder, file_name) {
+    path <- file.path(stimulus_folder, file_name)
     if (!file.exists(path)) stop("File not found: ", path)
     
-    # Get trial number from folder name
-    folder_name <- basename(trial_folder)
-    trial_num <- gsub("^trial_", "", folder_name)
-    
     # Read and preprocess data
-    # Since for within_trial, all data share the same expertise
+    # Since for within_stimulus, all data share the same expertise
     read_csv(path, show_col_types = FALSE) %>%
       mutate(
         # Use the expertise column from your combined file
@@ -136,15 +132,15 @@ within_group <- function(folder_path, formula_set, info, reml = TRUE, test = FAL
                              levels = c("none", "low", "medium", "high"),
                              # ordered = TRUE),
                             ),
-        # trial as factor "2"/"5" from folder name
-        trial = factor(trial_num, levels = c("2","5")),
+        # stimulus as factor "rectangle"/"vehicle" from folder name
+        stimulus = factor(basename(stimulus_folder), levels = c("rectangle", "vehicle")),
         exp_a = factor(exp_a),
         exp_b = factor(exp_b)
       )
   }
   
-  # Load both trials' data and stack them
-  df <- map_dfr(trials, load_trial, file_name = combined_filename)
+  # Load both stimulus' data and stack them
+  df <- map_dfr(stimuli, load_stimulus, file_name = combined_filename)
   
   # Provide basic info about loaded data
   if (info) {
@@ -189,9 +185,9 @@ within_group <- function(folder_path, formula_set, info, reml = TRUE, test = FAL
   }
 }
 
-#' Generate LMMs for between-group comparisons across trials
+#' Generate LMMs for between-group comparisons across stimulus
 #' 
-#' @param folder_path The base folder path containing trial subfolders
+#' @param folder_path The base folder path containing stimulus subfolders
 #' @param formula_set A list containing fixed and random effect formula strings
 #' @param info Whether to print basic info about loaded data
 #' @param case The case for between-group comparison ("mean_diff", "pairtype")
@@ -210,20 +206,16 @@ between_group <- function(folder_path, formula_set, info, case, reml = TRUE, tes
   rand_effect <- formula_set$rand_effect
   
   # Construct paths
-  trial_2_path <- file.path(folder_path, "trial_2")
-  trial_5_path <- file.path(folder_path, "trial_5")
+  rectangle_path <- file.path(folder_path, "rectangle")
+  vehicle_path <- file.path(folder_path, "vehicle")
   combined_filename <- "combined_data.csv"
-  trials <- c(trial_2_path, trial_5_path)
+  stimuli <- c(rectangle_path, vehicle_path)
 
-  # Helper function to load one trial's combined CSV and tag trial
-  load_trial <- function(trial_folder, file_name) {
-    path <- file.path(trial_folder, file_name)
+  # Helper function to load one stimulus's combined CSV and tag stimulus
+  load_stimulus <- function(stimulus_folder, file_name) {
+    path <- file.path(stimulus_folder, file_name)
     if (!file.exists(path)) stop("File not found: ", path)
-    
-    # Get trial number from folder name
-    folder_name <- basename(trial_folder)
-    trial_num <- gsub("^trial_", "", folder_name)
-    
+
     # Read and preprocess data
     read_csv(path, show_col_types = FALSE) %>%
       mutate(
@@ -235,14 +227,14 @@ between_group <- function(folder_path, formula_set, info, case, reml = TRUE, tes
                              levels = c("none", "low", "medium", "high"),
                              # ordered = TRUE),
                             ),
-        trial = factor(trial_num, levels = c("2","5")),
+        stimulus = factor(basename(stimulus_folder), levels = c("rectangle", "vehicle")),
         exp_a = factor(exp_a),
         exp_b = factor(exp_b)
       )
   }
   
-  # Load both trials' data and stack them
-  df <- map_dfr(trials, load_trial, file_name = combined_filename)
+  # Load both stimuli' data and stack them
+  df <- map_dfr(stimuli, load_stimulus, file_name = combined_filename)
   
   # Convert ordered levels to numeric (from 1 to 4) for calculations
   df$expertise_a_num <- as.integer(df$expertise_a)
