@@ -9,10 +9,10 @@ library(here)
 
 # Load auxiliary functions for model building and validation workflow
 source(file.path(here(), "src", "R", "auxiliary", "workflow.R"))
-source(file.path(here(), "src", "R", "auxiliary", "emip", "helper.R"))
+source(file.path(here(), "src", "R", "auxiliary", "emip", "helper_emip.R"))
 source(file.path(here(), "src", "R", "auxiliary", "model_analysis.R"))
 
-algo <- "ScaSim"
+algo <- "MultiMatch"
 
 if (algo == "MultiMatch") {
   dimensions <- c("Shape", "Length", "Direction", "Position", "Duration")
@@ -32,10 +32,10 @@ exp_type <- "between_group"
 case <- "pairtype"
 
 # Experiment pack includes fitted models, data, and config
-exp_pack <- get_exp_pack(data_set = data_set,
+exp_pack <- get_exp_pack_emip(data_set = data_set,
                          exp_type = exp_type,
                          comp_type = NULL,
-                         trial_folder = NULL,
+                         stimulus_folder = NULL,
                          case = case,
                          rand_effect = NULL,
                          info = TRUE,

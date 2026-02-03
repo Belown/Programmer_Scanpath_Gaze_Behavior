@@ -2,10 +2,6 @@ Processing model for experiment: between_group_pairtype
 ============ Workflow stage 1 ============
 No interaction terms in model for score .
 --- Checking model assumptions for score ---
-
-1: Yes
-2: No
-
        LINEARITY : ❌ FAILED 
        NORMALITY : ❌ FAILED 
        HOMOSCEDASTICITY : ❌ FAILED 
@@ -36,10 +32,10 @@ Formula: score ~ PairType + (1 | exp_a) + (1 | exp_b)
 Type: glmmTMB | Family: gaussian 
 
         term    estimate   std.error   statistic   p.value stars
- (Intercept) 0.834892545 0.004895982 170.5260569 0.0000000   ***
-  PairTypeLM 0.003548936 0.004879477   0.7273188 0.4670307      
-  PairTypeMN 0.005458852 0.003389389   1.6105713 0.1072732      
-  PairTypeHN 0.004698318 0.005852890   0.8027348 0.4221280      
-  PairTypeHL 0.001846588 0.007612472   0.2425741 0.8083354      
-  PairTypeHM 0.005697348 0.007392155   0.7707289 0.4408677      
+ (Intercept) 0.810319740 0.005850688 138.4999052 0.0000000   ***
+  PairTypeLM 0.004575931 0.005798903   0.7891029 0.4300519      
+  PairTypeMN 0.006185447 0.003975239   1.5559940 0.1197095      
+  PairTypeHN 0.003389219 0.006862887   0.4938474 0.6214140      
+  PairTypeHL 0.003332787 0.009094359   0.3664675 0.7140162      
+  PairTypeHM 0.007224838 0.008854171   0.8159813 0.4145108      
 ✅️ Completed processing for experiment: between_group_pairtype 

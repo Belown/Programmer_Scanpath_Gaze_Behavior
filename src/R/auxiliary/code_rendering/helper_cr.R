@@ -13,7 +13,7 @@ source(file.path(here(), "src", "R", "auxiliary", "code_rendering", "models_cr.R
 #' @param formula_set A list containing fixed and random effect formula strings
 #' @param info Whether to print info messages
 #' @return A model package, which contain data frame, models, config, and folder_path
-get_exp_pack <- function(data_set, exp_type, case, rand_effect = NULL, info = TRUE, reml, algo) {
+get_exp_pack_cr <- function(data_set, exp_type, case, rand_effect = NULL, info = TRUE, reml, algo) {
   base_path <- file.path(here(), "output", "processed_dataset", algo)
   model_pack <- switch(
     exp_type,

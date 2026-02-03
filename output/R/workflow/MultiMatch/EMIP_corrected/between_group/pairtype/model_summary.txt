@@ -3,58 +3,58 @@
 Formula: Shape ~ PairType + (1 | exp_a) + (1 | exp_b) 
 Type: glmmTMB | Family: gaussian 
 
-        term      estimate    std.error    statistic   p.value stars
- (Intercept)  9.917173e-01 0.0002682559 3696.9075442 0.0000000   ***
-  PairTypeLM -6.743685e-05 0.0002420606   -0.2785949 0.7805557      
-  PairTypeMN -2.905282e-04 0.0002178687   -1.3335013 0.1823674      
-  PairTypeHN -5.647574e-04 0.0003762669   -1.5009491 0.1333687      
-  PairTypeHL -2.859552e-04 0.0004527718   -0.6315659 0.5276706      
-  PairTypeHM -5.864981e-04 0.0004446933   -1.3188821 0.1872085      
+        term      estimate    std.error    statistic    p.value stars
+ (Intercept)  0.9917446983 0.0002682524 3697.0585214 0.00000000   ***
+  PairTypeLM -0.0000755843 0.0002428503   -0.3112383 0.75561948      
+  PairTypeMN -0.0002919856 0.0002167188   -1.3473018 0.17788306      
+  PairTypeHN -0.0006304338 0.0003742471   -1.6845388 0.09207759     .
+  PairTypeHL -0.0003185847 0.0004516223   -0.7054229 0.48054710      
+  PairTypeHM -0.0006099877 0.0004434714   -1.3754836 0.16898157      
 
 ==== Length ====
 Formula: Length ~ PairType + (1 | exp_a) + (1 | exp_b) 
 Type: glmmTMB | Family: gaussian 
 
         term      estimate    std.error    statistic   p.value stars
- (Intercept)  0.9885574045 0.0004328461 2283.8541561 0.0000000   ***
-  PairTypeLM  0.0001307862 0.0003923976    0.3333001 0.7389078      
-  PairTypeMN -0.0003928181 0.0003498338   -1.1228706 0.2614924      
-  PairTypeHN -0.0007985806 0.0006041645   -1.3217934 0.1862370      
-  PairTypeHL -0.0001638114 0.0007283811   -0.2248979 0.8220587      
-  PairTypeHM -0.0005409390 0.0007150373   -0.7565185 0.4493384      
+ (Intercept)  0.9886061142 0.0004291504 2303.6353678 0.0000000   ***
+  PairTypeLM  0.0001448078 0.0003901348    0.3711739 0.7105080      
+  PairTypeMN -0.0004047221 0.0003453023   -1.1720807 0.2411647      
+  PairTypeHN -0.0008658612 0.0005962708   -1.4521274 0.1464662      
+  PairTypeHL -0.0001893780 0.0007206017   -0.2628054 0.7927006      
+  PairTypeHM -0.0005970136 0.0007072607   -0.8441209 0.3986018      
 
 ==== Direction ====
 Formula: Direction ~ PairType + (1 | exp_a) + (1 | exp_b) 
 Type: glmmTMB | Family: gaussian 
 
-        term     estimate   std.error    statistic   p.value stars
- (Intercept)  0.704197229 0.005061485 139.12857604 0.0000000   ***
-  PairTypeLM -0.004414635 0.005057751  -0.87284557 0.3827473      
-  PairTypeMN -0.002216091 0.003491734  -0.63466764 0.5256452      
-  PairTypeHN  0.006639272 0.006029648   1.10110446 0.2708512      
-  PairTypeHL  0.002412606 0.007852174   0.30725328 0.7586506      
-  PairTypeHM -0.000255227 0.007621002  -0.03348996 0.9732839      
+        term      estimate   std.error   statistic   p.value stars
+ (Intercept)  0.7050196044 0.004983382 141.4741157 0.0000000   ***
+  PairTypeLM -0.0043059251 0.004978410  -0.8649197 0.3870829      
+  PairTypeMN -0.0015873724 0.003448790  -0.4602694 0.6453228      
+  PairTypeHN  0.0044900845 0.005952420   0.7543292 0.4506516      
+  PairTypeHL  0.0004093893 0.007736647   0.0529156 0.9577992      
+  PairTypeHM -0.0017210996 0.007507709  -0.2292443 0.8186790      
 
 ==== Position ====
 Formula: Position ~ PairType + (1 | exp_a) + (1 | exp_b) 
 Type: glmmTMB | Family: gaussian 
 
-        term      estimate   std.error     statistic   p.value stars
- (Intercept)  9.061681e-01 0.002250411 402.667764874 0.0000000   ***
-  PairTypeLM  2.220124e-03 0.002207416   1.005756895 0.3145325      
-  PairTypeMN  5.416386e-06 0.001679559   0.003224885 0.9974269      
-  PairTypeHN -2.667035e-03 0.002900622  -0.919470151 0.3578497      
-  PairTypeHL -4.234696e-04 0.003584099  -0.118152302 0.9059470      
-  PairTypeHM -2.010902e-04 0.003478923  -0.057802429 0.9539060      
+        term      estimate   std.error   statistic   p.value stars
+ (Intercept)  0.9113173275 0.002496713 365.0067896 0.0000000   ***
+  PairTypeLM  0.0023142777 0.002399432   0.9645107 0.3347899      
+  PairTypeMN  0.0004299277 0.001927567   0.2230417 0.8235031      
+  PairTypeHN -0.0046585740 0.003326879  -1.4002834 0.1614285      
+  PairTypeHL -0.0028328444 0.004048533  -0.6997212 0.4841014      
+  PairTypeHM -0.0011428523 0.003940019  -0.2900627 0.7717683      
 
 ==== Duration ====
 Formula: Duration ~ PairType + (1 | exp_a) + (1 | exp_b) 
 Type: glmmTMB | Family: gaussian 
 
         term     estimate   std.error  statistic   p.value stars
- (Intercept)  0.665542468 0.007114974 93.5410987 0.0000000   ***
-  PairTypeLM -0.003495070 0.006656348 -0.5250731 0.5995323      
-  PairTypeMN -0.004769947 0.005500053 -0.8672548 0.3858024      
-  PairTypeHN -0.011420566 0.009497995 -1.2024186 0.2292014      
-  PairTypeHL -0.009969063 0.011693980 -0.8524953 0.3939393      
-  PairTypeHM -0.014931172 0.011446108 -1.3044759 0.1920714      
+ (Intercept)  0.664480065 0.007213377 92.1177547 0.0000000   ***
+  PairTypeLM -0.002825856 0.006759802 -0.4180384 0.6759191      
+  PairTypeMN -0.003515372 0.005557702 -0.6325225 0.5270455      
+  PairTypeHN -0.010163087 0.009595618 -1.0591384 0.2895367      
+  PairTypeHL -0.009076400 0.011837959 -0.7667200 0.4432480      
+  PairTypeHM -0.013594170 0.011585379 -1.1733902 0.2406394      

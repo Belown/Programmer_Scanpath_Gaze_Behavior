@@ -1,0 +1,207 @@
+Processing model for experiment: within_group 
+============ Workflow stage 1 ============
+  Testing all 2 -way interactions for Shape ...
+✅️ Interaction expertise_a:stimulus for Shape is significant (p = 0.000763 ). Keeping it.
+  Testing all 2 -way interactions for Length ...
+✅️ Interaction expertise_a:stimulus for Length is significant (p = 1.11e-05 ). Keeping it.
+  Testing all 2 -way interactions for Direction ...
+✅️ Interaction expertise_a:stimulus for Direction is significant (p = 0.00684 ). Keeping it.
+  Testing all 2 -way interactions for Position ...
+✅️ Interaction expertise_a:stimulus for Position is significant (p = 3.62e-06 ). Keeping it.
+  Testing all 2 -way interactions for Duration ...
+❌️ Interaction expertise_a:stimulus for Duration is NOT significant (p = 0.153 ). Dropping it.
+--- Checking model assumptions for Shape ---
+       LINEARITY : ❌ FAILED 
+       NORMALITY : ❌ FAILED 
+       HOMOSCEDASTICITY : ❌ FAILED 
+       INDEPENDENCE : ❌ FAILED 
+       RANDOM_EFFECTS : ❌ FAILED 
+🚨 Major assumption violations for Shape 
+--- Checking model assumptions for Length ---
+       LINEARITY : ❌ FAILED 
+       NORMALITY : ❌ FAILED 
+       HOMOSCEDASTICITY : ❌ FAILED 
+       INDEPENDENCE : ❌ FAILED 
+       RANDOM_EFFECTS : ❌ FAILED 
+🚨 Major assumption violations for Length 
+--- Checking model assumptions for Direction ---
+       LINEARITY : ❌ FAILED 
+       NORMALITY : ❌ FAILED 
+       HOMOSCEDASTICITY : ❌ FAILED 
+       INDEPENDENCE : ❌ FAILED 
+       RANDOM_EFFECTS : ❌ FAILED 
+🚨 Major assumption violations for Direction 
+--- Checking model assumptions for Position ---
+       LINEARITY : ❌ FAILED 
+       NORMALITY : ❌ FAILED 
+       HOMOSCEDASTICITY : ❌ FAILED 
+       INDEPENDENCE : ❌ FAILED 
+       RANDOM_EFFECTS : ❌ FAILED 
+🚨 Major assumption violations for Position 
+--- Checking model assumptions for Duration ---
+       LINEARITY : ❌ FAILED 
+       NORMALITY : ❌ FAILED 
+       HOMOSCEDASTICITY : ❌ FAILED 
+       INDEPENDENCE : ❌ FAILED 
+       RANDOM_EFFECTS : ❌ FAILED 
+🚨 Major assumption violations for Duration 
+============ Workflow stage 2 ============
+  Testing all 2 -way interactions for Shape ...
+✅️ Interaction expertise_a:stimulus for Shape is significant (p = 0.000981 ). Keeping it.
+  Testing all 2 -way interactions for Length ...
+✅️ Interaction expertise_a:stimulus for Length is significant (p = 1.08e-05 ). Keeping it.
+  Testing all 2 -way interactions for Direction ...
+✅️ Interaction expertise_a:stimulus for Direction is significant (p = 0.00116 ). Keeping it.
+  Testing all 2 -way interactions for Position ...
+✅️ Interaction expertise_a:stimulus for Position is significant (p = 4.58e-07 ). Keeping it.
+  Testing all 2 -way interactions for Duration ...
+❌️ Interaction expertise_a:stimulus for Duration is NOT significant (p = 0.11 ). Dropping it.
+--- Checking model assumptions for Shape ---
+       LINEARITY : ❌ FAILED 
+       NORMALITY : ✅ PASSED 
+       HOMOSCEDASTICITY : ❌ FAILED 
+       INDEPENDENCE : ❌ FAILED 
+       RANDOM_EFFECTS : ✅ PASSED 
+🚨 Major assumption violations for Shape 
+--- Checking model assumptions for Length ---
+       LINEARITY : ❌ FAILED 
+       NORMALITY : ✅ PASSED 
+       HOMOSCEDASTICITY : ❌ FAILED 
+       INDEPENDENCE : ❌ FAILED 
+       RANDOM_EFFECTS : ✅ PASSED 
+🚨 Major assumption violations for Length 
+--- Checking model assumptions for Direction ---
+       LINEARITY : ❌ FAILED 
+       NORMALITY : ❌ FAILED 
+       HOMOSCEDASTICITY : ❌ FAILED 
+       INDEPENDENCE : ❌ FAILED 
+       RANDOM_EFFECTS : ❌ FAILED 
+🚨 Major assumption violations for Direction 
+--- Checking model assumptions for Position ---
+       LINEARITY : ❌ FAILED 
+       NORMALITY : ✅ PASSED 
+       HOMOSCEDASTICITY : ✅ PASSED 
+       INDEPENDENCE : ❌ FAILED 
+       RANDOM_EFFECTS : ❌ FAILED 
+🚨 Major assumption violations for Position 
+--- Checking model assumptions for Duration ---
+       LINEARITY : ❌ FAILED 
+       NORMALITY : ❌ FAILED 
+       HOMOSCEDASTICITY : ❌ FAILED 
+       INDEPENDENCE : ✅ PASSED 
+       RANDOM_EFFECTS : ❌ FAILED 
+🚨 Major assumption violations for Duration 
+============ Workflow stage 3 ============
+  Testing all 2 -way interactions for Shape ...
+✅️ Interaction expertise_a:stimulus for Shape is significant (p = 0.000763 ). Keeping it.
+  Testing all 2 -way interactions for Length ...
+✅️ Interaction expertise_a:stimulus for Length is significant (p = 1.11e-05 ). Keeping it.
+  Testing all 2 -way interactions for Direction ...
+✅️ Interaction expertise_a:stimulus for Direction is significant (p = 0.00684 ). Keeping it.
+  Testing all 2 -way interactions for Position ...
+✅️ Interaction expertise_a:stimulus for Position is significant (p = 3.62e-06 ). Keeping it.
+  Testing all 2 -way interactions for Duration ...
+❌️ Interaction expertise_a:stimulus for Duration is NOT significant (p = 0.153 ). Dropping it.
+--- Checking GLMM assumptions for Shape ---
+       DISTRIBUTIONAL : ✅ PASSED 
+       LINK_FUNCTION : ✅ PASSED 
+       INDEPENDENCE : ❌ FAILED 
+       RANDOM_EFFECTS : ✅ PASSED 
+       OVERDISPERSION : ✅ PASSED 
+⚠️  Minor GLMM assumption violations
+--- Checking GLMM assumptions for Length ---
+       DISTRIBUTIONAL : ✅ PASSED 
+       LINK_FUNCTION : ✅ PASSED 
+       INDEPENDENCE : ❌ FAILED 
+       RANDOM_EFFECTS : ✅ PASSED 
+       OVERDISPERSION : ✅ PASSED 
+⚠️  Minor GLMM assumption violations
+--- Checking GLMM assumptions for Direction ---
+       DISTRIBUTIONAL : ✅ PASSED 
+       LINK_FUNCTION : ✅ PASSED 
+       INDEPENDENCE : ❌ FAILED 
+       RANDOM_EFFECTS : ✅ PASSED 
+       OVERDISPERSION : ✅ PASSED 
+⚠️  Minor GLMM assumption violations
+--- Checking GLMM assumptions for Position ---
+       DISTRIBUTIONAL : ✅ PASSED 
+       LINK_FUNCTION : ✅ PASSED 
+       INDEPENDENCE : ❌ FAILED 
+       RANDOM_EFFECTS : ✅ PASSED 
+       OVERDISPERSION : ✅ PASSED 
+⚠️  Minor GLMM assumption violations
+--- Checking GLMM assumptions for Duration ---
+       DISTRIBUTIONAL : ✅ PASSED 
+       LINK_FUNCTION : ✅ PASSED 
+       INDEPENDENCE : ✅ PASSED 
+       RANDOM_EFFECTS : ✅ PASSED 
+       OVERDISPERSION : ✅ PASSED 
+🎉 All GLMM assumptions satisfied
+
+==== Shape ====
+Formula: Shape ~ expertise_a * stimulus + (1 | exp_a) + (1 | exp_b) 
+Type: glmmTMB | Family: gaussian 
+
+                              term      estimate    std.error     statistic    p.value stars
+                       (Intercept)  9.913661e-01 0.0003342931 2965.55954302 0.00000000   ***
+                    expertise_alow  5.654822e-04 0.0004013698    1.40888088 0.15887040      
+                 expertise_amedium -3.188384e-05 0.0003798511   -0.08393773 0.93310594      
+                   expertise_ahigh -5.990766e-04 0.0006008224   -0.99709424 0.31871877      
+                   stimulusvehicle  2.380995e-04 0.0001158343    2.05551826 0.03982897     *
+    expertise_alow:stimulusvehicle -3.282988e-04 0.0001285499   -2.55386254 0.01065353     *
+ expertise_amedium:stimulusvehicle -1.141085e-04 0.0001218989   -0.93609122 0.34922623      
+   expertise_ahigh:stimulusvehicle  3.662390e-04 0.0002763435    1.32530339 0.18507055      
+
+==== Length ====
+Formula: Length ~ expertise_a * stimulus + (1 | exp_a) + (1 | exp_b) 
+Type: glmmTMB | Family: gaussian 
+
+                              term      estimate    std.error    statistic      p.value stars
+                       (Intercept)  9.876728e-01 0.0005457483 1809.7588594 0.0000000000   ***
+                    expertise_alow  1.566274e-03 0.0006540517    2.3947258 0.0166328005     *
+                 expertise_amedium  5.186588e-04 0.0006190959    0.8377682 0.4021609280      
+                   expertise_ahigh -9.987456e-05 0.0009860331   -0.1012893 0.9193208413      
+                   stimulusvehicle  4.308921e-04 0.0002071729    2.0798676 0.0375376794     *
+    expertise_alow:stimulusvehicle -7.676243e-04 0.0002299518   -3.3381970 0.0008432395   ***
+ expertise_amedium:stimulusvehicle -2.185343e-04 0.0002180435   -1.0022510 0.3162223898      
+   expertise_ahigh:stimulusvehicle  2.268662e-04 0.0004931971    0.4599909 0.6455227703      
+
+==== Direction ====
+Formula: Direction ~ expertise_a * stimulus + (1 | exp_a) + (1 | exp_b) 
+Type: glmmTMB | Family: gaussian 
+
+                              term      estimate   std.error     statistic     p.value stars
+                       (Intercept)  7.068926e-01 0.007231341 97.7540048514 0.000000000   ***
+                    expertise_alow -2.088574e-04 0.008518514 -0.0245180605 0.980439378      
+                 expertise_amedium -8.199270e-03 0.008078299 -1.0149749069 0.310117789      
+                   expertise_ahigh -1.403699e-03 0.013654198 -0.1028034598 0.918118959      
+                   stimulusvehicle  6.315278e-03 0.004509926  1.4003063497 0.161421600      
+    expertise_alow:stimulusvehicle -1.512154e-02 0.005015802 -3.0147805820 0.002571652    **
+ expertise_amedium:stimulusvehicle -8.712907e-03 0.004752097 -1.8334866776 0.066730228     .
+   expertise_ahigh:stimulusvehicle -4.911321e-06 0.010561433 -0.0004650241 0.999628964      
+
+==== Position ====
+Formula: Position ~ expertise_a * stimulus + (1 | exp_a) + (1 | exp_b) 
+Type: glmmTMB | Family: gaussian 
+
+                              term      estimate   std.error    statistic     p.value stars
+                       (Intercept)  0.9194543288 0.003645411 252.22239434 0.000000000   ***
+                    expertise_alow  0.0005362629 0.004276262   0.12540461 0.900203240      
+                 expertise_amedium -0.0003749412 0.004060776  -0.09233241 0.926433940      
+                   expertise_ahigh -0.0169242072 0.006946767  -2.43627118 0.014839555     *
+                   stimulusvehicle -0.0064040606 0.002442664  -2.62175273 0.008747887    **
+    expertise_alow:stimulusvehicle -0.0083151324 0.002711646  -3.06645228 0.002166154    **
+ expertise_amedium:stimulusvehicle -0.0023227700 0.002574253  -0.90230832 0.366893105      
+   expertise_ahigh:stimulusvehicle  0.0105860834 0.005691192   1.86008192 0.062873937     .
+
+==== Duration ====
+Formula: Duration ~ expertise_a + stimulus + (1 | exp_a) + (1 | exp_b) 
+Type: glmmTMB | Family: gaussian 
+
+              term     estimate   std.error  statistic      p.value stars
+       (Intercept)  0.662843695 0.009278439 71.4391390 0.000000e+00   ***
+    expertise_alow  0.007912356 0.011133084  0.7107065 4.772661e-01      
+ expertise_amedium -0.002719403 0.010520863 -0.2584771 7.960387e-01      
+   expertise_ahigh -0.021359671 0.016511037 -1.2936602 1.957828e-01      
+   stimulusvehicle -0.007800163 0.001181405 -6.6024489 4.044206e-11   ***
+✅️ Completed processing for experiment: within_group 

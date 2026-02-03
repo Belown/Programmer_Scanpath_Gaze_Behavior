@@ -70,7 +70,6 @@ def nld_helper(
     for j in range(n + 1):
         dp[0][j] = j
 
-    # use .iat for positional access (faster)
     for i in range(1, m + 1):
         for j in range(1, n + 1):
             aoi_a = df1['aoi_name'].iat[i - 1]

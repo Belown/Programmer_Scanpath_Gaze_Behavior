@@ -1,27 +1,106 @@
 library(here)
 library(lme4)
 library(glmmTMB)
-source(file.path(here(), "src", "R", "auxiliary", "helper.R"))
+source(file.path(here(), "src", "R", "auxiliary", "emip", "helper_emip.R"))
+source(file.path(here(), "src", "R", "auxiliary", "code_rendering", "helper_cr.R"))
+
+compare_random_effects <- function(rand_effect_list, print = FALSE, algo, data_set) {
+  cat("Loading models from", data_set," for random effect analysis\n")
+  all_model_all_res <- list()
+  
+  for (re in names(rand_effect_list)) {
+    if (data_set == "EMIP_corrected") {
+      all_model_all_res[[re]] <- get_all_exps_emip(random_effect = rand_effect_list[[re]], info = FALSE, algo = algo)
+    } else if (data_set == "Code_rendering") {
+      all_model_all_res[[re]] <- get_all_exps_cr(random_effect = rand_effect_list[[re]], info = FALSE, algo = algo)
+    } else {
+      cat(data_set, "is not supported for random effect analysis\n")
+    }
+    cat("✅️ Models for random effect:", re, "\n")
+  }
+  
+  # Do likelihood ratio tests for all experiments and random effects
+  rlt_re(all_model_all_res, print, algo = algo, data_set = data_set)
+  
+  # Compute AIC and BIC for all experiments and random effects
+  experiment_aicbic(all_model_all_res, print, algo = algo, data_set = data_set)
+}
 
 #' Get all experiment model packages for a given random effect structure
 #' 
 #' @param random_effect The random effect structure ("exp_a", "exp_b", or "both")
 #' @param info Whether to print info messages
 #' @return A named list of model packages for all experiments
-get_all_exps <- function(random_effect, info) {
-  within_trial_within_2 <- get_exp_pack("EMIP_corrected", "within_trial", "within_group", "trial_2", "", random_effect, info, reml=TRUE, dataset="EMIP_corrected")
-  within_trial_within_5 <- get_exp_pack("EMIP_corrected", "within_trial", "within_group", "trial_5", "", random_effect, info, reml=TRUE, dataset="EMIP_corrected")
-  within_trial_between_2 <- get_exp_pack("EMIP_corrected", "within_trial", "between_group", "trial_2", "", random_effect, info, reml=TRUE, dataset="EMIP_corrected")
-  within_trial_between_5 <- get_exp_pack("EMIP_corrected", "within_trial", "between_group", "trial_5", "", random_effect, info, reml=TRUE, dataset="EMIP_corrected")
-  within_group <- get_exp_pack("EMIP_corrected", "within_group", "", "", "", random_effect, info, reml=TRUE, dataset="EMIP_corrected")
-  between_group_mean_diff <- get_exp_pack("EMIP_corrected", "between_group", "", "", "mean_diff", random_effect, info, reml=TRUE, dataset="EMIP_corrected")
-  between_group_pairtype <- get_exp_pack("EMIP_corrected", "between_group", "", "", "pairtype", random_effect, info, reml=TRUE, dataset="EMIP_corrected")
+get_all_exps_emip <- function(random_effect, info, algo) {
+  within_stimulus_within_rectangle <- get_exp_pack_emip(data_set = "EMIP_corrected",
+                                                   exp_type = "within_stimulus",
+                                                   comp_type = "within_group",
+                                                   stimulus_folder = "rectangle",
+                                                   case = NULL,
+                                                   rand_effect = random_effect,
+                                                   info = FALSE,
+                                                   reml = FALSE,
+                                                   algo = algo)
+  within_stimulus_within_vehicle <- get_exp_pack_emip(data_set = "EMIP_corrected",
+                                                 exp_type = "within_stimulus",
+                                                 comp_type = "within_group",
+                                                 stimulus_folder = "vehicle",
+                                                 case = NULL,
+                                                 rand_effect = random_effect,
+                                                 info = FALSE,
+                                                 reml = FALSE,
+                                                 algo = algo)
+  within_stimulus_between_rectangle <- get_exp_pack_emip(data_set = "EMIP_corrected",
+                                                    exp_type = "within_stimulus",
+                                                    comp_type = "between_group",
+                                                    stimulus_folder = "rectangle",
+                                                    case = NULL,
+                                                    rand_effect = random_effect,
+                                                    info=FALSE,
+                                                    reml=FALSE,
+                                                    algo = algo)
+  within_stimulus_between_vehicle <- get_exp_pack_emip(data_set = "EMIP_corrected",
+                                                  exp_type = "within_stimulus",
+                                                  comp_type = "between_group",
+                                                  stimulus_folder = "vehicle",
+                                                  case = NULL,
+                                                  rand_effect = random_effect,
+                                                  info=FALSE,
+                                                  reml=FALSE,
+                                                  algo = algo)
+  within_group <- get_exp_pack_emip(data_set = "EMIP_corrected",
+                               exp_type = "within_group",
+                               comp_type = NULL,
+                               stimulus_folder = NULL,
+                               case = NULL,
+                               rand_effect = random_effect,
+                               info = FALSE,
+                               reml = FALSE,
+                               algo = algo)
+  between_group_mean_diff <- get_exp_pack_emip(data_set = "EMIP_corrected",
+                                          exp_type = "between_group",
+                                          comp_type = NULL,
+                                          stimulus_folder = NULL,
+                                          case = "mean_diff",
+                                          rand_effect = random_effect,
+                                          info = FALSE,
+                                          reml = FALSE,
+                                          algo = algo)
+  between_group_pairtype <- get_exp_pack_emip(data_set = "EMIP_corrected",
+                                         exp_type = "between_group",
+                                         comp_type = NULL,
+                                         stimulus_folder = NULL,
+                                         case = "pairtype",
+                                         rand_effect = random_effect,
+                                         info = FALSE,
+                                         reml = FALSE,
+                                         algo = algo)
   
   result_list <- list(
-    within_trial_within_2 = within_trial_within_2,
-    within_trial_within_5 = within_trial_within_5,
-    within_trial_between_2 = within_trial_between_2,
-    within_trial_between_5 = within_trial_between_5,
+    within_stimulus_within_rectangle = within_stimulus_within_rectangle,
+    within_stimulus_within_vehicle = within_stimulus_within_vehicle,
+    within_stimulus_between_rectangle = within_stimulus_between_rectangle,
+    within_stimulus_between_vehicle = within_stimulus_between_vehicle,
     within_group = within_group,
     between_group_mean_diff = between_group_mean_diff,
     between_group_pairtype = between_group_pairtype
@@ -30,25 +109,50 @@ get_all_exps <- function(random_effect, info) {
   return(result_list)
 }
 
-compare_random_effects <- function(rand_effect_list, print = FALSE) {
-  cat("Loading models for random effect analysis\n")
-  all_model_all_res <- list()
-  for (re in names(rand_effect_list)) {
-    all_model_all_res[[re]] <- get_all_exps(rand_effect_list[[re]], FALSE)
-    cat("✅️ Models for random effect:", re, "\n")
-  }
+get_all_exps_cr <- function(random_effect, info, algo) {
+  fix_expertise <- get_exp_pack_cr(data_set = "code_rendering",
+                                                        exp_type = "fix_expertise",
+                                                        case = NULL,
+                                                        rand_effect = random_effect,
+                                                        info = FALSE,
+                                                        reml = FALSE,
+                                                        algo = algo)
+  fix_expertise_rendering <- get_exp_pack_cr(data_set = "code_rendering",
+                                                      exp_type = "fix_expertise_rendering",
+                                                      case = NULL,
+                                                      rand_effect = random_effect,
+                                                      info = FALSE,
+                                                      reml = FALSE,
+                                                      algo = algo)
+  fix_rendering_mean_diff <- get_exp_pack_cr(data_set = "code_rendering",
+                                                         exp_type = "fix_rendering",
+                                                         case = "mean_diff",
+                                                         rand_effect = random_effect,
+                                                         info=FALSE,
+                                                         reml=FALSE,
+                                                         algo = algo)
+  fix_rendering_pairtype <- get_exp_pack_cr(data_set = "code_rendering",
+                                                       exp_type = "fix_rendering",
+                                                       case = "pairtype",
+                                                       rand_effect = random_effect,
+                                                       info=FALSE,
+                                                       reml=FALSE,
+                                                       algo = algo)
   
-  # Do likelihood ratio tests for all experiments and random effects
-  rlt_re(all_model_all_res, print)
+  result_list <- list(
+    fix_expertise = fix_expertise,
+    fix_expertise_rendering = fix_expertise_rendering,
+    fix_rendering_mean_diff = fix_rendering_mean_diff,
+    fix_rendering_pairtype = fix_rendering_pairtype
+  )
   
-  # Compute AIC and BIC for all experiments and random effects
-  experiment_aicbic(all_model_all_res, print)
+  return(result_list)
 }
 
 # This function is hard coded for the current experiments
 # Thus it needs to be updated if new experiments are added
-rlt_re <- function(all_model_all_res, print, alpha = 0.05) {
-  folder_path <- assign_path(file.path(here(), "output", "R", "random_effect_analysis", "EMIP_corrected"))
+rlt_re <- function(all_model_all_res, print, alpha = 0.05, algo, data_set) {
+  folder_path <- assign_path(file.path(here(), "output", "R", "random_effect_analysis", data_set, algo))
   output_path <- file.path(folder_path, "lrt_result.csv")
 
   # Create an empty data frame to store LRT results
@@ -64,13 +168,7 @@ rlt_re <- function(all_model_all_res, print, alpha = 0.05) {
   )
 
   # Loop though the experiments
-  exps <- list("within_trial_within_2",
-               "within_trial_within_5",
-               "within_trial_between_2",
-               "within_trial_between_5",
-               "within_group",
-               "between_group_mean_diff",
-               "between_group_pairtype")
+  exps <- names(all_model_all_res[["exp_a"]])
   
   for (exp in exps) {
     if (print) cat("\n============== Experiment:", exp, "==============\n")
@@ -161,8 +259,8 @@ rlt_re <- function(all_model_all_res, print, alpha = 0.05) {
 #' 
 #' @param all_model_all_res A nested list of model packages for all random effects and experiments
 #' @param print Whether to print AIC and BIC values to console
-experiment_aicbic <- function(all_model_all_res, print) {
-  folder_path <- assign_path(file.path(here(), "output", "R", "random_effect_analysis", "EMIP_corrected"))
+experiment_aicbic <- function(all_model_all_res, print, algo, data_set) {
+  folder_path <- assign_path(file.path(here(), "output", "R", "random_effect_analysis", data_set, algo))
   output_path <- file.path(folder_path, "aic_bic_result.csv")
 
 

@@ -1,0 +1,230 @@
+
+========================================
+Model Analysis
+========================================
+
+========= Shape =========
+
+Random-effects (VarCorr):
+Conditional model:
+ Groups   Name        Std.Dev.  
+ exp_a    (Intercept) 0.00107341
+ exp_b    (Intercept) 0.00111974
+ Residual             0.00072704
+# Intraclass Correlation Coefficient
+
+    Adjusted ICC: 0.820
+  Unadjusted ICC: 0.803
+
+--- Fixed-effect terms (as in formula) ---
+[1] "expertise_a"
+
+Has interaction terms: FALSE 
+Main terms: expertise_a 
+
+--- Nakagawa R² ---
+Marginal R² (fixed effects):     0.0206 
+Conditional R² (fixed+random):   0.8236 
+
+--- Post-hoc inference (emmeans for categorical predictors) ---
+
+EMMs for expertise_a:
+ expertise_a  emmean       SE  df asymp.LCL asymp.UCL
+ none        0.99150 0.000349 Inf   0.99082   0.99219
+ low         0.99201 0.000250 Inf   0.99152   0.99250
+ medium      0.99145 0.000202 Inf   0.99106   0.99185
+ high        0.99140 0.000514 Inf   0.99039   0.99241
+
+Confidence level used: 0.95 
+
+Pairwise comparisons for expertise_a (tukey adjustment):
+ contrast       estimate       SE  df z.ratio p.value
+ none - low    -5.08e-04 0.000429 Inf  -1.182  0.6381
+ none - medium  5.26e-05 0.000403 Inf   0.130  0.9992
+ none - high    1.02e-04 0.000621 Inf   0.165  0.9984
+ low - medium   5.60e-04 0.000321 Inf   1.744  0.3010
+ low - high     6.10e-04 0.000572 Inf   1.067  0.7097
+ medium - high  4.98e-05 0.000552 Inf   0.090  0.9997
+
+P value adjustment: tukey method for comparing a family of 4 estimates 
+
+========= Length =========
+
+Random-effects (VarCorr):
+Conditional model:
+ Groups   Name        Std.Dev. 
+ exp_a    (Intercept) 0.0017626
+ exp_b    (Intercept) 0.0017808
+ Residual             0.0013842
+# Intraclass Correlation Coefficient
+
+    Adjusted ICC: 0.766
+  Unadjusted ICC: 0.753
+
+--- Fixed-effect terms (as in formula) ---
+[1] "expertise_a"
+
+Has interaction terms: FALSE 
+Main terms: expertise_a 
+
+--- Nakagawa R² ---
+Marginal R² (fixed effects):     0.0169 
+Conditional R² (fixed+random):   0.7701 
+
+--- Post-hoc inference (emmeans for categorical predictors) ---
+
+EMMs for expertise_a:
+ expertise_a emmean       SE  df asymp.LCL asymp.UCL
+ none        0.9879 0.000569 Inf    0.9867    0.9890
+ low         0.9891 0.000407 Inf    0.9883    0.9899
+ medium      0.9884 0.000327 Inf    0.9877    0.9890
+ high        0.9882 0.000842 Inf    0.9865    0.9898
+
+Confidence level used: 0.95 
+
+Pairwise comparisons for expertise_a (tukey adjustment):
+ contrast       estimate       SE  df z.ratio p.value
+ none - low    -0.001232 0.000699 Inf  -1.762  0.2921
+ none - medium -0.000501 0.000656 Inf  -0.763  0.8711
+ none - high   -0.000325 0.001020 Inf  -0.320  0.9887
+ low - medium   0.000731 0.000522 Inf   1.401  0.4985
+ low - high     0.000907 0.000935 Inf   0.970  0.7666
+ medium - high  0.000176 0.000903 Inf   0.195  0.9974
+
+P value adjustment: tukey method for comparing a family of 4 estimates 
+
+========= Direction =========
+
+Random-effects (VarCorr):
+Conditional model:
+ Groups   Name        Std.Dev.
+ exp_a    (Intercept) 0.022260
+ exp_b    (Intercept) 0.024269
+ Residual             0.037479
+# Intraclass Correlation Coefficient
+
+    Adjusted ICC: 0.436
+  Unadjusted ICC: 0.433
+
+--- Fixed-effect terms (as in formula) ---
+[1] "expertise_a"
+
+Has interaction terms: FALSE 
+Main terms: expertise_a 
+
+--- Nakagawa R² ---
+Marginal R² (fixed effects):     0.0068 
+Conditional R² (fixed+random):   0.4395 
+
+--- Post-hoc inference (emmeans for categorical predictors) ---
+
+EMMs for expertise_a:
+ expertise_a emmean      SE  df asymp.LCL asymp.UCL
+ none         0.712 0.00806 Inf     0.696     0.728
+ low          0.697 0.00563 Inf     0.685     0.708
+ medium       0.698 0.00448 Inf     0.689     0.707
+ high         0.710 0.01230 Inf     0.686     0.734
+
+Confidence level used: 0.95 
+
+Pairwise comparisons for expertise_a (tukey adjustment):
+ contrast      estimate      SE  df z.ratio p.value
+ none - low     0.01530 0.00984 Inf   1.555  0.4046
+ none - medium  0.01364 0.00922 Inf   1.479  0.4502
+ none - high    0.00185 0.01470 Inf   0.126  0.9993
+ low - medium  -0.00166 0.00720 Inf  -0.231  0.9957
+ low - high    -0.01344 0.01350 Inf  -0.993  0.7533
+ medium - high -0.01178 0.01310 Inf  -0.900  0.8050
+
+P value adjustment: tukey method for comparing a family of 4 estimates 
+
+========= Position =========
+
+Random-effects (VarCorr):
+Conditional model:
+ Groups   Name        Std.Dev.
+ exp_a    (Intercept) 0.010517
+ exp_b    (Intercept) 0.011578
+ Residual             0.022088
+# Intraclass Correlation Coefficient
+
+    Adjusted ICC: 0.334
+  Unadjusted ICC: 0.331
+
+--- Fixed-effect terms (as in formula) ---
+[1] "expertise_a"
+
+Has interaction terms: FALSE 
+Main terms: expertise_a 
+
+--- Nakagawa R² ---
+Marginal R² (fixed effects):     0.0097 
+Conditional R² (fixed+random):   0.3405 
+
+--- Post-hoc inference (emmeans for categorical predictors) ---
+
+EMMs for expertise_a:
+ expertise_a emmean      SE  df asymp.LCL asymp.UCL
+ none        0.9167 0.00396 Inf    0.9089    0.9245
+ low         0.9067 0.00275 Inf    0.9013    0.9120
+ medium      0.9111 0.00217 Inf    0.9068    0.9153
+ high        0.9088 0.00616 Inf    0.8967    0.9209
+
+Confidence level used: 0.95 
+
+Pairwise comparisons for expertise_a (tukey adjustment):
+ contrast      estimate      SE  df z.ratio p.value
+ none - low     0.01003 0.00482 Inf   2.081  0.1594
+ none - medium  0.00562 0.00452 Inf   1.243  0.5994
+ none - high    0.00791 0.00732 Inf   1.080  0.7020
+ low - medium  -0.00441 0.00350 Inf  -1.261  0.5878
+ low - high    -0.00213 0.00674 Inf  -0.316  0.9891
+ medium - high  0.00229 0.00653 Inf   0.350  0.9852
+
+P value adjustment: tukey method for comparing a family of 4 estimates 
+
+========= Duration =========
+
+Random-effects (VarCorr):
+Conditional model:
+ Groups   Name        Std.Dev.
+ exp_a    (Intercept) 0.031391
+ exp_b    (Intercept) 0.029514
+ Residual             0.039194
+# Intraclass Correlation Coefficient
+
+    Adjusted ICC: 0.547
+  Unadjusted ICC: 0.540
+
+--- Fixed-effect terms (as in formula) ---
+[1] "expertise_a"
+
+Has interaction terms: FALSE 
+Main terms: expertise_a 
+
+--- Nakagawa R² ---
+Marginal R² (fixed effects):     0.0126 
+Conditional R² (fixed+random):   0.5529 
+
+--- Post-hoc inference (emmeans for categorical predictors) ---
+
+EMMs for expertise_a:
+ expertise_a emmean      SE  df asymp.LCL asymp.UCL
+ none         0.655 0.01020 Inf     0.635     0.675
+ low          0.664 0.00721 Inf     0.650     0.678
+ medium       0.650 0.00576 Inf     0.639     0.661
+ high         0.633 0.01540 Inf     0.603     0.664
+
+Confidence level used: 0.95 
+
+Pairwise comparisons for expertise_a (tukey adjustment):
+ contrast      estimate      SE  df z.ratio p.value
+ none - low    -0.00844 0.01250 Inf  -0.674  0.9068
+ none - medium  0.00518 0.01170 Inf   0.441  0.9713
+ none - high    0.02195 0.01850 Inf   1.185  0.6366
+ low - medium   0.01362 0.00923 Inf   1.476  0.4522
+ low - high     0.03039 0.01700 Inf   1.783  0.2816
+ medium - high  0.01676 0.01650 Inf   1.017  0.7394
+
+P value adjustment: tukey method for comparing a family of 4 estimates 
+✅️ Completed! 

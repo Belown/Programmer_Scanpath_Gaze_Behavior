@@ -1,12 +1,8 @@
 Processing model for experiment: between_group_mean_diff 
 ============ Workflow stage 1 ============
   Testing all 2 -way interactions for score ...
-❌️ Interaction expertise_mean:expertise_diff for score is NOT significant (p = 0.231 ). Dropping it.
+❌️ Interaction expertise_mean:expertise_diff for score is NOT significant (p = 0.282 ). Dropping it.
 --- Checking model assumptions for score ---
-
-1: Yes
-2: No
-
        LINEARITY : ❌ FAILED 
        NORMALITY : ❌ FAILED 
        HOMOSCEDASTICITY : ❌ FAILED 
@@ -15,7 +11,7 @@ Processing model for experiment: between_group_mean_diff
 🚨 Major assumption violations for score 
 ============ Workflow stage 2 ============
   Testing all 2 -way interactions for score ...
-❌️ Interaction expertise_mean:expertise_diff for score is NOT significant (p = 0.241 ). Dropping it.
+❌️ Interaction expertise_mean:expertise_diff for score is NOT significant (p = 0.279 ). Dropping it.
 --- Checking model assumptions for score ---
        LINEARITY : ❌ FAILED 
        NORMALITY : ❌ FAILED 
@@ -25,7 +21,7 @@ Processing model for experiment: between_group_mean_diff
 🚨 Major assumption violations for score 
 ============ Workflow stage 3 ============
   Testing all 2 -way interactions for score ...
-❌️ Interaction expertise_mean:expertise_diff for score is NOT significant (p = 0.231 ). Dropping it.
+❌️ Interaction expertise_mean:expertise_diff for score is NOT significant (p = 0.282 ). Dropping it.
 --- Checking GLMM assumptions for score ---
        DISTRIBUTIONAL : ✅ PASSED 
        LINK_FUNCTION : ✅ PASSED 
@@ -38,8 +34,8 @@ Processing model for experiment: between_group_mean_diff
 Formula: score ~ expertise_mean + expertise_diff + (1 | exp_a) + (1 |      exp_b) 
 Type: glmmTMB | Family: gaussian 
 
-           term    estimate   std.error statistic   p.value stars
-    (Intercept) 0.825957616 0.009085565 90.908778 0.0000000   ***
- expertise_mean 0.004485605 0.003430818  1.307445 0.1910617      
- expertise_diff 0.001298201 0.001139663  1.139109 0.2546578      
+           term     estimate    std.error statistic   p.value stars
+    (Intercept) 0.8013828733 0.0106993307  74.90028 0.0000000   ***
+ expertise_mean 0.0055946679 0.0040579886   1.37868 0.1679934      
+ expertise_diff 0.0004553075 0.0009633692   0.47262 0.6364843      
 ✅️ Completed processing for experiment: between_group_mean_diff 

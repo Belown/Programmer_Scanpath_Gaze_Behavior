@@ -32,7 +32,7 @@ exp_type <- "fix_rendering"
 case <- "pairtype"
 
 # Experiment pack includes fitted models, data, and config
-exp_pack <- get_exp_pack(data_set = data_set,
+exp_pack <- get_exp_pack_cr(data_set = data_set,
                          exp_type = exp_type,
                          case = case,
                          rand_effect = NULL,

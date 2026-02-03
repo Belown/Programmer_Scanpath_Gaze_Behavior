@@ -4,6 +4,6 @@ Formula: score ~ expertise_mean + expertise_diff + (1 | exp_a) + (1 |      exp_b
 Type: glmmTMB | Family: gaussian 
 
            term     estimate   std.error   statistic   p.value stars
-    (Intercept) 0.9039817347 0.006228874 145.1276406 0.0000000   ***
- expertise_mean 0.0036139709 0.002277011   1.5871556 0.1124774      
- expertise_diff 0.0008508881 0.001164209   0.7308723 0.4648571      
+    (Intercept) 0.8844277991 0.008658585 102.1446139 0.0000000   ***
+ expertise_mean 0.0017550133 0.003236287   0.5422922 0.5876172      
+ expertise_diff 0.0004132784 0.001105384   0.3738776 0.7084954      

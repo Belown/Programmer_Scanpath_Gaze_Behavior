@@ -1,0 +1,17 @@
+"random_effect","experiment","dimension","AIC","BIC"
+"exp_a","fix_expertise","score",-4953.83194205628,-4911.95852461828
+"exp_a","fix_expertise_rendering","score",-1476.86070849089,-1444.25794024218
+"exp_a","fix_rendering_mean_diff","score",-2695.49899033395,-2671.45379380373
+"exp_a","fix_rendering_pairtype","score",-2695.49899033395,-2671.45379380373
+"exp_b","fix_expertise","score",-4846.82790549535,-4804.95448805735
+"exp_b","fix_expertise_rendering","score",-1466.31987421669,-1433.71710596798
+"exp_b","fix_rendering_mean_diff","score",-2742.35883813601,-2718.3136416058
+"exp_b","fix_rendering_pairtype","score",-2742.35883813601,-2718.3136416058
+"both","fix_expertise","score",-5160.29335192289,-5113.18575730514
+"both","fix_expertise_rendering","score",-1524.04715696244,-1487.36904268264
+"both","fix_rendering_mean_diff","score",-2777.87900011045,-2749.02476427419
+"both","fix_rendering_pairtype","score",-2777.87900011045,-2749.0247642742
+"none","fix_expertise","score",-4690.51974636262,-4653.88050610437
+"none","fix_expertise_rendering","score",-1440.15824171031,-1411.63081949269
+"none","fix_rendering_mean_diff","score",-2661.55238028301,-2642.31622305884
+"none","fix_rendering_pairtype","score",-2661.55238028301,-2642.31622305884

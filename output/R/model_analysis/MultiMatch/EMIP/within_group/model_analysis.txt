@@ -8,60 +8,60 @@ Model Analysis
 Random-effects (VarCorr):
 Conditional model:
  Groups   Name        Std.Dev.  
- exp_a    (Intercept) 0.00103578
- exp_b    (Intercept) 0.00107808
- Residual             0.00096958
+ exp_a    (Intercept) 0.00100453
+ exp_b    (Intercept) 0.00107599
+ Residual             0.00097643
 # Intraclass Correlation Coefficient
 
-    Adjusted ICC: 0.704
-  Unadjusted ICC: 0.688
+    Adjusted ICC: 0.694
+  Unadjusted ICC: 0.682
 
 --- Fixed-effect terms (as in formula) ---
-[1] "expertise_a"       "trial"             "expertise_a:trial"
+[1] "expertise_a"          "stimulus"             "expertise_a:stimulus"
 
 Has interaction terms: TRUE 
-Main terms: expertise_a, trial 
-Interaction terms: expertise_a:trial 
+Main terms: expertise_a, stimulus 
+Interaction terms: expertise_a:stimulus 
 
 --- Nakagawa R² ---
-Marginal R² (fixed effects):     0.0223 
-Conditional R² (fixed+random):   0.7105 
+Marginal R² (fixed effects):     0.0175 
+Conditional R² (fixed+random):   0.6998 
 
 --- Post-hoc inference (emmeans for categorical predictors) ---
 
 EMMs for expertise_a:
  expertise_a  emmean       SE  df asymp.LCL asymp.UCL
- none        0.99144 0.000331 Inf   0.99079   0.99209
- low         0.99190 0.000224 Inf   0.99146   0.99234
- medium      0.99135 0.000182 Inf   0.99099   0.99170
- high        0.99105 0.000483 Inf   0.99010   0.99199
+ none        0.99149 0.000326 Inf   0.99085   0.99212
+ low         0.99189 0.000221 Inf   0.99145   0.99232
+ medium      0.99140 0.000179 Inf   0.99104   0.99175
+ high        0.99107 0.000476 Inf   0.99014   0.99200
 
-Results are averaged over the levels of: trial 
+Results are averaged over the levels of: stimulus 
 Confidence level used: 0.95 
 
 Pairwise comparisons for expertise_a (tukey adjustment):
  contrast       estimate       SE  df z.ratio p.value
- none - low    -4.56e-04 0.000400 Inf  -1.141  0.6640
- none - medium  9.63e-05 0.000378 Inf   0.255  0.9942
- none - high    3.96e-04 0.000585 Inf   0.676  0.9061
- low - medium   5.53e-04 0.000288 Inf   1.916  0.2213
- low - high     8.52e-04 0.000532 Inf   1.602  0.3776
- medium - high  3.00e-04 0.000516 Inf   0.581  0.9378
+ none - low    -4.01e-04 0.000394 Inf  -1.019  0.7384
+ none - medium  8.89e-05 0.000372 Inf   0.239  0.9952
+ none - high    4.16e-04 0.000577 Inf   0.720  0.8890
+ low - medium   4.90e-04 0.000284 Inf   1.725  0.3105
+ low - high     8.17e-04 0.000525 Inf   1.557  0.4033
+ medium - high  3.27e-04 0.000509 Inf   0.643  0.9182
 
-Results are averaged over the levels of: trial 
+Results are averaged over the levels of: stimulus 
 P value adjustment: tukey method for comparing a family of 4 estimates 
 
-EMMs for trial:
- trial  emmean       SE  df asymp.LCL asymp.UCL
- 2     0.99152 0.000165 Inf   0.99120   0.99185
- 5     0.99134 0.000169 Inf   0.99101   0.99167
+EMMs for stimulus:
+ stimulus   emmean       SE  df asymp.LCL asymp.UCL
+ rectangle 0.99135 0.000166 Inf   0.99102   0.99168
+ vehicle   0.99157 0.000163 Inf   0.99125   0.99189
 
 Results are averaged over the levels of: expertise_a 
 Confidence level used: 0.95 
 
-Pairwise comparisons for trial (tukey adjustment):
- contrast        estimate       SE  df z.ratio p.value
- trial2 - trial5 0.000183 7.07e-05 Inf   2.586  0.0097
+Pairwise comparisons for stimulus (tukey adjustment):
+ contrast             estimate       SE  df z.ratio p.value
+ rectangle - vehicle -0.000219 7.12e-05 Inf  -3.078  0.0021
 
 Results are averaged over the levels of: expertise_a 
 
@@ -70,60 +70,60 @@ Results are averaged over the levels of: expertise_a
 Random-effects (VarCorr):
 Conditional model:
  Groups   Name        Std.Dev. 
- exp_a    (Intercept) 0.0016447
- exp_b    (Intercept) 0.0017458
- Residual             0.0017456
+ exp_a    (Intercept) 0.0016183
+ exp_b    (Intercept) 0.0017362
+ Residual             0.0017504
 # Intraclass Correlation Coefficient
 
-    Adjusted ICC: 0.654
-  Unadjusted ICC: 0.639
+    Adjusted ICC: 0.648
+  Unadjusted ICC: 0.636
 
 --- Fixed-effect terms (as in formula) ---
-[1] "expertise_a"       "trial"             "expertise_a:trial"
+[1] "expertise_a"          "stimulus"             "expertise_a:stimulus"
 
 Has interaction terms: TRUE 
-Main terms: expertise_a, trial 
-Interaction terms: expertise_a:trial 
+Main terms: expertise_a, stimulus 
+Interaction terms: expertise_a:stimulus 
 
 --- Nakagawa R² ---
-Marginal R² (fixed effects):     0.0226 
-Conditional R² (fixed+random):   0.6615 
+Marginal R² (fixed effects):     0.0187 
+Conditional R² (fixed+random):   0.6543 
 
 --- Post-hoc inference (emmeans for categorical predictors) ---
 
 EMMs for expertise_a:
  expertise_a emmean       SE  df asymp.LCL asymp.UCL
- none        0.9879 0.000536 Inf    0.9868    0.9889
- low         0.9891 0.000361 Inf    0.9884    0.9898
- medium      0.9882 0.000293 Inf    0.9876    0.9888
- high        0.9880 0.000784 Inf    0.9864    0.9895
+ none        0.9879 0.000530 Inf    0.9868    0.9889
+ low         0.9891 0.000357 Inf    0.9884    0.9898
+ medium      0.9883 0.000290 Inf    0.9877    0.9889
+ high        0.9879 0.000777 Inf    0.9864    0.9894
 
-Results are averaged over the levels of: trial 
+Results are averaged over the levels of: stimulus 
 Confidence level used: 0.95 
 
 Pairwise comparisons for expertise_a (tukey adjustment):
  contrast       estimate       SE  df z.ratio p.value
- none - low    -1.23e-03 0.000646 Inf  -1.906  0.2255
- none - medium -3.10e-04 0.000611 Inf  -0.508  0.9573
- none - high   -8.05e-05 0.000949 Inf  -0.085  0.9998
- low - medium   9.21e-04 0.000465 Inf   1.982  0.1948
- low - high     1.15e-03 0.000863 Inf   1.334  0.5413
- medium - high  2.29e-04 0.000837 Inf   0.274  0.9928
+ none - low    -1.18e-03 0.000639 Inf  -1.850  0.2502
+ none - medium -4.09e-04 0.000604 Inf  -0.677  0.9057
+ none - high   -1.36e-05 0.000940 Inf  -0.014  1.0000
+ low - medium   7.73e-04 0.000460 Inf   1.680  0.3344
+ low - high     1.17e-03 0.000855 Inf   1.367  0.5199
+ medium - high  3.96e-04 0.000829 Inf   0.477  0.9641
 
-Results are averaged over the levels of: trial 
+Results are averaged over the levels of: stimulus 
 P value adjustment: tukey method for comparing a family of 4 estimates 
 
-EMMs for trial:
- trial emmean       SE  df asymp.LCL asymp.UCL
- 2     0.9884 0.000268 Inf    0.9879    0.9889
- 5     0.9882 0.000275 Inf    0.9876    0.9887
+EMMs for stimulus:
+ stimulus  emmean       SE  df asymp.LCL asymp.UCL
+ rectangle 0.9882 0.000273 Inf    0.9876    0.9887
+ vehicle   0.9884 0.000266 Inf    0.9879    0.9889
 
 Results are averaged over the levels of: expertise_a 
 Confidence level used: 0.95 
 
-Pairwise comparisons for trial (tukey adjustment):
- contrast        estimate       SE  df z.ratio p.value
- trial2 - trial5 0.000217 0.000127 Inf   1.715  0.0864
+Pairwise comparisons for stimulus (tukey adjustment):
+ contrast             estimate       SE  df z.ratio p.value
+ rectangle - vehicle -0.000241 0.000127 Inf  -1.898  0.0577
 
 Results are averaged over the levels of: expertise_a 
 
@@ -132,60 +132,60 @@ Results are averaged over the levels of: expertise_a
 Random-effects (VarCorr):
 Conditional model:
  Groups   Name        Std.Dev.
- exp_a    (Intercept) 0.017460
- exp_b    (Intercept) 0.020754
- Residual             0.039762
+ exp_a    (Intercept) 0.018029
+ exp_b    (Intercept) 0.021005
+ Residual             0.039074
 # Intraclass Correlation Coefficient
 
-    Adjusted ICC: 0.318
-  Unadjusted ICC: 0.315
+    Adjusted ICC: 0.334
+  Unadjusted ICC: 0.331
 
 --- Fixed-effect terms (as in formula) ---
-[1] "expertise_a"       "trial"             "expertise_a:trial"
+[1] "expertise_a"          "stimulus"             "expertise_a:stimulus"
 
 Has interaction terms: TRUE 
-Main terms: expertise_a, trial 
-Interaction terms: expertise_a:trial 
+Main terms: expertise_a, stimulus 
+Interaction terms: expertise_a:stimulus 
 
 --- Nakagawa R² ---
-Marginal R² (fixed effects):     0.0079 
-Conditional R² (fixed+random):   0.3229 
+Marginal R² (fixed effects):     0.0095 
+Conditional R² (fixed+random):   0.3405 
 
 --- Post-hoc inference (emmeans for categorical predictors) ---
 
 EMMs for expertise_a:
  expertise_a emmean      SE  df asymp.LCL asymp.UCL
- none         0.713 0.00659 Inf     0.700     0.726
- low          0.700 0.00430 Inf     0.692     0.709
- medium       0.697 0.00346 Inf     0.690     0.704
- high         0.708 0.00992 Inf     0.689     0.728
+ none         0.710 0.00666 Inf     0.697     0.723
+ low          0.702 0.00437 Inf     0.694     0.711
+ medium       0.697 0.00352 Inf     0.691     0.704
+ high         0.709 0.01000 Inf     0.689     0.728
 
-Results are averaged over the levels of: trial 
+Results are averaged over the levels of: stimulus 
 Confidence level used: 0.95 
 
 Pairwise comparisons for expertise_a (tukey adjustment):
  contrast      estimate      SE  df z.ratio p.value
- none - low     0.01245 0.00787 Inf   1.582  0.3892
- none - medium  0.01559 0.00744 Inf   2.095  0.1546
- none - high    0.00466 0.01190 Inf   0.391  0.9797
- low - medium   0.00314 0.00552 Inf   0.570  0.9411
- low - high    -0.00779 0.01080 Inf  -0.721  0.8890
- medium - high -0.01093 0.01050 Inf  -1.041  0.7256
+ none - low     0.00777 0.00797 Inf   0.975  0.7639
+ none - medium  0.01256 0.00753 Inf   1.667  0.3415
+ none - high    0.00141 0.01210 Inf   0.117  0.9994
+ low - medium   0.00479 0.00561 Inf   0.853  0.8288
+ low - high    -0.00636 0.01090 Inf  -0.581  0.9378
+ medium - high -0.01115 0.01060 Inf  -1.048  0.7211
 
-Results are averaged over the levels of: trial 
+Results are averaged over the levels of: stimulus 
 P value adjustment: tukey method for comparing a family of 4 estimates 
 
-EMMs for trial:
- trial emmean      SE  df asymp.LCL asymp.UCL
- 2      0.702 0.00342 Inf     0.695     0.709
- 5      0.708 0.00370 Inf     0.700     0.715
+EMMs for stimulus:
+ stimulus  emmean      SE  df asymp.LCL asymp.UCL
+ rectangle  0.704 0.00370 Inf     0.697     0.712
+ vehicle    0.705 0.00347 Inf     0.698     0.712
 
 Results are averaged over the levels of: expertise_a 
 Confidence level used: 0.95 
 
-Pairwise comparisons for trial (tukey adjustment):
- contrast        estimate      SE  df z.ratio p.value
- trial2 - trial5  -0.0057 0.00276 Inf  -2.063  0.0391
+Pairwise comparisons for stimulus (tukey adjustment):
+ contrast             estimate      SE  df z.ratio p.value
+ rectangle - vehicle -0.000355 0.00272 Inf  -0.131  0.8961
 
 Results are averaged over the levels of: expertise_a 
 
@@ -194,60 +194,60 @@ Results are averaged over the levels of: expertise_a
 Random-effects (VarCorr):
 Conditional model:
  Groups   Name        Std.Dev. 
- exp_a    (Intercept) 0.0085706
- exp_b    (Intercept) 0.0089626
- Residual             0.0209226
+ exp_a    (Intercept) 0.0093345
+ exp_b    (Intercept) 0.0098061
+ Residual             0.0212163
 # Intraclass Correlation Coefficient
 
-    Adjusted ICC: 0.260
-  Unadjusted ICC: 0.257
+    Adjusted ICC: 0.289
+  Unadjusted ICC: 0.276
 
 --- Fixed-effect terms (as in formula) ---
-[1] "expertise_a"       "trial"             "expertise_a:trial"
+[1] "expertise_a"          "stimulus"             "expertise_a:stimulus"
 
 Has interaction terms: TRUE 
-Main terms: expertise_a, trial 
-Interaction terms: expertise_a:trial 
+Main terms: expertise_a, stimulus 
+Interaction terms: expertise_a:stimulus 
 
 --- Nakagawa R² ---
-Marginal R² (fixed effects):     0.0107 
-Conditional R² (fixed+random):   0.2679 
+Marginal R² (fixed effects):     0.0457 
+Conditional R² (fixed+random):   0.3219 
 
 --- Post-hoc inference (emmeans for categorical predictors) ---
 
 EMMs for expertise_a:
  expertise_a emmean      SE  df asymp.LCL asymp.UCL
- none        0.9120 0.00309 Inf    0.9059    0.9181
- low         0.9080 0.00200 Inf    0.9040    0.9119
- medium      0.9093 0.00160 Inf    0.9061    0.9124
- high        0.9054 0.00470 Inf    0.8962    0.9146
+ none        0.9163 0.00332 Inf    0.9098    0.9228
+ low         0.9126 0.00216 Inf    0.9084    0.9169
+ medium      0.9147 0.00174 Inf    0.9113    0.9181
+ high        0.9046 0.00504 Inf    0.8947    0.9145
 
-Results are averaged over the levels of: trial 
+Results are averaged over the levels of: stimulus 
 Confidence level used: 0.95 
 
 Pairwise comparisons for expertise_a (tukey adjustment):
  contrast      estimate      SE  df z.ratio p.value
- none - low     0.00404 0.00368 Inf   1.097  0.6912
- none - medium  0.00274 0.00348 Inf   0.785  0.8613
- none - high    0.00662 0.00563 Inf   1.176  0.6423
- low - medium  -0.00131 0.00256 Inf  -0.509  0.9569
- low - high     0.00258 0.00511 Inf   0.504  0.9581
- medium - high  0.00388 0.00497 Inf   0.781  0.8630
+ none - low     0.00362 0.00396 Inf   0.915  0.7970
+ none - medium  0.00154 0.00374 Inf   0.410  0.9767
+ none - high    0.01163 0.00603 Inf   1.929  0.2159
+ low - medium  -0.00208 0.00277 Inf  -0.752  0.8760
+ low - high     0.00801 0.00548 Inf   1.461  0.4611
+ medium - high  0.01009 0.00533 Inf   1.895  0.2303
 
-Results are averaged over the levels of: trial 
+Results are averaged over the levels of: stimulus 
 P value adjustment: tukey method for comparing a family of 4 estimates 
 
-EMMs for trial:
- trial emmean      SE  df asymp.LCL asymp.UCL
- 2     0.9042 0.00163 Inf    0.9011    0.9074
- 5     0.9131 0.00178 Inf    0.9096    0.9166
+EMMs for stimulus:
+ stimulus  emmean      SE  df asymp.LCL asymp.UCL
+ rectangle 0.9153 0.00188 Inf    0.9116    0.9189
+ vehicle   0.9088 0.00175 Inf    0.9054    0.9123
 
 Results are averaged over the levels of: expertise_a 
 Confidence level used: 0.95 
 
-Pairwise comparisons for trial (tukey adjustment):
- contrast        estimate      SE  df z.ratio p.value
- trial2 - trial5 -0.00883 0.00144 Inf  -6.137 <0.0001
+Pairwise comparisons for stimulus (tukey adjustment):
+ contrast            estimate      SE  df z.ratio p.value
+ rectangle - vehicle  0.00642 0.00147 Inf   4.372 <0.0001
 
 Results are averaged over the levels of: expertise_a 
 
@@ -256,60 +256,59 @@ Results are averaged over the levels of: expertise_a
 Random-effects (VarCorr):
 Conditional model:
  Groups   Name        Std.Dev.
- exp_a    (Intercept) 0.029773
- exp_b    (Intercept) 0.027589
- Residual             0.038059
+ exp_a    (Intercept) 0.029739
+ exp_b    (Intercept) 0.027580
+ Residual             0.038563
 # Intraclass Correlation Coefficient
 
-    Adjusted ICC: 0.532
-  Unadjusted ICC: 0.526
+    Adjusted ICC: 0.525
+  Unadjusted ICC: 0.518
 
 --- Fixed-effect terms (as in formula) ---
-[1] "expertise_a"       "trial"             "expertise_a:trial"
+[1] "expertise_a" "stimulus"   
 
-Has interaction terms: TRUE 
-Main terms: expertise_a, trial 
-Interaction terms: expertise_a:trial 
+Has interaction terms: FALSE 
+Main terms: expertise_a, stimulus 
 
 --- Nakagawa R² ---
-Marginal R² (fixed effects):     0.0122 
-Conditional R² (fixed+random):   0.5379 
+Marginal R² (fixed effects):     0.0146 
+Conditional R² (fixed+random):   0.5322 
 
 --- Post-hoc inference (emmeans for categorical predictors) ---
 
 EMMs for expertise_a:
  expertise_a emmean      SE  df asymp.LCL asymp.UCL
- none         0.659 0.00928 Inf     0.641     0.677
- low          0.666 0.00620 Inf     0.654     0.678
+ none         0.659 0.00925 Inf     0.641     0.677
+ low          0.667 0.00620 Inf     0.655     0.679
  medium       0.656 0.00502 Inf     0.646     0.666
- high         0.636 0.01370 Inf     0.610     0.663
+ high         0.638 0.01370 Inf     0.611     0.664
 
-Results are averaged over the levels of: trial 
+Results are averaged over the levels of: stimulus 
 Confidence level used: 0.95 
 
 Pairwise comparisons for expertise_a (tukey adjustment):
  contrast      estimate      SE  df z.ratio p.value
- none - low    -0.00680 0.01120 Inf  -0.609  0.9292
- none - medium  0.00315 0.01050 Inf   0.299  0.9907
- none - high    0.02266 0.01650 Inf   1.370  0.5184
- low - medium   0.00995 0.00797 Inf   1.248  0.5961
- low - high     0.02946 0.01500 Inf   1.959  0.2036
- medium - high  0.01951 0.01460 Inf   1.337  0.5391
+ none - low    -0.00791 0.01110 Inf  -0.711  0.8929
+ none - medium  0.00272 0.01050 Inf   0.258  0.9940
+ none - high    0.02136 0.01650 Inf   1.294  0.5670
+ low - medium   0.01063 0.00797 Inf   1.334  0.5414
+ low - high     0.02927 0.01500 Inf   1.949  0.2076
+ medium - high  0.01864 0.01460 Inf   1.279  0.5761
 
-Results are averaged over the levels of: trial 
+Results are averaged over the levels of: stimulus 
 P value adjustment: tukey method for comparing a family of 4 estimates 
 
-EMMs for trial:
- trial emmean      SE  df asymp.LCL asymp.UCL
- 2      0.659 0.00469 Inf      0.65     0.668
- 5      0.649 0.00489 Inf      0.64     0.659
+EMMs for stimulus:
+ stimulus  emmean      SE  df asymp.LCL asymp.UCL
+ rectangle  0.659 0.00463 Inf     0.650     0.668
+ vehicle    0.651 0.00461 Inf     0.642     0.660
 
 Results are averaged over the levels of: expertise_a 
 Confidence level used: 0.95 
 
-Pairwise comparisons for trial (tukey adjustment):
- contrast        estimate      SE  df z.ratio p.value
- trial2 - trial5  0.00957 0.00273 Inf   3.510  0.0004
+Pairwise comparisons for stimulus (tukey adjustment):
+ contrast            estimate      SE  df z.ratio p.value
+ rectangle - vehicle   0.0078 0.00118 Inf   6.602 <0.0001
 
 Results are averaged over the levels of: expertise_a 
 ✅️ Completed! 

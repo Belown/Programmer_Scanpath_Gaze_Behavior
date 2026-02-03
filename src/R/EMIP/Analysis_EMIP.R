@@ -9,7 +9,7 @@ library(here)
 
 # Load auxiliary functions for model building and validation workflow
 source(file.path(here(), "src", "R", "auxiliary", "workflow.R"))
-source(file.path(here(), "src", "R", "auxiliary", "emip", "helper.R"))
+source(file.path(here(), "src", "R", "auxiliary", "emip", "helper_emip.R"))
 
 # --- Experiment Type Configuration ---
 data_set <- "EMIP_corrected"  # Dataset identifier
@@ -26,8 +26,8 @@ case <- "mean_diff"  # Analysis case: "mean_diff" or "pairtype"
 algo <- "ScaSim"
 
 # This includes fitted models, data, and config for the specified experiment type
-# Modify fixed and random effects in get_exp_pack() if needed
-exp_pack <- get_exp_pack(data_set = data_set,
+# Modify fixed and random effects in get_exp_pack_emip() if needed
+exp_pack <- get_exp_pack_emip(data_set = data_set,
                          exp_type = exp_type,
                          comp_type = within_stimulus_type,
                          stimulus_folder = stimulus_folder,

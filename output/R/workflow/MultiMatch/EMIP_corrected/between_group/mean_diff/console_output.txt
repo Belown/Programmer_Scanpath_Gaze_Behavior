@@ -1,20 +1,16 @@
 Processing model for experiment: between_group_mean_diff 
 ============ Workflow stage 1 ============
   Testing all 2 -way interactions for Shape ...
-❌️ Interaction expertise_mean:expertise_diff for Shape is NOT significant (p = 0.201 ). Dropping it.
+❌️ Interaction expertise_mean:expertise_diff for Shape is NOT significant (p = 0.221 ). Dropping it.
   Testing all 2 -way interactions for Length ...
-❌️ Interaction expertise_mean:expertise_diff for Length is NOT significant (p = 0.183 ). Dropping it.
+❌️ Interaction expertise_mean:expertise_diff for Length is NOT significant (p = 0.163 ). Dropping it.
   Testing all 2 -way interactions for Direction ...
-❌️ Interaction expertise_mean:expertise_diff for Direction is NOT significant (p = 0.362 ). Dropping it.
+❌️ Interaction expertise_mean:expertise_diff for Direction is NOT significant (p = 0.578 ). Dropping it.
   Testing all 2 -way interactions for Position ...
-❌️ Interaction expertise_mean:expertise_diff for Position is NOT significant (p = 0.964 ). Dropping it.
+❌️ Interaction expertise_mean:expertise_diff for Position is NOT significant (p = 0.426 ). Dropping it.
   Testing all 2 -way interactions for Duration ...
-❌️ Interaction expertise_mean:expertise_diff for Duration is NOT significant (p = 0.683 ). Dropping it.
+❌️ Interaction expertise_mean:expertise_diff for Duration is NOT significant (p = 0.787 ). Dropping it.
 --- Checking model assumptions for Shape ---
-
-1: Yes
-2: No
-
        LINEARITY : ✅ PASSED 
        NORMALITY : ❌ FAILED 
        HOMOSCEDASTICITY : ❌ FAILED 
@@ -51,15 +47,15 @@ Processing model for experiment: between_group_mean_diff
 🚨 Major assumption violations for Duration 
 ============ Workflow stage 2 ============
   Testing all 2 -way interactions for Shape ...
-❌️ Interaction expertise_mean:expertise_diff for Shape is NOT significant (p = 0.261 ). Dropping it.
+❌️ Interaction expertise_mean:expertise_diff for Shape is NOT significant (p = 0.274 ). Dropping it.
   Testing all 2 -way interactions for Length ...
-❌️ Interaction expertise_mean:expertise_diff for Length is NOT significant (p = 0.267 ). Dropping it.
+❌️ Interaction expertise_mean:expertise_diff for Length is NOT significant (p = 0.247 ). Dropping it.
   Testing all 2 -way interactions for Direction ...
-❌️ Interaction expertise_mean:expertise_diff for Direction is NOT significant (p = 0.495 ). Dropping it.
+❌️ Interaction expertise_mean:expertise_diff for Direction is NOT significant (p = 0.732 ). Dropping it.
   Testing all 2 -way interactions for Position ...
-❌️ Interaction expertise_mean:expertise_diff for Position is NOT significant (p = 0.921 ). Dropping it.
+❌️ Interaction expertise_mean:expertise_diff for Position is NOT significant (p = 0.51 ). Dropping it.
   Testing all 2 -way interactions for Duration ...
-❌️ Interaction expertise_mean:expertise_diff for Duration is NOT significant (p = 0.776 ). Dropping it.
+❌️ Interaction expertise_mean:expertise_diff for Duration is NOT significant (p = 0.88 ). Dropping it.
 --- Checking model assumptions for Shape ---
        LINEARITY : ✅ PASSED 
        NORMALITY : ✅ PASSED 
@@ -83,8 +79,8 @@ Processing model for experiment: between_group_mean_diff
 🚨 Major assumption violations for Direction 
 --- Checking model assumptions for Position ---
        LINEARITY : ❌ FAILED 
-       NORMALITY : ❌ FAILED 
-       HOMOSCEDASTICITY : ❌ FAILED 
+       NORMALITY : ✅ PASSED 
+       HOMOSCEDASTICITY : ✅ PASSED 
        INDEPENDENCE : ❌ FAILED 
        RANDOM_EFFECTS : ❌ FAILED 
 🚨 Major assumption violations for Position 
@@ -97,15 +93,15 @@ Processing model for experiment: between_group_mean_diff
 🚨 Major assumption violations for Duration 
 ============ Workflow stage 3 ============
   Testing all 2 -way interactions for Shape ...
-❌️ Interaction expertise_mean:expertise_diff for Shape is NOT significant (p = 0.201 ). Dropping it.
+❌️ Interaction expertise_mean:expertise_diff for Shape is NOT significant (p = 0.221 ). Dropping it.
   Testing all 2 -way interactions for Length ...
-❌️ Interaction expertise_mean:expertise_diff for Length is NOT significant (p = 0.183 ). Dropping it.
+❌️ Interaction expertise_mean:expertise_diff for Length is NOT significant (p = 0.163 ). Dropping it.
   Testing all 2 -way interactions for Direction ...
-❌️ Interaction expertise_mean:expertise_diff for Direction is NOT significant (p = 0.362 ). Dropping it.
+❌️ Interaction expertise_mean:expertise_diff for Direction is NOT significant (p = 0.578 ). Dropping it.
   Testing all 2 -way interactions for Position ...
-❌️ Interaction expertise_mean:expertise_diff for Position is NOT significant (p = 0.964 ). Dropping it.
+❌️ Interaction expertise_mean:expertise_diff for Position is NOT significant (p = 0.426 ). Dropping it.
   Testing all 2 -way interactions for Duration ...
-❌️ Interaction expertise_mean:expertise_diff for Duration is NOT significant (p = 0.683 ). Dropping it.
+❌️ Interaction expertise_mean:expertise_diff for Duration is NOT significant (p = 0.787 ). Dropping it.
 --- Checking GLMM assumptions for Shape ---
        DISTRIBUTIONAL : ✅ PASSED 
        LINK_FUNCTION : ✅ PASSED 
@@ -146,44 +142,44 @@ Processing model for experiment: between_group_mean_diff
 Formula: Shape ~ expertise_mean + expertise_diff + (1 | exp_a) + (1 |      exp_b) 
 Type: glmmTMB | Family: gaussian 
 
-           term      estimate    std.error    statistic   p.value stars
-    (Intercept)  9.923444e-01 5.020541e-04 1976.5687221 0.0000000   ***
- expertise_mean -2.956786e-04 1.899598e-04   -1.5565323 0.1195816      
- expertise_diff -2.284167e-05 3.141106e-05   -0.7271857 0.4671122      
+           term      estimate    std.error   statistic   p.value stars
+    (Intercept)  9.924241e-01 5.020780e-04 1976.633273 0.0000000   ***
+ expertise_mean -3.029001e-04 1.900373e-04   -1.593898 0.1109589      
+ expertise_diff -4.749798e-05 3.113453e-05   -1.525572 0.1271165      
 
 ==== Length ====
 Formula: Length ~ expertise_mean + expertise_diff + (1 | exp_a) + (1 |      exp_b) 
 Type: glmmTMB | Family: gaussian 
 
            term      estimate    std.error    statistic   p.value stars
-    (Intercept)  9.893104e-01 8.134536e-04 1216.1854778 0.0000000   ***
- expertise_mean -2.689971e-04 3.075171e-04   -0.8747385 0.3817162      
- expertise_diff -6.335965e-05 5.597228e-05   -1.1319826 0.2576417      
+    (Intercept)  9.894161e-01 8.080200e-04 1224.4944953 0.0000000   ***
+ expertise_mean -2.891701e-04 3.055633e-04   -0.9463507 0.3439697      
+ expertise_diff -6.193118e-05 5.535153e-05   -1.1188702 0.2631955      
 
 ==== Direction ====
 Formula: Direction ~ expertise_mean + expertise_diff + (1 | exp_a) + (1 |      exp_b) 
 Type: glmmTMB | Family: gaussian 
 
-           term     estimate   std.error  statistic   p.value stars
-    (Intercept)  0.703796755 0.009422747 74.6912491 0.0000000   ***
- expertise_mean -0.002004682 0.003558651 -0.5633264 0.5732126      
- expertise_diff  0.001132849 0.001207366  0.9382809 0.3481001      
+           term      estimate   std.error  statistic   p.value stars
+    (Intercept)  0.7053716113 0.009267131 76.1154213 0.0000000   ***
+ expertise_mean -0.0021045147 0.003498748 -0.6015052 0.5475036      
+ expertise_diff  0.0008977598 0.001205437  0.7447587 0.4564176      
 
 ==== Position ====
 Formula: Position ~ expertise_mean + expertise_diff + (1 | exp_a) + (1 |      exp_b) 
 Type: glmmTMB | Family: gaussian 
 
-           term      estimate   std.error   statistic   p.value stars
-    (Intercept)  0.9068582327 0.004335572 209.1669212 0.0000000   ***
- expertise_mean  0.0004220868 0.001623899   0.2599219 0.7949241      
- expertise_diff -0.0001970761 0.000655456  -0.3006703 0.7636660      
+           term      estimate    std.error   statistic   p.value stars
+    (Intercept)  0.9118280345 0.0048430187 188.2767923 0.0000000   ***
+ expertise_mean  0.0007292646 0.0018100588   0.4028955 0.6870251      
+ expertise_diff -0.0006548046 0.0006940807  -0.9434127 0.3454699      
 
 ==== Duration ====
 Formula: Duration ~ expertise_mean + expertise_diff + (1 | exp_a) + (1 |      exp_b) 
 Type: glmmTMB | Family: gaussian 
 
-           term      estimate   std.error   statistic   p.value stars
-    (Intercept)  6.781663e-01 0.013360724 50.75820249 0.0000000   ***
- expertise_mean -6.943191e-03 0.005042277 -1.37699495 0.1685138      
- expertise_diff -2.542327e-05 0.001182577 -0.02149819 0.9828482      
+           term      estimate   std.error  statistic   p.value stars
+    (Intercept)  0.6753463498 0.013533827 49.9006211 0.0000000   ***
+ expertise_mean -0.0060193030 0.005108971 -1.1781831 0.2387236      
+ expertise_diff  0.0002801286 0.001191451  0.2351156 0.8141190      
 ✅️ Completed processing for experiment: between_group_mean_diff 

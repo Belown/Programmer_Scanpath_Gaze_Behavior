@@ -6,7 +6,7 @@ source(file.path(here(), "src", "R", "auxiliary", "code_rendering", "helper_cr.R
 # Specify algorithm we used (MultiMatch, ScaSim, NLD)
 algo <- "MultiMatch"
 
-fix_expertise <- get_exp_pack(data_set = "code_rendering",
+fix_expertise <- get_exp_pack_cr(data_set = "code_rendering",
                               exp_type = "fix_expertise",
                               case = NULL,
                               rand_effect = NULL,
@@ -14,7 +14,7 @@ fix_expertise <- get_exp_pack(data_set = "code_rendering",
                               reml = TRUE,
                               algo = algo)
 
-fix_both <- get_exp_pack(data_set = "code_rendering",
+fix_both <- get_exp_pack_cr(data_set = "code_rendering",
                          exp_type = "fix_expertise_rendering",
                          case = NULL,
                          rand_effect = NULL,
@@ -22,7 +22,7 @@ fix_both <- get_exp_pack(data_set = "code_rendering",
                          reml = TRUE,
                          algo = algo)
 
-fix_rendering_pairtype <- get_exp_pack(data_set = "code_rendering",
+fix_rendering_pairtype <- get_exp_pack_cr(data_set = "code_rendering",
                                        exp_type = "fix_rendering",
                                        case = "pairtype",
                                        rand_effect = NULL,
@@ -30,7 +30,7 @@ fix_rendering_pairtype <- get_exp_pack(data_set = "code_rendering",
                                        reml = TRUE,
                                        algo = algo)
 
-fix_rendering_mean_diff <- get_exp_pack(data_set = "code_rendering",
+fix_rendering_mean_diff <- get_exp_pack_cr(data_set = "code_rendering",
                                         exp_type = "fix_rendering",
                                         case = "mean_diff",
                                         rand_effect = NULL,

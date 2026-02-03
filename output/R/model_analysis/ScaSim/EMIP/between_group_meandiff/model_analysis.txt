@@ -8,13 +8,13 @@ Model Analysis
 Random-effects (VarCorr):
 Conditional model:
  Groups   Name        Std.Dev.
- exp_a    (Intercept) 0.016997
- exp_b    (Intercept) 0.019879
- Residual             0.037408
+ exp_a    (Intercept) 0.020674
+ exp_b    (Intercept) 0.023900
+ Residual             0.030813
 # Intraclass Correlation Coefficient
 
-    Adjusted ICC: 0.328
-  Unadjusted ICC: 0.327
+    Adjusted ICC: 0.513
+  Unadjusted ICC: 0.510
 
 --- Fixed-effect terms (as in formula) ---
 [1] "expertise_mean" "expertise_diff"
@@ -23,8 +23,8 @@ Has interaction terms: FALSE
 Main terms: expertise_mean, expertise_diff 
 
 --- Nakagawa R² ---
-Marginal R² (fixed effects):     0.003 
-Conditional R² (fixed+random):   0.3304 
+Marginal R² (fixed effects):     0.0049 
+Conditional R² (fixed+random):   0.515 
 
 --- Post-hoc inference (emmeans for categorical predictors) ---
 No categorical fixed effects found (all are numeric).
@@ -35,24 +35,24 @@ Formula:          score ~ expertise_mean + expertise_diff + (1 | exp_a) + (1 |  
 Data: dat
 
       AIC       BIC    logLik -2*log(L)  df.resid 
- -42866.6  -42822.4   21439.3  -42878.6     11680 
+ -46930.0  -46885.8   23471.0  -46942.0     11613 
 
 Random effects:
 
 Conditional model:
  Groups   Name        Variance  Std.Dev.
- exp_a    (Intercept) 0.0002889 0.01700 
- exp_b    (Intercept) 0.0003952 0.01988 
- Residual             0.0013994 0.03741 
-Number of obs: 11686, groups:  exp_a, 131; exp_b, 142
+ exp_a    (Intercept) 0.0004274 0.02067 
+ exp_b    (Intercept) 0.0005712 0.02390 
+ Residual             0.0009495 0.03081 
+Number of obs: 11619, groups:  exp_a, 131; exp_b, 142
 
-Dispersion estimate for gaussian family (sigma^2): 0.0014 
+Dispersion estimate for gaussian family (sigma^2): 0.000949 
 
 Conditional model:
-               Estimate Std. Error z value Pr(>|z|)    
-(Intercept)    0.825958   0.009086   90.91   <2e-16 ***
-expertise_mean 0.004486   0.003431    1.31    0.191    
-expertise_diff 0.001298   0.001140    1.14    0.255    
+                Estimate Std. Error z value Pr(>|z|)    
+(Intercept)    0.8013829  0.0106993   74.90   <2e-16 ***
+expertise_mean 0.0055947  0.0040580    1.38    0.168    
+expertise_diff 0.0004553  0.0009634    0.47    0.636    
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 ✅️ Completed! 

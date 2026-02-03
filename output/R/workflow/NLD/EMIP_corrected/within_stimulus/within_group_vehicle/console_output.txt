@@ -1,0 +1,39 @@
+Processing model for experiment: within_stimulus_within_vehicle 
+============ Workflow stage 1 ============
+No interaction terms in model for score .
+--- Checking model assumptions for score ---
+       LINEARITY : ❌ FAILED 
+       NORMALITY : ❌ FAILED 
+       HOMOSCEDASTICITY : ❌ FAILED 
+       INDEPENDENCE : ❌ FAILED 
+       RANDOM_EFFECTS : ✅ PASSED 
+🚨 Major assumption violations for score 
+============ Workflow stage 2 ============
+No interaction terms in model for score .
+--- Checking model assumptions for score ---
+       LINEARITY : ❌ FAILED 
+       NORMALITY : ❌ FAILED 
+       HOMOSCEDASTICITY : ❌ FAILED 
+       INDEPENDENCE : ❌ FAILED 
+       RANDOM_EFFECTS : ❌ FAILED 
+🚨 Major assumption violations for score 
+============ Workflow stage 3 ============
+No interaction terms in model for score .
+--- Checking GLMM assumptions for score ---
+       DISTRIBUTIONAL : ✅ PASSED 
+       LINK_FUNCTION : ✅ PASSED 
+       INDEPENDENCE : ❌ FAILED 
+       RANDOM_EFFECTS : ✅ PASSED 
+       OVERDISPERSION : ✅ PASSED 
+⚠️  Minor GLMM assumption violations
+
+==== score ====
+Formula: score ~ expertise_a + (1 | exp_a) + (1 | exp_b) 
+Type: glmmTMB | Family: gaussian 
+
+              term    estimate   std.error   statistic    p.value stars
+       (Intercept) 0.856543407 0.006621861 129.3508618 0.00000000   ***
+    expertise_alow 0.019897590 0.008070309   2.4655302 0.01368106     *
+ expertise_amedium 0.017566594 0.007565912   2.3218077 0.02024329     *
+   expertise_ahigh 0.003700622 0.012151406   0.3045427 0.76071448      
+✅️ Completed processing for experiment: within_stimulus_within_vehicle 

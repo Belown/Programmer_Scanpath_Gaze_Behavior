@@ -1,0 +1,179 @@
+Processing model for experiment: within_stimulus_vehicle 
+============ Workflow stage 1 ============
+No interaction terms in model for Shape .
+No interaction terms in model for Length .
+No interaction terms in model for Direction .
+No interaction terms in model for Position .
+No interaction terms in model for Duration .
+--- Checking model assumptions for Shape ---
+
+1: Yes
+2: No
+
+       LINEARITY : ❌ FAILED 
+       NORMALITY : ❌ FAILED 
+       HOMOSCEDASTICITY : ❌ FAILED 
+       INDEPENDENCE : ✅ PASSED 
+       RANDOM_EFFECTS : ✅ PASSED 
+🚨 Major assumption violations for Shape 
+--- Checking model assumptions for Length ---
+       LINEARITY : ❌ FAILED 
+       NORMALITY : ❌ FAILED 
+       HOMOSCEDASTICITY : ❌ FAILED 
+       INDEPENDENCE : ✅ PASSED 
+       RANDOM_EFFECTS : ✅ PASSED 
+🚨 Major assumption violations for Length 
+--- Checking model assumptions for Direction ---
+       LINEARITY : ❌ FAILED 
+       NORMALITY : ❌ FAILED 
+       HOMOSCEDASTICITY : ❌ FAILED 
+       INDEPENDENCE : ✅ PASSED 
+       RANDOM_EFFECTS : ❌ FAILED 
+🚨 Major assumption violations for Direction 
+--- Checking model assumptions for Position ---
+       LINEARITY : ❌ FAILED 
+       NORMALITY : ❌ FAILED 
+       HOMOSCEDASTICITY : ❌ FAILED 
+       INDEPENDENCE : ✅ PASSED 
+       RANDOM_EFFECTS : ❌ FAILED 
+🚨 Major assumption violations for Position 
+--- Checking model assumptions for Duration ---
+       LINEARITY : ❌ FAILED 
+       NORMALITY : ❌ FAILED 
+       HOMOSCEDASTICITY : ❌ FAILED 
+       INDEPENDENCE : ✅ PASSED 
+       RANDOM_EFFECTS : ❌ FAILED 
+🚨 Major assumption violations for Duration 
+============ Workflow stage 2 ============
+No interaction terms in model for Shape .
+No interaction terms in model for Length .
+No interaction terms in model for Direction .
+No interaction terms in model for Position .
+No interaction terms in model for Duration .
+--- Checking model assumptions for Shape ---
+       LINEARITY : ❌ FAILED 
+       NORMALITY : ❌ FAILED 
+       HOMOSCEDASTICITY : ✅ PASSED 
+       INDEPENDENCE : ✅ PASSED 
+       RANDOM_EFFECTS : ✅ PASSED 
+🚨 Major assumption violations for Shape 
+--- Checking model assumptions for Length ---
+       LINEARITY : ❌ FAILED 
+       NORMALITY : ❌ FAILED 
+       HOMOSCEDASTICITY : ❌ FAILED 
+       INDEPENDENCE : ✅ PASSED 
+       RANDOM_EFFECTS : ✅ PASSED 
+🚨 Major assumption violations for Length 
+--- Checking model assumptions for Direction ---
+       LINEARITY : ❌ FAILED 
+       NORMALITY : ❌ FAILED 
+       HOMOSCEDASTICITY : ❌ FAILED 
+       INDEPENDENCE : ✅ PASSED 
+       RANDOM_EFFECTS : ❌ FAILED 
+🚨 Major assumption violations for Direction 
+--- Checking model assumptions for Position ---
+       LINEARITY : ❌ FAILED 
+       NORMALITY : ❌ FAILED 
+       HOMOSCEDASTICITY : ✅ PASSED 
+       INDEPENDENCE : ✅ PASSED 
+       RANDOM_EFFECTS : ✅ PASSED 
+🚨 Major assumption violations for Position 
+--- Checking model assumptions for Duration ---
+       LINEARITY : ❌ FAILED 
+       NORMALITY : ❌ FAILED 
+       HOMOSCEDASTICITY : ❌ FAILED 
+       INDEPENDENCE : ✅ PASSED 
+       RANDOM_EFFECTS : ❌ FAILED 
+🚨 Major assumption violations for Duration 
+============ Workflow stage 3 ============
+No interaction terms in model for Shape .
+No interaction terms in model for Length .
+No interaction terms in model for Direction .
+No interaction terms in model for Position .
+No interaction terms in model for Duration .
+--- Checking GLMM assumptions for Shape ---
+       DISTRIBUTIONAL : ✅ PASSED 
+       LINK_FUNCTION : ✅ PASSED 
+       INDEPENDENCE : ✅ PASSED 
+       RANDOM_EFFECTS : ✅ PASSED 
+       OVERDISPERSION : ✅ PASSED 
+🎉 All GLMM assumptions satisfied
+--- Checking GLMM assumptions for Length ---
+       DISTRIBUTIONAL : ✅ PASSED 
+       LINK_FUNCTION : ✅ PASSED 
+       INDEPENDENCE : ❌ FAILED 
+       RANDOM_EFFECTS : ✅ PASSED 
+       OVERDISPERSION : ✅ PASSED 
+⚠️  Minor GLMM assumption violations
+--- Checking GLMM assumptions for Direction ---
+       DISTRIBUTIONAL : ✅ PASSED 
+       LINK_FUNCTION : ✅ PASSED 
+       INDEPENDENCE : ✅ PASSED 
+       RANDOM_EFFECTS : ✅ PASSED 
+       OVERDISPERSION : ✅ PASSED 
+🎉 All GLMM assumptions satisfied
+--- Checking GLMM assumptions for Position ---
+       DISTRIBUTIONAL : ✅ PASSED 
+       LINK_FUNCTION : ✅ PASSED 
+       INDEPENDENCE : ✅ PASSED 
+       RANDOM_EFFECTS : ✅ PASSED 
+       OVERDISPERSION : ✅ PASSED 
+🎉 All GLMM assumptions satisfied
+--- Checking GLMM assumptions for Duration ---
+       DISTRIBUTIONAL : ✅ PASSED 
+       LINK_FUNCTION : ✅ PASSED 
+       INDEPENDENCE : ✅ PASSED 
+       RANDOM_EFFECTS : ✅ PASSED 
+       OVERDISPERSION : ✅ PASSED 
+🎉 All GLMM assumptions satisfied
+
+==== Shape ====
+Formula: Shape ~ expertise_a + (1 | exp_a) + (1 | exp_b) 
+Type: glmmTMB | Family: gaussian 
+
+              term      estimate    std.error    statistic   p.value stars
+       (Intercept)  9.915031e-01 0.0003488951 2841.8375630 0.0000000   ***
+    expertise_alow  5.075226e-04 0.0004292874    1.1822443 0.2371088      
+ expertise_amedium -5.256273e-05 0.0004029023   -0.1304602 0.8962023      
+   expertise_ahigh -1.023901e-04 0.0006212022   -0.1648258 0.8690811      
+
+==== Length ====
+Formula: Length ~ expertise_a + (1 | exp_a) + (1 | exp_b) 
+Type: glmmTMB | Family: gaussian 
+
+              term     estimate    std.error    statistic    p.value stars
+       (Intercept) 0.9878643796 0.0005690089 1736.1140995 0.00000000   ***
+    expertise_alow 0.0012319680 0.0006993822    1.7615088 0.07815232     .
+ expertise_amedium 0.0005007400 0.0006562999    0.7629744 0.44547865      
+   expertise_ahigh 0.0003250219 0.0010161757    0.3198481 0.74908345      
+
+==== Direction ====
+Formula: Direction ~ expertise_a + (1 | exp_a) + (1 | exp_b) 
+Type: glmmTMB | Family: gaussian 
+
+              term     estimate   std.error  statistic   p.value stars
+       (Intercept)  0.711797953 0.008059602 88.3167569 0.0000000   ***
+    expertise_alow -0.015297658 0.009837764 -1.5549934 0.1199477      
+ expertise_amedium -0.013636114 0.009219092 -1.4791169 0.1391091      
+   expertise_ahigh -0.001852739 0.014713103 -0.1259245 0.8997917      
+
+==== Position ====
+Formula: Position ~ expertise_a + (1 | exp_a) + (1 | exp_b) 
+Type: glmmTMB | Family: gaussian 
+
+              term     estimate   std.error  statistic    p.value stars
+       (Intercept)  0.916698939 0.003964455 231.229521 0.00000000   ***
+    expertise_alow -0.010033564 0.004822649  -2.080509 0.03747886     *
+ expertise_amedium -0.005618606 0.004520029  -1.243046 0.21385075      
+   expertise_ahigh -0.007906585 0.007322930  -1.079702 0.28027476      
+
+==== Duration ====
+Formula: Duration ~ expertise_a + (1 | exp_a) + (1 | exp_b) 
+Type: glmmTMB | Family: gaussian 
+
+              term     estimate  std.error  statistic   p.value stars
+       (Intercept)  0.655314381 0.01023035 64.0558906 0.0000000   ***
+    expertise_alow  0.008440372 0.01251649  0.6743404 0.5000950      
+ expertise_amedium -0.005183399 0.01174062 -0.4414929 0.6588562      
+   expertise_ahigh -0.021947246 0.01852673 -1.1846259 0.2361654      
+✅️ Completed processing for experiment: within_stimulus_vehicle 

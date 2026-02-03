@@ -1,0 +1,39 @@
+Processing model for experiment: within_stimulus_within_rectangle 
+============ Workflow stage 1 ============
+No interaction terms in model for score .
+--- Checking model assumptions for score ---
+       LINEARITY : ❌ FAILED 
+       NORMALITY : ❌ FAILED 
+       HOMOSCEDASTICITY : ❌ FAILED 
+       INDEPENDENCE : ✅ PASSED 
+       RANDOM_EFFECTS : ✅ PASSED 
+🚨 Major assumption violations for score 
+============ Workflow stage 2 ============
+No interaction terms in model for score .
+--- Checking model assumptions for score ---
+       LINEARITY : ❌ FAILED 
+       NORMALITY : ❌ FAILED 
+       HOMOSCEDASTICITY : ❌ FAILED 
+       INDEPENDENCE : ✅ PASSED 
+       RANDOM_EFFECTS : ❌ FAILED 
+🚨 Major assumption violations for score 
+============ Workflow stage 3 ============
+No interaction terms in model for score .
+--- Checking GLMM assumptions for score ---
+       DISTRIBUTIONAL : ✅ PASSED 
+       LINK_FUNCTION : ✅ PASSED 
+       INDEPENDENCE : ✅ PASSED 
+       RANDOM_EFFECTS : ✅ PASSED 
+       OVERDISPERSION : ✅ PASSED 
+🎉 All GLMM assumptions satisfied
+
+==== score ====
+Formula: score ~ expertise_a + (1 | exp_a) + (1 | exp_b) 
+Type: glmmTMB | Family: gaussian 
+
+              term   estimate   std.error  statistic     p.value stars
+       (Intercept) 0.89037953 0.005404995 164.732708 0.000000000   ***
+    expertise_alow 0.01497643 0.006306491   2.374764 0.017560162     *
+ expertise_amedium 0.01699816 0.006016925   2.825057 0.004727223    **
+   expertise_ahigh 0.02062258 0.010137731   2.034240 0.041927372     *
+✅️ Completed processing for experiment: within_stimulus_within_rectangle 

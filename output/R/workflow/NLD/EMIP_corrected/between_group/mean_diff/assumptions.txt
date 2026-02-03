@@ -6,27 +6,27 @@ MODEL ASSUMPTION CHECKS
 ============================================================
 
 1. LINEARITY CHECK:
-Correlation between residuals and fitted values: 0.052
-Correlation test p-value: 0
+Correlation between residuals and fitted values: 0.034
+Correlation test p-value: 2e-04
 
 2. NORMALITY CHECK:
 Kolmogorov-Smirnov test p-value: 0
-Skewness: -0.6979
-Kurtosis: 3.3545
+Skewness: -0.2055
+Kurtosis: 3.2964
 
 3. HOMOSCEDASTICITY CHECK:
 Breusch-Pagan test p-value: 0
-Variance ratio (high/low groups): 2.0968
+Variance ratio (high/low groups): 1.6369
 
 4. INDEPENDENCE CHECK:
-Durbin-Watson statistic: 1.9402
+Durbin-Watson statistic: 1.7427
 Durbin-Watson p-value: 0
-Runs test p-value: 0.2017
+Runs test p-value: 0
 
 5. RANDOM EFFECTS NORMALITY CHECK:
-Shapiro-Wilk test p-value: 0.0798
+Shapiro-Wilk test p-value: 0.1145
 Random effects mean: 0
-Random effects skewness: 0.0482
+Random effects skewness: -0.3033
 ============================================================
 OVERALL ASSUMPTION SUMMARY
 ============================================================
@@ -45,27 +45,27 @@ MODEL ASSUMPTION CHECKS
 ============================================================
 
 1. LINEARITY CHECK:
-Correlation between residuals and fitted values: 0.0552
+Correlation between residuals and fitted values: 0.0384
 Correlation test p-value: 0
 
 2. NORMALITY CHECK:
 Kolmogorov-Smirnov test p-value: 0
-Skewness: 2.1912
-Kurtosis: 28.4234
+Skewness: 3.0142
+Kurtosis: 46.9757
 
 3. HOMOSCEDASTICITY CHECK:
 Breusch-Pagan test p-value: 0
-Variance ratio (high/low groups): 1.5001
+Variance ratio (high/low groups): 2.1208
 
 4. INDEPENDENCE CHECK:
-Durbin-Watson statistic: 1.9364
-Durbin-Watson p-value: 0.002
-Runs test p-value: 0.1768
+Durbin-Watson statistic: 1.7973
+Durbin-Watson p-value: 0
+Runs test p-value: 0
 
 5. RANDOM EFFECTS NORMALITY CHECK:
-Shapiro-Wilk test p-value: 2e-04
+Shapiro-Wilk test p-value: 0.0161
 Random effects mean: 0
-Random effects skewness: 0.933
+Random effects skewness: 0.4618
 ============================================================
 OVERALL ASSUMPTION SUMMARY
 ============================================================
@@ -91,7 +91,7 @@ Family used: gaussian
 2. LINK FUNCTION CHECK:
 
 3. INDEPENDENCE CHECK:
-Durbin-Watson statistic: 1.9402
+Durbin-Watson statistic: 1.7426
 Durbin-Watson p-value: 0
 
 4. RANDOM EFFECTS NORMALITY:

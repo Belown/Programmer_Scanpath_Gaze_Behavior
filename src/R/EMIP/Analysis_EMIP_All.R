@@ -1,12 +1,16 @@
 library(here)
 
 source(file.path(here(), "src", "R", "auxiliary", "workflow.R"))
-source(file.path(here(), "src", "R", "auxiliary", "emip", "helper.R"))
+source(file.path(here(), "src", "R", "auxiliary", "emip", "helper_emip.R"))
 
-# Specify algorithm we used (MultiMatch, ScaSim, NLD)
-algo <- "ScaSim"
+# "MultiMatch", "ScaSim", "NLD"
 
-within_stimulus_rectangle <- get_exp_pack(data_set = "EMIP_corrected",
+algo <- "MultiMatch"
+cat("=========================================\n")
+cat("Processing experiments for algorithm:", algo, "\n")
+cat("=========================================\n")
+
+within_stimulus_within_rectangle <- get_exp_pack_emip(data_set = "EMIP_corrected",
                                       exp_type = "within_stimulus",
                                       comp_type = "within_group",
                                       stimulus_folder = "rectangle",
@@ -15,7 +19,7 @@ within_stimulus_rectangle <- get_exp_pack(data_set = "EMIP_corrected",
                                       info = FALSE,
                                       reml = TRUE,
                                       algo = algo)
-within_stimulus_vehicle <- get_exp_pack(data_set = "EMIP_corrected",
+within_stimulus_within_vehicle <- get_exp_pack_emip(data_set = "EMIP_corrected",
                                       exp_type = "within_stimulus",
                                       comp_type = "within_group",
                                       stimulus_folder = "vehicle",
@@ -24,9 +28,25 @@ within_stimulus_vehicle <- get_exp_pack(data_set = "EMIP_corrected",
                                       info = FALSE,
                                       reml = TRUE,
                                       algo = algo)
-# within_stimulus_between_2 <- get_exp_pack("EMIP_corrected", "within_trial", "between_group", "trial_2", NULL, NULL, info=FALSE, reml=TRUE, algo = algo)
-# within_stimulus_between_5 <- get_exp_pack("EMIP_corrected", "within_trial", "between_group", "trial_5", NULL, NULL, info=FALSE, reml=TRUE, algo = algo)
-within_group <- get_exp_pack(data_set = "EMIP_corrected",
+within_stimulus_between_rectangle <- get_exp_pack_emip(data_set = "EMIP_corrected",
+                                          exp_type = "within_stimulus",
+                                          comp_type = "between_group",
+                                          stimulus_folder = "rectangle",
+                                          case = NULL,
+                                          rand_effect = NULL,
+                                          info=FALSE,
+                                          reml=TRUE,
+                                          algo = algo)
+within_stimulus_between_vehicle <- get_exp_pack_emip(data_set = "EMIP_corrected",
+                                                exp_type = "within_stimulus",
+                                                comp_type = "between_group",
+                                                stimulus_folder = "vehicle",
+                                                case = NULL,
+                                                rand_effect = NULL,
+                                                info=FALSE,
+                                                reml=TRUE,
+                                                algo = algo)
+within_group <- get_exp_pack_emip(data_set = "EMIP_corrected",
                              exp_type = "within_group",
                              comp_type = NULL,
                              stimulus_folder = NULL,
@@ -35,7 +55,7 @@ within_group <- get_exp_pack(data_set = "EMIP_corrected",
                              info = FALSE,
                              reml = TRUE,
                              algo = algo)
-between_group_mean_diff <- get_exp_pack(data_set = "EMIP_corrected",
+between_group_mean_diff <- get_exp_pack_emip(data_set = "EMIP_corrected",
                                         exp_type = "between_group",
                                         comp_type = NULL,
                                         stimulus_folder = NULL,
@@ -44,7 +64,7 @@ between_group_mean_diff <- get_exp_pack(data_set = "EMIP_corrected",
                                         info = FALSE,
                                         reml = TRUE,
                                         algo = algo)
-between_group_pairtype <- get_exp_pack(data_set = "EMIP_corrected",
+between_group_pairtype <- get_exp_pack_emip(data_set = "EMIP_corrected",
                                        exp_type = "between_group",
                                        comp_type = NULL,
                                        stimulus_folder = NULL,
@@ -55,10 +75,10 @@ between_group_pairtype <- get_exp_pack(data_set = "EMIP_corrected",
                                        algo = algo)
 
 exps_list <- list(
-  within_stimulus_rectangle = within_stimulus_rectangle,
-  within_stimulus_vehicle = within_stimulus_vehicle,
-  # within_trial_between_2 = within_trial_between_2,
-  # within_trial_between_5 = within_trial_between_5,
+  within_stimulus_within_rectangle = within_stimulus_within_rectangle,
+  within_stimulus_within_vehicle = within_stimulus_within_vehicle,
+  within_stimulus_between_rectangle = within_stimulus_between_rectangle,
+  within_stimulus_between_vehicle = within_stimulus_between_vehicle,
   within_group = within_group,
   between_group_mean_diff = between_group_mean_diff,
   between_group_pairtype = between_group_pairtype

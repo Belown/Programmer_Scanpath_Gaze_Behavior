@@ -1,0 +1,7 @@
+"experiment","dimension","comparison","chisq","df","p_value","significant"
+"within_group","score","exp_a_vs_both",2113.14126277344,1,0,"Yes"
+"within_group","score","exp_b_vs_both",1917.77124782945,1,0,"Yes"
+"between_group_mean_diff","score","exp_a_vs_both",6044.39995626143,1,0,"Yes"
+"between_group_mean_diff","score","exp_b_vs_both",3863.0867067571,1,0,"Yes"
+"between_group_pairtype","score","exp_a_vs_both",6044.1227716859,1,0,"Yes"
+"between_group_pairtype","score","exp_b_vs_both",3862.2813977327,1,0,"Yes"
