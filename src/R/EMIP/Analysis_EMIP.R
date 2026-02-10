@@ -13,17 +13,17 @@ source(file.path(here(), "src", "R", "auxiliary", "emip", "helper_emip.R"))
 
 # --- Experiment Type Configuration ---
 data_set <- "EMIP_corrected"  # Dataset identifier
-exp_type <- "within_stimulus"    # Options: "within_trial", "within_group", "between_group"
-within_stimulus_type <- "within_group"   # Comparison type: "within_group" or "between_group" - only used when exp_type is within_tiral
+exp_type <- "between_group"    # Options: "within_trial", "within_group", "between_group"
+within_stimulus_type <- "between_group"   # Comparison type: "within_group" or "between_group" - only used when exp_type is within_tiral
 
 # only used for within_trial experiments (rectangle or vehicle)
-stimulus_folder <- "vehicle"
+stimulus_folder <- "rectangle"
 
 # only used for between_group experiments
-case <- "mean_diff"  # Analysis case: "mean_diff" or "pairtype"
+case <- "pairtype"  # Analysis case: "mean_diff" or "pairtype"
 
 # Specify algorithm we used (MultiMatch, ScaSim, NLD)
-algo <- "ScaSim"
+algo <- "NLD"
 
 # This includes fitted models, data, and config for the specified experiment type
 # Modify fixed and random effects in get_exp_pack_emip() if needed

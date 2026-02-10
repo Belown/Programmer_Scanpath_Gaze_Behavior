@@ -1,12 +1,12 @@
-# Model Analysis
+# Score
 
-1. **Random Effects**: Random intercept SDs for exp_a = 0.00974 and exp_b = 0.01538; residual SD = 0.03816. Adjusted ICC = 0.185, meaning that ~19% of the total variance in score is attributable to stable between-participant differences (small-to-moderate individual differences).
-2. **Nakagawa R²**: Marginal R² = 0.0092; Conditional R² = 0.193. Expertise_a explains <1% of the variance; participant-level random effects account for an additional ~18%.
-3. **Post-hoc inference**:
-   - none ≈ low (Δ ≈ −0.0130, p = .2391)
-   - none ≈ medium (Δ ≈ −0.0162, p = .0672; marginal)
-   - none ≈ high (Δ ≈ −0.0010, p = .9998)
-   - low ≈ medium (ns)
-   - low ≈ high (ns)
-   - medium ≈ high (ns)
-Conclusion: There is no reliable effect of expertise_a on score. Fixed effects contribute negligibly to explained variance, and most systematic variability arises from between-participant differences captured by the random effects rather than from expertise level.
+1. **Random Effects**:
+   - Adjusted ICC = 0.393: About 39% of variance reflects stable individual differences across pairings, while ≈61% is residual.
+   - Unadjusted ICC = 0.387: Fixed effects explain very little additional variance.
+2. **Nakagawa R²**: Random effects account for 38.73% of the variance, while fixed effects explain ~1.51%.
+3. **Post-hoc inference**: No significant expertise effects. All pairwise comparisons are non-significant (all p ≥ 0.065), with small mean differences.
+
+## Summary
+
+- **Expertise does not predict NLD score** within vehicle stimulus (within-group).
+- **Most variance remains residual**, with moderate individual-level structure.

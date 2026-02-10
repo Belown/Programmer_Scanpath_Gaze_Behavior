@@ -1,9 +1,11 @@
 
 ==== score ====
-Formula: score ~ expertise_a + (1 | exp_a) + (1 | exp_b) 
+Formula: score ~ expertise_a + expertise_b + (1 | exp_a) + (1 | exp_b) 
 Type: glmmTMB | Family: gaussian 
 
               term    estimate   std.error   statistic    p.value stars
-       (Intercept) 0.812014902 0.004372780 185.6976342 0.00000000   ***
- expertise_amedium 0.009300220 0.004935768   1.8842500 0.05953117     .
-   expertise_ahigh 0.004990153 0.008818397   0.5658798 0.57147549      
+       (Intercept) 0.808212364 0.005546841 145.7067776 0.00000000   ***
+ expertise_amedium 0.009388368 0.004936840   1.9016957 0.05721095     .
+   expertise_ahigh 0.005199286 0.008820217   0.5894737 0.55554354      
+ expertise_bmedium 0.006786903 0.005207362   1.3033284 0.19246266      
+   expertise_bnone 0.001330919 0.007143027   0.1863242 0.85219050      

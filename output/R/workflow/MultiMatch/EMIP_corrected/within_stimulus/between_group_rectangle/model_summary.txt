@@ -1,45 +1,55 @@
 
 ==== Shape ====
-Formula: Shape ~ expertise_a + (1 | exp_a) + (1 | exp_b) 
+Formula: Shape ~ expertise_a + expertise_b + (1 | exp_a) + (1 | exp_b) 
 Type: glmmTMB | Family: gaussian 
 
               term      estimate    std.error    statistic   p.value stars
-       (Intercept)  0.9918311258 0.0002237493 4432.7789839 0.0000000   ***
- expertise_amedium -0.0002792436 0.0002603607   -1.0725262 0.2834837      
-   expertise_ahigh -0.0003507638 0.0004721198   -0.7429551 0.4575089      
+       (Intercept)  0.9919906281 0.0002668631 3717.2263828 0.0000000   ***
+ expertise_amedium -0.0002804835 0.0002603660   -1.0772664 0.2813613      
+   expertise_ahigh -0.0003549580 0.0004721289   -0.7518243 0.4521568      
+ expertise_bmedium -0.0002792289 0.0002292413   -1.2180567 0.2232024      
+   expertise_bnone -0.0001046593 0.0003180154   -0.3291014 0.7420790      
 
 ==== Length ====
-Formula: Length ~ expertise_a + (1 | exp_a) + (1 | exp_b) 
+Formula: Length ~ expertise_a + expertise_b + (1 | exp_a) + (1 | exp_b) 
 Type: glmmTMB | Family: gaussian 
 
               term      estimate    std.error    statistic   p.value stars
-       (Intercept)  0.9890349193 0.0003546991 2788.3773284 0.0000000   ***
- expertise_amedium -0.0004535556 0.0004103824   -1.1052024 0.2690719      
-   expertise_ahigh -0.0005105760 0.0007422630   -0.6878639 0.4915385      
+       (Intercept)  0.9893337984 0.0004282574 2310.1380557 0.0000000   ***
+ expertise_amedium -0.0004535850 0.0004104019   -1.1052215 0.2690636      
+   expertise_ahigh -0.0005205004 0.0007422962   -0.7012031 0.4831763      
+ expertise_bmedium -0.0004449169 0.0003753515   -1.1853341 0.2358854      
+   expertise_bnone -0.0004436694 0.0005193777   -0.8542326 0.3929761      
 
 ==== Direction ====
-Formula: Direction ~ expertise_a + (1 | exp_a) + (1 | exp_b) 
+Formula: Direction ~ expertise_a + expertise_b + (1 | exp_a) + (1 | exp_b) 
 Type: glmmTMB | Family: gaussian 
 
-              term     estimate   std.error   statistic   p.value stars
-       (Intercept)  0.703213286 0.003775288 186.2674359 0.0000000   ***
- expertise_amedium -0.003084725 0.004311297  -0.7154983 0.4743012      
-   expertise_ahigh  0.001323141 0.007427925   0.1781306 0.8586204      
+              term      estimate   std.error   statistic   p.value stars
+       (Intercept)  0.7064853451 0.005140035 137.4475616 0.0000000   ***
+ expertise_amedium -0.0031906039 0.004317818  -0.7389390 0.4599440      
+   expertise_ahigh  0.0009559399 0.007438151   0.1285185 0.8977387      
+ expertise_bmedium -0.0050883022 0.004965474  -1.0247365 0.3054875      
+   expertise_bnone -0.0024056007 0.006640424  -0.3622661 0.7171532      
 
 ==== Position ====
-Formula: Position ~ expertise_a + (1 | exp_a) + (1 | exp_b) 
+Formula: Position ~ expertise_a + expertise_b + (1 | exp_a) + (1 | exp_b) 
 Type: glmmTMB | Family: gaussian 
 
-              term      estimate   std.error    statistic  p.value stars
-       (Intercept)  0.9176709569 0.002025288 453.10644367 0.000000   ***
- expertise_amedium  0.0002071936 0.002372598   0.08732774 0.930411      
-   expertise_ahigh -0.0045771269 0.004122478  -1.11028548 0.266876      
+              term      estimate   std.error   statistic   p.value stars
+       (Intercept)  0.9181039126 0.002664994 344.5050750 0.0000000   ***
+ expertise_amedium  0.0004016734 0.002375719   0.1690744 0.8657381      
+   expertise_ahigh -0.0046282170 0.004127496  -1.1213136 0.2621544      
+ expertise_bmedium  0.0004730376 0.002451307   0.1929736 0.8469797      
+   expertise_bnone -0.0041243042 0.003267196  -1.2623376 0.2068273      
 
 ==== Duration ====
-Formula: Duration ~ expertise_a + (1 | exp_a) + (1 | exp_b) 
+Formula: Duration ~ expertise_a + expertise_b + (1 | exp_a) + (1 | exp_b) 
 Type: glmmTMB | Family: gaussian 
 
-              term     estimate   std.error   statistic   p.value stars
-       (Intercept)  0.668248965 0.005459526 122.4005407 0.0000000   ***
- expertise_amedium -0.006800336 0.006099332  -1.1149313 0.2648799      
-   expertise_ahigh -0.008679336 0.010879952  -0.7977367 0.4250233      
+              term      estimate   std.error   statistic   p.value stars
+       (Intercept)  0.6709818878 0.007018157 95.60656143 0.0000000   ***
+ expertise_amedium -0.0068820673 0.006100932 -1.12803547 0.2593049      
+   expertise_ahigh -0.0088304718 0.010882722 -0.81142122 0.4171238      
+ expertise_bmedium -0.0051360294 0.006721354 -0.76413609 0.4447861      
+   expertise_bnone -0.0001045742 0.009223241 -0.01133812 0.9909537      

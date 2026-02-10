@@ -7,3 +7,5 @@ from .parse_single_experiment import parse_single_experiment
 from .remove_duplicate import process_files_with_structure_verified
 from .parse_cr_data import parse_cr_data
 from .merge_csv_files import merge_csv_files
+from .visualize_scanpath import visualize_scanpath
+from .visualize_scanpath import explore_dataset

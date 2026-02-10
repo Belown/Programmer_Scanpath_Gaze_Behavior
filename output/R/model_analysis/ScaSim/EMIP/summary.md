@@ -1,42 +1,31 @@
 # Summary
 
-## 1 Expertise has no reliable effect (within- and between-group)
+## 1) Expertise Effects Are Not Reliable
 
-Across all models using expertise_a:
+Across within- and between-group models, **expertise_a does not consistently predict score**.
 
-- No pairwise contrasts among none / low / medium / high are statistically significant.
-- Marginal R² ranges from ~0.4% to ~1.9%, indicating negligible explanatory power.
-- Between-participant variability is substantial (ICC ≈ 0.40–0.43).
+- Pairwise contrasts among none/low/medium/high are **non-significant**.
+- **Marginal R² is low** (≈0.2–3.5% across models).
+- **Random effects dominate** (ICC ≈0.51–0.68).
 
-## 2 Trial shows a small but robust effect
+## 2) PairType and Continuous Expertise Add Little
 
-When trial is included with expertise:
+- **PairType** shows **no reliable contrasts** (all Tukey-adjusted comparisons ns).
+- **expertise_mean / expertise_diff** explain **<1%** variance.
 
-- Scores are significantly higher in trial 2 than in trial 5 (Δ ≈ +0.0116, p < .0001).
-- No reliable differences among expertise levels.
-- Fixed effects explain only ~1.1% of variance; random effects dominate (ICC ≈ 0.37).
+## 3) Stimulus Effects (Within-Group)
 
-## 3 PairType has no detectable impact
+- **Rectangle > Vehicle** with a **small but significant** effect (estimate ≈ +0.0045, p = 0.0358).
+- **No consistent expertise differences** across stimulus types.
+- Fixed effects still explain only a small share (~2.4%).
 
-Categorical PairType (LN, LM, MN, HN, HL, HM):
+## 4) Individual Differences Dominate
 
-- All Tukey-adjusted pairwise contrasts are non-significant.
-- Marginal R² < 0.2%.
-- Substantial between-participant clustering (ICC ≈ 0.33).
+- **Random effects account for 51–68%** of variance across models.
+- **ICC values are consistently high** (~0.51–0.68), indicating substantial between-participant structure.
 
-## 4 Continuous expertise metrics are uninformative
+## Overall Conclusions
 
-Models using expertise_mean and expertise_diff:
-
-- Neither slope is statistically significant.
-- Marginal R² ≈ 0.3%.
-- Most structure comes from participant random effects (ICC ≈ 0.33).
-
-## Overall conclusions
-
-- Expertise effects are weak, inconsistent, or entirely absent across all within- and between-group models.
-- Trial introduces a small but robust shift in performance (trial 2 > trial 5).
-- Pair composition does not influence score.
-- Between-participant variability is consistently large (ICC ≈ 0.33–0.43), dwarfing all fixed-effect contributions.
-- Fixed effects unrelated to rendering contribute negligibly to explained variance.
-Performance differences are driven primarily by stable individual differences and minor trial effects, not by expertise level, pair composition, or expertise asymmetry.
+- **Expertise effects are weak or absent** across ScaSim analyses.
+- **Stimulus introduces a small, consistent shift** in within-group models.
+- **Between-participant variability dominates**; fixed effects are minimal.

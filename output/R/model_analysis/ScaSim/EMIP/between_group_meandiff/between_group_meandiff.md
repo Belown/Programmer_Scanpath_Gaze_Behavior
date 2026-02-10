@@ -1,8 +1,12 @@
-# Model Analysis
+# Score
 
-1. **Random Effects**: Random intercept SDs for exp_a = 0.01700 and exp_b = 0.01988; residual SD = 0.03741. Adjusted ICC = 0.328, meaning that ~33% of the total variance in score is attributable to stable between-participant differences (substantial individual differences).
-2. **Nakagawa R²**: Marginal R² = 0.0030; Conditional R² = 0.3304. Fixed effects (expertise_mean and expertise_diff) explain ~0.3% of the variance; participant-level random effects account for an additional ~33%.
-3. **Post-hoc inference**:
-   - expertise_mean: β ≈ +0.00449, SE = 0.00343, z = 1.31, p = .191. No reliable association with score.
-   - expertise_diff: β ≈ +0.00130, SE = 0.00114, z = 1.14, p = .255. No evidence of an association with score.
-Conclusion: Neither expertise_mean nor expertise_diff predicts score. Fixed effects contribute negligibly to explained variance, and most systematic variability arises from between-participant differences captured by the random effects rather than from expertise-related predictors.
+1. **Random Effects**:
+   - Adjusted ICC = 0.513: About 51% of variance reflects stable individual differences across pairings, while ≈49% is residual.
+   - Unadjusted ICC = 0.510: Fixed effects explain very little additional variance.
+2. **Nakagawa R²**: Random effects account for 51.01% of the variance, while fixed effects explain ~0.49%.
+3. **Post-hoc inference**: No expertise effects. Both expertise_mean (p = 0.168) and expertise_diff (p = 0.636) are non-significant.
+
+## Summary
+
+- **Expertise does not predict ScaSim score** in the mean-difference model.
+- **Individual differences account for about half** of the variance.
