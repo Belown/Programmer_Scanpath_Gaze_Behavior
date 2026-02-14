@@ -32,45 +32,24 @@ compare_random_effects <- function(rand_effect_list, print = FALSE, algo, data_s
 #' @param info Whether to print info messages
 #' @return A named list of model packages for all experiments
 get_all_exps_emip <- function(random_effect, info, algo) {
-  within_stimulus_within_rectangle <- get_exp_pack_emip(data_set = "EMIP_corrected",
+  within_stimulus_rectangle <- get_exp_pack_emip(data_set = "EMIP_corrected",
                                                    exp_type = "within_stimulus",
-                                                   comp_type = "within_group",
                                                    stimulus_folder = "rectangle",
                                                    case = NULL,
                                                    rand_effect = random_effect,
                                                    info = FALSE,
                                                    reml = FALSE,
                                                    algo = algo)
-  within_stimulus_within_vehicle <- get_exp_pack_emip(data_set = "EMIP_corrected",
+  within_stimulus_vehicle <- get_exp_pack_emip(data_set = "EMIP_corrected",
                                                  exp_type = "within_stimulus",
-                                                 comp_type = "within_group",
                                                  stimulus_folder = "vehicle",
                                                  case = NULL,
                                                  rand_effect = random_effect,
                                                  info = FALSE,
                                                  reml = FALSE,
                                                  algo = algo)
-  within_stimulus_between_rectangle <- get_exp_pack_emip(data_set = "EMIP_corrected",
-                                                    exp_type = "within_stimulus",
-                                                    comp_type = "between_group",
-                                                    stimulus_folder = "rectangle",
-                                                    case = NULL,
-                                                    rand_effect = random_effect,
-                                                    info=FALSE,
-                                                    reml=FALSE,
-                                                    algo = algo)
-  within_stimulus_between_vehicle <- get_exp_pack_emip(data_set = "EMIP_corrected",
-                                                  exp_type = "within_stimulus",
-                                                  comp_type = "between_group",
-                                                  stimulus_folder = "vehicle",
-                                                  case = NULL,
-                                                  rand_effect = random_effect,
-                                                  info=FALSE,
-                                                  reml=FALSE,
-                                                  algo = algo)
   within_group <- get_exp_pack_emip(data_set = "EMIP_corrected",
                                exp_type = "within_group",
-                               comp_type = NULL,
                                stimulus_folder = NULL,
                                case = NULL,
                                rand_effect = random_effect,
@@ -79,7 +58,6 @@ get_all_exps_emip <- function(random_effect, info, algo) {
                                algo = algo)
   between_group_mean_diff <- get_exp_pack_emip(data_set = "EMIP_corrected",
                                           exp_type = "between_group",
-                                          comp_type = NULL,
                                           stimulus_folder = NULL,
                                           case = "mean_diff",
                                           rand_effect = random_effect,
@@ -88,7 +66,6 @@ get_all_exps_emip <- function(random_effect, info, algo) {
                                           algo = algo)
   between_group_pairtype <- get_exp_pack_emip(data_set = "EMIP_corrected",
                                          exp_type = "between_group",
-                                         comp_type = NULL,
                                          stimulus_folder = NULL,
                                          case = "pairtype",
                                          rand_effect = random_effect,
@@ -97,10 +74,8 @@ get_all_exps_emip <- function(random_effect, info, algo) {
                                          algo = algo)
   
   result_list <- list(
-    within_stimulus_within_rectangle = within_stimulus_within_rectangle,
-    within_stimulus_within_vehicle = within_stimulus_within_vehicle,
-    within_stimulus_between_rectangle = within_stimulus_between_rectangle,
-    within_stimulus_between_vehicle = within_stimulus_between_vehicle,
+    within_stimulus_rectangle = within_stimulus_rectangle,
+    within_stimulus_vehicle = within_stimulus_vehicle,
     within_group = within_group,
     between_group_mean_diff = between_group_mean_diff,
     between_group_pairtype = between_group_pairtype

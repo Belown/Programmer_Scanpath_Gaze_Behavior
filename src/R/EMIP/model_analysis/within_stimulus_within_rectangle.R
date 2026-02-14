@@ -29,13 +29,11 @@ if (!dir.exists(output_path)) {
 # --- Experiment Type Configuration ---
 data_set <- "EMIP_corrected"
 exp_type <- "within_stimulus"
-within_stimulus_type <- "within_group"
 stimulus_folder <- "rectangle"
 
 # Experiment pack includes fitted models, data, and config
 exp_pack <- get_exp_pack_emip(data_set = data_set,
                          exp_type = exp_type,
-                         comp_type = within_stimulus_type,
                          stimulus_folder = stimulus_folder,
                          case = NULL,
                          rand_effect = NULL,

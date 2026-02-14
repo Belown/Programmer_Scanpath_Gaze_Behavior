@@ -33,7 +33,6 @@ exp_type <- "within_group"
 # Experiment pack includes fitted models, data, and config
 exp_pack <- get_exp_pack_emip(data_set = data_set,
                          exp_type = exp_type,
-                         comp_type = NULL,
                          stimulus_folder = NULL,
                          case = NULL,
                          rand_effect = NULL,

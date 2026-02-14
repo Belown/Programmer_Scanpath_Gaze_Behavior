@@ -22,7 +22,7 @@ get_exp_pack_emip <- function(data_set, exp_type, stimulus_folder, case, rand_ef
       default_rand_effect <- "(1 | exp_a) + (1 | exp_b)"
       # If rand_effect exists, use it, otherwise, use default
       formula_set <- list(
-        fix_effect = expertise_a,
+        fix_effect = "expertise_a",
         rand_effect = if (!is.null(rand_effect)) rand_effect else default_rand_effect)
       folder_path <- file.path(base_path, data_set, "within_group", stimulus_folder)
       within_stimulus(folder_path, formula_set, info, reml, algo = algo)
