@@ -54,9 +54,7 @@ within_stimulus <- function(folder_path, formula_set, info, reml = TRUE, test = 
   }
 
   stimulus_folder <- basename(folder_path)
-  comp_type <- basename(dirname(folder_path))
-  combined_path <- paste(comp_type, stimulus_folder, sep = "_")
-  output_path <- assign_path(file.path(here(), "output", "R", "workflow", algo, "EMIP_corrected", "within_stimulus", combined_path))
+  output_path <- assign_path(file.path(here(), "output", "R", "workflow", algo, "EMIP_corrected", "within_stimulus", stimulus_folder))
 
   # Construct config for output
   config <- list(
