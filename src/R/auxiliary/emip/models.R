@@ -247,16 +247,16 @@ between_group <- function(folder_path, formula_set, info, case, reml = TRUE, tes
   
   # Construct PairType
   df$PairType <- case_when(
-    df$expertise_a == "none" & df$expertise_b == "low" ~ "NL",
-    df$expertise_a == "none" & df$expertise_b == "medium" ~ "NM",
-    df$expertise_a == "none" & df$expertise_b == "high" ~ "NH",
+    df$expertise_a == "high" & df$expertise_b == "low" ~ "HL",
+    df$expertise_a == "high" & df$expertise_b == "medium" ~ "HM",
+    df$expertise_a == "high" & df$expertise_b == "none" ~ "HN",
     df$expertise_a == "low" & df$expertise_b == "medium" ~ "LM",
-    df$expertise_a == "low" & df$expertise_b == "high" ~ "LH",
-    df$expertise_a == "medium"  & df$expertise_b == "high"  ~ "MH"
+    df$expertise_a == "low" & df$expertise_b == "none" ~ "LN",
+    df$expertise_a == "medium"  & df$expertise_b == "none"  ~ "MN"
   )
   
   # Convert PairType to factor for modeling
-  df$PairType <- factor(df$PairType, levels = c("NL", "NM", "NH", "LM", "LH", "MH"))
+  df$PairType <- factor(df$PairType, levels = c("LN", "LM", "MN", "HN", "HL", "HM"))
   
   # Provide basic info about loaded data
   if (info) {

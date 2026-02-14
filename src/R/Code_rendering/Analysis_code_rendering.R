@@ -72,15 +72,3 @@ for(dim in dimensions){
   
   check_collinearity(model)
 }
-
-# 检查各组合的样本量
-table(dataframe$render_a, dataframe$render_b)
-
-# 检查Direction在不同组合下的分布
-# dataframe %>% 
-#   group_by(render_a, render_b) %>%
-#   summarise(
-#     n = n(),
-#     mean_direction = mean(Direction, na.rm = TRUE),
-#     sd_direction = sd(Direction, na.rm = TRUE)
-#   )

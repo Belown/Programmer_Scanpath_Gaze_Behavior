@@ -14,7 +14,6 @@ source(file.path(here(), "src", "R", "auxiliary", "emip", "helper_emip.R"))
 # --- Experiment Type Configuration ---
 data_set <- "EMIP_corrected"  # Dataset identifier
 exp_type <- "between_group"    # Options: "within_trial", "within_group", "between_group"
-within_stimulus_type <- "between_group"   # Comparison type: "within_group" or "between_group" - only used when exp_type is within_tiral
 
 # only used for within_trial experiments (rectangle or vehicle)
 stimulus_folder <- "rectangle"
@@ -29,7 +28,6 @@ algo <- "NLD"
 # Modify fixed and random effects in get_exp_pack_emip() if needed
 exp_pack <- get_exp_pack_emip(data_set = data_set,
                          exp_type = exp_type,
-                         comp_type = within_stimulus_type,
                          stimulus_folder = stimulus_folder,
                          case = case,
                          rand_effect = NULL,

@@ -22,19 +22,15 @@ Type: glmmTMB | Family: gaussian
   render_br3 0.001417436 0.0002937654    4.825061 1.399605e-06   ***
 
 ==== Direction ====
-Formula: Direction ~ render_a * render_b + (1 | exp_a) + (1 | exp_b) 
+Formula: Direction ~ render_a + render_b + (1 | exp_a) + (1 | exp_b) 
 Type: glmmTMB | Family: gaussian 
 
-                  term    estimate   std.error  statistic      p.value stars
-           (Intercept)  0.81709458 0.006638890 123.076987 0.000000e+00   ***
-            render_ar2  0.05333709 0.003334105  15.997421 1.331793e-57   ***
-            render_ar3  0.04474275 0.004382843  10.208613 1.814405e-24   ***
-            render_br2  0.04033223 0.004400009   9.166397 4.890925e-20   ***
-            render_br3  0.02502834 0.004337941   5.769636 7.944304e-09   ***
- render_ar2:render_br2 -0.01285866 0.005513220  -2.332332 1.968324e-02     *
- render_ar3:render_br2          NA          NA         NA           NA      
- render_ar2:render_br3          NA          NA         NA           NA      
- render_ar3:render_br3          NA          NA         NA           NA      
+        term   estimate   std.error  statistic      p.value stars
+ (Intercept) 0.81761523 0.006631459 123.293423 0.000000e+00   ***
+  render_ar2 0.04860341 0.002650826  18.335198 4.334367e-75   ***
+  render_ar3 0.04287144 0.004318007   9.928526 3.128446e-23   ***
+  render_br2 0.03728994 0.004211367   8.854593 8.399001e-19   ***
+  render_br3 0.02686574 0.004274782   6.284705 3.284777e-10   ***
 
 ==== Position ====
 Formula: Position ~ render_a + render_b + (1 | exp_a) + (1 | exp_b) 
