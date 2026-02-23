@@ -60,8 +60,21 @@ get_model_pack <- function(folder_path, formula_set, info, reml = TRUE, test = F
     df$expertise_a == "Intermediate" & df$expertise_b == "Intermediate" ~ "II"
   )
   
+  df$Rendering_Pair <- case_when(
+    df$render_a == "r1" & df$render_b == "r1" ~ "r1_r1",
+    df$render_a == "r1" & df$render_b == "r2" ~ "r1_r2",
+    df$render_a == "r1" & df$render_b == "r3" ~ "r1_r3",
+    df$render_a == "r2" & df$render_b == "r2" ~ "r2_r2",
+    df$render_a == "r2" & df$render_b == "r3" ~ "r2_r3",
+    df$render_a == "r3" & df$render_b == "r3" ~ "r3_r3"
+  )
+  
   # Convert PairType to factor for modeling
   df$PairType <- factor(df$PairType, levels = c("BB", "BI", "II"))
+  
+  df$Rendering_Pair <- factor(df$Rendering_Pair, levels = c("r1_r1", "r1_r2", 
+                                                            "r1_r3", "r2_r2", 
+                                                            "r2_r3", "r3_r3"))
 
   # Provide basic info about loaded data
   if (info) {

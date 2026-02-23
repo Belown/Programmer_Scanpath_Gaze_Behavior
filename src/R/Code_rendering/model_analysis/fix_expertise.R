@@ -12,7 +12,7 @@ source(file.path(here(), "src", "R", "auxiliary", "workflow.R"))
 source(file.path(here(), "src", "R", "auxiliary", "code_rendering", "helper_cr.R"))
 source(file.path(here(), "src", "R", "auxiliary", "model_analysis.R"))
 
-algo <- "NLD"
+algo <- "MultiMatch"
 
 if (algo == "MultiMatch") {
   dimensions <- c("Shape", "Length", "Direction", "Position", "Duration")

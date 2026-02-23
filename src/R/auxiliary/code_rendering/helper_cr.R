@@ -21,7 +21,7 @@ get_exp_pack_cr <- function(data_set, exp_type, case, rand_effect = NULL, info =
       default_rand_effect <- "(1 | exp_a) + (1 | exp_b)"
         # If rand_effect exists, use it, otherwise, use default
       formula_set <- list(
-        fix_effect = "render_a + render_b",
+        fix_effect = "Rendering_Pair",
         rand_effect = if (!is.null(rand_effect)) rand_effect else default_rand_effect)
       folder_path <- file.path(base_path, data_set, exp_type)
       get_model_pack(folder_path, formula_set, info, reml, test = FALSE, data_set=data_set, case = NULL, algo = algo)

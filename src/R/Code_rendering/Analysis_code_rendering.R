@@ -30,7 +30,7 @@ case <- "pairtype"
 folder_path <- file.path(base_path, data_set, exp_type)
 
 formula_set <- list(
-  fix_effect = "render_a + render_b",
+  fix_effect = "Rendering_Pair",
   rand_effect = "(1 | exp_a) + (1 | exp_b)"
 )
 
@@ -51,24 +51,3 @@ dataframe <- exp_pack$data           # Processed dataset
 # Run workflow to validate model assumptions and obtain final models
 # Output is saved to: output/workflow/[experiment_path]/model_summary.txt
 final_result <- work_flow_with_print(exp_pack$m_list, exp_pack$config)
-
-# Extract final model for Direction
-for(dim in dimensions){
-  cat("\n======", dim, "======\n")
-  model <- final_result[[dim]]
-  print(summary(model))
-  
-  sing <- if (inherits(model, "glmmTMB")) {
-    # glmmTMB 没有直接的 isSingular 函数
-    # 检查随机效应方差是否接近0
-    vc <- glmmTMB::VarCorr(model)
-    any(sapply(vc$cond, function(x) any(diag(x) < 1e-4)))
-  } else {
-    lme4::isSingular(model)
-  }
-  print(sing)
-  
-  # summary(rePCA(model))
-  
-  check_collinearity(model)
-}
