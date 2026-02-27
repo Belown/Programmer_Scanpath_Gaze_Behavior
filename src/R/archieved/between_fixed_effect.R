@@ -1,15 +1,17 @@
 library(here)
 library(tidyverse)
 
-source(file.path(here(), "src", "R", "auxiliary", "models.R"))
-source(file.path(here(), "src", "R", "auxiliary", "helper.R"))
+source(file.path(here(), "src", "R", "auxiliary", "emip", "models.R"))
+source(file.path(here(), "src", "R", "auxiliary", "emip", "helper_emip.R"))
 source(file.path(here(), "src", "R", "auxiliary", "workflow.R"))
 
 dimensions <- c("Shape", "Direction", "Length", "Position", "Duration")
 
 data_set <- "EMIP_corrected"
 
-folder_path = file.path(here(), "output", "processed_dataset", "EMIP_corrected", 
+algo <- "NLD"
+
+folder_path = file.path(here(), "output", "processed_dataset", algo, "EMIP_corrected", 
                         "between_group")
 
 # === Define formula set for 3 different models ===
@@ -50,9 +52,9 @@ config_both <- list(
 )
 
 # === Fit initial models for all three formula sets ===
-model_expertise_mean <- between_group(folder_path, formula_mean, info = FALSE, case = "both", reml = FALSE, test = TRUE)
-model_expertise_diff <- between_group(folder_path, formula_diff, info = FALSE, case = "both", reml = FALSE, test = TRUE)
-model_expertise_both <- between_group(folder_path, formula_both, info = FALSE, case = "both", reml = FALSE, test = TRUE)
+model_expertise_mean <- between_group(folder_path, formula_mean, info = FALSE, case = "both", reml = FALSE, test = TRUE, algo = algo)
+model_expertise_diff <- between_group(folder_path, formula_diff, info = FALSE, case = "both", reml = FALSE, test = TRUE, algo = algo)
+model_expertise_both <- between_group(folder_path, formula_both, info = FALSE, case = "both", reml = FALSE, test = TRUE, algo = algo)
 
 exps <- list(
   Expertise_Mean = list(model = model_expertise_mean, config = config_mean),
