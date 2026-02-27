@@ -21,6 +21,7 @@ dimensions <- c("Shape", "Length", "Direction", "Position", "Duration")
 #' @param info Whether to print basic info about loaded data
 #' @param reml Whether to use REML for LMM fitting
 #' @param test Whether to run in test mode (default not used)
+#' @param algo The algorithm used (e.g., "MultiMatch", "ScaSim", "NLD")
 #' @return A list of fitted LMMs for each dimension and other info
 within_stimulus <- function(folder_path, formula_set, info, reml = TRUE, test = FALSE, algo) {
   
@@ -98,6 +99,7 @@ within_stimulus <- function(folder_path, formula_set, info, reml = TRUE, test = 
 #' @param info Whether to print basic info about loaded data
 #' @param reml Whether to use REML for LMM fitting
 #' @param test Whether to run in test mode (default not used)
+#' @param algo The algorithm used (e.g., "MultiMatch", "ScaSim", "NLD")
 #' @return A list of fitted LMMs for each dimension and other info
 within_group <- function(folder_path, formula_set, info, reml = TRUE, test = FALSE, algo) {
   
@@ -191,6 +193,7 @@ within_group <- function(folder_path, formula_set, info, reml = TRUE, test = FAL
 #' @param case The case for between-group comparison ("mean_diff", "pairtype")
 #' @param reml Whether to use REML for LMM fitting
 #' @param test Whether to run in test mode (default not used)
+#' @param algo The algorithm used (e.g., "MultiMatch", "ScaSim", "NLD")
 #' @return A list of fitted LMMs for each dimension and other info
 between_group <- function(folder_path, formula_set, info, case, reml = TRUE, test = FALSE, algo) {
   

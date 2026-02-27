@@ -6,12 +6,14 @@ source(file.path(here(), "src", "R", "auxiliary", "emip", "models.R"))
 
 #' Get the model package based on experiment type and data set
 #' 
-#' @param exp_type The type of experiment ("within_stimulus", "within_group", "between_group")
 #' @param data_set The name of the data set
+#' @param exp_type The type of experiment ("within_stimulus", "within_group", "between_group")
 #' @param stimulus_folder The stimulus folder name ("rectangle", "vehicle")
 #' @param case The case for between-group comparison ("mean_diff", "pairtype")
-#' @param formula_set A list containing fixed and random effect formula strings
+#' @param rand_effect Random effect formula (optional)
 #' @param info Whether to print info messages
+#' @param reml Whether to use REML for model fitting
+#' @param algo The algorithm used (e.g., "MultiMatch", "ScaSim", "NLD")
 #' @return A model package, which contain data frame, models, config, and folder_path
 get_exp_pack_emip <- function(data_set, exp_type, stimulus_folder, case, rand_effect = NULL, info = TRUE, reml, algo) {
   base_path <- file.path(here(), "output", "processed_dataset", algo)

@@ -13,7 +13,7 @@ source(file.path(here(), "src", "R", "auxiliary", "emip", "helper_emip.R"))
 
 # --- Experiment Type Configuration ---
 data_set <- "EMIP_corrected"  # Dataset identifier
-exp_type <- "within_stimulus"    # Options: "within_trial", "within_group", "between_group"
+exp_type <- "within_stimulus"    # Options: "within_stimulus", "within_group", "between_group"
 
 # only used for within_trial experiments (rectangle or vehicle)
 stimulus_folder <- "rectangle"

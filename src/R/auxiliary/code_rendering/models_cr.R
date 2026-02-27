@@ -1,4 +1,16 @@
 
+#' Generate LMMs for CR dataset
+#' 
+#' @param folder_path The base folder path containing stimulus subfolders
+#' @param formula_set A list containing fixed and random effect formula strings
+#' @param info Whether to print basic info about loaded data
+#' @param reml Whether to use REML for LMM fitting
+#' @param test Whether to run in test mode (default not used)
+#' @param data_set The name of the data set
+#' @param case The case for comparison ("mean_diff", "pairtype")
+#' @param algo The algorithm used (e.g., "MultiMatch", "ScaSim", "NLD")
+#' @return A list of fitted LMMs for each dimension and other info
+#' 
 get_model_pack <- function(folder_path, formula_set, info, reml = TRUE, test = FALSE, data_set, case = NULL, algo) {
   
   if (algo == "MultiMatch") {

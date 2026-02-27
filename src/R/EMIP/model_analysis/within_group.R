@@ -1,10 +1,3 @@
-# =========================================================
-# Analysis Script for Mixed Effects Models
-# =========================================================
-# This script performs statistical analysis using linear mixed effects models
-# (LMM) and generalized linear mixed effects models (GLMM) for experimental data.
-# =========================================================
-
 library(here)
 
 # Load auxiliary functions for model building and validation workflow

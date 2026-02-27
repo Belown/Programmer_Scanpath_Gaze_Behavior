@@ -28,8 +28,9 @@ def compare_experiment_pair(exp_a, exp_b, stimulus, expertise, algo):
     :param: exp_a: Experiment ID for the first experiment.
     :param: exp_b: Experiment ID for the second experiment.
     :param: stimulus: Stimulus for both experiments.
-    :param: eye_events: DataFrame containing eye event data.
     :param: expertise: Tuple containing expertise levels for both experiments.
+    :param: algo: Algorithm to use for comparison.
+    :param: eye_events: DataFrame containing eye event data.
 
     :return: Dictionary containing comparison results for the pair.
     """

@@ -8,10 +8,11 @@ source(file.path(here(), "src", "R", "auxiliary", "code_rendering", "models_cr.R
 #' 
 #' @param data_set The name of the data set
 #' @param exp_type The type of experiment ("fix_expertise", "fix_expertise_rendering", "fix_rendering")
-#' @param trial_folder The trial folder name ("trial_2", "trial_5")
-#' @param case The case for between-group comparison ("mean_diff", "pairtype")
-#' @param formula_set A list containing fixed and random effect formula strings
+#' @param case The case for comparison ("mean_diff", "pairtype")
+#' @param rand_effect Random effect formula (optional)
 #' @param info Whether to print info messages
+#' @param reml Whether to use REML for model fitting
+#' @param algo The algorithm used (e.g., "MultiMatch", "ScaSim", "NLD")
 #' @return A model package, which contain data frame, models, config, and folder_path
 get_exp_pack_cr <- function(data_set, exp_type, case, rand_effect = NULL, info = TRUE, reml, algo) {
   base_path <- file.path(here(), "output", "processed_dataset", algo)

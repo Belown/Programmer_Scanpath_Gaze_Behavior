@@ -79,6 +79,7 @@ def visualize_all_scores(all_scores, dataset):
     with adaptive y-axis
     
     :param: all_scores: Dictionary containing original_score, base_line_score, and final_score metrics
+    :param: dataset: Data we have used.
 
     :return: Matplotlib figure and axis objects
     """

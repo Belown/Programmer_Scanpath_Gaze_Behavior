@@ -16,7 +16,7 @@ def nld(
     :param: eye_events: Parsed data frame for eye event (Can be either corrected EMIP or original EMIP)
     :param: data_set: Specify which data that is used: "corrected" or "original"
 
-    :return: distance, nld
+    :return: (distance, nld)
     '''
     if data_set == "corrected":
         # Because corrected data alread have AOI information, we can directly use get_trial_data
