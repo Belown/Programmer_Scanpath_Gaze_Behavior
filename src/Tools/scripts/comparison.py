@@ -1,5 +1,4 @@
 import os
-import sys
 import pandas as pd
 from concurrent.futures import ProcessPoolExecutor, as_completed
 from multiprocessing import cpu_count
